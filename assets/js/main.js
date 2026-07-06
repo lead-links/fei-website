@@ -149,21 +149,126 @@
   if (document.readyState === "complete") fireHero();
   else window.addEventListener("load", fireHero);
 
-  /* ---- Apply modal (name + email + program -> apply.html) ---- */
-  var PROGRAM_OPTIONS = PROGRAMS.map(function (p) {
-    return { value: p.slug, label: p.title };
-  });
+  /* ---- Apply modals ----
+     Institutional pages: short modal (name + email + program) -> redirects
+     to apply.html to finish. Program pages: full modal, already specific to
+     that program (no dropdown), submits and confirms right in the modal, no
+     scrolling or page navigation involved (a plain anchor-scroll CTA reads as
+     a false-positive "conversion" in analytics, so every CTA opens a real,
+     trackable modal interaction instead). */
   var isApplyPage = document.body.getAttribute("data-page") === "apply";
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function markInvalid(input, bad) { input.classList.toggle("is-invalid", bad); }
 
-  function buildModal() {
-    var opts = PROGRAM_OPTIONS.map(function (p) {
-      return '<option value="' + p.value + '">' + p.label + "</option>";
-    }).join("");
+  var programMatch = window.location.pathname.match(/\/programs\/([a-z0-9-]+)\.html/);
+  var currentProgram = null;
+  if (programMatch) {
+    for (var pi = 0; pi < PROGRAMS.length; pi++) {
+      if (PROGRAMS[pi].slug === programMatch[1]) { currentProgram = PROGRAMS[pi]; break; }
+    }
+  }
+
+  function wireModalChrome(modal, closeBtnId, focusId) {
+    function open() {
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      var first = document.getElementById(focusId);
+      if (first) setTimeout(function () { first.focus(); }, 60);
+    }
+    function close() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+    document.getElementById(closeBtnId).addEventListener("click", close);
+    modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) close();
+    });
+    return { open: open, close: close };
+  }
+
+  function wireApplyNowLinks(openFn) {
+    document.querySelectorAll("a").forEach(function (a) {
+      if (a.textContent.trim() === "Apply Now") {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          if (menu && menu.classList.contains("is-open")) toggle.click();
+          openFn();
+        });
+      }
+    });
+  }
+
+  if (currentProgram) {
+    /* ---- Full, program-specific modal: submits and confirms inline ---- */
     var el = document.createElement("div");
     el.className = "modal-overlay";
     el.id = "applyModal";
     el.setAttribute("aria-hidden", "true");
     el.innerHTML =
+      '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="applyModalTitle">' +
+        '<button class="modal__close" id="applyModalClose" aria-label="Close">' +
+          '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+        "</button>" +
+        '<div id="modalFormWrap">' +
+          '<p class="modal__eyebrow">Apply to FEI</p>' +
+          '<h2 class="modal__title" id="applyModalTitle">Apply to ' + currentProgram.title + "</h2>" +
+          '<p class="modal__sub">Tell us how to reach you, an Admissions Advisor will follow up about the ' + currentProgram.title + " program.</p>" +
+          '<form class="form" id="applyModalForm" novalidate>' +
+            '<div class="field field--full"><label for="am-name">Full name</label><input type="text" id="am-name" autocomplete="name" required /></div>' +
+            '<div class="field field--full"><label for="am-email">Email</label><input type="email" id="am-email" autocomplete="email" required /></div>' +
+            '<div class="field field--full"><label for="am-phone">Phone <span class="field__opt">(optional)</span></label><input type="tel" id="am-phone" autocomplete="tel" inputmode="tel" /></div>' +
+            '<div class="field field--full"><label for="am-msg">Anything you would like us to know? <span class="field__opt">(optional)</span></label><textarea id="am-msg" rows="3"></textarea></div>' +
+            '<label class="consent"><input type="checkbox" id="am-consent" required /><span>I agree to be contacted by Florida Education Institute by phone, text, or email about its programs.</span></label>' +
+            '<button type="submit" class="btn btn--solid btn--lg modal__submit">Submit application' +
+              '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>' +
+            "</button>" +
+          "</form>" +
+          '<p class="modal__phone">Prefer to talk to a person?<br/><a href="tel:7867068721">786-706-8721</a></p>' +
+        "</div>" +
+        '<div id="modalSuccessWrap" hidden>' +
+          '<div class="apply-success__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>' +
+          '<h2 class="modal__title">Thank you, <span id="modalSuccessName">there</span>.</h2>' +
+          '<p class="modal__sub">Your information has been received. An FEI Admissions Advisor will reach out soon about the ' + currentProgram.title + " program.</p>" +
+          '<p class="modal__sub">Want to talk sooner? Call <a href="tel:7867068721">786-706-8721</a>.</p>' +
+        "</div>" +
+      "</div>";
+    document.body.appendChild(el);
+
+    var chrome = wireModalChrome(el, "applyModalClose", "am-name");
+    var formWrap = document.getElementById("modalFormWrap");
+    var successWrap = document.getElementById("modalSuccessWrap");
+
+    document.getElementById("applyModalForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = document.getElementById("am-name");
+      var email = document.getElementById("am-email");
+      var consent = document.getElementById("am-consent");
+      var bad = false;
+      markInvalid(name, !name.value.trim()); bad = bad || !name.value.trim();
+      var emailBad = !EMAIL_RE.test(email.value.trim()); markInvalid(email, emailBad); bad = bad || emailBad;
+      if (bad || !consent.checked) {
+        if (!consent.checked && !bad) consent.focus();
+        return;
+      }
+      document.getElementById("modalSuccessName").textContent = name.value.trim().split(" ")[0] || "there";
+      formWrap.hidden = true;
+      successWrap.hidden = false;
+    });
+
+    wireApplyNowLinks(chrome.open);
+  } else if (!isApplyPage) {
+    /* ---- Short modal: name + email + program -> redirects to apply.html ---- */
+    var opts = PROGRAMS.map(function (p) {
+      return '<option value="' + p.slug + '">' + p.title + "</option>";
+    }).join("");
+    var el2 = document.createElement("div");
+    el2.className = "modal-overlay";
+    el2.id = "applyModal";
+    el2.setAttribute("aria-hidden", "true");
+    el2.innerHTML =
       '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="applyModalTitle">' +
         '<button class="modal__close" id="applyModalClose" aria-label="Close">' +
           '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
@@ -183,62 +288,27 @@
         "</form>" +
         '<p class="modal__phone">Prefer to talk to a person?<br/><a href="tel:3054441515">305-444-1515</a></p>' +
       "</div>";
-    document.body.appendChild(el);
-    return el;
-  }
+    document.body.appendChild(el2);
 
-  var modal = buildModal();
-  var modalForm = document.getElementById("applyModalForm");
+    var chrome2 = wireModalChrome(el2, "applyModalClose", "am-name");
 
-  function openModal() {
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-    var first = document.getElementById("am-name");
-    if (first) setTimeout(function () { first.focus(); }, 60);
-  }
-  function closeModal() {
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
-
-  document.getElementById("applyModalClose").addEventListener("click", closeModal);
-  modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
-  });
-
-  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  function markInvalid(input, bad) { input.classList.toggle("is-invalid", bad); }
-
-  modalForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var name = document.getElementById("am-name");
-    var email = document.getElementById("am-email");
-    var program = document.getElementById("am-program");
-    var bad = false;
-    markInvalid(name, !name.value.trim()); bad = bad || !name.value.trim();
-    var emailBad = !EMAIL_RE.test(email.value.trim()); markInvalid(email, emailBad); bad = bad || emailBad;
-    var progBad = !program.value; markInvalid(program, progBad); bad = bad || progBad;
-    if (bad) { (name.value.trim() ? (emailBad ? email : program) : name).focus(); return; }
-    var qs = "name=" + encodeURIComponent(name.value.trim()) +
-             "&email=" + encodeURIComponent(email.value.trim()) +
-             "&program=" + encodeURIComponent(program.value);
-    window.location.href = BASE + "apply.html?" + qs;
-  });
-
-  /* Wire every "Apply Now" link to open the modal (except on the apply page) */
-  if (!isApplyPage) {
-    document.querySelectorAll("a").forEach(function (a) {
-      if (a.textContent.trim() === "Apply Now") {
-        a.addEventListener("click", function (e) {
-          e.preventDefault();
-          if (menu && menu.classList.contains("is-open")) toggle.click();
-          openModal();
-        });
-      }
+    document.getElementById("applyModalForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = document.getElementById("am-name");
+      var email = document.getElementById("am-email");
+      var program = document.getElementById("am-program");
+      var bad = false;
+      markInvalid(name, !name.value.trim()); bad = bad || !name.value.trim();
+      var emailBad = !EMAIL_RE.test(email.value.trim()); markInvalid(email, emailBad); bad = bad || emailBad;
+      var progBad = !program.value; markInvalid(program, progBad); bad = bad || progBad;
+      if (bad) { (name.value.trim() ? (emailBad ? email : program) : name).focus(); return; }
+      var qs = "name=" + encodeURIComponent(name.value.trim()) +
+               "&email=" + encodeURIComponent(email.value.trim()) +
+               "&program=" + encodeURIComponent(program.value);
+      window.location.href = BASE + "apply.html?" + qs;
     });
+
+    wireApplyNowLinks(chrome2.open);
   }
 
   /* ---- Apply page: prefill from query + submit ---- */
