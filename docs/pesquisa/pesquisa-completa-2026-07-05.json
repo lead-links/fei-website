@@ -1,0 +1,2299 @@
+{
+ "staging": {
+  "fetch_ok": true,
+  "wp_version": "não informada pelo get_site_info (WP requerido pelos plugins indica >= 6.7)",
+  "theme": "Lead Links Theme v2.0.1 (child theme do Kadence v1.5.1)",
+  "builder": "Gutenberg com Kadence Blocks (free + PRO) — sem Elementor/Divi",
+  "plugins": [
+   "Kadence Blocks 3.7.8 (ativo)",
+   "Kadence Blocks PRO 2.8.17 (ativo)",
+   "Kadence Theme Kit Pro 1.2.4 (ativo)",
+   "Kadence Creative Kit 1.1.4 (ativo)",
+   "Starter Templates by Kadence WP 2.3.2 (ativo)",
+   "Kadence Mail / WP SMTP 3.0.0 (ativo)",
+   "Health Check & Troubleshooting 1.7.1 (ativo)",
+   "WordPress MCP 0.2.5 (ativo)",
+   "GiveWP 4.16.2 (inativo)",
+   "LiteSpeed Cache 7.8.1 (inativo)",
+   "Polylang 3.8.5 (inativo)",
+   "The Events Calendar 6.16.5.1 (inativo)"
+  ],
+  "pages": [
+   {
+    "id": 1624,
+    "title": "About FEI",
+    "slug": "about-fei",
+    "status": "publish"
+   },
+   {
+    "id": 1574,
+    "title": "Medical Assistant",
+    "slug": "medical-assistant",
+    "status": "publish"
+   },
+   {
+    "id": 1573,
+    "title": "Programs",
+    "slug": "programs",
+    "status": "publish"
+   },
+   {
+    "id": 988,
+    "title": "Home",
+    "slug": "home",
+    "status": "publish"
+   },
+   {
+    "id": 880,
+    "title": "About",
+    "slug": "about",
+    "status": "publish"
+   },
+   {
+    "id": 720,
+    "title": "Events",
+    "slug": "upcoming-events",
+    "status": "publish"
+   },
+   {
+    "id": 678,
+    "title": "Donations",
+    "slug": "donation-info",
+    "status": "publish"
+   },
+   {
+    "id": 619,
+    "title": "Services",
+    "slug": "services",
+    "status": "publish"
+   },
+   {
+    "id": 557,
+    "title": "Contact",
+    "slug": "contact",
+    "status": "publish"
+   },
+   {
+    "id": 538,
+    "title": "Donation Single",
+    "slug": "donation-single",
+    "status": "publish"
+   },
+   {
+    "id": 500,
+    "title": "Our Locations",
+    "slug": "our-locations",
+    "status": "publish"
+   },
+   {
+    "id": 14,
+    "title": "Blog",
+    "slug": "blog",
+    "status": "publish"
+   },
+   {
+    "id": 19,
+    "title": "Donor Dashboard",
+    "slug": "donor-dashboard",
+    "status": "publish"
+   },
+   {
+    "id": 1540,
+    "title": "Donor Dashboard",
+    "slug": "donor-dashboard-2",
+    "status": "publish"
+   },
+   {
+    "id": 1539,
+    "title": "Donation Confirmation",
+    "slug": "donation-confirmation",
+    "status": "publish"
+   },
+   {
+    "id": 1569,
+    "title": "Donation Confirmation",
+    "slug": "donation-confirmation-2",
+    "status": "publish"
+   },
+   {
+    "id": 5,
+    "title": "Donation Failed",
+    "slug": "donation-failed",
+    "status": "publish"
+   },
+   {
+    "id": 1570,
+    "title": "Donation Failed",
+    "slug": "donation-failed-2",
+    "status": "publish"
+   },
+   {
+    "id": 3,
+    "title": "Privacy Policy",
+    "slug": "privacy-policy",
+    "status": "draft"
+   }
+  ],
+  "home_page_blocks": [
+   "Hero com título 'Welcome To Our Church' + CTA",
+   "Bloco CTA de live stream (horários de domingo)",
+   "Grid de 6 cards de serviços ('We Love Serving Our Local Community')",
+   "Seção de série atual 'Hope for Tomorrow' (lista de posts, vazia)",
+   "Lista de eventos especiais ('Become A Part Of Something Great')",
+   "Card de depoimento/liderança com foto e citação",
+   "3 cards de crenças ('What We Believe')",
+   "Seção de apresentação dos pastores sênior",
+   "Footer com contato, links e botão de doação"
+  ],
+  "about_page_blocks": [
+   "Hero 'About Us' com subtítulo e 3 chamadas em destaque",
+   "Seção de equipe 'Our Leadership' com cards de fotos + imagem 'Our Vision'",
+   "Seção 'What We Believe' com 3 pontos",
+   "Faixa de estatísticas/contadores (4 números de impacto)",
+   "3 cards 'Next Steps' (Get Connected, Get Involved, Grow)",
+   "CTA 'Become a part of something great' com botão de contato",
+   "Footer com localização, links e doação"
+  ],
+  "notes": "O site de staging usa um starter template de igreja da Kadence ('Hope for Tomorrow'), com todo o conteúdo em placeholder/lorem ipsum — nada do CONTEÚDO deve ser mantido. O que pode ser reaproveitado: (1) a base técnica é sólida e moderna — Kadence child theme (Lead Links Theme) + Gutenberg com Kadence Blocks free/PRO, sem page builders pesados; (2) os padrões estruturais de seção (hero, grid de cards, faixa de estatísticas com contadores, cards de equipe, CTA final) são genéricos e servem bem para um instituto educacional: cards de serviços viram cards de cursos/programas, 'Our Leadership' vira corpo docente/direção, estatísticas viram números do instituto; (3) header/footer builder do Kadence e tipografia global (Montserrat) já configurados, bastando ajustar paleta, logo e botão 'Donate' (trocar por 'Apply/Enroll'). O que deve ser substituído: todo o texto e imagens de temática de igreja (hero 'Welcome To Our Church', live stream, 'What We Believe', pastores, eventos de picnic/chá), links sociais placeholder ('#'), imagem de fundo do page title (foto de template de 2021) e o footer com endereço falso de Nova York. Limpeza recomendada: há páginas duplicadas do GiveWP (donation-confirmation/-2, donation-failed/-2, donor-dashboard/-2) e páginas de doação/eventos herdadas do template — GiveWP, The Events Calendar, Polylang e LiteSpeed estão INATIVOS, então essas páginas provavelmente podem ser removidas ou repensadas; existem também duas páginas 'About' (id 880 do template e id 1624 'About FEI', aparentemente já iniciada para o novo conteúdo) e páginas novas 'Programs' e 'Medical Assistant' que indicam o início do conteúdo real da FEI. Privacy Policy segue em rascunho. Falha registrada: get_site_info não retorna a versão exata do WordPress. A listagem de páginas retornou payload de ~1,2 MB (conteúdo completo embutido), processado via arquivo salvo."
+ },
+ "refs": [
+  {
+   "site": "Pima Medical Institute (pmi.edu)",
+   "fetch_ok": true,
+   "nav_structure": [
+    "Campus Programs (Certificate, Associate, Courses)",
+    "Online Learning (Online Programs, Life as Online Student)",
+    "Locations (por estado: AZ, CA, CO, NV, NM, TX, WA)",
+    "Admissions & Financial Aid (Financial Aid, Requirements, Application, Catalog)",
+    "Support Services (Student Services, Career Services, Alumni, Resources)",
+    "Why Pima Medical (About, Accreditation, Externships, Blog, Success Stories, Hybrid Education)",
+    "Header utilitário: My PMI Portal, Alumni Portal, telefone (800) 477-7462, Set An Appointment, Request Info"
+   ],
+   "homepage_sections": [
+    {
+     "order": 1,
+     "name": "Hero",
+     "purpose": "Banner grande com foto de alunos, mensagem aspiracional ('Build your healthcare career with confidence') e 3 CTAs de rota: programas presenciais, online e encontrar campus."
+    },
+    {
+     "order": 2,
+     "name": "Bloco de 4 ícones com stats",
+     "purpose": "Prova rápida de valor: 16 campi, 30+ programas, aprendizado prático, início em até 9 meses."
+    },
+    {
+     "order": 3,
+     "name": "4 cards de navegação",
+     "purpose": "Direciona o visitante pelo seu objetivo: achar campus, achar programa, programa online, explorar carreiras (pathways)."
+    },
+    {
+     "order": 4,
+     "name": "Notícias/Blog",
+     "purpose": "8 artigos com thumbnails mostrando escola viva e atualizada."
+    },
+    {
+     "order": 5,
+     "name": "Avaliações",
+     "purpose": "Nota média 4.73 estrelas com selos de plataformas de review — prova social agregada."
+    },
+    {
+     "order": 6,
+     "name": "Depoimentos de graduados (carrossel)",
+     "purpose": "5 histórias de sucesso com foto, citação e link 'Read Story'."
+    },
+    {
+     "order": 7,
+     "name": "Educação híbrida",
+     "purpose": "Explica o diferencial de flexibilidade com CTA 'Learn More'."
+    },
+    {
+     "order": 8,
+     "name": "CTA 'Your Time Is Now'",
+     "purpose": "Reduz fricção mostrando o processo de matrícula em 3 passos."
+    },
+    {
+     "order": 9,
+     "name": "Quiz de carreira",
+     "purpose": "Ferramenta interativa de engajamento para indecisos ('Take The Quiz')."
+    },
+    {
+     "order": 10,
+     "name": "Serviços de apoio (3 colunas)",
+     "purpose": "Financeiro, serviços ao aluno e serviços de carreira — responde objeções práticas."
+    },
+    {
+     "order": 11,
+     "name": "Citação de aluna + FAQ",
+     "purpose": "Depoimento único em destaque seguido de 6 FAQs expansíveis (acreditação, financiamento, emprego, processo)."
+    },
+    {
+     "order": 12,
+     "name": "Formulário final de lead (multi-etapas)",
+     "purpose": "Captura de lead antes do rodapé: programa, campus, dados pessoais, opt-in SMS."
+    }
+   ],
+   "program_presentation": "Programas NÃO aparecem como cards na home; são acessados via menu hierárquico por modalidade (presencial/online) e nível (certificado, associate, bacharelado, mestrado), mais um card 'Find Your Program'. Cada programa tem página própria com URL semântica (/on-campus-programs/certificate/nome-do-programa/). A descoberta é orientada por objetivo do visitante (campus, programa, online, pathway) em vez de listagem exaustiva na home.",
+   "program_page_sections": [
+    "Header com telefone de admissões",
+    "Hero: nome do programa + próxima data de início + CTA 'Request More Information'",
+    "Cards de resumo: tipo (certificado), modalidade (presencial/híbrido), duração (~9 meses)",
+    "Objetivo do programa",
+    "'O que faz um Medical Assistant?' — blocos expansíveis com funções clínicas e administrativas",
+    "'O que vou aprender?' — visão do currículo prático",
+    "Bloco de opção híbrida",
+    "Localidades onde o programa é oferecido",
+    "Carreiras: oportunidades, perspectiva de emprego (dados BLS) e continuação de estudos",
+    "Externato clínico (estágio)",
+    "Grade curricular (tabela de sequências) + downloads de flyer/catálogo",
+    "Admissões: requisitos e como aplicar",
+    "Depoimento de graduada",
+    "3 posts de blog relacionados",
+    "Acreditação e disclosures (licenciamento, custos, resultados)",
+    "Formulário de lead multi-etapas antes do rodapé",
+    "Rodapé"
+   ],
+   "cta_strategy": "CTA onipresente e em camadas: telefone de admissões fixo no header ('Speak With an Admissions Advisor (800) 477-7462') mais links 'Set An Appointment' e 'Request Info'. Hero com CTAs de roteamento (não de conversão direta). Cada seção tem seu próprio CTA contextual ('Take The Quiz', 'Find Your Program', 'Learn More...'). A conversão principal é um formulário multi-etapas posicionado no fim de todas as páginas (home e programa), pedindo programa, campus, dados pessoais, CEP, status de ensino médio e opt-in de SMS. Nas páginas de programa, o hero já traz 'Request More Information' com a próxima data de início, criando urgência. Não foi detectado chat proeminente; o telefone cumpre o papel de canal imediato.",
+   "trust_signals": [
+    "Acreditação nacional ABHES em destaque + acreditações programáticas",
+    "Estatísticas: 16 campi, 30+ programas, início em 9 meses, 50 anos de história",
+    "Nota média 4.73 estrelas com selos de plataformas de avaliação",
+    "5 histórias de sucesso de graduados com nome, foto e citação",
+    "FAQ cobrindo acreditação, financiamento e colocação profissional",
+    "Dados oficiais de mercado (BLS) e disclosures de custos/resultados nas páginas de programa"
+   ],
+   "visual_notes": "Estrutura densa mas muito hierarquizada: blocos curtos e alternados (stats em ícones, cards de navegação, carrossel de depoimentos, colunas de serviços, FAQ acordeão), sempre com um CTA por bloco. Tom das mensagens é encorajador e orientado a ação ('Your Time Is Now', 'Build your healthcare career with confidence'), focado no aluno e em velocidade de entrada no mercado. Números e provas sociais aparecem cedo e se repetem ao longo da página; a página de programa segue um template consistente e previsível, terminando sempre no formulário de lead.",
+   "takeaways": [
+    "Adotar na FEI um template único de página de programa: hero com nome + próxima turma + CTA, cards de resumo (duração, modalidade, credencial), o que faz o profissional, currículo, carreiras com dados oficiais, depoimento, FAQ/disclosures e formulário de lead no fim.",
+    "Colocar telefone e 'Request Info' fixos no header em todas as páginas — o canal humano é o CTA primário para escolas de carreira.",
+    "Organizar a home por objetivo do visitante (encontrar programa por área: saúde, culinária, HVAC, negócios) com cards de navegação, em vez de listar todos os cursos.",
+    "Exibir cedo um bloco de 3-4 estatísticas com ícones (anos de história, programas, duração mínima, taxa de emprego) como prova rápida de valor.",
+    "Encerrar todas as páginas com o mesmo formulário de lead multi-etapas (programa + dados de contato), criando um funil consistente.",
+    "Usar histórias de graduados com nome e foto + nota agregada de avaliações (Google) como prova social recorrente, e destacar acreditação/licenciamento com selos e links de disclosure."
+   ]
+  },
+  {
+   "site": "Purdue Global (onlinedegrees.purdue.edu/purdue-global)",
+   "fetch_ok": true,
+   "nav_structure": [
+    "Programs",
+    "Tuition",
+    "Start Dates",
+    "Why Purdue Global?",
+    "Contact Us",
+    "Utilitários no header: telefone 844-PURDUE-G, Login, Request Info, Apply Now"
+   ],
+   "homepage_sections": [
+    {
+     "order": 1,
+     "name": "Header enxuto",
+     "purpose": "Menu curto (5 itens) com telefone e dois botões de ação sempre visíveis (Request Info / Apply Now)"
+    },
+    {
+     "order": 2,
+     "name": "Hero com formulário",
+     "purpose": "Headline motivacional ('Come Back More Prepared Than Ever'), 4 provas rápidas (Backed by Purdue, 100% Online, No Application Fee, 175+ Programs), foto real de aluna e formulário de lead multi-etapas ao lado"
+    },
+    {
+     "order": 3,
+     "name": "Intro institucional",
+     "purpose": "Contextualiza a marca ('Join Purdue's Online University') e reforça posicionamento"
+    },
+    {
+     "order": 4,
+     "name": "Built for Working Adults",
+     "purpose": "Bloco de benefícios voltado ao perfil do público (adultos que trabalham)"
+    },
+    {
+     "order": 5,
+     "name": "Get Credit, Save Tuition",
+     "purpose": "Redução de barreira financeira: crédito por experiência prévia com números concretos (até 75% do diploma, ~50% de economia)"
+    },
+    {
+     "order": 6,
+     "name": "Try Classes at No Cost / 3 semanas de teste",
+     "purpose": "Redução de risco: experimente antes de se comprometer"
+    },
+    {
+     "order": 7,
+     "name": "Próximas datas de início",
+     "purpose": "Cria urgência e informa o calendário de matrícula"
+    },
+    {
+     "order": 8,
+     "name": "Proven Academic Quality + depoimento",
+     "purpose": "Prova social: qualidade acadêmica e citação de aluna real com foto, nome e turma"
+    },
+    {
+     "order": 9,
+     "name": "Calculadora de tempo e custo",
+     "purpose": "Ferramenta interativa de autoatendimento que engaja e qualifica o lead"
+    },
+    {
+     "order": 10,
+     "name": "What To Expect",
+     "purpose": "Transparência operacional: horas semanais, formato das aulas, duração dos cursos (10 semanas)"
+    },
+    {
+     "order": 11,
+     "name": "Selos de acreditação e militar-friendly",
+     "purpose": "Confiança institucional (HLC, Military Friendly School)"
+    },
+    {
+     "order": 12,
+     "name": "CTA final + rodapé",
+     "purpose": "Última chamada (Request Info / Apply Now) e links legais, sociais e institucionais"
+    }
+   ],
+   "program_presentation": "Na landing principal, os programas NÃO aparecem como grade de cards: são acessados via formulário de lead com dropdowns encadeados (área de estudo → nível de diploma → programa), incluindo opção 'Help Me Decide'. Já nas páginas de área (ex.: Nursing), há um 'Program Finder' com filtros e contador ('15 Programs Found') exibindo cards de programa com título, descrição curta, custo por crédito, esforço semanal, tempo médio de conclusão e link 'View Program', agrupados em subcategorias de carreira (ex.: Nurse Practitioner, Dual Degree).",
+   "program_page_sections": [
+    "Header com telefone + Request Info + Apply Now",
+    "Hero com título da área e proposta de valor",
+    "Formulário de solicitação de informações (área, licenciatura, nível, programa)",
+    "Program Finder com filtros e contagem de resultados",
+    "Cards de programas (título, custo/crédito, duração, esforço, View Program)",
+    "Trilhas agrupadas por categoria de carreira",
+    "Bloco de acreditações (CCNE, Sigma Theta Tau, INACSL)",
+    "Requisitos de admissão (graduação e pós)",
+    "Tour virtual do campus (vídeo)",
+    "CTA da calculadora de custo/tempo",
+    "Depoimento de aluno com credenciais",
+    "Blogs/recursos relacionados (3 artigos)",
+    "CTA de avaliação de carreira",
+    "Brochura em PDF para download",
+    "Destaque do corpo docente",
+    "FAQ (6 perguntas)",
+    "CTA final: falar com conselheiro / aplicar",
+    "Rodapé com links por categoria"
+   ],
+   "cta_strategy": "Dupla trilha permanente: 'Request Information' (lead frio, formulário multi-etapas com dropdowns área/nível/programa + checkbox de consentimento) e 'Apply Now' (lead quente), ambos repetidos no header, no hero, no meio da página e no rodapé. Telefone destacado e memorável (844-PURDUE-G) em vários pontos. CTAs secundários de baixo compromisso espalhados pela página: 'Get Started Today' (aulas grátis por 3 semanas), 'Go to the Calculator', 'Download Brochure', 'Take a Career Assessment', 'Connect with an Advisor'. Não há chat visível; o funil se apoia em formulário + telefone. A lógica é oferecer um degrau de conversão adequado a cada nível de intenção.",
+   "trust_signals": [
+    "Acreditação HLC (Higher Learning Commission) com link para o órgão",
+    "Acreditação CCNE e selos INACSL/Sigma Theta Tau nas páginas de programa",
+    "Chancela da marca-mãe: 'Backed by Purdue University'",
+    "Selo Military Friendly School",
+    "Estatísticas concretas: até 75% de crédito por experiência prévia, ~50% de economia na mensalidade, US$ 11.000 de economia média",
+    "Depoimentos de alunos reais com nome, foto, curso e turma",
+    "Citações do Bureau of Labor Statistics sobre demanda de emprego",
+    "Transparência de expectativas: 15-18h/semana, cursos de 10 semanas"
+   ],
+   "visual_notes": "Estrutura de landing page de conversão, não de site institucional: hierarquia clara com um único objetivo (capturar lead), formulário acima da dobra ao lado do hero, seções curtas e escaneáveis alternando benefício → prova → CTA. Densidade baixa por seção (uma ideia por bloco), tom de texto direto e voltado ao adulto que trabalha, com números concretos em vez de adjetivos. Fotos de alunos reais em vez de banco de imagem genérico. Repetição rítmica dos mesmos dois CTAs cria consistência e reduz carga cognitiva.",
+   "takeaways": [
+    "Colocar formulário de lead curto (área de interesse → programa) ao lado do hero, acima da dobra, com opção 'Me ajude a decidir' — essencial para uma escola de carreiras como a FEI",
+    "Manter dois CTAs fixos e repetidos em todo o site: 'Solicitar Informações' (frio) e 'Inscreva-se' (quente), no header, meio da página e rodapé, com telefone visível",
+    "Apresentar programas como cards padronizados com dados práticos: duração, carga horária semanal, custo e botão 'Ver Programa', agrupados por área (Saúde, Culinária, HVAC, Negócios)",
+    "Exibir seção de próximas datas de início para criar urgência — modelo ideal para matrículas contínuas de escola técnica",
+    "Concentrar sinais de confiança: selos de acreditação/licenciamento, estatísticas de empregabilidade (citando fontes como BLS) e depoimentos com nome, foto e curso do aluno",
+    "Ser transparente sobre a experiência: bloco 'O que esperar' com horas por semana, formato das aulas e tempo até a certificação reduz ansiedade e qualifica o lead"
+   ]
+  },
+  {
+   "site": "ECPI University",
+   "fetch_ok": true,
+   "nav_structure": [
+    "Programs (Technology, Nursing, Health Science, Business, Criminal Justice, Culinary Arts; níveis: Master's, Bachelor's, Associate's & Diplomas)",
+    "Campus & Online (por estado/localidade)",
+    "Admissions (How to Apply, Transfer Credits, Military Admissions)",
+    "Tuition & Assistance (Financial Aid, Scholarships, Military Benefits)",
+    "About ECPI (History, Mission, Accreditation)",
+    "Menu secundário: Students, Alumni, Business Partners",
+    "Utilitários no topo: telefone 1-844-334-4466, Request Info, Apply Now, chat"
+   ],
+   "homepage_sections": [
+    {
+     "order": 1,
+     "name": "Header/Navegação",
+     "purpose": "Menu mega-drop por área de estudo + telefone e CTAs persistentes de Request Info/Apply"
+    },
+    {
+     "order": 2,
+     "name": "Hero rotativo (3 banners)",
+     "purpose": "Mensagens de impacto ('Your Future Faster') com um único CTA por banner levando a programas"
+    },
+    {
+     "order": 3,
+     "name": "Proposta de valor em 3 colunas",
+     "purpose": "Resume os diferenciais (programas focados, carreiras reais) logo após o hero"
+    },
+    {
+     "order": 4,
+     "name": "Carrossel de depoimentos de alunos",
+     "purpose": "Prova social cedo na página, com foto, nome e programa"
+    },
+    {
+     "order": 5,
+     "name": "Programas perto de você (por localidade)",
+     "purpose": "Descoberta de programas filtrada por campus/região"
+    },
+    {
+     "order": 6,
+     "name": "Atalhos por área (Tecnologia, Enfermagem, Saúde, Negócios)",
+     "purpose": "Links rápidos para programas populares de cada área"
+    },
+    {
+     "order": 7,
+     "name": "Blog em destaque (3 cards)",
+     "purpose": "Conteúdo para SEO e engajamento de topo de funil"
+    },
+    {
+     "order": 8,
+     "name": "Explore Areas of Study (6 ícones)",
+     "purpose": "Grade de cards com ícone por faculdade/área, porta de entrada visual aos programas"
+    },
+    {
+     "order": 9,
+     "name": "CTA 'Take Control of Your Career'",
+     "purpose": "Bloco de conversão no meio-fim da página"
+    },
+    {
+     "order": 10,
+     "name": "Grade de campi",
+     "purpose": "Reforça presença física e proximidade"
+    },
+    {
+     "order": 11,
+     "name": "'Designed for Your Success' (3 destaques)",
+     "purpose": "Diferenciais operacionais: formato acelerado, apoio, empregabilidade"
+    },
+    {
+     "order": 12,
+     "name": "Depoimentos de graduados",
+     "purpose": "Segunda camada de prova social focada em resultados"
+    },
+    {
+     "order": 13,
+     "name": "FAQ",
+     "purpose": "Remove objeções (acreditação, financiamento) e ajuda SEO"
+    },
+    {
+     "order": 14,
+     "name": "Rodapé em 4 colunas",
+     "purpose": "Navegação profunda, links institucionais e redes sociais"
+    }
+   ],
+   "program_presentation": "Programas organizados por área/faculdade (Tecnologia, Enfermagem, Ciências da Saúde, Negócios, Justiça Criminal, Culinária) e por nível de credencial (Master's, Bachelor's, Associate/Diploma). Na home aparecem como grade de cards com ícone por área (\"Explore Areas of Study\"), atalhos de links para programas populares e um bloco de descoberta filtrado por localidade/campus. No menu, mega-menu aninhado por faculdade. Não há filtro dinâmico na home em si; a filtragem fina fica na página de listagem de programas.",
+   "program_page_sections": [
+    "Hero com nome do programa e tipo de credencial (Associate of Applied Science)",
+    "'Program at a Glance': 4 fatos-chave com ícones (duração 15 meses, externship de 5 semanas, preparação para certificações, modalidade/locais)",
+    "Abas de navegação interna: Overview, Locations, Curriculum, Accreditation",
+    "Visão geral do programa (papéis do graduado, competências)",
+    "Conhecimentos e habilidades (3 áreas: clínica, administrativa, profissional)",
+    "Benefícios da instituição (3 destaques com ícones: prática hands-on, prep. de certificação, formar mais rápido)",
+    "Locais/campi onde o programa é oferecido",
+    "Currículo: cursos em destaque + tabela completa de créditos (61)",
+    "Acreditação institucional (SACSCOC)",
+    "Acreditação programática (ABHES, com logo)",
+    "2 cards de CTA: 'Speak with a Representative / Request Information' e 'Start Your Application / Apply Now'",
+    "Formulário de lead 'Let's Get Started' (área e programa de interesse, localidade, nome, e-mail, telefone, CEP, vínculo militar, RSVP para open house)",
+    "Rodapé"
+   ],
+   "cta_strategy": "Dupla via constante: \"Request Information\" (lead suave) e \"Apply Now\" (lead quente), presentes no header, em blocos intermediários e no fim das páginas. Na home, cada hero tem um único CTA (\"Explore Programs\" / \"Discover How\") que empurra para descoberta, não para formulário — o formulário de lead completo fica nas páginas de programa (\"Let's Get Started\", ao final, com campos progressivos: interesse, programa, local, dados pessoais, vínculo militar). Telefone destacado (1-844-334-4466) e widget de chat ao vivo em todas as páginas. CTAs secundários: \"Speak to Admissions\", \"Find Your Program\".",
+   "trust_signals": [
+    "Acreditação institucional SACSCOC citada em FAQ e em seção própria nas páginas de programa",
+    "Acreditações programáticas com logos: ABET, ACEN, CCNE, ABHES",
+    "'Founded in 1966' como credencial de longevidade",
+    "Depoimentos de alunos com foto, nome e programa (carrossel)",
+    "Depoimentos de graduados com nome e diploma",
+    "Menção a elegibilidade para certificações profissionais (CMA, RMA, CPT, EKG)",
+    "Lista de múltiplos campi como sinal de escala"
+   ],
+   "visual_notes": "Estrutura densa mas muito hierarquizada: blocos curtos em 3 colunas, uso intensivo de ícones para escanear rápido (áreas de estudo, fatos do programa, benefícios), heros com frases curtas e imperativas em caixa alta (\"YOUR FUTURE FASTER\"). Tom das mensagens é de velocidade e empregabilidade (\"faster\", \"real careers\"), não acadêmico. Prova social intercalada duas vezes na home (alunos no meio, graduados no fim). Páginas de programa seguem um template rígido e previsível com abas internas, o que passa profissionalismo e facilita comparação entre cursos.",
+   "takeaways": [
+    "Criar um bloco 'Program at a Glance' padronizado em cada página de programa da FEI: duração, créditos/horas, certificações preparadas, modalidade e externship — 4 fatos com ícones no topo.",
+    "Adotar a dupla de CTAs em todo o site: 'Solicitar Informações' (lead leve) e 'Inscreva-se' (lead quente), sempre visíveis no header e repetidas ao fim de cada página, com telefone e chat.",
+    "Organizar programas por área (Saúde, Culinária, HVAC, Negócios) em grade de cards com ícones na home, com atalhos diretos para os programas mais procurados.",
+    "Colocar o formulário de lead completo nas páginas de programa (não no hero da home); na home, o hero deve empurrar para exploração de programas com um único CTA.",
+    "Dar seção própria às acreditações (institucional e programática, com logos) e às certificações que o aluno pode obter — é o principal sinal de confiança em escolas de carreira.",
+    "Intercalar depoimentos com foto, nome e programa em dois pontos da home (meio e fim) e fechar com FAQ que responde objeções de acreditação, preço e financiamento."
+   ]
+  },
+  {
+   "site": "CIAT — California Institute of Applied Technology (https://www.ciat.edu/)",
+   "fetch_ok": true,
+   "nav_structure": [
+    "Academic Programs (com filtros de programas)",
+    "Certifications & Bootcamps",
+    "Admissions",
+    "Career Services",
+    "Explore CIAT",
+    "Request Info (ação secundária no header)",
+    "Apply Now (botão persistente no header)"
+   ],
+   "homepage_sections": [
+    {
+     "order": 1,
+     "name": "Hero",
+     "purpose": "Proposta de valor ('It's time to rethink your approach to education') com CTAs duplos: Explore Programs e Request Information; sem formulário no hero"
+    },
+    {
+     "order": 2,
+     "name": "Your path to success starts here",
+     "purpose": "Visão geral dos caminhos educacionais possíveis para o visitante se localizar"
+    },
+    {
+     "order": 3,
+     "name": "More than a degree",
+     "purpose": "Explica em 3 passos o empilhamento de credenciais (bootcamp → diploma)"
+    },
+    {
+     "order": 4,
+     "name": "Explorador de programas com filtros",
+     "purpose": "Permite filtrar programas por área de interesse, organização certificadora e nível de diploma"
+    },
+    {
+     "order": 5,
+     "name": "Seleção de campus/instituição",
+     "purpose": "Direciona o visitante para a unidade correta (Califórnia/Novo México)"
+    },
+    {
+     "order": 6,
+     "name": "Progressão de programas empilháveis",
+     "purpose": "Mostra visualmente Bootcamp → Certificado → Associate → Bachelor's, incentivando continuidade"
+    },
+    {
+     "order": 7,
+     "name": "Vitrine de bootcamps de certificação",
+     "purpose": "12 cards de programas com datas de início e CTA View Details — conversão direta"
+    },
+    {
+     "order": 8,
+     "name": "CIAT Stands Apart",
+     "purpose": "Diferenciais competitivos da escola"
+    },
+    {
+     "order": 9,
+     "name": "Career Services e Lab Kits",
+     "purpose": "Mostra suporte de carreira e prática hands-on como valor agregado"
+    },
+    {
+     "order": 10,
+     "name": "Opções de financiamento",
+     "purpose": "Remove a objeção de custo antes da conversão"
+    },
+    {
+     "order": 11,
+     "name": "Trust & Transparency (métricas)",
+     "purpose": "Estatísticas de satisfação, colocação e tamanho de turma para gerar confiança"
+    },
+    {
+     "order": 12,
+     "name": "Depoimentos de alunos",
+     "purpose": "Prova social com citação de aluno via Trustpilot"
+    },
+    {
+     "order": 13,
+     "name": "Logos de empregadores",
+     "purpose": "'Companies Who Have Hired Our Students' — prova de resultado de carreira"
+    },
+    {
+     "order": 14,
+     "name": "Prévia do blog",
+     "purpose": "Conteúdo para SEO e engajamento contínuo"
+    },
+    {
+     "order": 15,
+     "name": "Rodapé",
+     "purpose": "Links organizados (Get Started, For Students, Information), contatos das duas unidades, redes sociais, disclaimers legais"
+    }
+   ],
+   "program_presentation": "Duas camadas: (1) explorador de programas com filtros por área de interesse (IA/ML, Cibersegurança, Análise de Dados etc.), por organização certificadora (CompTIA, Microsoft, AWS, Cisco...) e por nível (Certificado, Associate, Bachelor); (2) vitrine de cards de bootcamps na própria homepage, cada card com selo/badge da certificação, próxima data de início em destaque, lista de próximas turmas e CTA 'View Details'. A narrativa de 'programas empilháveis' (bootcamp → certificado → diploma) organiza tudo em uma jornada progressiva.",
+   "program_page_sections": [
+    "Header/navegação global",
+    "Formulário Request Info (modal)",
+    "Breadcrumb (Home > Bootcamps > Programa)",
+    "Visão geral do programa (formato, duração)",
+    "Badge de garantia (Unlimited Exam Policy)",
+    "Seção de elegibilidade ('Este programa é para mim?')",
+    "Estrutura do curso (formato de 5 dias, horários)",
+    "Preço + CTA 'Reserve My Spot'",
+    "Grade de datas/turmas em abas mensais",
+    "Currículo dia a dia",
+    "Detalhes do exame de certificação",
+    "Cards de objetivos do exame com pesos percentuais",
+    "Seção de labs práticos (8 cenários hands-on)",
+    "Certificações relacionadas (cross-sell)",
+    "Benefícios da parceria acadêmica (parceiro autorizado)",
+    "Suporte de carreira/colocação",
+    "FAQ extenso (14 perguntas: custo, reembolso, elegibilidade)",
+    "Formulário de contato final",
+    "Rodapé"
+   ],
+   "cta_strategy": "CTAs em camadas: 'Apply Now' persistente no header, 'Request Information' abrindo formulário modal (não polui o hero), 'Explore Programs' como CTA de descoberta, e 'View Details' em cada card de programa. Dois formulários de lead distintos por intenção: 'Talk to an Advisor' e 'Request Transfer Credit Evaluation', ambos capturando programa de interesse, escolaridade, status militar e de emprego, com consentimento SMS/e-mail. Telefone (877) 559-3621 exibido de forma proeminente em todo o site. Na página de programa, CTA transacional com preço explícito ('Reserve My Spot' + $1.495) e formulário de contato no final da página.",
+   "trust_signals": [
+    "Selo '20+ Accredited Programs' e página dedicada de Accreditation & Approvals",
+    "Métricas: 4.5/5 de satisfação, 77% de colocação profissional, turmas 21:1 (com nota de rodapé de metodologia)",
+    "Seção dedicada 'Trust & Transparency' com fact sheets de desempenho",
+    "Depoimento de aluno com fonte externa (Trustpilot)",
+    "20+ logos de empregadores (Amazon, Boeing, Deloitte, Northrop Grumman) sob 'Companies Who Have Hired Our Students'",
+    "Badges de parceiros certificadores (CompTIA, Microsoft, AWS, Cisco) nos cards",
+    "Disclaimers de GI Bill e política de certificação no rodapé"
+   ],
+   "visual_notes": "Estrutura densa mas com hierarquia clara de funil: descoberta (hero + filtros) → prova (diferenciais, métricas, depoimentos, logos) → conversão (formulários, telefone). Tom das mensagens é aspiracional-pragmático ('rethink your approach to education', 'more than a degree'), com forte ênfase em resultados mensuráveis e transparência (métricas com notas de rodapé). Cards padronizados com badges de marcas certificadoras dão credibilidade visual emprestada. Páginas de programa são longas e completas, respondendo todas as objeções (preço, datas, elegibilidade, FAQ) em uma única página.",
+   "takeaways": [
+    "Usar cards de programa com próxima data de início visível e CTA 'Ver detalhes' — a FEI pode destacar próximas turmas de cada programa (Medical Assistant, Culinária, HVAC etc.) direto na homepage",
+    "Organizar programas por área de interesse com filtros (Saúde, Culinária, HVAC, Negócios) em vez de lista simples — ajuda o visitante a se auto-segmentar rapidamente",
+    "Criar uma seção de métricas de confiança (taxa de colocação, satisfação, tamanho de turma) com transparência e notas de metodologia, mais logos de empregadores locais de Miami que contratam egressos",
+    "Página de programa completa em formato longo: visão geral, 'este programa é para mim?', currículo, datas de turmas, preço/financiamento explícito, FAQ e formulário no final — remove objeções sem exigir contato",
+    "CTAs em camadas: 'Apply Now' persistente no header, 'Request Info' em modal, e telefone bem visível em todo o site; formulários curtos segmentados por intenção do lead",
+    "Contar uma jornada progressiva (curso curto → certificação → carreira) em vez de listar cursos isolados — narrativa de progressão aumenta valor percebido e retenção"
+   ]
+  }
+ ],
+ "lps": [
+  {
+   "program": "Pastry & Baking Management (A.A.S.)",
+   "url": "https://lp.fei.edu/index.php/pastry-baking-management/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Earn Your A.A.S. in Pastry & Baking Management in as Little as 75 Weeks",
+    "subheadline": "Affordable, Flexible Hybrid Training for Aspiring Pastry, Baking, and Hospitality Professionals",
+    "cta": "Get Program Details Now!",
+    "media": "logo/imagem estática (logo FEI em PNG; sem vídeo)"
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "header",
+     "content_summary": "Logo FEI, tagline 'Professional Career Training in Miami', telefone 786-706-8721, convite ao chat com admissões e avaliação 4.3 estrelas."
+    },
+    {
+     "order": 2,
+     "name": "hero",
+     "content_summary": "Headline com credencial A.A.S. e duração (75 semanas), subheadline de treinamento híbrido acessível, specs do programa (híbrido, 75 semanas, A.A.S.) e botão 'Get Program Details Now!' ancorado ao formulário."
+    },
+    {
+     "order": 3,
+     "name": "sobre-o-programa",
+     "content_summary": "Bloco 'Supportive Training': visão geral da filosofia do programa, flexibilidade e áreas de habilidade cobertas."
+    },
+    {
+     "order": 4,
+     "name": "formulario",
+     "content_summary": "Formulário de lead no meio da página (âncora #fei-form) com nome, sobrenome, e-mail, telefone, CEP, dropdown de programas (11 opções) e checkbox de consentimento TCPA."
+    },
+    {
+     "order": 5,
+     "name": "por-que-esta-carreira",
+     "content_summary": "Quatro subseções: criatividade, preparação para nível de entrada, habilidades de hospitalidade e desenvolvimento de profissionalismo."
+    },
+    {
+     "order": 6,
+     "name": "curriculo",
+     "content_summary": "Resultados de aprendizagem em 9 áreas (técnicas, pães artesanais, bolos, chocolate/açúcar, doces internacionais, apresentação, segurança alimentar, nutrição/serviço, liderança), benefícios do programa e 7 possíveis cargos após a formatura."
+    },
+    {
+     "order": 7,
+     "name": "acreditacao",
+     "content_summary": "Logo e declaração de acreditação pelo Council on Occupational Education (COE)."
+    },
+    {
+     "order": 8,
+     "name": "por-que-a-fei",
+     "content_summary": "Cinco razões numeradas: foco em carreira, prática hands-on, suporte personalizado, formato híbrido flexível e acreditação."
+    },
+    {
+     "order": 9,
+     "name": "depoimentos",
+     "content_summary": "Seis depoimentos de graduados com 5 estrelas (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo)."
+    },
+    {
+     "order": 10,
+     "name": "cta-final",
+     "content_summary": "Parágrafo de encorajamento com link para o formulário e número de telefone."
+    },
+    {
+     "order": 11,
+     "name": "rodape",
+     "content_summary": "Endereço em Miami (5818 SW 8th Street, Miami, FL 33144), copyright e link para informações completas da escola."
+    }
+   ],
+   "form": {
+    "present": true,
+    "location": "meio",
+    "fields": [
+     "First Name",
+     "Last Name",
+     "Email",
+     "Phone",
+     "Zip Code",
+     "Programs (dropdown com 11 programas)",
+     "Consent (checkbox)"
+    ],
+    "consent_text": "By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable."
+   },
+   "ctas": [
+    "Call Today 786-706-8721 (tel: link no header)",
+    "Chat with an admissions specialist (header)",
+    "Get Program Details Now! (aparece 4 vezes, sempre ancorado a #fei-form)",
+    "305-384-1542 (número citado no texto de consentimento)"
+   ],
+   "program_details": {
+    "duration": "75 semanas (em tempo normal de conclusão)",
+    "credential": "Associate of Applied Science (A.A.S.), formato híbrido",
+    "highlights": [
+     "Técnicas fundamentais de confeitaria e panificação",
+     "Pães artesanais",
+     "Bolos, recheios e sobremesas",
+     "Chocolate, artes em açúcar e confeitos",
+     "Doces internacionais e sobremesas modernas",
+     "Decoração e apresentação de sobremesas",
+     "Segurança alimentar, sanitização e regras de cozinha",
+     "Nutrição, atendimento ao cliente e hospitalidade",
+     "Liderança, trabalho em equipe e ética profissional"
+    ]
+   },
+   "tracking_signals": [
+    "Nenhum UTM visível nos links do conteúdo",
+    "Nenhuma menção a thank-you page no conteúdo",
+    "Nenhum sinal de GTM/pixel visível no texto (análise limitada ao conteúdo renderizado, não ao código-fonte)",
+    "Link de Privacy Policy presente"
+   ],
+   "notes": "Diferenciais versus template genérico: (1) hero orientado a credencial e prazo ('A.A.S. em até 75 semanas') em vez de headline vaga; (2) formulário único no meio da página (âncora #fei-form) com todos os CTAs repetidos apontando para ele, em vez de formulário no hero; (3) dropdown de programa com 11 opções — o form é compartilhado entre LPs, não exclusivo do programa; (4) dois números de telefone distintos (786-706-8721 no header e 305-384-1542 no texto de consentimento), sugerindo tracking de chamadas; (5) consentimento TCPA explícito em checkbox obrigatório; (6) prova social dupla: rating 4.3 no header + 6 depoimentos nomeados; (7) bloco de acreditação COE dedicado; (8) currículo detalhado em 9 áreas e 7 cargos de saída, com profundidade acima do comum em LPs de captação."
+  },
+  {
+   "program": "Culinary Arts",
+   "url": "https://lp.fei.edu/index.php/culinary-arts/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Become a Culinary Professional in as Little as 36 Weeks* at FEI",
+    "subheadline": "Affordable, Flexible Hands-On Training for Aspiring Culinary Professionals",
+    "cta": "Get Program Details Now!",
+    "media": "logo FEI (imagem); badge de avaliação \"TOP RATED SCHOOL IN MIAMI 4.3 ★★★★\""
+   },
+   "form": {
+    "present": true,
+    "location": "meio (após a seção Overview, âncora #fei-form referenciada pelos CTAs)",
+    "fields": [
+     "First Name (obrigatório)",
+     "Last Name (obrigatório)",
+     "Email (obrigatório)",
+     "Phone (obrigatório)",
+     "Zip Code (obrigatório)",
+     "Programs dropdown (obrigatório: Culinary Arts, Medical Billing & Coding, HVAC/R, Pharmacy Technician, Medical Assistant, Pastry and Baking Arts, Business Administration, entre outros)",
+     "Consent checkbox (obrigatório)"
+    ],
+    "consent_text": "I understand & agree(Required) By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable."
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "hero",
+     "content_summary": "Headline com promessa de tempo (36 semanas*), subheadline sobre treinamento prático acessível e flexível, botão 'Get Program Details Now!', telefone 786-706-8721 e badge 'TOP RATED SCHOOL IN MIAMI 4.3'."
+    },
+    {
+     "order": 2,
+     "name": "detalhes-chave",
+     "content_summary": "Faixa de dados do programa: campus Coral Gables, duração 36 semanas*, credencial Diploma; navegação por abas Overview / Program Details / Careers / Testimonials."
+    },
+    {
+     "order": 3,
+     "name": "overview",
+     "content_summary": "'Supportive Training That Fits Your Life' — descreve a diversidade de carreiras culinárias e a abordagem prática e comunitária; CTA 'Get the Details!'."
+    },
+    {
+     "order": 4,
+     "name": "formulario",
+     "content_summary": "Formulário de lead com 6 campos + checkbox de consentimento TCPA/SMS, telefone alternativo 305-384-1542, link de Privacy Policy e logo FEI."
+    },
+    {
+     "order": 5,
+     "name": "por-que-a-carreira",
+     "content_summary": "'Why Choose a Career in the Culinary Arts' — 4 blocos: paixão por comida como arte, campo dinâmico em crescimento, montar o próprio negócio, área em constante evolução."
+    },
+    {
+     "order": 6,
+     "name": "cta-secundario",
+     "content_summary": "'Get Program Details' com bullets do que o lead recebe: Career Prospects, Start Dates, Tuition Costs, Funding Options; botão ancorado em #fei-form."
+    },
+    {
+     "order": 7,
+     "name": "carreiras",
+     "content_summary": "'What Can You Do with a Culinary Arts Diploma?' — lista de cargos (Line Cook, Sous Chef, Pastry Assistant, Catering Assistant, Personal/Private Chef, Restaurant Kitchen Supervisor) e estatística BLS: emprego de chefs deve crescer 7% de 2024 a 2034, com nota de rodapé para a fonte."
+    },
+    {
+     "order": 8,
+     "name": "curriculo",
+     "content_summary": "'What You'll Master in Our Culinary Arts Program' — 7 tópicos (fundamentos e habilidades com faca, técnicas internacionais, cozinha latino-americana, panificação/confeitaria, gestão de cozinha e segurança alimentar, desenvolvimento de menu e empratamento, nutrição culinária), benefícios (laboratório de cozinha profissional, prática hands-on) e caminhos pós-formatura."
+    },
+    {
+     "order": 9,
+     "name": "cta-terciario",
+     "content_summary": "Repetição idêntica do bloco de CTA secundário."
+    },
+    {
+     "order": 10,
+     "name": "acreditacao",
+     "content_summary": "'Get Certified in Culinary Arts & Stand Out to Employers' — acreditação pelo Council on Occupational Education (com logo)."
+    },
+    {
+     "order": 11,
+     "name": "por-que-a-fei",
+     "content_summary": "'Why Study Culinary Arts with FEI' — 5 diferenciais: treinamento focado em carreira, aprendizado prático, suporte personalizado, instrutores com experiência real, programas estabelecidos com acreditação."
+    },
+    {
+     "order": 12,
+     "name": "cta-quaternario",
+     "content_summary": "Repetição idêntica dos blocos de CTA anteriores."
+    },
+    {
+     "order": 13,
+     "name": "depoimentos",
+     "content_summary": "'What Our Graduates Say' — 6 depoimentos com 5 estrelas (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo); um deles é de aluno de Medical Assistant, não de Culinary."
+    },
+    {
+     "order": 14,
+     "name": "cta-final-qualificacao",
+     "content_summary": "'Is Culinary Arts Training Right for You?' — direciona ao formulário e ao telefone 786-706-8721; botão 'Get Program Details Now!'."
+    },
+    {
+     "order": 15,
+     "name": "disclaimers",
+     "content_summary": "Notas: '*When completed in normal program time' e link para a fonte BLS."
+    },
+    {
+     "order": 16,
+     "name": "rodape",
+     "content_summary": "Endereço 5818 SW 8th Street, Miami, FL 33144; copyright Florida Education Institute; link para fei.edu."
+    }
+   ],
+   "ctas": [
+    "Get Program Details Now! (hero)",
+    "Get the Details! (overview)",
+    "Get Program Details Now! (CTA secundário, âncora #fei-form)",
+    "Get Program Details Now! (CTA terciário, âncora #fei-form)",
+    "Get Program Details Now! (CTA quaternário)",
+    "Get Program Details Now! (seção final de qualificação, âncora #fei-form)",
+    "tel:7867068721 — 786-706-8721 (hero e seção final)",
+    "305-384-1542 (junto ao formulário)",
+    "Link Privacy Policy (formulário)",
+    "Link 'visit this link' para https://fei.edu (rodapé)"
+   ],
+   "program_details": {
+    "duration": "36 semanas* (*quando concluído no tempo normal do programa)",
+    "credential": "Diploma",
+    "highlights": [
+     "Culinary Fundamentals and Knife Skills",
+     "International Cooking Techniques",
+     "Latin American Cuisine",
+     "Baking and Pastry Basics",
+     "Kitchen Management and Food Safety",
+     "Menu Development and Plating",
+     "Culinary Nutrition"
+    ]
+   },
+   "tracking_signals": [
+    "Nenhum sinal visível no conteúdo: sem UTMs em links, sem menção a GTM/pixel, sem URL de thank-you page"
+   ],
+   "notes": "Diferenciais versus template genérico: (1) faixa de dados do programa logo abaixo do hero (campus Coral Gables, 36 semanas, Diploma) com navegação por abas Overview/Program Details/Careers/Testimonials; (2) forte repetição do mesmo bloco de CTA 'Get Program Details' (aparece 3-4 vezes) sempre ancorado em #fei-form, com bullets do que o lead recebe (carreiras, datas de início, custo, financiamento); (3) uso de dois telefones distintos (786-706-8721 no hero/final e 305-384-1542 no formulário), possivelmente para rastreamento de origem de chamadas; (4) dado de mercado com fonte BLS citada e nota de rodapé; (5) asterisco de compliance na duração ('when completed in normal program time'); (6) consentimento TCPA explícito como checkbox obrigatório; (7) dropdown de programas no formulário permite reuso do mesmo formulário em todas as LPs; (8) selo de acreditação COE e badge de avaliação Google-style no hero; (9) depoimentos genéricos da escola (um é de Medical Assistant), indicando biblioteca compartilhada de reviews e não depoimentos específicos do programa."
+  },
+  {
+   "program": "Business Administration",
+   "url": "https://lp.fei.edu/index.php/business-administration/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Earn Your A.A.S. in Business Administration in as Little as 84 Weeks*",
+    "subheadline": "Affordable, Flexible Training for Aspiring Business Professionals, Managers, Supervisors, and Entrepreneurs",
+    "cta": "Get Program Details Now!",
+    "media": "logo/imagem institucional (logo FEI); sem vídeo identificado"
+   },
+   "form": {
+    "present": true,
+    "location": "meio",
+    "fields": [
+     "First Name (obrigatório)",
+     "Last Name (obrigatório)",
+     "Email (obrigatório)",
+     "Phone (obrigatório)",
+     "Zip Code (obrigatório)",
+     "Programs (dropdown, obrigatório)",
+     "Checkbox de consentimento (obrigatório)"
+    ],
+    "consent_text": "By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable."
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "hero",
+     "content_summary": "Headline com credencial A.A.S. e duração de 84 semanas, subheadline sobre treinamento acessível e flexível, CTA 'Get Program Details Now!', telefone e link de chat com admissões no topo."
+    },
+    {
+     "order": 2,
+     "name": "introducao",
+     "content_summary": "Visão geral do programa: flexibilidade e foco em carreira em gestão, supervisão, marketing, vendas e empreendedorismo; menciona comunidade de aprendizado acolhedora."
+    },
+    {
+     "order": 3,
+     "name": "formulario",
+     "content_summary": "Formulário de lead 'Get the Details!' no meio da página com nome, sobrenome, email, telefone, CEP, dropdown de programas e checkbox de consentimento TCPA."
+    },
+    {
+     "order": 4,
+     "name": "por-que-business-administration",
+     "content_summary": "Quatro blocos: construção de habilidades, preparação para vagas de entrada, desenvolvimento de liderança/pessoas e mentalidade empreendedora."
+    },
+    {
+     "order": 5,
+     "name": "sobre-o-programa",
+     "content_summary": "Detalhes: A.A.S., 84 semanas, formatos presencial/híbrido/online e 9 destaques de currículo (negócios, empreendedorismo, gestão, RH, comunicação, marketing/vendas, contabilidade/economia, tecnologia, direito/ética)."
+    },
+    {
+     "order": 6,
+     "name": "carreiras",
+     "content_summary": "Cargos de entrada possíveis (gerente/supervisor, marketing, vendas, account executive, administrador de escritório, empreendedor) com dado do BLS sobre crescimento 2024-2034 e ~1,1 milhão de vagas/ano."
+    },
+    {
+     "order": 7,
+     "name": "beneficios-do-programa",
+     "content_summary": "Lista de benefícios: caminho de grau, treinamento focado em carreira, formatos flexíveis e habilidades práticas."
+    },
+    {
+     "order": 8,
+     "name": "acreditacao",
+     "content_summary": "Acreditação pelo Council on Occupational Education (COE) com logo exibido."
+    },
+    {
+     "order": 9,
+     "name": "por-que-a-fei",
+     "content_summary": "Cinco benefícios numerados: treinamento focado em carreira, aprendizado prático, suporte personalizado, opções flexíveis e programas acreditados."
+    },
+    {
+     "order": 10,
+     "name": "depoimentos",
+     "content_summary": "Seis avaliações 5 estrelas de graduados com nomes/iniciais, destacando suporte da equipe, qualidade de ensino e ambiente positivo."
+    },
+    {
+     "order": 11,
+     "name": "cta-final",
+     "content_summary": "'Is Business Administration Training Right for You?' — incentiva preencher o formulário e traz telefone de contato."
+    },
+    {
+     "order": 12,
+     "name": "rodape",
+     "content_summary": "Endereço (5818 SW 8th Street, Miami, FL 33144), copyright FEI e disclaimer sobre taxas de graduação e dívida mediana."
+    }
+   ],
+   "ctas": [
+    "Call Today 786-706-8721 (tel:7867068721) — topo/hero",
+    "Chat with an admissions specialist — topo/hero",
+    "Get Program Details Now! — botão âncora para o formulário, repetido ~5 vezes na página",
+    "Call us for information: 305-384-1542 — área do formulário/consentimento",
+    "786-706-8721 (tel:7867068721) — rodapé"
+   ],
+   "program_details": {
+    "credential": "Associate of Applied Science (A.A.S.)",
+    "duration": "84 semanas (as little as 84 weeks*)",
+    "highlights": [
+     "Business Principles and Practices",
+     "Entrepreneurship and Small Business Development",
+     "Management, Supervision, and Leadership",
+     "Human Resources and Managing People",
+     "Business Communication and Professional Work Ethic",
+     "Marketing, Sales, and Customer Loyalty",
+     "Accounting, Financial Markets, and Economics",
+     "Computer Applications and Business Technology",
+     "Business Law, Ethics, and Government Perspectives",
+     "Formatos: tradicional, híbrido e online"
+    ]
+   },
+   "tracking_signals": [],
+   "notes": "Diferenciais vs. template genérico: (1) headline orientada a credencial + prazo específico (\"A.A.S. ... 84 Weeks*\" com asterisco de disclaimer); (2) uso de dado citado do Bureau of Labor Statistics (projeção 2024-2034, ~1,1 milhão de vagas/ano) para prova de demanda; (3) dois números de telefone distintos (786-706-8721 no topo/rodapé e 305-384-1542 junto ao formulário), sugerindo rastreamento de origem por linha; (4) CTA único repetido (~5x) sempre ancorando ao mesmo formulário no meio da página, em vez de múltiplos formulários; (5) consentimento TCPA em checkbox obrigatório com texto explícito sobre tecnologia automatizada de ligação/SMS; (6) seção de acreditação COE com logo e disclaimer regulatório no rodapé (graduação/dívida mediana), típicos de escolas vocacionais dos EUA; (7) seis depoimentos 5 estrelas com nomes/iniciais. Nenhum sinal de tracking (GTM, pixel, UTM, thank-you page) visível no conteúdo renderizado. Estrutura em 12 blocos na ordem mapeada em sections."
+  },
+  {
+   "program": "Business Management",
+   "url": "https://lp.fei.edu/index.php/business-management/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Become a Business Management in as Little as 45 Weeks* at FEI",
+    "subheadline": "Affordable, Flexible Hands-On Training for Aspiring Business Professionals",
+    "cta": "Get Program Details Now!",
+    "media": "foto"
+   },
+   "form": {
+    "present": true,
+    "location": "meio",
+    "fields": [
+     "First Name",
+     "Last Name",
+     "Email",
+     "Phone",
+     "Zip Code",
+     "Programs (dropdown)",
+     "Consent checkbox"
+    ],
+    "consent_text": "I understand & agree... automated technology to call and/or text me at the number provided above, including my wireless number if applicable. Call us for information: 305-384-1542."
+   },
+   "ctas": [
+    "Call Today 786-706-8721 (tel:7867068721) - header",
+    "Chat with an admissions specialist - header",
+    "Get Program Details Now! (#fei-form) - hero",
+    "Get the Details! - overview",
+    "Get Program Details Now! (#fei-form) - blocos CTA repetidos (3x)",
+    "786-706-8721 (tel:7867068721) - seção final",
+    "Get Program Details Now! (#fei-form) - seção final"
+   ],
+   "program_details": {
+    "duration": "45 weeks* (online)",
+    "credential": "Diploma",
+    "highlights": [
+     "Entrepreneurship",
+     "Principles of Today's Business",
+     "Managing People and Human Resources",
+     "Leadership and Management Styles",
+     "Setting Goals and Business Strategies",
+     "Marketing and Sales",
+     "Accounting and Financial Markets",
+     "Business Communication and Technology",
+     "Legal, Regulatory, and Government Perspectives"
+    ]
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "header",
+     "content_summary": "Logo FEI, telefone 786-706-8721, chat com admissões, selo 'TOP RATED SCHOOL IN MIAMI 4.3 estrelas'."
+    },
+    {
+     "order": 2,
+     "name": "hero",
+     "content_summary": "Headline 'Become a Business Management in as Little as 45 Weeks* at FEI', subheadline sobre treinamento acessível e flexível, botão para #fei-form e cartão com Campus: Online, Length: 45 weeks*, Education Level: Diploma."
+    },
+    {
+     "order": 3,
+     "name": "abas-navegacao",
+     "content_summary": "Abas internas: Overview, Program Details, Careers, Testimonials."
+    },
+    {
+     "order": 4,
+     "name": "overview",
+     "content_summary": "'Supportive Training That Fits Your Life' — descreve carreiras em liderança, administração, atendimento, empreendedorismo e operações; botão 'Get the Details!'."
+    },
+    {
+     "order": 5,
+     "name": "formulario",
+     "content_summary": "Formulário de lead no meio da página (#fei-form): nome, sobrenome, email, telefone, CEP, dropdown de programas, checkbox de consentimento TCPA/SMS e link de Privacy Policy."
+    },
+    {
+     "order": 6,
+     "name": "por-que-a-carreira",
+     "content_summary": "'Why Choose a Career in the Business Management' — 4 blocos: liderança como oportunidade, campo versátil, confiança como líder de equipe, preparação para ter o próprio negócio."
+    },
+    {
+     "order": 7,
+     "name": "cta-intermediario",
+     "content_summary": "Bloco 'Get Program Details' com bullets (Career Prospects, Start Dates, Tuition Costs, Funding Options) e botão para o formulário. Repete 3 vezes ao longo da página."
+    },
+    {
+     "order": 8,
+     "name": "carreiras",
+     "content_summary": "'What Can You Do with a Business Management Diploma?' — lista de cargos (Office Manager, Administrative Assistant, Customer Service Supervisor, Operations Assistant, Sales Associate, Small Business Owner) + dado do BLS: crescimento acima da média 2024-2034, ~1,1 milhão de vagas/ano."
+    },
+    {
+     "order": 9,
+     "name": "curriculo",
+     "content_summary": "'What You'll Master...' — 9 tópicos do currículo (empreendedorismo, RH, liderança, marketing/vendas, contabilidade, comunicação, aspectos legais), benefícios do programa e carreiras pós-graduação."
+    },
+    {
+     "order": 10,
+     "name": "cta-intermediario-2",
+     "content_summary": "Repetição do bloco 'Get Program Details' com botão para #fei-form."
+    },
+    {
+     "order": 11,
+     "name": "acreditacao",
+     "content_summary": "'Get Certified in Business Management & Stand Out to Employers' com selo do Council on Occupational Education (COE)."
+    },
+    {
+     "order": 12,
+     "name": "por-que-a-fei",
+     "content_summary": "'Why Study Business Management with FEI' — 5 itens numerados: treinamento focado em carreira, aprendizado prático, suporte personalizado, instrutores com experiência real, programas acreditados."
+    },
+    {
+     "order": 13,
+     "name": "cta-final-repetido",
+     "content_summary": "Terceira repetição do bloco 'Get Program Details' (contém erro de texto: 'Business Program Program')."
+    },
+    {
+     "order": 14,
+     "name": "depoimentos",
+     "content_summary": "'What Our Graduates Say' — 5-6 depoimentos de 5 estrelas com nome do aluno e iniciais; elogios ao staff e ao suporte."
+    },
+    {
+     "order": 15,
+     "name": "qualificacao-final",
+     "content_summary": "'Is Business Management Training Right for You?' — CTA final com telefone 786-706-8721 e botão para o formulário."
+    },
+    {
+     "order": 16,
+     "name": "rodape",
+     "content_summary": "Copyright, endereço (5818 SW 8th Street, Miami, FL 33144), disclaimers: '*When completed in normal program time', link de fonte BLS e link para taxas de graduação/dívida em fei.edu."
+    }
+   ],
+   "tracking_signals": [
+    "Nenhum sinal explícito de pixel, GTM, UTM ou thank-you page visível no conteúdo renderizado; botões apontam para âncora #fei-form"
+   ],
+   "notes": "Página segue padrão de LP de captação para escola vocacional, mas com elementos distintivos: (1) cartão de fatos do programa no hero (Campus/Length/Education Level) com asterisco de disclaimer; (2) abas internas de navegação (Overview/Program Details/Careers/Testimonials) simulando página de programa; (3) bloco CTA 'Get Program Details' padronizado com 4 bullets (Career Prospects, Start Dates, Tuition Costs, Funding Options) repetido 3x; (4) prova social dupla — selo 'Top Rated School in Miami 4.3' no header e 5+ depoimentos 5 estrelas; (5) dado de demanda citando BLS com fonte no rodapé; (6) consentimento TCPA completo com checkbox obrigatório e telefone alternativo (305-384-1542) distinto do telefone de vendas (786-706-8721); (7) formulário único no meio da página, alcançado por âncora #fei-form de todos os CTAs. Falhas notadas: headline com erro gramatical ('Become a Business Management') e texto duplicado 'Business Program Program' no CTA final — indícios de template com merge de variáveis por programa."
+  },
+  {
+   "program": "Culinary & Hospitality Management",
+   "url": "https://lp.fei.edu/index.php/culinary-hospitality-management/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Earn Your A.A.S. in Culinary & Hospitality Management in as Little as 75 Weeks* at FEI",
+    "subheadline": "Affordable, Flexible Blended Training for Aspiring Culinary and Hospitality Professionals",
+    "cta": "Get Program Details Now!",
+    "media": "texto com logo (sem foto/vídeo identificado)"
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "header",
+     "content_summary": "Topo com logo da FEI, telefone 786-706-8721, link 'Chat with an admissions specialist' e selo 'TOP RATED SCHOOL IN MIAMI 4.3' com estrelas."
+    },
+    {
+     "order": 2,
+     "name": "hero",
+     "content_summary": "Headline com credencial A.A.S. e duração de 75 semanas, subheadline sobre treinamento híbrido flexível e acessível, CTA 'Get Program Details Now!'. Exibe fichas rápidas: 75 semanas, credencial A.A.S., formato híbrido no campus."
+    },
+    {
+     "order": 3,
+     "name": "abas-navegacao",
+     "content_summary": "Abas âncora: Overview, Program Details, Careers, Testimonials."
+    },
+    {
+     "order": 4,
+     "name": "overview",
+     "content_summary": "Visão geral do programa: artes culinárias, gestão de hospitalidade, operações de restaurante e liderança em food service; treinamento prático em fundamentos culinários, organização de cozinha, segurança alimentar, sanitização, planejamento de menu e básicos de confeitaria."
+    },
+    {
+     "order": 5,
+     "name": "formulario",
+     "content_summary": "Formulário de lead no meio da página (âncora #fei-form) com nome, sobrenome, e-mail, telefone, CEP e dropdown de 11 programas; checkbox de consentimento TCPA/SMS e link para política de privacidade."
+    },
+    {
+     "order": 6,
+     "name": "por-que-esta-carreira",
+     "content_summary": "Quatro blocos: combinar habilidade culinária com serviço de hospitalidade, campo de carreira diverso, desenvolvimento de liderança e trabalho em equipe, habilidades de serviço, segurança e profissionalismo."
+    },
+    {
+     "order": 7,
+     "name": "detalhes-do-programa",
+     "content_summary": "Currículo 'What You'll Master' com 9 destaques (fundamentos culinários e faca, segurança alimentar, técnicas internacionais/latinas/clássicas, confeitaria, menu e nutrição, operações de restaurante, serviços de hospitalidade, atendimento ao cliente, liderança) mais benefícios e lista de 7 carreiras (Line Cook, Prep Cook, Catering Assistant, Food Service Supervisor, Guest Services Associate, Team Leader, Assistant Restaurant Manager)."
+    },
+    {
+     "order": 8,
+     "name": "acreditacao",
+     "content_summary": "Acreditação pelo Council on Occupational Education (COE) com logo."
+    },
+    {
+     "order": 9,
+     "name": "por-que-a-fei",
+     "content_summary": "Cinco itens numerados: treinamento focado em carreira, aprendizado prático, suporte personalizado, formato híbrido flexível, programas estabelecidos e acreditados."
+    },
+    {
+     "order": 10,
+     "name": "depoimentos",
+     "content_summary": "Seis depoimentos de alunos com 5 estrelas (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo)."
+    },
+    {
+     "order": 11,
+     "name": "cta-final",
+     "content_summary": "Seção 'Is Culinary & Hospitality Management Training Right for You?' direcionando para o formulário; menciona que um Admissions Advisor ajuda com dúvidas e financial aid."
+    },
+    {
+     "order": 12,
+     "name": "rodape",
+     "content_summary": "Endereço (5818 SW 8th Street, Miami, FL 33144), copyright, nota de divulgação citando dados do BLS e link para fei.edu."
+    }
+   ],
+   "form": {
+    "present": true,
+    "location": "meio da página (âncora #fei-form); também é destino dos CTAs do hero e da seção final",
+    "fields": [
+     "First Name",
+     "Last Name",
+     "Email",
+     "Phone",
+     "Zip Code",
+     "Programs (dropdown com 11 programas)"
+    ],
+    "consent_text": "By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable. Call us for information: 305-384-1542."
+   },
+   "ctas": [
+    "Get Program Details Now! (aparece 4x)",
+    "Call Today 786-706-8721 (tel:7867068721)",
+    "Chat with an admissions specialist",
+    "Call us for information: 305-384-1542"
+   ],
+   "program_details": {
+    "duration": "75 semanas (com asterisco 'as little as 75 weeks*')",
+    "credential": "A.A.S. (Associate of Applied Science), formato híbrido",
+    "highlights": [
+     "Culinary Fundamentals and Knife Skills",
+     "Food Safety, Sanitation, and Kitchen Rules",
+     "International, Latin, and Classical Cooking Techniques",
+     "Baking and Pastry Fundamentals",
+     "Menu Planning, Nutrition, and Food Preparation",
+     "Restaurant Operations and Food Service Management",
+     "Hospitality Services and Guest Relations",
+     "Customer Service and Customer Loyalty",
+     "Leadership, Teamwork, and Professional Work Ethic"
+    ]
+   },
+   "tracking_signals": [],
+   "notes": "Distintivos vs template genérico: (1) selo de prova social no header ('Top Rated School in Miami 4.3★') e dois telefones distintos (786 no header/CTAs e 305 no texto de consentimento, sugerindo tracking de chamadas); (2) abas de navegação internas (Overview / Program Details / Careers / Testimonials) em vez de página puramente linear; (3) formulário no MEIO da página, não no hero, com dropdown de programa pré-listando todo o portfólio da escola; (4) fichas rápidas de duração/credencial/formato já no hero (75 semanas, A.A.S., híbrido); (5) consentimento TCPA em checkbox explícito com telefone embutido; (6) rodapé com disclaimer citando fonte BLS para dados de carreira; (7) depoimentos com nomes reais e avaliações 5 estrelas no formato Google Reviews; (8) CTA repetido 4x com o mesmo texto ('Get Program Details Now!') ancorando ao formulário. Nenhum sinal visível de UTM/pixel/thank-you page no conteúdo renderizado."
+  },
+  {
+   "program": "HVAC/R (Heating, Ventilation, Air Conditioning & Refrigeration)",
+   "url": "https://lp.fei.edu/index.php/hvac/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Train for a Skilled HVAC/R Career in Miami",
+    "subheadline": "Affordable, Flexible Hands-On Training for Aspiring HVAC/R Technicians",
+    "cta": "Get Program Details Now!",
+    "media": "texto estático com logo; exibe selo de avaliação \"TOP RATED SCHOOL IN MIAMI 4.3 ★★★★\""
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "header",
+     "content_summary": "Cabeçalho com marca, telefone \"Call Today 786-706-8721\" e CTA de contato."
+    },
+    {
+     "order": 2,
+     "name": "hero",
+     "content_summary": "Headline sobre carreira HVAC/R em Miami, subheadline de treinamento prático acessível, selo de escola top-rated 4.3 estrelas e botão \"Get Program Details Now!\" ancorado ao formulário."
+    },
+    {
+     "order": 3,
+     "name": "sobre-o-programa",
+     "content_summary": "Visão geral do programa de 36 semanas, ênfase em treinamento prático e ambiente de apoio; CTA secundário \"Get the Details!\"."
+    },
+    {
+     "order": 4,
+     "name": "formulario",
+     "content_summary": "Formulário de lead no meio da página (âncora #fei-form) com nome, sobrenome, e-mail, telefone, CEP, dropdown de programas e checkbox de consentimento TCPA obrigatório; inclui telefone alternativo 305-384-1542."
+    },
+    {
+     "order": 5,
+     "name": "por-que-carreira-hvac",
+     "content_summary": "Quatro blocos sobre perspectivas: crescimento de 8% no emprego (2024-2034, com citação do Bureau of Labor Statistics), demanda do setor, oportunidades de avanço e variedade de ambientes de trabalho."
+    },
+    {
+     "order": 6,
+     "name": "carreiras",
+     "content_summary": "Resultados do diploma e cinco trajetórias: técnico residencial HVAC/R, instalador comercial, técnico de refrigeração, técnico de serviço e técnico de manutenção HVAC/R."
+    },
+    {
+     "order": 7,
+     "name": "curriculo-detalhes",
+     "content_summary": "Duração de 36 semanas (com asterisco \"quando concluído no tempo normal\"), credencial de Diploma, resultados de aprendizagem (instalação, manutenção, reparo, segurança, troubleshooting, sistemas elétricos, preparação para exames EPA e R-410A) e recursos do programa (laboratório com equipamento da indústria)."
+    },
+    {
+     "order": 8,
+     "name": "certificacoes-acreditacao",
+     "content_summary": "Certificações EPA e R-410A; acreditação pelo Council on Occupational Education; frase \"Graduate from FEI with your HVAC/R Diploma, and industry recognized certifications of EPA and R-410A.\""
+    },
+    {
+     "order": 9,
+     "name": "por-que-a-fei",
+     "content_summary": "Quatro propostas de valor: treinamento alinhado a empregadores, aprendizado prático com ferramentas profissionais, suporte personalizado de instrutores e instrutores com experiência real na indústria."
+    },
+    {
+     "order": 10,
+     "name": "cta-intermediario",
+     "content_summary": "Bloco de CTA repetindo o botão \"Get Program Details Now!\" com link para o formulário."
+    },
+    {
+     "order": 11,
+     "name": "depoimentos",
+     "content_summary": "Seis avaliações 5 estrelas de graduados nomeados (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo)."
+    },
+    {
+     "order": 12,
+     "name": "cta-final",
+     "content_summary": "Seção \"Is this right for you\" direcionando ao formulário e ao telefone 786-706-8721."
+    },
+    {
+     "order": 13,
+     "name": "rodape",
+     "content_summary": "Copyright, endereço do campus (5818 SW 8th Street, Miami, FL 33144) e link para o site principal da FEI com informações de taxas de graduação e endividamento; link de Privacy Policy com âncora não funcional (#)."
+    }
+   ],
+   "form": {
+    "present": true,
+    "location": "meio",
+    "fields": [
+     "First Name (obrigatório)",
+     "Last Name (obrigatório)",
+     "Email (obrigatório)",
+     "Phone (obrigatório)",
+     "Zip Code (obrigatório)",
+     "Programs (dropdown, obrigatório)",
+     "Consent checkbox (obrigatório)"
+    ],
+    "consent_text": "By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable."
+   },
+   "ctas": [
+    "Call Today 786-706-8721 (tel link, header)",
+    "Get Program Details Now! (hero)",
+    "Get the Details! (visão geral)",
+    "Get Program Details Now! (seção por que HVAC)",
+    "Get Program Details Now! (seção por que a FEI)",
+    "786-706-8721 (link no fechamento)",
+    "Call us for information: 305-384-1542 (junto ao formulário)"
+   ],
+   "program_details": {
+    "duration": "36 semanas (asterisco: quando concluído no tempo normal do programa)",
+    "credential": "Diploma",
+    "highlights": [
+     "Instalar, manter e reparar sistemas HVAC/R residenciais e comerciais",
+     "Trabalhar com segurança com equipamentos de ar condicionado e refrigeração",
+     "Diagnosticar problemas mecânicos e de desempenho de sistemas",
+     "Entender sistemas elétricos, controles e design básico de sistemas",
+     "Preparação para exames de certificação EPA e R-410A",
+     "Treinamento prático em laboratório com equipamento da indústria"
+    ]
+   },
+   "tracking_signals": [
+    "Nenhum UTM, GTM ou pixel visível no conteúdo renderizado",
+    "Nenhuma menção a thank-you page",
+    "Apenas links de âncora internos (#fei-form, #overview, #program-details, #careers, #testimonials)",
+    "Citação com URL do Bureau of Labor Statistics e link ao site principal para disclosures"
+   ],
+   "notes": "A página segue um funil clássico de lead gen, mas tem elementos distintivos: (1) formulário no meio da página com múltiplos CTAs âncora apontando para #fei-form, em vez de formulário no hero; (2) dois telefones diferentes (786-706-8721 nos CTAs e 305-384-1542 no bloco do formulário), sugerindo rastreamento de chamadas por canal; (3) selo de prova social no próprio hero (\\\"Top Rated School in Miami 4.3\\\"); (4) consentimento TCPA explícito via checkbox obrigatório com texto completo; (5) forte ancoragem em credenciais concretas (Diploma, certificações EPA e R-410A, acreditação COE) e dado do BLS com citação — mais específico que um template genérico; (6) depoimentos com nomes reais de graduados; (7) rodapé com disclosure de compliance (taxas de graduação/endividamento) típico de escolas vocacionais reguladas. Ponto fraco: link de Privacy Policy aponta para âncora vazia (#)."
+  },
+  {
+   "program": "Medical Assistant",
+   "url": "https://lp.fei.edu/index.php/medical-assistant/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Launch Your MA Career in 46 Weeks* with Hybrid Training at FEI",
+    "subheadline": "Affordable, Flexible Hands-On Training for Aspiring Medical Assistants",
+    "cta": "Get Program Details Now!",
+    "media": "foto (logo FEI exibido; sem vídeo identificado)"
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "hero",
+     "content_summary": "Headline de carreira em 46 semanas* com treinamento híbrido, subheadline sobre treinamento acessível e prático, botão 'Get Program Details Now!' ancorado ao formulário; header traz telefone 786-706-8721 e selo 4.3 estrelas."
+    },
+    {
+     "order": 2,
+     "name": "navegacao-overview",
+     "content_summary": "Âncoras de navegação (Overview, Program Details, Careers, Testimonials) e texto breve sobre o papel do Medical Assistant e o suporte da FEI."
+    },
+    {
+     "order": 3,
+     "name": "formulario",
+     "content_summary": "Formulário de lead no meio da página (âncora #fei-form) com nome, sobrenome, email, telefone, CEP, dropdown de programas (11 opções) e checkbox de consentimento TCPA obrigatório."
+    },
+    {
+     "order": 4,
+     "name": "por-que-ser-medical-assistant",
+     "content_summary": "Quatro blocos: crescimento de 12% no emprego (2024-2034, com citação do BLS), habilidades em demanda, horários de trabalho e progressão de carreira."
+    },
+    {
+     "order": 5,
+     "name": "detalhes-do-programa",
+     "content_summary": "Duração de 36 semanas* (diverge das 46 do hero), diploma, campus Miami, formato híbrido (online + externship), currículo: flebotomia, EKG/ECG, anatomia e fisiologia, terminologia médica, procedimentos de escritório médico, procedimentos clínicos, doenças humanas e patologia."
+    },
+    {
+     "order": 6,
+     "name": "externship",
+     "content_summary": "Bloco sobre externship supervisionado em instituição de saúde na Flórida, com ênfase em prática clínica real."
+    },
+    {
+     "order": 7,
+     "name": "carreiras",
+     "content_summary": "Posições de entrada possíveis: consultórios médicos, urgent care, hospitais, clínicas ambulatoriais e outras organizações de saúde."
+    },
+    {
+     "order": 8,
+     "name": "acreditacao",
+     "content_summary": "Acreditação pelo Council on Occupational Education, com logo exibido."
+    },
+    {
+     "order": 9,
+     "name": "por-que-a-fei",
+     "content_summary": "Quatro pontos: treinamento focado em carreira, aprendizado prático, suporte personalizado e instrutores com experiência real (contém erro de cópia mencionando 'pharmacy setting')."
+    },
+    {
+     "order": 10,
+     "name": "depoimentos",
+     "content_summary": "Seis avaliações 5 estrelas (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo) destacando suporte da equipe e transformação pessoal."
+    },
+    {
+     "order": 11,
+     "name": "cta-final",
+     "content_summary": "Bloco final de CTA com título 'Is Culinary Arts Training Right for You?' (erro de template — deveria ser Medical Assistant), incentivando preencher o formulário ou ligar."
+    },
+    {
+     "order": 12,
+     "name": "rodape",
+     "content_summary": "Endereço Miami 5818 SW 8th Street, Miami, FL 33144, copyright, link de Privacy Policy e link para o site principal da FEI com dados de graduação e dívida mediana."
+    }
+   ],
+   "ctas": [
+    "Get Program Details Now! (botão, repetido ~3x, âncora #fei-form)",
+    "Telefone 786-706-8721 (header e seção final)",
+    "Telefone 305-384-1542 (área de consentimento do formulário)",
+    "Links de navegação para #fei-form",
+    "Privacy Policy (rodapé)",
+    "Link BLS (seção de crescimento de emprego)",
+    "Link para site principal da FEI (rodapé, compliance)"
+   ],
+   "form": {
+    "present": true,
+    "location": "meio",
+    "fields": [
+     "First Name",
+     "Last Name",
+     "Email",
+     "Phone",
+     "Zip Code",
+     "Programs (dropdown com 11 programas)",
+     "Consent checkbox (obrigatório)"
+    ],
+    "consent_text": "I understand & agree(Required) By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable."
+   },
+   "program_details": {
+    "duration": "36 semanas* na seção de detalhes; hero menciona 46 semanas* (inconsistência interna)",
+    "credential": "Diploma",
+    "highlights": [
+     "Phlebotomy",
+     "Electrocardiography (EKG/ECG)",
+     "Anatomy and Physiology",
+     "Medical Terminology",
+     "Medical Office Procedures",
+     "Clinical Procedures",
+     "Human Disease and Pathology",
+     "Formato híbrido: online + externship presencial supervisionado em instituição de saúde na Flórida",
+     "Campus Miami"
+    ]
+   },
+   "tracking_signals": [
+    "Nenhum GTM, pixel, UTM ou menção a thank-you page visível no conteúdo renderizado (scripts não são visíveis via fetch de texto)"
+   ],
+   "notes": "Distintivos: hero com prazo específico ('46 Weeks*') e formato híbrido como proposta de valor; formulário único no meio da página com dropdown de todos os 11 programas da escola (não é específico do programa); consentimento TCPA explícito e obrigatório; dois telefones diferentes (786-706-8721 e 305-384-1542); bloco dedicado a externship; acreditação COE; citação do BLS com dado de 12% de crescimento; selo 4.3 estrelas no header. Problemas evidentes de reuso de template: CTA final menciona 'Culinary Arts', bloco 'Why FEI' menciona 'pharmacy setting', e há inconsistência de duração (46 vs 36 semanas) — pontos a corrigir no novo padrão de LP."
+  },
+  {
+   "program": "Medical Billing & Coding",
+   "url": "https://lp.fei.edu/index.php/medical-billing-coding/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Online Medical Billing & Coding Career Training in Florida",
+    "subheadline": "Affordable, Flexible Hands-On Training for Aspiring Medical Billers & Coders",
+    "cta": "Get Program Details Now!",
+    "media": "texto com abas de navegação (sem foto/vídeo identificados no conteúdo extraído)"
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "header",
+     "content_summary": "Logo, telefone 786-706-8721, convite para chat com especialista de admissões e avaliação 4.3 estrelas."
+    },
+    {
+     "order": 2,
+     "name": "hero",
+     "content_summary": "Headline sobre treinamento online de Medical Billing & Coding na Flórida, subheadline de treinamento acessível e flexível, CTA 'Get Program Details Now!' ancorado ao formulário, e dados-chave: campus Miami ou Online, 45 semanas, credencial Diploma."
+    },
+    {
+     "order": 3,
+     "name": "proposta-de-valor",
+     "content_summary": "'Supportive Training That Fits Your Life': carreira estável na saúde sem cuidado direto de pacientes, formato flexível e abordagem centrada no aluno."
+    },
+    {
+     "order": 4,
+     "name": "formulario",
+     "content_summary": "Formulário de lead no meio da página (âncora #fei-form) com nome, sobrenome, email, telefone, CEP, dropdown de programas e checkbox de consentimento TCPA. Telefone alternativo 305-384-1542."
+    },
+    {
+     "order": 5,
+     "name": "por-que-a-carreira",
+     "content_summary": "Quatro blocos de benefícios da carreira: forte perspectiva de emprego (7% de crescimento 2022–2032 segundo BLS), carreira estável baseada em habilidades, oportunidades de crescimento e trabalho com propósito."
+    },
+    {
+     "order": 6,
+     "name": "sobre-o-programa-curriculo",
+     "content_summary": "Habilidades ensinadas: terminologia médica, análise de prontuários, codificação ICD-10-CM/CPT/HCPCS, processamento de sinistros de seguro, anatomia/fisiologia/doenças. Benefícios: treinamento duplo em billing e coding, prática nos 3 sistemas de codificação, currículo focado em carreira."
+    },
+    {
+     "order": 7,
+     "name": "carreiras",
+     "content_summary": "'What Can You Do with a Medical Billing & Coding Diploma?': locais de trabalho (hospitais, ambulatórios, consultórios, clínicas, departamentos de informação em saúde) e caminhos após a formatura, incluindo autoemprego."
+    },
+    {
+     "order": 8,
+     "name": "acreditacao",
+     "content_summary": "Acreditação pelo Council on Occupational Education, com logo exibido."
+    },
+    {
+     "order": 9,
+     "name": "por-que-a-fei",
+     "content_summary": "Quatro pilares: treinamento focado em carreira, aprendizado prático com externship, suporte personalizado e instrutores com experiência real. Obs.: o texto mistura menções a Culinary Arts e Pharmacy (conteúdo de template não adaptado)."
+    },
+    {
+     "order": 10,
+     "name": "depoimentos",
+     "content_summary": "Seis avaliações 5 estrelas de graduados com nomes (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo)."
+    },
+    {
+     "order": 11,
+     "name": "cta-final",
+     "content_summary": "Bloco final que reitera a âncora do formulário e o telefone 786-706-8721; o título menciona erroneamente 'Pharmacy Technician Training' (erro de template)."
+    },
+    {
+     "order": 12,
+     "name": "rodape",
+     "content_summary": "Copyright, links de disclosures, endereço de Miami (5818 SW 8th Street, Miami, FL 33144) e link para fei.edu."
+    }
+   ],
+   "form": {
+    "present": true,
+    "location": "meio",
+    "fields": [
+     "First Name (obrigatório)",
+     "Last Name (obrigatório)",
+     "Email (obrigatório)",
+     "Phone (obrigatório)",
+     "Zip Code (obrigatório)",
+     "Programs dropdown (obrigatório)",
+     "Consent checkbox (obrigatório)"
+    ],
+    "consent_text": "I understand & agree(Required) By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable."
+   },
+   "ctas": [
+    "Get Program Details Now! (botão, âncora #fei-form)",
+    "786-706-8721 (link tel: no header e no CTA final)",
+    "Call us for information: 305-384-1542 (junto ao formulário)",
+    "Chat with an admissions specialist (chat no header)",
+    "visit this link (link para fei.edu no rodapé)"
+   ],
+   "program_details": {
+    "duration": "45 semanas (em tempo normal de conclusão)",
+    "credential": "Diploma",
+    "highlights": [
+     "Terminologia médica aplicada",
+     "Análise de prontuários para precisão de codificação",
+     "Codificação ICD-10-CM, CPT e HCPCS",
+     "Processamento de sinistros de seguro e documentação de reembolso",
+     "Anatomia, fisiologia e doenças humanas",
+     "Treinamento duplo em billing e coding",
+     "Formato Miami ou Online"
+    ]
+   },
+   "tracking_signals": [],
+   "notes": "Distintivo vs template genérico: formulário no meio da página (não no hero) com âncora #fei-form e todos os CTAs apontando para ela; dois telefones distintos (786-706-8721 no header/CTA final e 305-384-1542 junto ao formulário — provável número de tracking de chamadas); dados de mercado citando BLS (7% de crescimento 2022–2032); consentimento TCPA explícito em checkbox obrigatório; selo de acreditação COE; 6 depoimentos nominais 5 estrelas; exibição de rating 4.3 no header. Pontos fracos reveladores de template reaproveitado: a seção 'Why Study With FEI' mistura texto de Culinary Arts/Pharmacy e o CTA final menciona 'Pharmacy Technician Training' — indício de que as LPs são clonadas entre programas sem revisão completa. Nenhum sinal visível de UTM/pixel/thank-you page no conteúdo extraído."
+  },
+  {
+   "program": "Medical Office Administrator",
+   "url": "https://lp.fei.edu/index.php/medical-office-administrator/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Launch Your MA Career in 46 Weeks* with Hybrid Training at FEI",
+    "subheadline": "Affordable, Flexible Hands-On Training for Aspiring Medical Assistants",
+    "cta": "Get Program Details Now!",
+    "media": "foto/logo (imagem do logo FEI; sem vídeo)"
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "header",
+     "content_summary": "Logo, telefone 786-706-8721, prompt de chat com especialista de admissões e selo de avaliação 4.3 estrelas."
+    },
+    {
+     "order": 2,
+     "name": "hero",
+     "content_summary": "Headline 'Launch Your MA Career in 46 Weeks* with Hybrid Training at FEI', subheadline sobre treinamento acessível e flexível, botão 'Get Program Details Now!' apontando para o formulário, e snapshot do programa: híbrido, 82 semanas, credencial A.A.S."
+    },
+    {
+     "order": 3,
+     "name": "visao-geral",
+     "content_summary": "'Supportive Training That Fits Your Life' — resumo do papel do administrador de consultório médico e da abordagem flexível da FEI, com CTA secundário 'Get the Details!'."
+    },
+    {
+     "order": 4,
+     "name": "formulario",
+     "content_summary": "Formulário de lead no meio da página (âncora #fei-form) com nome, sobrenome, e-mail, telefone, CEP e dropdown de programa; checkbox de consentimento TCPA/SMS, link de política de privacidade e telefone alternativo 305-384-1542."
+    },
+    {
+     "order": 5,
+     "name": "por-que-esta-carreira",
+     "content_summary": "4 subseções sobre suporte ao negócio de saúde, preparo para nível de entrada, habilidades administrativas/atendimento ao paciente e conhecimento de billing/coding (CPT, ICD-10-CM/PCS, HCPCS)."
+    },
+    {
+     "order": 6,
+     "name": "sobre-o-programa-curriculo",
+     "content_summary": "'What Can You Do with an A.A.S. in Medical Office Administration?' — desfechos de carreira (consultórios, hospitais, centros ambulatoriais, departamentos de billing, seguradoras), lista de 9 destaques do currículo e benefícios (grau A.A.S., formato tradicional/híbrido); CTA 'Get Program Details Now!'."
+    },
+    {
+     "order": 7,
+     "name": "acreditacao",
+     "content_summary": "'Earn Your A.A.S. in Medical Office Administration & Stand Out to Employers' — selo/logo do Council on Occupational Education (COE), texto 'fully accredited by'."
+    },
+    {
+     "order": 8,
+     "name": "por-que-a-fei",
+     "content_summary": "5 razões: treinamento focado em carreira na saúde, aprendizado prático, suporte personalizado, opções flexíveis (tradicional/híbrido) e programas estabelecidos com acreditação; CTA 'Get Program Details Now!'."
+    },
+    {
+     "order": 9,
+     "name": "depoimentos",
+     "content_summary": "'What Our Graduates Say' — 6 depoimentos de alunos com 5 estrelas (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo)."
+    },
+    {
+     "order": 10,
+     "name": "cta-final",
+     "content_summary": "'Is Medical Office Administration Training Right for You?' — convite a preencher o formulário e falar com Admissions Advisor, telefone 786-706-8721 e botão 'Get Program Details Now!'."
+    },
+    {
+     "order": 11,
+     "name": "rodape",
+     "content_summary": "Copyright, endereço 5818 SW 8th Street, Miami, FL 33144, link para o site principal da FEI (taxas de graduação/dívida) e link de recurso do BLS (medical secretaries)."
+    }
+   ],
+   "form": {
+    "present": true,
+    "location": "meio",
+    "fields": [
+     "First Name",
+     "Last Name",
+     "Email",
+     "Phone",
+     "Zip Code",
+     "Program (dropdown)",
+     "Checkbox de consentimento (obrigatório)"
+    ],
+    "consent_text": "I understand & agree (Required) By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable."
+   },
+   "ctas": [
+    "Get Program Details Now! (botão, 5 ocorrências: hero, visão geral/detalhes, por que a FEI, CTA final)",
+    "Get the Details! (botão, seção de visão geral)",
+    "Telefone 786-706-8721 (header e CTA final)",
+    "Call us for information: 305-384-1542 (seção do formulário)",
+    "Chat with an admissions specialist (header)",
+    "Envio do formulário de lead (#fei-form)"
+   ],
+   "program_details": {
+    "duration": "82 semanas no total; hero destaca '46 weeks*' com asterisco",
+    "credential": "Associate of Applied Science (A.A.S.), formato híbrido",
+    "highlights": [
+     "Medical Office Procedures",
+     "Medical Terminology",
+     "Anatomy and Physiology",
+     "Medical Billing and Coding",
+     "Electronic Health Records",
+     "Insurance Claims and Reimbursement",
+     "Healthcare Office Administration",
+     "Patient Communication and Customer Service",
+     "Medical Law, Ethics, and Office Compliance"
+    ]
+   },
+   "tracking_signals": [
+    "Âncora #fei-form usada nos CTAs para rolar até o formulário",
+    "Dois números de telefone distintos (786-706-8721 e 305-384-1542), sugerindo call tracking",
+    "Nenhum UTM, pixel/GTM ou thank-you page visível no conteúdo da página"
+   ],
+   "notes": "Distintivos vs. template genérico: (1) inconsistência de mensagem — hero fala em carreira de 'MA' (Medical Assistant) em '46 weeks*' enquanto o snapshot e o corpo indicam A.A.S. em Medical Office Administration com 82 semanas, sinal de reaproveitamento de copy de outra LP; (2) formulário fica no MEIO da página, não no hero, com todos os CTAs ancorando para #fei-form; (3) consentimento TCPA explícito e obrigatório no formulário; (4) dois telefones distintos (provável call tracking) mais chat de admissões no header; (5) prova social forte e específica: selo 4.3 estrelas no header + 6 depoimentos nomeados 5 estrelas; (6) acreditação COE em seção própria; (7) rodapé com conformidade regulatória (link para dados de graduação/dívida e link do BLS), típico de instituições sob regras de educação de carreira; (8) não há seção de FAQ nem preço/financiamento na página."
+  },
+  {
+   "program": "Pastry & Baking Arts",
+   "url": "https://lp.fei.edu/index.php/pastry-baking-arts/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Hands-On Pastry Chef Career Training in 36 Weeks* at FEI in Miami",
+    "subheadline": "Affordable, Flexible Hands-On Training for Aspiring Pastry Chefs",
+    "cta": "Get Program Details Now!",
+    "media": "foto"
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "header",
+     "content_summary": "Logo FEI, telefone 'Call Today 786-706-8721', CTA 'Chat with an admissions specialist' e selo 'TOP RATED SCHOOL IN MIAMI 4.3 estrelas'."
+    },
+    {
+     "order": 2,
+     "name": "hero",
+     "content_summary": "Headline com duração (36 semanas) e cidade, subheadline sobre treinamento acessível e prático, CTA para o formulário (#fei-form) e ficha rápida: Campus Coral Gables, Length 36 weeks*, Education Level: Diploma."
+    },
+    {
+     "order": 3,
+     "name": "abas-navegacao",
+     "content_summary": "Abas internas: Overview | Program Details | Careers | Testimonials."
+    },
+    {
+     "order": 4,
+     "name": "overview",
+     "content_summary": "'Supportive Training That Fits Your Life' — texto sobre flexibilidade e prática, com CTA 'Get the Details!' apontando para o formulário."
+    },
+    {
+     "order": 5,
+     "name": "formulario",
+     "content_summary": "Formulário de lead (#fei-form) no meio da página: nome, sobrenome, e-mail, telefone, CEP, dropdown de programas (11 opções) e checkbox de consentimento TCPA obrigatório, com link para Privacy Policy."
+    },
+    {
+     "order": 6,
+     "name": "por-que-a-carreira",
+     "content_summary": "'Why Become a Pastry Chef & Baker' — 4 blocos com ícones: expressão criativa, oportunidades em setor em crescimento, empreendedorismo/flexibilidade e técnicas globais (ex.: sobremesas plant-based e gluten-free)."
+    },
+    {
+     "order": 7,
+     "name": "cta-intermediario-1",
+     "content_summary": "'Get Program Details' com bullets do que será enviado: Career Prospects, Start Dates, Tuition Costs, Funding Options; botão 'Get Program Details Now!'."
+    },
+    {
+     "order": 8,
+     "name": "carreiras",
+     "content_summary": "'What Can You Do with a Pastry and Baking Arts Diploma?' — locais de trabalho (padarias, confeitarias, restaurantes, hotéis, catering) e estatística BLS: crescimento projetado de 7%** de 2024 a 2034."
+    },
+    {
+     "order": 9,
+     "name": "curriculo",
+     "content_summary": "'Becoming Qualified in Pastry & Baking Arts' — o que aprenderá (sugar arts, pães artesanais, confeitaria internacional, decoração, chocolate, pastelaria moderna, apresentação), benefícios do programa (cozinha profissional, turmas pequenas, instrutores experientes, suporte de carreira) e cargos após a formatura."
+    },
+    {
+     "order": 10,
+     "name": "cta-intermediario-2",
+     "content_summary": "Repetição do bloco de CTA 'Get Program Details Now!' para o formulário."
+    },
+    {
+     "order": 11,
+     "name": "acreditacao",
+     "content_summary": "'Get Certified in Culinary Arts & Stand Out to Employers' — logo do Council on Occupational Education (COE)."
+    },
+    {
+     "order": 12,
+     "name": "por-que-a-fei",
+     "content_summary": "'Why Study Pastry & Baking Arts with FEI' — 5 pontos numerados: treinamento focado em carreira, aprendizado prático, suporte personalizado, instrutores com experiência real, programas acreditados."
+    },
+    {
+     "order": 13,
+     "name": "cta-intermediario-3",
+     "content_summary": "Terceira repetição do bloco de CTA para o formulário."
+    },
+    {
+     "order": 14,
+     "name": "depoimentos",
+     "content_summary": "'What Our Graduates Say' — 6 avaliações 5 estrelas com nomes e iniciais de alunos (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo)."
+    },
+    {
+     "order": 15,
+     "name": "cta-final",
+     "content_summary": "'Is Pastry & Baking Art Training Right for You?' — convite a falar com Admissions Advisor, telefone 786-706-8721 e botão 'Get Program Details Now!'."
+    },
+    {
+     "order": 16,
+     "name": "disclaimers",
+     "content_summary": "Notas de rodapé: '*When completed in normal program time', fonte BLS.gov (chefs and head cooks) e link para informações de taxas de graduação no site principal."
+    },
+    {
+     "order": 17,
+     "name": "rodape",
+     "content_summary": "Endereço 'Miami 5818 SW 8th Street, Miami, FL 33144' e copyright Florida Education Institute."
+    }
+   ],
+   "form": {
+    "present": true,
+    "location": "meio",
+    "fields": [
+     "First Name (obrigatório)",
+     "Last Name (obrigatório)",
+     "Email (obrigatório)",
+     "Phone (obrigatório)",
+     "Zip Code (obrigatório)",
+     "Programs dropdown (obrigatório: Culinary Arts, Medical Billing & Coding, HVAC/R, Pharmacy Technician, Medical Assistant, Pastry and Baking Arts, Business Administration, Culinary and Hospitality Management, Medical Office Administrator (A.A.S), Pastry and Baking Management (A.A.S), Business Management)",
+     "Checkbox 'I understand & agree' (obrigatório)"
+    ],
+    "consent_text": "By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable. Call us for information: 305-384-1542."
+   },
+   "ctas": [
+    "Call Today 786-706-8721 (tel:7867068721, header)",
+    "Chat with an admissions specialist (header)",
+    "Get Program Details Now! (hero, ancora #fei-form)",
+    "Get the Details! (overview, ancora para formulario)",
+    "Get Program Details Now! (3 blocos intermediarios repetidos, #fei-form)",
+    "786-706-8721 (tel link no CTA final)",
+    "Get Program Details Now! (CTA final, #fei-form)"
+   ],
+   "program_details": {
+    "credential": "Diploma",
+    "duration": "36 semanas* (*quando concluído no tempo normal do programa)",
+    "highlights": [
+     "Sugar Arts and Confection",
+     "Artisan Bread Baking",
+     "International Pastries",
+     "Dessert Decorating",
+     "Chocolate Art and Techniques",
+     "Modern Pastries",
+     "Dessert Presentation",
+     "Campus Coral Gables",
+     "Turmas pequenas e cozinha profissional",
+     "Suporte de carreira",
+     "Acreditação COE (Council on Occupational Education)"
+    ]
+   },
+   "tracking_signals": [
+    "Ancora #fei-form usada em todos os CTAs de botão (roteamento para o formulário)",
+    "Nenhum UTM visível nos links do conteúdo",
+    "Nenhuma menção explícita a pixel/GTM ou thank-you page no conteúdo renderizado"
+   ],
+   "notes": "Distintivos versus um template genérico: (1) ficha rápida do programa no hero (Campus / Length / Education Level) com asterisco de disclaimer; (2) abas internas de navegação (Overview, Program Details, Careers, Testimonials) simulando página de catálogo; (3) o mesmo bloco de CTA com bullets (Career Prospects, Start Dates, Tuition Costs, Funding Options) repetido 3 vezes ao longo da página, todos ancorando em #fei-form; (4) formulário único no meio da página (não no hero) com dropdown de todos os 11 programas da escola — sugerindo formulário compartilhado entre LPs; (5) consentimento TCPA obrigatório em checkbox com segundo telefone (305-384-1542) diferente do telefone dos CTAs (786-706-8721); (6) prova social dupla: selo 'Top Rated School in Miami 4.3' no header e 6 depoimentos 5 estrelas nomeados; (7) dado do BLS com nota de rodapé e link para a fonte, mais disclaimer de graduation rates — cuidado de compliance típico de escolas acreditadas (COE)."
+  },
+  {
+   "program": "Pharmacy Technician",
+   "url": "https://lp.fei.edu/index.php/pharmacy-technician/",
+   "fetch_ok": true,
+   "hero": {
+    "headline": "Become a Pharma Tech in as little as 46 weeks*",
+    "subheadline": "Supportive Training That Fits Your Life",
+    "cta": "Get Program Details Now!"
+   },
+   "sections": [
+    {
+     "order": 1,
+     "name": "hero",
+     "content_summary": "Manchete 'Become a Pharma Tech in as little as 46 weeks*' com proposta de valor: treinamento acessível, flexível e prático no campus de Coral Gables. Header inclui telefone 786-706-8721, nota 4.3 estrelas e chat com admissões."
+    },
+    {
+     "order": 2,
+     "name": "introducao",
+     "content_summary": "'Supportive Training That Fits Your Life' — descreve programa híbrido: aulas online + externship presencial organizado perto da casa do aluno; acessível em toda a Flórida."
+    },
+    {
+     "order": 3,
+     "name": "formulario",
+     "content_summary": "'Get the Details!' — formulário de lead com Nome, Sobrenome, Email, Telefone, CEP, dropdown de Programas e checkbox de consentimento TCPA obrigatório. Âncora #fei-form referenciada pelos CTAs."
+    },
+    {
+     "order": 4,
+     "name": "por-que-a-carreira",
+     "content_summary": "'Why Become a Pharmacy Technician' — 4 subtópicos: oportunidades de crescimento, forte perspectiva de emprego (6% de crescimento 2024-2034 segundo BLS), função estável e em demanda, variedade de ambientes de trabalho."
+    },
+    {
+     "order": 5,
+     "name": "cta-intermediario-1",
+     "content_summary": "Bloco 'Get Program Details' com lista do que o lead recebe: perspectivas de carreira, datas de início, custos de mensalidade, opções de financiamento."
+    },
+    {
+     "order": 6,
+     "name": "carreiras",
+     "content_summary": "'What Can You Do with a Pharmacy Technician Diploma?' — 5 caminhos: farmácia de varejo, casa de repouso, coordenador de benefícios/seguros, especialista em inventário, farmácia de manipulação. Subseção 'Careers to Explore' reitera o crescimento de 6%."
+    },
+    {
+     "order": 7,
+     "name": "curriculo",
+     "content_summary": "'Everything You Need to Succeed' — o que o aluno aprende (processamento de receitas, preparo de medicamentos, medição/embalagem/rotulagem, inventário e seguros, software de farmácia), benefícios do programa (externship supervisionado perto de casa) e 6 ambientes de trabalho pós-formatura."
+    },
+    {
+     "order": 8,
+     "name": "cta-intermediario-2",
+     "content_summary": "Segundo bloco 'Get Program Details', idêntico ao anterior."
+    },
+    {
+     "order": 9,
+     "name": "certificacao-acreditacao",
+     "content_summary": "'Get Certified as a Pharmacy Technician & Stand Out to Employers' — FEI cuida do registro no Florida Board of Pharmacy; programa acreditado pelo Council on Occupational Education (logos exibidos)."
+    },
+    {
+     "order": 10,
+     "name": "por-que-a-fei",
+     "content_summary": "4 diferenciais numerados: treinamento focado em carreira, aprendizado prático, suporte personalizado, instrutores com experiência real. ATENÇÃO: título diz 'Why Study Culinary Arts with FEI' — erro de template."
+    },
+    {
+     "order": 11,
+     "name": "cta-intermediario-3",
+     "content_summary": "Terceiro bloco 'Get Program Details', idêntico aos anteriores."
+    },
+    {
+     "order": 12,
+     "name": "depoimentos",
+     "content_summary": "'What Our Graduates Say' — 6 depoimentos 5 estrelas de formandos (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo) elogiando equipe e ambiente de suporte."
+    },
+    {
+     "order": 13,
+     "name": "cta-final",
+     "content_summary": "Convite para preencher o formulário ou ligar. ATENÇÃO: título diz 'Is Culinary Arts Training Right for You?' — segundo erro de template; o corpo fala de Pharmacy Technician."
+    },
+    {
+     "order": 14,
+     "name": "rodape",
+     "content_summary": "Copyright, endereço (5818 SW 8th Street, Miami, FL 33144), telefone 786-706-8721 e link para divulgações em fei.edu (taxas de graduação, dívida mediana)."
+    }
+   ],
+   "form": {
+    "present": true,
+    "location": "meio (após a introdução, logo depois do hero; âncora #fei-form)",
+    "fields": [
+     "First Name (obrigatório)",
+     "Last Name (obrigatório)",
+     "Email (obrigatório)",
+     "Phone (obrigatório)",
+     "Zip Code (obrigatório)",
+     "Programs (dropdown, obrigatório)",
+     "Checkbox de consentimento (obrigatório)"
+    ],
+    "consent_text": "I understand & agree...I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable. (menciona também o número 305-384-1542 para ligações informativas)"
+   },
+   "ctas": [
+    "Get Program Details Now! (3x, âncora #fei-form)",
+    "Call Today 786-706-8721 (tel: no header)",
+    "786-706-8721 (tel: no rodapé)",
+    "Chat with an admissions specialist (header)"
+   ],
+   "program_details": {
+    "duration": "46 semanas (no tempo normal do programa)",
+    "credential": "Diploma",
+    "highlights": [
+     "Coleta e processamento de informações de receitas",
+     "Assistência no preparo de medicamentos",
+     "Medição, embalagem e rotulagem de prescrições",
+     "Gestão de inventário e processamento de seguros",
+     "Uso de software de farmácia",
+     "Externship supervisionado organizado perto de casa",
+     "Formato híbrido: online + presencial",
+     "Acreditado pelo Council on Occupational Education; FEI cuida do registro no Florida Board of Pharmacy"
+    ]
+   },
+   "tracking_signals": [
+    "Nenhum sinal visível no conteúdo (sem UTMs, pixel, GTM ou menção a thank-you page no HTML renderizado)",
+    "Link externo de dados do BLS: bls.gov/ooh/healthcare/pharmacy-technicians.htm"
+   ],
+   "notes": "Estrutura clássica de LP de captação: hero com prazo (46 semanas), formulário no topo do fluxo com consentimento TCPA explícito, e 3 blocos repetidos 'Get Program Details' intercalados como CTAs de rolagem — padrão distintivo desta página. Diferenciais reais: dados do BLS citados (6% de crescimento), 6 depoimentos nomeados com 5 estrelas, selo de acreditação COE e promessa de externship perto de casa. Ponto crítico: dois erros de template onde títulos referem 'Culinary Arts' em vez de Pharmacy Technician (seções 'Why Study' e CTA final), evidenciando que a página é clonada de um template por programa sem revisão completa — o novo padrão deve parametrizar esses títulos."
+  }
+ ],
+ "refPattern": {
+  "nav_pattern": "Menu principal enxuto (5-6 itens) no padrão comum às 4 referências: (1) Programas — mega-menu organizado por área (Saúde, Culinária, HVAC, Negócios) e por tipo de credencial, como ECPI e PMI; (2) Admissões — como aplicar, requisitos, transferência; (3) Financiamento / Tuition — item próprio no menu, como Purdue Global e ECPI, pois preço é a objeção nº 1; (4) Serviços de Carreira — como CIAT, que dá destaque de primeiro nível à empregabilidade; (5) Sobre a FEI — história, acreditação/licenciamento, depoimentos. Header utilitário persistente em todas as páginas com: telefone clicável em destaque (padrão unânime nas 4 referências), botão primário 'Solicitar Informações' (Request Info) e botão secundário 'Inscreva-se' (Apply Now) — a dupla de CTAs fixos usada por Purdue Global, ECPI e CIAT. Para a FEI, incluir também seletor de idioma (EN/ES/PT) dada a audiência de Miami. Rodapé profundo em 4 colunas (programas, admissões, institucional, contato) no padrão ECPI/CIAT, com endereço, mapa e disclaimers de licenciamento.",
+  "homepage_blueprint": [
+   {
+    "order": 1,
+    "block": "Header com telefone + dupla de CTAs ('Solicitar Informações' / 'Inscreva-se')",
+    "rationale": "Padrão unânime: PMI fixa telefone e 'Request Info' no header; Purdue Global, ECPI e CIAT repetem a dupla Request Info + Apply Now em todas as páginas. Para a FEI, o telefone é ainda mais importante: escola pequena vende atendimento humano."
+   },
+   {
+    "order": 2,
+    "block": "Hero com foto real de alunos, mensagem aspiracional e CTAs de roteamento (Explorar Programas / Falar com a Equipe)",
+    "rationale": "PMI ('Build your healthcare career with confidence') e ECPI ('Your Future Faster') usam hero de roteamento, não de conversão; CIAT confirma o padrão com 'Explore Programs' + 'Request Information' sem formulário no hero. Fotos reais de alunos da FEI, como Purdue Global faz, e não banco de imagens."
+   },
+   {
+    "order": 3,
+    "block": "Faixa de 4 estatísticas com ícones (anos em Miami, nº de programas, duração mínima, taxa de colocação)",
+    "rationale": "PMI abre com bloco de 4 stats (16 campi, 30+ programas, 9 meses) como prova rápida de valor; Purdue Global coloca 4 provas no próprio hero. Para a FEI: destacar turmas pequenas e atenção pessoal como stat diferencial."
+   },
+   {
+    "order": 4,
+    "block": "Grade de cards por área de estudo (Saúde, Culinária, HVAC, Negócios) com ícones",
+    "rationale": "ECPI usa 'Explore Areas of Study' com 6 ícones como porta de entrada visual; PMI usa 4 cards de navegação por objetivo do visitante. Com poucas áreas, a FEI consegue mostrar todas acima da dobra."
+   },
+   {
+    "order": 5,
+    "block": "Vitrine de programas em destaque com próxima data de início e 'Ver Detalhes'",
+    "rationale": "CIAT exibe cards de bootcamps na home com data da próxima turma em evidência — cria urgência; Purdue Global tem seção dedicada de 'próximas datas de início'. Como a FEI tem catálogo pequeno, pode listar todos os programas com suas próximas turmas."
+   },
+   {
+    "order": 6,
+    "block": "Bloco 'Por que a FEI' — 3 diferenciais (turmas pequenas, prática hands-on, suporte de carreira personalizado)",
+    "rationale": "ECPI usa proposta de valor em 3 colunas logo após o hero e 'Designed for Your Success'; CIAT tem 'CIAT Stands Apart'. Aqui a FEI converte seu tamanho em vantagem: atenção individual que as escolas grandes não oferecem."
+   },
+   {
+    "order": 7,
+    "block": "Depoimentos de graduados com foto, nome e programa (carrossel) + nota agregada de avaliações Google",
+    "rationale": "PMI combina nota 4.73 com selos de review e 5 histórias de sucesso; ECPI intercala depoimentos duas vezes na home. Para escola local, reviews do Google são a prova social mais crível."
+   },
+   {
+    "order": 8,
+    "block": "Logos de empregadores locais de Miami que contratam egressos + serviços de carreira",
+    "rationale": "CIAT usa 'Companies Who Have Hired Our Students' com 20+ logos como prova de resultado; PMI dedica coluna a Career Services. Empregadores locais reforçam o posicionamento de escola conectada ao mercado de Miami."
+   },
+   {
+    "order": 9,
+    "block": "Financiamento e apoio ao aluno (bolsas, planos de pagamento, ajuda financeira)",
+    "rationale": "CIAT posiciona 'opções de financiamento' antes da conversão para remover a objeção de custo; PMI usa 3 colunas de serviços de apoio; Purdue Global dedica blocos inteiros a redução de barreira financeira."
+   },
+   {
+    "order": 10,
+    "block": "FAQ em acordeão (acreditação/licenciamento, custo, duração, emprego, idiomas)",
+    "rationale": "PMI fecha com 6 FAQs e ECPI usa FAQ para remover objeções e apoiar SEO; CIAT usa FAQ extenso nas páginas de programa. Responde dúvidas sem exigir contato."
+   },
+   {
+    "order": 11,
+    "block": "Processo de matrícula em 3 passos + CTA 'Comece Agora'",
+    "rationale": "PMI usa 'Your Time Is Now' mostrando o processo em 3 passos para reduzir fricção. Para a FEI, o passo 1 pode ser 'converse com nossa equipe' — humaniza a entrada no funil."
+   },
+   {
+    "order": 12,
+    "block": "Formulário de lead multi-etapas antes do rodapé (programa de interesse → dados de contato → consentimento SMS/WhatsApp)",
+    "rationale": "PMI encerra todas as páginas com o mesmo formulário multi-etapas; ECPI usa 'Let's Get Started' ao final; Purdue Global repete o formulário em todos os pontos do funil. Fecho consistente de conversão em todas as páginas."
+   }
+  ],
+  "program_page_blueprint": [
+   {
+    "order": 1,
+    "block": "Hero: nome do programa + credencial + próxima data de início + CTA 'Solicitar Informações'",
+    "rationale": "PMI coloca próxima turma e 'Request More Information' já no hero da página de programa, criando urgência imediata; CIAT destaca datas de turma em todo o funil."
+   },
+   {
+    "order": 2,
+    "block": "'Programa em Resumo' — 4 fatos com ícones: duração, carga horária, modalidade/horários, certificações preparadas",
+    "rationale": "ECPI usa 'Program at a Glance' com 4 fatos iconografados no topo; PMI usa cards de resumo (tipo, modalidade, ~9 meses); Purdue Global mostra custo/crédito, esforço semanal e tempo de conclusão nos cards."
+   },
+   {
+    "order": 3,
+    "block": "'O que faz esse profissional?' + 'Este programa é para mim?'",
+    "rationale": "PMI dedica seção a 'What does a Medical Assistant do?'; CIAT tem seção de elegibilidade 'Este programa é para mim?'. Ajuda o visitante indeciso a se autoqualificar."
+   },
+   {
+    "order": 4,
+    "block": "O que você vai aprender — currículo resumido + grade completa expansível",
+    "rationale": "PMI mostra visão do currículo prático e tabela de sequências; ECPI lista cursos em destaque + tabela de créditos; CIAT detalha currículo dia a dia."
+   },
+   {
+    "order": 5,
+    "block": "Prática hands-on e estágio/externship",
+    "rationale": "PMI destaca o externato clínico como seção própria; CIAT mostra labs práticos com cenários; ECPI inclui externship nos 4 fatos-chave. Essencial para programas como Medical Assistant e HVAC."
+   },
+   {
+    "order": 6,
+    "block": "Carreiras e empregabilidade — cargos, salários e demanda com dados oficiais (BLS) + apoio de colocação",
+    "rationale": "PMI e Purdue Global citam Bureau of Labor Statistics como fonte oficial; CIAT conecta programa a suporte de colocação. Dados de Miami/Flórida tornam a promessa concreta."
+   },
+   {
+    "order": 7,
+    "block": "Horários, formato e 'o que esperar' (aulas noturnas, ritmo, idiomas disponíveis)",
+    "rationale": "Purdue Global tem bloco 'What To Expect' (horas/semana, formato, duração) que reduz ansiedade e qualifica o lead; CIAT detalha estrutura do curso com horários."
+   },
+   {
+    "order": 8,
+    "block": "Custo e financiamento com transparência (preço, planos de pagamento, bolsas)",
+    "rationale": "CIAT exibe preço explícito com CTA 'Reserve My Spot'; Purdue Global usa calculadora de custo/tempo. Transparência de preço diferencia a FEI de concorrentes que escondem valores."
+   },
+   {
+    "order": 9,
+    "block": "Datas das próximas turmas",
+    "rationale": "CIAT usa grade de datas/turmas em abas mensais; Purdue Global mantém seção de start dates. Reforça urgência e viabiliza matrícula contínua."
+   },
+   {
+    "order": 10,
+    "block": "Depoimento de graduado do programa específico (foto, nome, onde trabalha)",
+    "rationale": "PMI insere depoimento de graduada na página de programa; Purdue Global usa depoimento com credenciais; ECPI usa depoimentos com nome e diploma."
+   },
+   {
+    "order": 11,
+    "block": "Acreditação, licenciamento e certificações com logos e links",
+    "rationale": "ECPI dá seção própria à acreditação institucional (SACSCOC) e programática (ABHES, com logo); PMI publica disclosures de licenciamento e resultados. Sinal de confiança obrigatório para escola de carreiras."
+   },
+   {
+    "order": 12,
+    "block": "Requisitos de admissão e como aplicar em 3 passos",
+    "rationale": "PMI inclui 'Admissões: requisitos e como aplicar' no template de programa; Purdue Global lista requisitos por nível."
+   },
+   {
+    "order": 13,
+    "block": "FAQ do programa (custo, duração, requisitos, idioma, emprego)",
+    "rationale": "CIAT fecha páginas de programa com FAQ extenso de 14 perguntas; Purdue Global usa FAQ de 6 perguntas. Remove objeções sem exigir contato."
+   },
+   {
+    "order": 14,
+    "block": "Formulário de lead multi-etapas + telefone/WhatsApp antes do rodapé",
+    "rationale": "Padrão unânime: PMI, ECPI ('Let's Get Started') e CIAT terminam a página de programa em formulário; ECPI antecede com 2 cards de CTA (falar com representante / aplicar). Toda página de programa da FEI deve terminar no mesmo funil."
+   }
+  ],
+  "conversion_patterns": [
+   "Dupla permanente de CTAs no header em 3 das 4 referências (Purdue Global, ECPI, CIAT): 'Request Information' para lead frio e 'Apply Now' para lead quente, repetidos no meio e no fim de cada página.",
+   "Telefone de admissões proeminente e clicável no header em todas as 4 referências — o canal humano é tratado como CTA primário, à frente até do formulário.",
+   "Formulário de lead multi-etapas (programa de interesse → localidade → dados pessoais → consentimento SMS) fechando todas as páginas: padrão PMI e ECPI; Purdue Global o coloca também acima da dobra, ao lado do hero.",
+   "Hero de roteamento, não de conversão: PMI, ECPI e CIAT usam o hero para empurrar à exploração de programas ('Explore Programs') e deixam o formulário completo para o fim da página ou para as páginas de programa.",
+   "CTAs em camadas por nível de intenção: micro-compromissos como quiz de carreira (PMI), calculadora de custo/tempo e aulas grátis (Purdue Global), download de brochura (Purdue Global) e modal de Request Info (CIAT) capturam quem ainda não está pronto para o formulário.",
+   "Urgência por datas de início: próxima turma visível no hero da página de programa (PMI), seção de start dates na home (Purdue Global) e datas nos próprios cards de programa (CIAT).",
+   "Campos progressivos e segmentação do lead no formulário: dropdowns encadeados área → nível → programa (Purdue Global), com opção 'Help Me Decide', mais status educacional e vínculo militar (ECPI, CIAT) para qualificação.",
+   "Chat ao vivo como canal complementar apenas na ECPI; as demais se apoiam em formulário + telefone — chat é opcional, telefone não."
+  ],
+  "trust_patterns": [
+   "Acreditação e licenciamento com selos, logos e links para os órgãos: todas as 4 exibem acreditação institucional (ABHES na PMI, HLC na Purdue Global, SACSCOC na ECPI) e programática em seções próprias, além de disclosures legais de custos e resultados.",
+   "Métricas concretas com fonte: taxa de colocação de 77% com nota de metodologia (CIAT), 4.73 estrelas agregadas com selos de plataformas (PMI), economia média em dólares (Purdue Global) — números específicos e verificáveis em vez de adjetivos.",
+   "Depoimentos sempre 'completos': foto + nome + programa/turma, nunca citações anônimas; PMI e ECPI os intercalam em dois pontos da página, e CIAT usa fonte externa auditável (Trustpilot).",
+   "Prova de resultado de carreira: logos de empregadores que contrataram egressos (CIAT, com Amazon, Boeing, Deloitte), dados oficiais do Bureau of Labor Statistics sobre demanda (PMI, Purdue Global).",
+   "Longevidade e escala como credencial: '50 anos' (PMI), 'Founded in 1966' (ECPI), 'Backed by Purdue' (Purdue Global) — para a FEI, traduzir em anos servindo a comunidade de Miami.",
+   "Transparência operacional como confiança: 'What To Expect' com horas semanais e formato (Purdue Global), preço explícito na página (CIAT), fact sheets de desempenho (CIAT) — dizer exatamente como é reduz desconfiança.",
+   "Certificações profissionais que o aluno pode obter (CMA, RMA, CompTIA, AWS) exibidas com badges das marcas certificadoras — credibilidade visual emprestada (ECPI, CIAT)."
+  ],
+  "recommendations": [
+   "Adotar um template único e rígido de página de programa (padrão PMI/ECPI): hero com próxima turma + 'Programa em Resumo' com 4 ícones + currículo + carreiras com dados BLS + depoimento + acreditação + FAQ + formulário no fim. Com catálogo pequeno, a consistência entre as páginas passa profissionalismo e facilita comparação.",
+   "Fixar no header de todas as páginas: telefone clicável, botão 'Solicitar Informações' e botão 'Inscreva-se'. Para a FEI, adicionar WhatsApp como canal de contato — mais natural que chat corporativo para o público local de Miami e coerente com o posicionamento de atendimento pessoal.",
+   "Transformar o tamanho pequeno em diferencial central da mensagem: onde ECPI diz 'faster' e CIAT diz 'rethink education', a FEI deve dizer 'você não é um número' — turmas pequenas, instrutores acessíveis, acompanhamento individual até o emprego. Nenhuma das 4 referências grandes pode prometer isso.",
+   "Colocar os programas com próxima data de início diretamente na home (padrão CIAT): com poucos programas, a FEI pode exibir o catálogo completo em cards com data da próxima turma e 'Ver Detalhes', dispensando filtros complexos que só fazem sentido para catálogos de 30+ cursos.",
+   "Encerrar todas as páginas com o mesmo formulário de lead multi-etapas (programa de interesse → dados → consentimento SMS/WhatsApp), criando funil único e mensurável, como PMI faz em 100% das páginas.",
+   "Construir prova social hiperlocal: avaliações do Google com nota agregada (padrão PMI), depoimentos de graduados com foto, nome, programa e onde trabalham hoje, e logos de empregadores de Miami que contratam egressos (padrão CIAT) — para escola local, isso vale mais que selos nacionais.",
+   "Ser radicalmente transparente em preço, horários e idiomas: página de custo e financiamento com valores explícitos (padrão CIAT) e bloco 'O que esperar' com horas semanais e formato (padrão Purdue Global); incluir claramente em quais idiomas cada programa é oferecido (EN/ES), decisivo em Miami.",
+   "Dar seção própria a licenciamento estadual (Florida Commission for Independent Education), acreditações e certificações preparadas, com logos e links — é o sinal de confiança mínimo obrigatório no segmento, presente nas 4 referências.",
+   "Publicar e destacar as datas de início contínuas ao longo do ano (padrão Purdue Global/CIAT) para gerar urgência: 'próxima turma em X semanas' é o gatilho de conversão mais usado pelas referências.",
+   "Priorizar na fase 1 apenas o essencial do padrão: home + páginas de programa + admissões/financiamento + formulário único; deixar quiz, calculadora e blog (táticas de PMI e Purdue Global que exigem produção contínua) para uma fase 2 — melhor poucos blocos bem mantidos do que replicar a densidade de sites com equipes de marketing grandes."
+  ]
+ },
+ "lpPattern": {
+  "canonical_sections": [
+   {
+    "order": 1,
+    "name": "header",
+    "purpose": "Barra fixa com logo FEI, tagline, telefone rastreável em link tel: ('Call Today 786-706-8721'), link 'Chat with an admissions specialist' e selo 'Top Rated School in Miami 4.3 ★'. Presente e idêntica em todas as 11 LPs atuais — manter como bloco global do template.",
+    "required": true
+   },
+   {
+    "order": 2,
+    "name": "hero",
+    "purpose": "Headline parametrizada no padrão '{Ação/Credencial} em {Programa} in as Little as {N} Weeks*' + subheadline de valor (acessível, flexível, hands-on). Inclui a ficha rápida do programa (Campus / Duração* / Credencial / Formato) que hoje só existe em parte das LPs, e o CTA primário. Em desktop (≥1024px), embutir o formulário na coluna direita do hero para colocá-lo no primeiro scroll — principal falha de conversão do padrão atual.",
+    "required": true
+   },
+   {
+    "order": 3,
+    "name": "abas-navegacao",
+    "purpose": "Barra de âncoras internas (Overview | Program Details | Careers | Testimonials) que hoje existe em ~metade das LPs (Culinary Arts, Business Management, Pastry Arts). Útil para simular página de catálogo e reduzir bounce, mas dispensável em LPs de campanha muito curtas.",
+    "required": false
+   },
+   {
+    "order": 4,
+    "name": "formulario",
+    "purpose": "Seção do formulário de lead com âncora canônica #fei-form, destino único de TODOS os CTAs de botão. Deve subir na hierarquia: imediatamente após o hero (hoje fica depois do overview, fora do primeiro scroll em mobile). Em mobile é o formulário principal; em desktop pode ser a mesma instância renderizada no hero.",
+    "required": true
+   },
+   {
+    "order": 5,
+    "name": "overview",
+    "purpose": "Bloco 'Supportive Training That Fits Your Life' parametrizado: visão geral do programa, filosofia de suporte, flexibilidade de formato e áreas cobertas, com CTA secundário 'Get the Details!' ancorado em #fei-form. Presente em todas as LPs atuais.",
+    "required": true
+   },
+   {
+    "order": 6,
+    "name": "por-que-esta-carreira",
+    "purpose": "'Why Choose a Career in {Área}' — exatamente 4 cards com ícone: demanda/crescimento (com dado BLS citado), habilidades em demanda, progressão de carreira e diferencial da área (criatividade, empreendedorismo, variedade de ambientes). Padrão consistente nas 11 LPs.",
+    "required": true
+   },
+   {
+    "order": 7,
+    "name": "cta-intermediario",
+    "purpose": "Bloco padronizado 'Get Program Details' com os 4 bullets do que o lead recebe (Career Prospects, Start Dates, Tuition Costs, Funding Options) + botão para #fei-form. Componente reutilizável, inserido no máximo 2–3 vezes ao longo da página (hoje varia de 0 a 4 repetições entre LPs).",
+    "required": true
+   },
+   {
+    "order": 8,
+    "name": "carreiras",
+    "purpose": "'What Can You Do with a {Credencial} in {Programa}?' — lista de 5–7 cargos/ambientes de trabalho de nível de entrada + estatística de crescimento do BLS (período padronizado 2024–2034) com asterisco/nota de rodapé e link para a fonte.",
+    "required": true
+   },
+   {
+    "order": 9,
+    "name": "curriculo",
+    "purpose": "'What You'll Master in Our {Programa} Program' — 7 a 9 competências do currículo em lista, benefícios do programa (laboratório/cozinha profissional, turmas pequenas, instrutores experientes, suporte de carreira) e caminhos pós-formatura. Presente em todas as LPs, com profundidade que é diferencial da FEI.",
+    "required": true
+   },
+   {
+    "order": 10,
+    "name": "externship-formato",
+    "purpose": "Bloco dedicado ao externship supervisionado e ao formato híbrido (online + prática presencial perto de casa). Hoje existe em Medical Assistant e Pharmacy Technician — deve ser opcional, ativado apenas para programas que possuem externship (categoria saúde) ou formato híbrido diferenciado.",
+    "required": false
+   },
+   {
+    "order": 11,
+    "name": "certificacoes-acreditacao",
+    "purpose": "Acreditação pelo Council on Occupational Education (COE) com logo — obrigatória em toda LP. Sub-bloco opcional de certificações/registros específicos do programa (EPA e R-410A para HVAC, registro no Florida Board of Pharmacy para Pharmacy Tech), parametrizado por programa.",
+    "required": true
+   },
+   {
+    "order": 12,
+    "name": "por-que-a-fei",
+    "purpose": "'Why Study {Programa} with FEI' — padronizar em 5 razões numeradas: treinamento focado em carreira, aprendizado prático, suporte personalizado, instrutores com experiência real na indústria, programas estabelecidos e acreditados. Título e razões devem usar variáveis do programa (hoje há títulos clonados de outros cursos).",
+    "required": true
+   },
+   {
+    "order": 13,
+    "name": "depoimentos",
+    "purpose": "'What Our Graduates Say' — 6 avaliações 5 estrelas com nome do graduado, puxadas de uma biblioteca etiquetada por programa/categoria (hoje os mesmos 6 depoimentos genéricos aparecem nas 11 LPs, inclusive de curso errado). Prioridade: depoimentos do próprio programa; fallback: da mesma categoria.",
+    "required": true
+   },
+   {
+    "order": 14,
+    "name": "cta-final-qualificacao",
+    "purpose": "'Is {Programa} Training Right for You?' — parágrafo de qualificação/encorajamento, menção ao Admissions Advisor e a financial aid, telefone 786-706-8721 em link tel: e botão final para #fei-form. Título obrigatoriamente parametrizado (há 3 LPs com o programa errado neste título hoje).",
+    "required": true
+   },
+   {
+    "order": 15,
+    "name": "disclaimers",
+    "purpose": "Notas de compliance padronizadas: '*When completed in normal program time', fonte BLS com link, e link para taxas de graduação/dívida mediana em fei.edu. Hoje aparecem de forma irregular (ora seção própria, ora dentro do rodapé).",
+    "required": true
+   },
+   {
+    "order": 16,
+    "name": "rodape",
+    "purpose": "Endereço do campus (5818 SW 8th Street, Miami, FL 33144), copyright Florida Education Institute, link funcional de Privacy Policy (hoje quebrado na LP de HVAC) e link para informações completas da escola em fei.edu.",
+    "required": true
+   }
+  ],
+  "form_spec": {
+   "fields": [
+    "First Name (obrigatório)",
+    "Last Name (obrigatório)",
+    "Email (obrigatório, validação de formato)",
+    "Phone (obrigatório, máscara/validação de telefone US, input type=tel)",
+    "Zip Code (obrigatório, 5 dígitos, input numérico)",
+    "Program of Interest (dropdown com os 11 programas, PRÉ-SELECIONADO com o programa da LP; campo pode vir oculto/travado em variante de teste A/B)",
+    "Consent TCPA (checkbox obrigatório 'I understand & agree')"
+   ],
+   "placement": "Âncora canônica #fei-form imediatamente após o hero. Em desktop (≥1024px), renderizar o formulário dentro do hero (coluna direita), garantindo visibilidade no primeiro scroll — hoje o formulário fica no meio da página em todas as 11 LPs, abaixo da dobra. Em mobile, formulário logo após o hero + botão sticky 'Get Program Details Now!' fixo no rodapé da tela ancorando em #fei-form. Todos os CTAs da página continuam apontando para essa única âncora (uma única instância de formulário por página).",
+   "notes": "Consentimento: manter o texto TCPA padrão em todas as LPs, idêntico caractere a caractere: 'By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable.' + linha 'Call us for information: 305-384-1542' + link funcional de Privacy Policy (corrigir o href='#' encontrado na LP de HVAC). Checkbox desmarcado por padrão e obrigatório para envio (compliance TCPA). Validação: inline, no blur de cada campo, com mensagens claras; bloquear envio duplo. Mobile: campos empilhados em coluna única, fonte ≥16px para evitar zoom no iOS, teclado numérico para Phone e Zip. Pós-envio: redirecionar para thank-you page dedicada (hoje inexistente) para permitir disparo de evento de conversão em GTM/pixels e mensagem de próximos passos ('um Admissions Advisor entrará em contato')."
+  },
+  "cta_spec": {
+   "primary": "Get Program Details Now! — botão único padronizado, sempre ancorado em #fei-form, repetido em posições fixas: hero, bloco(s) cta-intermediario (máx. 2–3), por-que-a-fei e cta-final. Manter o texto idêntico em todas as ocorrências e em todas as LPs (consistência já é um ponto forte do padrão atual).",
+   "secondary": "Call Today 786-706-8721 (link tel: no header e no CTA final) e 'Chat with an admissions specialist' no header. O CTA de overview ('Get the Details!') pode ser mantido como variação secundária, mas sempre ancorando em #fei-form.",
+   "phone_strategy": "Manter a estratégia atual de dois números com papéis explícitos e documentados: 786-706-8721 como linha de admissões exibida no header, hero e CTA final (número de vendas rastreado), e 305-384-1542 exclusivamente no bloco do formulário/texto de consentimento (linha informativa/compliance). Recomenda-se evoluir para DNI (inserção dinâmica de número por origem de campanha — Google Ads, Meta, orgânico) para atribuição de chamadas por canal, mantendo o número de consentimento fixo. Todos os números devem ser links tel: clicáveis em mobile e o mesmo número não deve variar entre seções da mesma LP."
+  },
+  "per_category_variations": [
+   {
+    "category": "saude",
+    "variations": "Programas: Medical Assistant, Medical Billing & Coding, Medical Office Administrator, Pharmacy Technician. Ativar o bloco opcional 'externship-formato' (externship supervisionado em instituição de saúde perto de casa é o principal diferencial de venda). Certificações/registros específicos no bloco de acreditação (ex.: registro no Florida Board of Pharmacy para Pharm Tech). Dados BLS da ocupação de saúde correspondente (6% a 12% de crescimento 2024–2034). Ênfase em estabilidade, demanda e trabalho com propósito; para Billing & Coding, destacar 'carreira na saúde sem cuidado direto de pacientes' e formato 100% online. Depoimentos de graduados da área de saúde. Imagens de ambiente clínico/consultório."
+   },
+   {
+    "category": "culinaria",
+    "variations": "Programas: Culinary Arts, Pastry & Baking Arts, Culinary & Hospitality Management, Pastry & Baking Management. Ficha rápida com campus Coral Gables e formato presencial/híbrido. Ênfase em prática hands-on em cozinha profissional, turmas pequenas e criatividade; para os A.A.S., destacar o componente de gestão/hospitalidade e liderança. Currículo com especialidades visuais (pães artesanais, chocolate, sugar arts, cozinha latino-americana) — categoria que mais se beneficia de fotos/vídeo reais do laboratório de cozinha no hero. BLS de chefs/head cooks (7%). Depoimentos de graduados de culinária (remover o depoimento de Medical Assistant que hoje aparece na LP de Culinary Arts)."
+   },
+   {
+    "category": "trades",
+    "variations": "Programa: HVAC/R. Destaque máximo para certificações da indústria: preparação para exames EPA e R-410A no hero e no bloco de acreditação ('Diploma + certificações reconhecidas pela indústria'). Ênfase em laboratório com equipamento real da indústria, demanda local em Miami/Flórida e variedade de ambientes de trabalho (residencial, comercial, refrigeração, manutenção). BLS de 8% de crescimento 2024–2034. Tom de copy voltado a estabilidade, salário e empregabilidade rápida (36 semanas). Imagens de bancada/equipamento, não de sala de aula."
+   },
+   {
+    "category": "business",
+    "variations": "Programas: Business Administration (A.A.S.) e Business Management (Diploma). Sem externship — bloco opcional desativado. Ficha rápida destacando flexibilidade de formato (tradicional/híbrido/100% online — Business Management é online). Ênfase em empreendedorismo, liderança e abrir o próprio negócio; dado BLS de ~1,1 milhão de vagas/ano em ocupações de negócios. Deixar clara a diferença entre as duas LPs (A.A.S. 84 semanas vs Diploma 45 semanas online) para não competirem entre si — corrigindo a headline gramaticalmente errada 'Become a Business Management'. Depoimentos preferencialmente de alunos de negócios ou institucionais."
+   }
+  ],
+  "inconsistencies": [
+   "Medical Assistant: hero promete '46 Weeks*' mas a seção de detalhes do programa informa 36 semanas — durações conflitantes na mesma página.",
+   "Medical Office Administrator: hero inteiro clonado da LP de Medical Assistant ('Launch Your MA Career in 46 Weeks*' e subheadline 'for Aspiring Medical Assistants'), enquanto o programa real é um A.A.S. de 82 semanas em Medical Office Administration.",
+   "Pharmacy Technician: dois títulos com programa errado — 'Why Study Culinary Arts with FEI' e CTA final 'Is Culinary Arts Training Right for You?'.",
+   "Medical Assistant: CTA final diz 'Is Culinary Arts Training Right for You?' e a seção 'Why FEI' menciona 'pharmacy setting' — textos herdados de outras LPs.",
+   "Medical Billing & Coding: seção 'Why Study With FEI' mistura textos de Culinary Arts e Pharmacy, e o CTA final menciona 'Pharmacy Technician Training'.",
+   "Business Management: headline com erro gramatical ('Become a Business Management in as Little as 45 Weeks*') e texto duplicado 'Business Program Program' no bloco de CTA final — falha de merge de variáveis do template.",
+   "Os mesmos 6 depoimentos (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo) aparecem em todas as 11 LPs, independentemente do programa — inclusive um depoimento de Medical Assistant na LP de Culinary Arts.",
+   "Estrutura divergente entre LPs: algumas têm ficha rápida no hero, abas de navegação (Overview/Program Details/Careers/Testimonials) e bloco de CTA com 4 bullets repetido 3x (Culinary Arts, Business Management, Pastry Arts, com 16-17 seções); outras são lineares e sem esses elementos (Pastry & Baking Management e Business Administration, com 11-12 seções).",
+   "Período do dado BLS inconsistente: Medical Billing & Coding cita 2022–2032 enquanto as demais LPs citam 2024–2034.",
+   "Número de razões na seção 'Why FEI' varia entre 4 e 5 conforme a LP, e o CTA primário repete de 3 a 5 vezes sem critério padronizado.",
+   "LP de HVAC tem link de Privacy Policy quebrado (aponta para âncora vazia '#').",
+   "Posição do selo 4.3 estrelas varia (header vs hero) e o texto de consentimento TCPA tem variações de formatação ('I understand & agree(Required)' vs texto simples) entre LPs.",
+   "Nenhuma LP tem thank-you page, UTM ou sinal de tracking de conversão visível — o envio do formulário não tem página de destino mensurável."
+  ],
+  "recommendations": [
+   "Construir um único template parametrizado com dados estruturados por programa ({nome}, {credencial}, {duração}, {campus}, {formato}, {certificações}, {cargos}, {dado_BLS}) — nenhum título ou parágrafo com nome de programa hardcoded, eliminando de vez os erros de clonagem (Culinary em LP de Pharmacy, 'MA' em LP de Medical Office Administrator).",
+   "Colocar o formulário no primeiro scroll: embutido no hero em desktop e imediatamente após o hero em mobile, com botão sticky 'Get Program Details Now!' em mobile — hoje o formulário no meio da página é a maior perda de conversão do padrão atual.",
+   "Fonte única de verdade para duração e credencial, renderizada no hero, na ficha rápida e na seção de detalhes a partir do mesmo campo — impossibilitando divergências como 46 vs 36 semanas na LP de Medical Assistant.",
+   "Pré-selecionar o programa da LP no dropdown do formulário (mantendo a opção de troca), reduzindo fricção e erros de atribuição de lead.",
+   "Criar biblioteca de depoimentos etiquetada por programa/categoria e exibir apenas os relevantes; onde não houver 6 depoimentos do programa, completar com depoimentos institucionais claramente genéricos.",
+   "Padronizar o dado de mercado: BLS 2024–2034 em todas as LPs, sempre com asterisco, nota de rodapé e link para a fonte; padronizar também o disclaimer '*When completed in normal program time' e o link de taxas de graduação/dívida no rodapé.",
+   "Padronizar o bloco de CTA intermediário com os 4 bullets (Career Prospects, Start Dates, Tuition Costs, Funding Options) como componente único, repetido no máximo 2–3 vezes por página, sempre ancorado em #fei-form.",
+   "Implementar thank-you page dedicada por envio de formulário + GTM com evento de conversão, preservação de UTMs em campos ocultos do formulário e call tracking com DNI por canal — hoje não há nenhum sinal de mensuração de conversão.",
+   "Corrigir e padronizar compliance: link de Privacy Policy funcional em todas as LPs (quebrado na de HVAC), texto TCPA idêntico com checkbox obrigatório desmarcado por padrão, e os dois telefones (786-706-8721 admissões / 305-384-1542 consentimento) com papéis documentados.",
+   "Criar checklist de QA pré-publicação por LP: busca automática por nomes de outros programas no HTML, validação de duração/credencial contra a fonte de dados, teste dos links tel:/âncoras/Privacy Policy e revisão gramatical da headline — os erros atuais ('Become a Business Management', 'Business Program Program') passariam todos nesse filtro."
+  ]
+ },
+ "failures": {
+  "lps": [],
+  "refs": []
+ }
+}

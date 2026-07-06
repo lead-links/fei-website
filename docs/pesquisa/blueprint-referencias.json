@@ -1,0 +1,168 @@
+{
+ "nav_pattern": "Menu principal enxuto (5-6 itens) no padrão comum às 4 referências: (1) Programas — mega-menu organizado por área (Saúde, Culinária, HVAC, Negócios) e por tipo de credencial, como ECPI e PMI; (2) Admissões — como aplicar, requisitos, transferência; (3) Financiamento / Tuition — item próprio no menu, como Purdue Global e ECPI, pois preço é a objeção nº 1; (4) Serviços de Carreira — como CIAT, que dá destaque de primeiro nível à empregabilidade; (5) Sobre a FEI — história, acreditação/licenciamento, depoimentos. Header utilitário persistente em todas as páginas com: telefone clicável em destaque (padrão unânime nas 4 referências), botão primário 'Solicitar Informações' (Request Info) e botão secundário 'Inscreva-se' (Apply Now) — a dupla de CTAs fixos usada por Purdue Global, ECPI e CIAT. Para a FEI, incluir também seletor de idioma (EN/ES/PT) dada a audiência de Miami. Rodapé profundo em 4 colunas (programas, admissões, institucional, contato) no padrão ECPI/CIAT, com endereço, mapa e disclaimers de licenciamento.",
+ "homepage_blueprint": [
+  {
+   "order": 1,
+   "block": "Header com telefone + dupla de CTAs ('Solicitar Informações' / 'Inscreva-se')",
+   "rationale": "Padrão unânime: PMI fixa telefone e 'Request Info' no header; Purdue Global, ECPI e CIAT repetem a dupla Request Info + Apply Now em todas as páginas. Para a FEI, o telefone é ainda mais importante: escola pequena vende atendimento humano."
+  },
+  {
+   "order": 2,
+   "block": "Hero com foto real de alunos, mensagem aspiracional e CTAs de roteamento (Explorar Programas / Falar com a Equipe)",
+   "rationale": "PMI ('Build your healthcare career with confidence') e ECPI ('Your Future Faster') usam hero de roteamento, não de conversão; CIAT confirma o padrão com 'Explore Programs' + 'Request Information' sem formulário no hero. Fotos reais de alunos da FEI, como Purdue Global faz, e não banco de imagens."
+  },
+  {
+   "order": 3,
+   "block": "Faixa de 4 estatísticas com ícones (anos em Miami, nº de programas, duração mínima, taxa de colocação)",
+   "rationale": "PMI abre com bloco de 4 stats (16 campi, 30+ programas, 9 meses) como prova rápida de valor; Purdue Global coloca 4 provas no próprio hero. Para a FEI: destacar turmas pequenas e atenção pessoal como stat diferencial."
+  },
+  {
+   "order": 4,
+   "block": "Grade de cards por área de estudo (Saúde, Culinária, HVAC, Negócios) com ícones",
+   "rationale": "ECPI usa 'Explore Areas of Study' com 6 ícones como porta de entrada visual; PMI usa 4 cards de navegação por objetivo do visitante. Com poucas áreas, a FEI consegue mostrar todas acima da dobra."
+  },
+  {
+   "order": 5,
+   "block": "Vitrine de programas em destaque com próxima data de início e 'Ver Detalhes'",
+   "rationale": "CIAT exibe cards de bootcamps na home com data da próxima turma em evidência — cria urgência; Purdue Global tem seção dedicada de 'próximas datas de início'. Como a FEI tem catálogo pequeno, pode listar todos os programas com suas próximas turmas."
+  },
+  {
+   "order": 6,
+   "block": "Bloco 'Por que a FEI' — 3 diferenciais (turmas pequenas, prática hands-on, suporte de carreira personalizado)",
+   "rationale": "ECPI usa proposta de valor em 3 colunas logo após o hero e 'Designed for Your Success'; CIAT tem 'CIAT Stands Apart'. Aqui a FEI converte seu tamanho em vantagem: atenção individual que as escolas grandes não oferecem."
+  },
+  {
+   "order": 7,
+   "block": "Depoimentos de graduados com foto, nome e programa (carrossel) + nota agregada de avaliações Google",
+   "rationale": "PMI combina nota 4.73 com selos de review e 5 histórias de sucesso; ECPI intercala depoimentos duas vezes na home. Para escola local, reviews do Google são a prova social mais crível."
+  },
+  {
+   "order": 8,
+   "block": "Logos de empregadores locais de Miami que contratam egressos + serviços de carreira",
+   "rationale": "CIAT usa 'Companies Who Have Hired Our Students' com 20+ logos como prova de resultado; PMI dedica coluna a Career Services. Empregadores locais reforçam o posicionamento de escola conectada ao mercado de Miami."
+  },
+  {
+   "order": 9,
+   "block": "Financiamento e apoio ao aluno (bolsas, planos de pagamento, ajuda financeira)",
+   "rationale": "CIAT posiciona 'opções de financiamento' antes da conversão para remover a objeção de custo; PMI usa 3 colunas de serviços de apoio; Purdue Global dedica blocos inteiros a redução de barreira financeira."
+  },
+  {
+   "order": 10,
+   "block": "FAQ em acordeão (acreditação/licenciamento, custo, duração, emprego, idiomas)",
+   "rationale": "PMI fecha com 6 FAQs e ECPI usa FAQ para remover objeções e apoiar SEO; CIAT usa FAQ extenso nas páginas de programa. Responde dúvidas sem exigir contato."
+  },
+  {
+   "order": 11,
+   "block": "Processo de matrícula em 3 passos + CTA 'Comece Agora'",
+   "rationale": "PMI usa 'Your Time Is Now' mostrando o processo em 3 passos para reduzir fricção. Para a FEI, o passo 1 pode ser 'converse com nossa equipe' — humaniza a entrada no funil."
+  },
+  {
+   "order": 12,
+   "block": "Formulário de lead multi-etapas antes do rodapé (programa de interesse → dados de contato → consentimento SMS/WhatsApp)",
+   "rationale": "PMI encerra todas as páginas com o mesmo formulário multi-etapas; ECPI usa 'Let's Get Started' ao final; Purdue Global repete o formulário em todos os pontos do funil. Fecho consistente de conversão em todas as páginas."
+  }
+ ],
+ "program_page_blueprint": [
+  {
+   "order": 1,
+   "block": "Hero: nome do programa + credencial + próxima data de início + CTA 'Solicitar Informações'",
+   "rationale": "PMI coloca próxima turma e 'Request More Information' já no hero da página de programa, criando urgência imediata; CIAT destaca datas de turma em todo o funil."
+  },
+  {
+   "order": 2,
+   "block": "'Programa em Resumo' — 4 fatos com ícones: duração, carga horária, modalidade/horários, certificações preparadas",
+   "rationale": "ECPI usa 'Program at a Glance' com 4 fatos iconografados no topo; PMI usa cards de resumo (tipo, modalidade, ~9 meses); Purdue Global mostra custo/crédito, esforço semanal e tempo de conclusão nos cards."
+  },
+  {
+   "order": 3,
+   "block": "'O que faz esse profissional?' + 'Este programa é para mim?'",
+   "rationale": "PMI dedica seção a 'What does a Medical Assistant do?'; CIAT tem seção de elegibilidade 'Este programa é para mim?'. Ajuda o visitante indeciso a se autoqualificar."
+  },
+  {
+   "order": 4,
+   "block": "O que você vai aprender — currículo resumido + grade completa expansível",
+   "rationale": "PMI mostra visão do currículo prático e tabela de sequências; ECPI lista cursos em destaque + tabela de créditos; CIAT detalha currículo dia a dia."
+  },
+  {
+   "order": 5,
+   "block": "Prática hands-on e estágio/externship",
+   "rationale": "PMI destaca o externato clínico como seção própria; CIAT mostra labs práticos com cenários; ECPI inclui externship nos 4 fatos-chave. Essencial para programas como Medical Assistant e HVAC."
+  },
+  {
+   "order": 6,
+   "block": "Carreiras e empregabilidade — cargos, salários e demanda com dados oficiais (BLS) + apoio de colocação",
+   "rationale": "PMI e Purdue Global citam Bureau of Labor Statistics como fonte oficial; CIAT conecta programa a suporte de colocação. Dados de Miami/Flórida tornam a promessa concreta."
+  },
+  {
+   "order": 7,
+   "block": "Horários, formato e 'o que esperar' (aulas noturnas, ritmo, idiomas disponíveis)",
+   "rationale": "Purdue Global tem bloco 'What To Expect' (horas/semana, formato, duração) que reduz ansiedade e qualifica o lead; CIAT detalha estrutura do curso com horários."
+  },
+  {
+   "order": 8,
+   "block": "Custo e financiamento com transparência (preço, planos de pagamento, bolsas)",
+   "rationale": "CIAT exibe preço explícito com CTA 'Reserve My Spot'; Purdue Global usa calculadora de custo/tempo. Transparência de preço diferencia a FEI de concorrentes que escondem valores."
+  },
+  {
+   "order": 9,
+   "block": "Datas das próximas turmas",
+   "rationale": "CIAT usa grade de datas/turmas em abas mensais; Purdue Global mantém seção de start dates. Reforça urgência e viabiliza matrícula contínua."
+  },
+  {
+   "order": 10,
+   "block": "Depoimento de graduado do programa específico (foto, nome, onde trabalha)",
+   "rationale": "PMI insere depoimento de graduada na página de programa; Purdue Global usa depoimento com credenciais; ECPI usa depoimentos com nome e diploma."
+  },
+  {
+   "order": 11,
+   "block": "Acreditação, licenciamento e certificações com logos e links",
+   "rationale": "ECPI dá seção própria à acreditação institucional (SACSCOC) e programática (ABHES, com logo); PMI publica disclosures de licenciamento e resultados. Sinal de confiança obrigatório para escola de carreiras."
+  },
+  {
+   "order": 12,
+   "block": "Requisitos de admissão e como aplicar em 3 passos",
+   "rationale": "PMI inclui 'Admissões: requisitos e como aplicar' no template de programa; Purdue Global lista requisitos por nível."
+  },
+  {
+   "order": 13,
+   "block": "FAQ do programa (custo, duração, requisitos, idioma, emprego)",
+   "rationale": "CIAT fecha páginas de programa com FAQ extenso de 14 perguntas; Purdue Global usa FAQ de 6 perguntas. Remove objeções sem exigir contato."
+  },
+  {
+   "order": 14,
+   "block": "Formulário de lead multi-etapas + telefone/WhatsApp antes do rodapé",
+   "rationale": "Padrão unânime: PMI, ECPI ('Let's Get Started') e CIAT terminam a página de programa em formulário; ECPI antecede com 2 cards de CTA (falar com representante / aplicar). Toda página de programa da FEI deve terminar no mesmo funil."
+  }
+ ],
+ "conversion_patterns": [
+  "Dupla permanente de CTAs no header em 3 das 4 referências (Purdue Global, ECPI, CIAT): 'Request Information' para lead frio e 'Apply Now' para lead quente, repetidos no meio e no fim de cada página.",
+  "Telefone de admissões proeminente e clicável no header em todas as 4 referências — o canal humano é tratado como CTA primário, à frente até do formulário.",
+  "Formulário de lead multi-etapas (programa de interesse → localidade → dados pessoais → consentimento SMS) fechando todas as páginas: padrão PMI e ECPI; Purdue Global o coloca também acima da dobra, ao lado do hero.",
+  "Hero de roteamento, não de conversão: PMI, ECPI e CIAT usam o hero para empurrar à exploração de programas ('Explore Programs') e deixam o formulário completo para o fim da página ou para as páginas de programa.",
+  "CTAs em camadas por nível de intenção: micro-compromissos como quiz de carreira (PMI), calculadora de custo/tempo e aulas grátis (Purdue Global), download de brochura (Purdue Global) e modal de Request Info (CIAT) capturam quem ainda não está pronto para o formulário.",
+  "Urgência por datas de início: próxima turma visível no hero da página de programa (PMI), seção de start dates na home (Purdue Global) e datas nos próprios cards de programa (CIAT).",
+  "Campos progressivos e segmentação do lead no formulário: dropdowns encadeados área → nível → programa (Purdue Global), com opção 'Help Me Decide', mais status educacional e vínculo militar (ECPI, CIAT) para qualificação.",
+  "Chat ao vivo como canal complementar apenas na ECPI; as demais se apoiam em formulário + telefone — chat é opcional, telefone não."
+ ],
+ "trust_patterns": [
+  "Acreditação e licenciamento com selos, logos e links para os órgãos: todas as 4 exibem acreditação institucional (ABHES na PMI, HLC na Purdue Global, SACSCOC na ECPI) e programática em seções próprias, além de disclosures legais de custos e resultados.",
+  "Métricas concretas com fonte: taxa de colocação de 77% com nota de metodologia (CIAT), 4.73 estrelas agregadas com selos de plataformas (PMI), economia média em dólares (Purdue Global) — números específicos e verificáveis em vez de adjetivos.",
+  "Depoimentos sempre 'completos': foto + nome + programa/turma, nunca citações anônimas; PMI e ECPI os intercalam em dois pontos da página, e CIAT usa fonte externa auditável (Trustpilot).",
+  "Prova de resultado de carreira: logos de empregadores que contrataram egressos (CIAT, com Amazon, Boeing, Deloitte), dados oficiais do Bureau of Labor Statistics sobre demanda (PMI, Purdue Global).",
+  "Longevidade e escala como credencial: '50 anos' (PMI), 'Founded in 1966' (ECPI), 'Backed by Purdue' (Purdue Global) — para a FEI, traduzir em anos servindo a comunidade de Miami.",
+  "Transparência operacional como confiança: 'What To Expect' com horas semanais e formato (Purdue Global), preço explícito na página (CIAT), fact sheets de desempenho (CIAT) — dizer exatamente como é reduz desconfiança.",
+  "Certificações profissionais que o aluno pode obter (CMA, RMA, CompTIA, AWS) exibidas com badges das marcas certificadoras — credibilidade visual emprestada (ECPI, CIAT)."
+ ],
+ "recommendations": [
+  "Adotar um template único e rígido de página de programa (padrão PMI/ECPI): hero com próxima turma + 'Programa em Resumo' com 4 ícones + currículo + carreiras com dados BLS + depoimento + acreditação + FAQ + formulário no fim. Com catálogo pequeno, a consistência entre as páginas passa profissionalismo e facilita comparação.",
+  "Fixar no header de todas as páginas: telefone clicável, botão 'Solicitar Informações' e botão 'Inscreva-se'. Para a FEI, adicionar WhatsApp como canal de contato — mais natural que chat corporativo para o público local de Miami e coerente com o posicionamento de atendimento pessoal.",
+  "Transformar o tamanho pequeno em diferencial central da mensagem: onde ECPI diz 'faster' e CIAT diz 'rethink education', a FEI deve dizer 'você não é um número' — turmas pequenas, instrutores acessíveis, acompanhamento individual até o emprego. Nenhuma das 4 referências grandes pode prometer isso.",
+  "Colocar os programas com próxima data de início diretamente na home (padrão CIAT): com poucos programas, a FEI pode exibir o catálogo completo em cards com data da próxima turma e 'Ver Detalhes', dispensando filtros complexos que só fazem sentido para catálogos de 30+ cursos.",
+  "Encerrar todas as páginas com o mesmo formulário de lead multi-etapas (programa de interesse → dados → consentimento SMS/WhatsApp), criando funil único e mensurável, como PMI faz em 100% das páginas.",
+  "Construir prova social hiperlocal: avaliações do Google com nota agregada (padrão PMI), depoimentos de graduados com foto, nome, programa e onde trabalham hoje, e logos de empregadores de Miami que contratam egressos (padrão CIAT) — para escola local, isso vale mais que selos nacionais.",
+  "Ser radicalmente transparente em preço, horários e idiomas: página de custo e financiamento com valores explícitos (padrão CIAT) e bloco 'O que esperar' com horas semanais e formato (padrão Purdue Global); incluir claramente em quais idiomas cada programa é oferecido (EN/ES), decisivo em Miami.",
+  "Dar seção própria a licenciamento estadual (Florida Commission for Independent Education), acreditações e certificações preparadas, com logos e links — é o sinal de confiança mínimo obrigatório no segmento, presente nas 4 referências.",
+  "Publicar e destacar as datas de início contínuas ao longo do ano (padrão Purdue Global/CIAT) para gerar urgência: 'próxima turma em X semanas' é o gatilho de conversão mais usado pelas referências.",
+  "Priorizar na fase 1 apenas o essencial do padrão: home + páginas de programa + admissões/financiamento + formulário único; deixar quiz, calculadora e blog (táticas de PMI e Purdue Global que exigem produção contínua) para uma fase 2 — melhor poucos blocos bem mantidos do que replicar a densidade de sites com equipes de marketing grandes."
+ ]
+}

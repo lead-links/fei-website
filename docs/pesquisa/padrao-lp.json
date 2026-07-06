@@ -1,0 +1,163 @@
+{
+ "canonical_sections": [
+  {
+   "order": 1,
+   "name": "header",
+   "purpose": "Barra fixa com logo FEI, tagline, telefone rastreável em link tel: ('Call Today 786-706-8721'), link 'Chat with an admissions specialist' e selo 'Top Rated School in Miami 4.3 ★'. Presente e idêntica em todas as 11 LPs atuais — manter como bloco global do template.",
+   "required": true
+  },
+  {
+   "order": 2,
+   "name": "hero",
+   "purpose": "Headline parametrizada no padrão '{Ação/Credencial} em {Programa} in as Little as {N} Weeks*' + subheadline de valor (acessível, flexível, hands-on). Inclui a ficha rápida do programa (Campus / Duração* / Credencial / Formato) que hoje só existe em parte das LPs, e o CTA primário. Em desktop (≥1024px), embutir o formulário na coluna direita do hero para colocá-lo no primeiro scroll — principal falha de conversão do padrão atual.",
+   "required": true
+  },
+  {
+   "order": 3,
+   "name": "abas-navegacao",
+   "purpose": "Barra de âncoras internas (Overview | Program Details | Careers | Testimonials) que hoje existe em ~metade das LPs (Culinary Arts, Business Management, Pastry Arts). Útil para simular página de catálogo e reduzir bounce, mas dispensável em LPs de campanha muito curtas.",
+   "required": false
+  },
+  {
+   "order": 4,
+   "name": "formulario",
+   "purpose": "Seção do formulário de lead com âncora canônica #fei-form, destino único de TODOS os CTAs de botão. Deve subir na hierarquia: imediatamente após o hero (hoje fica depois do overview, fora do primeiro scroll em mobile). Em mobile é o formulário principal; em desktop pode ser a mesma instância renderizada no hero.",
+   "required": true
+  },
+  {
+   "order": 5,
+   "name": "overview",
+   "purpose": "Bloco 'Supportive Training That Fits Your Life' parametrizado: visão geral do programa, filosofia de suporte, flexibilidade de formato e áreas cobertas, com CTA secundário 'Get the Details!' ancorado em #fei-form. Presente em todas as LPs atuais.",
+   "required": true
+  },
+  {
+   "order": 6,
+   "name": "por-que-esta-carreira",
+   "purpose": "'Why Choose a Career in {Área}' — exatamente 4 cards com ícone: demanda/crescimento (com dado BLS citado), habilidades em demanda, progressão de carreira e diferencial da área (criatividade, empreendedorismo, variedade de ambientes). Padrão consistente nas 11 LPs.",
+   "required": true
+  },
+  {
+   "order": 7,
+   "name": "cta-intermediario",
+   "purpose": "Bloco padronizado 'Get Program Details' com os 4 bullets do que o lead recebe (Career Prospects, Start Dates, Tuition Costs, Funding Options) + botão para #fei-form. Componente reutilizável, inserido no máximo 2–3 vezes ao longo da página (hoje varia de 0 a 4 repetições entre LPs).",
+   "required": true
+  },
+  {
+   "order": 8,
+   "name": "carreiras",
+   "purpose": "'What Can You Do with a {Credencial} in {Programa}?' — lista de 5–7 cargos/ambientes de trabalho de nível de entrada + estatística de crescimento do BLS (período padronizado 2024–2034) com asterisco/nota de rodapé e link para a fonte.",
+   "required": true
+  },
+  {
+   "order": 9,
+   "name": "curriculo",
+   "purpose": "'What You'll Master in Our {Programa} Program' — 7 a 9 competências do currículo em lista, benefícios do programa (laboratório/cozinha profissional, turmas pequenas, instrutores experientes, suporte de carreira) e caminhos pós-formatura. Presente em todas as LPs, com profundidade que é diferencial da FEI.",
+   "required": true
+  },
+  {
+   "order": 10,
+   "name": "externship-formato",
+   "purpose": "Bloco dedicado ao externship supervisionado e ao formato híbrido (online + prática presencial perto de casa). Hoje existe em Medical Assistant e Pharmacy Technician — deve ser opcional, ativado apenas para programas que possuem externship (categoria saúde) ou formato híbrido diferenciado.",
+   "required": false
+  },
+  {
+   "order": 11,
+   "name": "certificacoes-acreditacao",
+   "purpose": "Acreditação pelo Council on Occupational Education (COE) com logo — obrigatória em toda LP. Sub-bloco opcional de certificações/registros específicos do programa (EPA e R-410A para HVAC, registro no Florida Board of Pharmacy para Pharmacy Tech), parametrizado por programa.",
+   "required": true
+  },
+  {
+   "order": 12,
+   "name": "por-que-a-fei",
+   "purpose": "'Why Study {Programa} with FEI' — padronizar em 5 razões numeradas: treinamento focado em carreira, aprendizado prático, suporte personalizado, instrutores com experiência real na indústria, programas estabelecidos e acreditados. Título e razões devem usar variáveis do programa (hoje há títulos clonados de outros cursos).",
+   "required": true
+  },
+  {
+   "order": 13,
+   "name": "depoimentos",
+   "purpose": "'What Our Graduates Say' — 6 avaliações 5 estrelas com nome do graduado, puxadas de uma biblioteca etiquetada por programa/categoria (hoje os mesmos 6 depoimentos genéricos aparecem nas 11 LPs, inclusive de curso errado). Prioridade: depoimentos do próprio programa; fallback: da mesma categoria.",
+   "required": true
+  },
+  {
+   "order": 14,
+   "name": "cta-final-qualificacao",
+   "purpose": "'Is {Programa} Training Right for You?' — parágrafo de qualificação/encorajamento, menção ao Admissions Advisor e a financial aid, telefone 786-706-8721 em link tel: e botão final para #fei-form. Título obrigatoriamente parametrizado (há 3 LPs com o programa errado neste título hoje).",
+   "required": true
+  },
+  {
+   "order": 15,
+   "name": "disclaimers",
+   "purpose": "Notas de compliance padronizadas: '*When completed in normal program time', fonte BLS com link, e link para taxas de graduação/dívida mediana em fei.edu. Hoje aparecem de forma irregular (ora seção própria, ora dentro do rodapé).",
+   "required": true
+  },
+  {
+   "order": 16,
+   "name": "rodape",
+   "purpose": "Endereço do campus (5818 SW 8th Street, Miami, FL 33144), copyright Florida Education Institute, link funcional de Privacy Policy (hoje quebrado na LP de HVAC) e link para informações completas da escola em fei.edu.",
+   "required": true
+  }
+ ],
+ "form_spec": {
+  "fields": [
+   "First Name (obrigatório)",
+   "Last Name (obrigatório)",
+   "Email (obrigatório, validação de formato)",
+   "Phone (obrigatório, máscara/validação de telefone US, input type=tel)",
+   "Zip Code (obrigatório, 5 dígitos, input numérico)",
+   "Program of Interest (dropdown com os 11 programas, PRÉ-SELECIONADO com o programa da LP; campo pode vir oculto/travado em variante de teste A/B)",
+   "Consent TCPA (checkbox obrigatório 'I understand & agree')"
+  ],
+  "placement": "Âncora canônica #fei-form imediatamente após o hero. Em desktop (≥1024px), renderizar o formulário dentro do hero (coluna direita), garantindo visibilidade no primeiro scroll — hoje o formulário fica no meio da página em todas as 11 LPs, abaixo da dobra. Em mobile, formulário logo após o hero + botão sticky 'Get Program Details Now!' fixo no rodapé da tela ancorando em #fei-form. Todos os CTAs da página continuam apontando para essa única âncora (uma única instância de formulário por página).",
+  "notes": "Consentimento: manter o texto TCPA padrão em todas as LPs, idêntico caractere a caractere: 'By checking this box, I give consent for Florida Education Institute to use automated technology to call and/or text me at the number provided above, including my wireless number if applicable.' + linha 'Call us for information: 305-384-1542' + link funcional de Privacy Policy (corrigir o href='#' encontrado na LP de HVAC). Checkbox desmarcado por padrão e obrigatório para envio (compliance TCPA). Validação: inline, no blur de cada campo, com mensagens claras; bloquear envio duplo. Mobile: campos empilhados em coluna única, fonte ≥16px para evitar zoom no iOS, teclado numérico para Phone e Zip. Pós-envio: redirecionar para thank-you page dedicada (hoje inexistente) para permitir disparo de evento de conversão em GTM/pixels e mensagem de próximos passos ('um Admissions Advisor entrará em contato')."
+ },
+ "cta_spec": {
+  "primary": "Get Program Details Now! — botão único padronizado, sempre ancorado em #fei-form, repetido em posições fixas: hero, bloco(s) cta-intermediario (máx. 2–3), por-que-a-fei e cta-final. Manter o texto idêntico em todas as ocorrências e em todas as LPs (consistência já é um ponto forte do padrão atual).",
+  "secondary": "Call Today 786-706-8721 (link tel: no header e no CTA final) e 'Chat with an admissions specialist' no header. O CTA de overview ('Get the Details!') pode ser mantido como variação secundária, mas sempre ancorando em #fei-form.",
+  "phone_strategy": "Manter a estratégia atual de dois números com papéis explícitos e documentados: 786-706-8721 como linha de admissões exibida no header, hero e CTA final (número de vendas rastreado), e 305-384-1542 exclusivamente no bloco do formulário/texto de consentimento (linha informativa/compliance). Recomenda-se evoluir para DNI (inserção dinâmica de número por origem de campanha — Google Ads, Meta, orgânico) para atribuição de chamadas por canal, mantendo o número de consentimento fixo. Todos os números devem ser links tel: clicáveis em mobile e o mesmo número não deve variar entre seções da mesma LP."
+ },
+ "per_category_variations": [
+  {
+   "category": "saude",
+   "variations": "Programas: Medical Assistant, Medical Billing & Coding, Medical Office Administrator, Pharmacy Technician. Ativar o bloco opcional 'externship-formato' (externship supervisionado em instituição de saúde perto de casa é o principal diferencial de venda). Certificações/registros específicos no bloco de acreditação (ex.: registro no Florida Board of Pharmacy para Pharm Tech). Dados BLS da ocupação de saúde correspondente (6% a 12% de crescimento 2024–2034). Ênfase em estabilidade, demanda e trabalho com propósito; para Billing & Coding, destacar 'carreira na saúde sem cuidado direto de pacientes' e formato 100% online. Depoimentos de graduados da área de saúde. Imagens de ambiente clínico/consultório."
+  },
+  {
+   "category": "culinaria",
+   "variations": "Programas: Culinary Arts, Pastry & Baking Arts, Culinary & Hospitality Management, Pastry & Baking Management. Ficha rápida com campus Coral Gables e formato presencial/híbrido. Ênfase em prática hands-on em cozinha profissional, turmas pequenas e criatividade; para os A.A.S., destacar o componente de gestão/hospitalidade e liderança. Currículo com especialidades visuais (pães artesanais, chocolate, sugar arts, cozinha latino-americana) — categoria que mais se beneficia de fotos/vídeo reais do laboratório de cozinha no hero. BLS de chefs/head cooks (7%). Depoimentos de graduados de culinária (remover o depoimento de Medical Assistant que hoje aparece na LP de Culinary Arts)."
+  },
+  {
+   "category": "trades",
+   "variations": "Programa: HVAC/R. Destaque máximo para certificações da indústria: preparação para exames EPA e R-410A no hero e no bloco de acreditação ('Diploma + certificações reconhecidas pela indústria'). Ênfase em laboratório com equipamento real da indústria, demanda local em Miami/Flórida e variedade de ambientes de trabalho (residencial, comercial, refrigeração, manutenção). BLS de 8% de crescimento 2024–2034. Tom de copy voltado a estabilidade, salário e empregabilidade rápida (36 semanas). Imagens de bancada/equipamento, não de sala de aula."
+  },
+  {
+   "category": "business",
+   "variations": "Programas: Business Administration (A.A.S.) e Business Management (Diploma). Sem externship — bloco opcional desativado. Ficha rápida destacando flexibilidade de formato (tradicional/híbrido/100% online — Business Management é online). Ênfase em empreendedorismo, liderança e abrir o próprio negócio; dado BLS de ~1,1 milhão de vagas/ano em ocupações de negócios. Deixar clara a diferença entre as duas LPs (A.A.S. 84 semanas vs Diploma 45 semanas online) para não competirem entre si — corrigindo a headline gramaticalmente errada 'Become a Business Management'. Depoimentos preferencialmente de alunos de negócios ou institucionais."
+  }
+ ],
+ "inconsistencies": [
+  "Medical Assistant: hero promete '46 Weeks*' mas a seção de detalhes do programa informa 36 semanas — durações conflitantes na mesma página.",
+  "Medical Office Administrator: hero inteiro clonado da LP de Medical Assistant ('Launch Your MA Career in 46 Weeks*' e subheadline 'for Aspiring Medical Assistants'), enquanto o programa real é um A.A.S. de 82 semanas em Medical Office Administration.",
+  "Pharmacy Technician: dois títulos com programa errado — 'Why Study Culinary Arts with FEI' e CTA final 'Is Culinary Arts Training Right for You?'.",
+  "Medical Assistant: CTA final diz 'Is Culinary Arts Training Right for You?' e a seção 'Why FEI' menciona 'pharmacy setting' — textos herdados de outras LPs.",
+  "Medical Billing & Coding: seção 'Why Study With FEI' mistura textos de Culinary Arts e Pharmacy, e o CTA final menciona 'Pharmacy Technician Training'.",
+  "Business Management: headline com erro gramatical ('Become a Business Management in as Little as 45 Weeks*') e texto duplicado 'Business Program Program' no bloco de CTA final — falha de merge de variáveis do template.",
+  "Os mesmos 6 depoimentos (Ana Martinez, Noemi Portobanco, Manuel Castillo, Vanessa Perez Bocourt, LM Lopez, Enrique Quinteo) aparecem em todas as 11 LPs, independentemente do programa — inclusive um depoimento de Medical Assistant na LP de Culinary Arts.",
+  "Estrutura divergente entre LPs: algumas têm ficha rápida no hero, abas de navegação (Overview/Program Details/Careers/Testimonials) e bloco de CTA com 4 bullets repetido 3x (Culinary Arts, Business Management, Pastry Arts, com 16-17 seções); outras são lineares e sem esses elementos (Pastry & Baking Management e Business Administration, com 11-12 seções).",
+  "Período do dado BLS inconsistente: Medical Billing & Coding cita 2022–2032 enquanto as demais LPs citam 2024–2034.",
+  "Número de razões na seção 'Why FEI' varia entre 4 e 5 conforme a LP, e o CTA primário repete de 3 a 5 vezes sem critério padronizado.",
+  "LP de HVAC tem link de Privacy Policy quebrado (aponta para âncora vazia '#').",
+  "Posição do selo 4.3 estrelas varia (header vs hero) e o texto de consentimento TCPA tem variações de formatação ('I understand & agree(Required)' vs texto simples) entre LPs.",
+  "Nenhuma LP tem thank-you page, UTM ou sinal de tracking de conversão visível — o envio do formulário não tem página de destino mensurável."
+ ],
+ "recommendations": [
+  "Construir um único template parametrizado com dados estruturados por programa ({nome}, {credencial}, {duração}, {campus}, {formato}, {certificações}, {cargos}, {dado_BLS}) — nenhum título ou parágrafo com nome de programa hardcoded, eliminando de vez os erros de clonagem (Culinary em LP de Pharmacy, 'MA' em LP de Medical Office Administrator).",
+  "Colocar o formulário no primeiro scroll: embutido no hero em desktop e imediatamente após o hero em mobile, com botão sticky 'Get Program Details Now!' em mobile — hoje o formulário no meio da página é a maior perda de conversão do padrão atual.",
+  "Fonte única de verdade para duração e credencial, renderizada no hero, na ficha rápida e na seção de detalhes a partir do mesmo campo — impossibilitando divergências como 46 vs 36 semanas na LP de Medical Assistant.",
+  "Pré-selecionar o programa da LP no dropdown do formulário (mantendo a opção de troca), reduzindo fricção e erros de atribuição de lead.",
+  "Criar biblioteca de depoimentos etiquetada por programa/categoria e exibir apenas os relevantes; onde não houver 6 depoimentos do programa, completar com depoimentos institucionais claramente genéricos.",
+  "Padronizar o dado de mercado: BLS 2024–2034 em todas as LPs, sempre com asterisco, nota de rodapé e link para a fonte; padronizar também o disclaimer '*When completed in normal program time' e o link de taxas de graduação/dívida no rodapé.",
+  "Padronizar o bloco de CTA intermediário com os 4 bullets (Career Prospects, Start Dates, Tuition Costs, Funding Options) como componente único, repetido no máximo 2–3 vezes por página, sempre ancorado em #fei-form.",
+  "Implementar thank-you page dedicada por envio de formulário + GTM com evento de conversão, preservação de UTMs em campos ocultos do formulário e call tracking com DNI por canal — hoje não há nenhum sinal de mensuração de conversão.",
+  "Corrigir e padronizar compliance: link de Privacy Policy funcional em todas as LPs (quebrado na de HVAC), texto TCPA idêntico com checkbox obrigatório desmarcado por padrão, e os dois telefones (786-706-8721 admissões / 305-384-1542 consentimento) com papéis documentados.",
+  "Criar checklist de QA pré-publicação por LP: busca automática por nomes de outros programas no HTML, validação de duração/credencial contra a fonte de dados, teste dos links tel:/âncoras/Privacy Policy e revisão gramatical da headline — os erros atuais ('Become a Business Management', 'Business Program Program') passariam todos nesse filtro."
+ ]
+}
