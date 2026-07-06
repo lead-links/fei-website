@@ -5,6 +5,10 @@
 (function () {
   "use strict";
 
+  /* Depth-aware base prefix, so JS-driven redirects work under any relative
+     hosting path (e.g. GitHub Pages project sites) regardless of page depth. */
+  var BASE = /\/programs\//.test(window.location.pathname) ? "../" : "";
+
   /* ---- Program data ---- */
   const ICONS = {
     stethoscope: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v5a4 4 0 0 0 8 0V3"/><path d="M6 3H4M14 3h2M10 16v2a4 4 0 0 0 8 0v-2"/><circle cx="18" cy="14" r="2"/></svg>',
@@ -221,7 +225,7 @@
     var qs = "name=" + encodeURIComponent(name.value.trim()) +
              "&email=" + encodeURIComponent(email.value.trim()) +
              "&program=" + encodeURIComponent(program.value);
-    window.location.href = "/apply.html?" + qs;
+    window.location.href = BASE + "apply.html?" + qs;
   });
 
   /* Wire every "Apply Now" link to open the modal (except on the apply page) */
