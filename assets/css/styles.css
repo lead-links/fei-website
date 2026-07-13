@@ -412,6 +412,8 @@ a { color: inherit; text-decoration: none; }
 .phero--page .phero__copy { max-width: 720px; }
 .phero--page .phero__title { font-size: clamp(2.2rem, 5vw, 3.4rem); }
 .phero .hero__bg { transform: scale(1.03); }
+/* Program hero photos anchor to the top so faces/subjects stay in frame */
+.phero:not(.phero--page) .hero__bg { background-position: center top; }
 .phero .hero__overlay {
   background:
     linear-gradient(90deg, rgba(13,26,66,.9) 0%, rgba(13,26,66,.9) 40%, rgba(13,26,66,0) 70%, rgba(13,26,66,0) 100%),
