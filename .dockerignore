@@ -1,0 +1,8 @@
+# Keep the deployed image to just the public static site.
+.git
+.gitignore
+.claude
+docs
+Dockerfile
+.dockerignore
+**/.DS_Store
