@@ -228,13 +228,13 @@
               '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>' +
             "</button>" +
           "</form>" +
-          '<p class="modal__phone">Prefer to talk to a person?<br/><a href="tel:7867068721">786-706-8721</a></p>' +
+          '<p class="modal__phone">Prefer to talk to a person?<br/><a href="tel:3054441515">305-444-1515</a></p>' +
         "</div>" +
         '<div id="modalSuccessWrap" hidden>' +
           '<div class="apply-success__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>' +
           '<h2 class="modal__title">Thank you, <span id="modalSuccessName">there</span>.</h2>' +
           '<p class="modal__sub">Your information has been received. An FEI Admissions Advisor will reach out soon about the ' + currentProgram.title + " program.</p>" +
-          '<p class="modal__sub">Want to talk sooner? Call <a href="tel:7867068721">786-706-8721</a>.</p>' +
+          '<p class="modal__sub">Want to talk sooner? Call <a href="tel:3054441515">305-444-1515</a>.</p>' +
         "</div>" +
       "</div>";
     document.body.appendChild(el);
