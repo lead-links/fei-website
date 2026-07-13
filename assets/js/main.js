@@ -46,7 +46,7 @@
         '<article class="card reveal" data-cat="' + p.cat + '">' +
           '<a href="programs/' + p.slug + '.html" class="card__media" tabindex="-1" aria-hidden="true">' +
             '<span class="card__badge">' + p.tag + '</span>' +
-            '<img src="assets/img/' + p.img + '.jpg" alt="" loading="lazy" />' +
+            '<img src="assets/img/programs/' + p.slug + '.webp" alt="" loading="lazy" />' +
             '<span class="card__icon">' + ICONS[p.icon] + '</span>' +
           '</a>' +
           '<div class="card__body">' +
