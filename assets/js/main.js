@@ -113,6 +113,8 @@
     menu.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", function () { setOpen(false); });
     });
+    var closeBtn = menu.querySelector(".mobile-menu__close");
+    if (closeBtn) closeBtn.addEventListener("click", function () { setOpen(false); });
   }
 
   /* ---- FAQ accordion ---- */

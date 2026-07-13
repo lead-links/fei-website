@@ -185,6 +185,12 @@ a { color: inherit; text-decoration: none; }
 .mobile-menu.is-open { transform: translateX(0); }
 .mobile-menu a { font-family: var(--display); font-weight: 700; font-size: 1.25rem; padding: .55rem 0; border-bottom: 1px solid rgba(255,255,255,.12); }
 .mobile-menu .btn { margin-top: 1rem; justify-content: center; }
+.mobile-menu__close {
+  position: absolute; top: 1.1rem; right: 1.1rem; width: 42px; height: 42px;
+  display: grid; place-items: center; padding: 0;
+  background: none; border: 0; color: #fff; cursor: pointer;
+}
+.mobile-menu__close svg { width: 26px; height: 26px; }
 .mobile-menu__phone { font-family: var(--body) !important; font-weight: 600 !important; font-size: 1rem !important; color: var(--gold); border: 0 !important; }
 
 /* ─── HERO — photo background, reference style ─── */
@@ -422,24 +428,19 @@ a { color: inherit; text-decoration: none; }
 }
 /* Mobile: text goes full width, so the overlay stacks vertically (solid at top) */
 @media (max-width: 760px) {
+  /* All heroes on mobile: tall top gap + three-part vertical gradient (transparent / transition / solid) */
+  .hero.hero, .phero.phero { padding-top: 360px; padding-bottom: .8rem; }
   .hero__overlay, .phero .hero__overlay {
-    background:
-      linear-gradient(180deg, rgba(13,26,66,.9) 0%, rgba(13,26,66,.9) 55%, rgba(13,26,66,.55) 100%),
-      linear-gradient(0deg, rgba(11,24,62,.18), rgba(11,24,62,.18));
+    background: linear-gradient(180deg, rgba(13,26,66,0) 0%, rgba(13,26,66,0) 33%, #0d1a42 66%, #0d1a42 100%);
   }
-  /* Program hero on mobile: tall top gap reveals the photo; vertical fade into solid blue behind the text */
-  .phero:not(.phero--page) { padding-top: 360px; padding-bottom: .8rem; }
-  .phero:not(.phero--page) .hero__overlay {
-    background: linear-gradient(180deg, rgba(13,26,66,0) 0%, rgba(13,26,66,0) 40%, #0d1a42 80%, #0d1a42 100%);
-  }
-  /* Program hero on mobile: portrait photo fit to width, anchored to the top (may end before the hero does) */
+  /* Program heroes: dedicated portrait photo fit to width, anchored to the top (may end before the hero does) */
   .phero:not(.phero--page) .hero__bg {
     background-image: var(--hero-m); background-size: 100% auto; background-position: top center;
     background-repeat: no-repeat; transform: none;
   }
-  /* Program hero on mobile: stack the CTAs full width; bottom gap matches the gap between them (.8rem) */
-  .phero:not(.phero--page) .hero__cta { flex-direction: column; align-items: stretch; margin-bottom: 0; }
-  .phero:not(.phero--page) .hero__cta .btn { width: 100%; flex: none; justify-content: center; }
+  /* All heroes: stack the CTAs full width; bottom gap matches the gap between them (.8rem) */
+  .hero .hero__cta, .phero .hero__cta { flex-direction: column; align-items: stretch; margin-bottom: 0; }
+  .hero .hero__cta .btn, .phero .hero__cta .btn { width: 100%; flex: none; justify-content: center; }
 }
 .phero__title {
   font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 5.4vw, 3.8rem);
