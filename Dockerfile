@@ -1,12 +1,19 @@
-# FEI static website — no build step, just served by nginx.
+# FEI website — build the Astro app, then serve the static output with nginx.
+
+# ---- Build stage: compile the Astro site to /app/dist ----
+FROM node:22-alpine AS build
+WORKDIR /app
+COPY astro/package.json astro/package-lock.json ./
+RUN npm ci
+COPY astro/ ./
+RUN npm run build
+
+# ---- Serve stage: nginx serves the static build ----
 FROM nginx:alpine
-
-# Custom server config: serve a branded /404.html on not-found (it beacons the
-# missing URL to the 404 tracker workflow).
+# Custom server config: clean URLs + branded /404.html (its inline script beacons
+# the missing URL to the 404 tracker workflow).
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copy the site into nginx's web root.
-# Exclusions (docs/, .claude/, .git/, etc.) are handled by .dockerignore.
-COPY . /usr/share/nginx/html
+# Only the built static site goes into the image (not the source or node_modules).
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # nginx:alpine already EXPOSEs 80 and runs nginx in the foreground.

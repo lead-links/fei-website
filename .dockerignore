@@ -1,9 +1,9 @@
-# Keep the deployed image to just the current public static site.
+# Build context = repo root. The image is built from the astro/ source (build
+# stage) and only ships astro/dist (serve stage). Keep the context lean.
 .git
 .gitignore
 .claude
 docs
-astro
-Dockerfile
-.dockerignore
 **/.DS_Store
+astro/node_modules
+astro/dist
