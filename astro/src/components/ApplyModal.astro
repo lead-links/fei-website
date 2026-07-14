@@ -1,5 +1,6 @@
 ---
-import { PROGRAMS } from '../data/programs';
+// Lead-capture overlay. Program / Program type are hidden and filled only on
+// program pages; UTMs are hidden and restored from localStorage (see site.js).
 ---
 <div class="modal-overlay" id="applyModal" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="applyModalTitle">
@@ -14,30 +15,38 @@ import { PROGRAMS } from '../data/programs';
 
       <form class="form" id="applyModalForm" novalidate>
         <div class="field">
-          <label for="am-name">Full name</label>
-          <input type="text" id="am-name" name="name" autocomplete="name" required />
+          <label for="am-first">First name</label>
+          <input type="text" id="am-first" name="firstName" autocomplete="given-name" required />
+        </div>
+        <div class="field">
+          <label for="am-last">Last name</label>
+          <input type="text" id="am-last" name="lastName" autocomplete="family-name" required />
+        </div>
+        <div class="field">
+          <label for="am-phone">Phone</label>
+          <input type="tel" id="am-phone" name="phone" autocomplete="tel" />
         </div>
         <div class="field">
           <label for="am-email">Email</label>
           <input type="email" id="am-email" name="email" autocomplete="email" required />
         </div>
-        <div class="field">
-          <label for="am-phone">Phone <span class="field__opt">(optional)</span></label>
-          <input type="tel" id="am-phone" name="phone" autocomplete="tel" inputmode="tel" />
-        </div>
-        <div class="field" id="am-program-field">
-          <label for="am-program">Program of interest</label>
-          <select id="am-program" name="program" required>
-            <option value="" disabled selected>Select a program</option>
-            {PROGRAMS.map((p) => (
-              <option value={p.slug}>{p.title}{p.tag === 'A.A.S.' ? ' (A.A.S.)' : ''}</option>
-            ))}
-          </select>
-        </div>
         <div class="field field--full">
-          <label for="am-msg">Anything you would like us to know? <span class="field__opt">(optional)</span></label>
-          <textarea id="am-msg" name="message" rows="3"></textarea>
+          <label for="am-zip">Zip code</label>
+          <input type="text" id="am-zip" name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" required />
         </div>
+
+        <!-- Program context: hidden, populated on program pages only -->
+        <input type="hidden" id="am-program" name="program" />
+        <input type="hidden" id="am-program-type" name="programType" />
+
+        <!-- Attribution: hidden, restored from first touch (localStorage) -->
+        <input type="hidden" id="am-utm-source" name="utm_source" />
+        <input type="hidden" id="am-utm-medium" name="utm_medium" />
+        <input type="hidden" id="am-utm-campaign" name="utm_campaign" />
+        <input type="hidden" id="am-utm-content" name="utm_content" />
+        <input type="hidden" id="am-utm-term" name="utm_term" />
+        <input type="hidden" id="am-utm-id" name="utm_id" />
+
         <label class="consent">
           <input type="checkbox" id="am-consent" required />
           <span>I agree to be contacted by Florida Education Institute by phone, text, or email about its programs.</span>

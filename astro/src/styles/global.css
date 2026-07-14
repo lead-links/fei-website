@@ -630,7 +630,7 @@ a { color: inherit; text-decoration: none; }
 }
 .modal-overlay.is-open { opacity: 1; visibility: visible; }
 .modal {
-  position: relative; width: 100%; max-width: 460px; background: var(--white);
+  position: relative; width: 100%; max-width: 520px; background: var(--white);
   padding: clamp(1.6rem, 4vw, 2.4rem); box-shadow: 0 40px 90px -30px rgba(0,0,0,.6);
   transform: translateY(14px) scale(.98); transition: transform .35s var(--ease);
   max-height: 92vh; overflow-y: auto;
@@ -639,7 +639,11 @@ a { color: inherit; text-decoration: none; }
 .modal__eyebrow { font-size: .74rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: .5rem; }
 .modal__title { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1.1; color: var(--navy); margin-bottom: .4rem; }
 .modal__sub { font-size: .92rem; color: var(--gray); margin-bottom: 1.4rem; }
-.modal .form { grid-template-columns: 1fr; gap: .9rem; }
+.modal .form { grid-template-columns: 1fr 1fr; gap: .9rem 1rem; }
+/* intl-tel-input fills its grid cell and keeps the field's look */
+.iti { width: 100%; }
+.iti__tel-input:focus { outline: none; }
+.iti--container { z-index: 10000; }
 .modal__submit { justify-content: center; margin-top: .2rem; }
 .modal__phone { margin-top: 1.2rem; padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: .9rem; color: var(--gray); text-align: center; }
 .modal__phone a { font-family: var(--display); font-weight: 800; color: var(--blue-600); font-size: 1.1rem; display: inline-block; margin-top: .2rem; }
@@ -687,7 +691,7 @@ a { color: inherit; text-decoration: none; }
   .steps { grid-template-columns: 1fr; }
   .advantage__cards { grid-template-columns: 1fr; }
   .footer__inner { grid-template-columns: 1fr; }
-  .form { grid-template-columns: 1fr; }
+  .form, .modal .form { grid-template-columns: 1fr; }
   .hero__proof { gap: 1.4rem; }
   .cta__actions .btn, .hero__cta .btn { flex: 1; justify-content: center; }
 }
