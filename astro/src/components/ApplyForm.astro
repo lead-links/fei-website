@@ -1,0 +1,75 @@
+---
+import { PROGRAMS } from '../data/programs';
+
+// Single source of truth for the lead-capture form, shared by the modal overlay
+// (prefix "am") and the /apply page (prefix "af"). All element ids are prefixed
+// so both instances can coexist on the same page without id collisions.
+// Behavior (validation, phone, UTM restore, program context, submit) lives in
+// site.js -> initApplyForm(), keyed by the same prefix.
+interface Props {
+  prefix: string;
+  formId: string;
+  submitLabel?: string;
+}
+const { prefix: p, formId, submitLabel = 'Send' } = Astro.props;
+---
+<form class="form" id={formId} novalidate>
+  <div class="field">
+    <label for={`${p}-first`}>First name</label>
+    <input type="text" id={`${p}-first`} name="firstName" autocomplete="given-name" required />
+  </div>
+  <div class="field">
+    <label for={`${p}-last`}>Last name</label>
+    <input type="text" id={`${p}-last`} name="lastName" autocomplete="family-name" required />
+  </div>
+  <div class="field">
+    <label for={`${p}-email`}>Email</label>
+    <input type="email" id={`${p}-email`} name="email" autocomplete="email" required />
+  </div>
+  <div class="field">
+    <label for={`${p}-phone`}>Phone</label>
+    <input type="tel" id={`${p}-phone`} name="phone" autocomplete="tel" />
+  </div>
+  <div class="field field--full">
+    <label for={`${p}-zip`}>Zip code</label>
+    <input type="text" id={`${p}-zip`} name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" required />
+  </div>
+
+  <!-- Program dropdown: visible by default (choose), hidden on program pages (pre-filled) -->
+  <div class="field field--full" id={`${p}-program-field`}>
+    <label for={`${p}-program`}>Program of interest</label>
+    <select id={`${p}-program`} name="program" required>
+      <option value="" disabled selected>Select a program</option>
+      {PROGRAMS.map((prog) => (
+        <option value={prog.title}>{prog.title}{prog.tag === 'A.A.S.' ? ' (A.A.S.)' : ''}</option>
+      ))}
+    </select>
+  </div>
+
+  <!-- Program type: always hidden, populated on program pages -->
+  <input type="hidden" id={`${p}-program-type`} name="programType" />
+
+  <!-- Attribution: hidden, restored from first touch (localStorage) -->
+  <input type="hidden" id={`${p}-utm-source`} name="utm_source" />
+  <input type="hidden" id={`${p}-utm-medium`} name="utm_medium" />
+  <input type="hidden" id={`${p}-utm-campaign`} name="utm_campaign" />
+  <input type="hidden" id={`${p}-utm-content`} name="utm_content" />
+  <input type="hidden" id={`${p}-utm-term`} name="utm_term" />
+  <input type="hidden" id={`${p}-utm-id`} name="utm_id" />
+
+  <label class="consent">
+    <input type="checkbox" id={`${p}-sms-marketing`} name="smsMarketing" />
+    <span>By checking this box, I agree to receive marketing &amp; promotional SMS messages from Florida Education Institute at the phone number provided above, including program updates, offers, and service information.</span>
+  </label>
+  <label class="consent">
+    <input type="checkbox" id={`${p}-sms-transactional`} name="smsTransactional" />
+    <span>I agree to receive transactional messages related to my application and enrollment from Florida Education Institute at the phone number provided above.</span>
+  </label>
+  <p class="consent-fine">Message frequency may vary. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. View our <a href="/legal/terms">Terms of Service</a> and <a href="/legal/privacy">Privacy Policy</a>.</p>
+
+  <button type="submit" class="btn btn--solid modal__submit">{submitLabel}
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+  </button>
+  <h3 class="modal__divider">Prefer to talk?</h3>
+  <a href="tel:3054441515" class="btn btn--outline modal__phone-btn">305-444-1515</a>
+</form>

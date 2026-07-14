@@ -87,18 +87,21 @@
     if (utmChanged) localStorage.setItem("fei_utms", JSON.stringify(feiUtms));
   } catch (e) {}
 
-  /* ---- Apply modal ---- */
-  var overlay = document.getElementById("applyModal");
-  if (overlay) {
-    var formWrap = document.getElementById("modalFormWrap");
-    var successWrap = document.getElementById("modalSuccessWrap");
-    var titleEl = document.getElementById("applyModalTitle");
-    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  /* ---- Apply form (single source, shared by the modal overlay and the /apply page) ---- */
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Wire up one apply form instance. Fields are found by an id prefix ("am" for the
+  // modal, "af" for the /apply page) so both can coexist on the same page.
+  function initApplyForm(cfg) {
+    var form = document.getElementById(cfg.formId);
+    if (!form) return null;
+    var byId = function (suffix) { return document.getElementById(cfg.prefix + "-" + suffix); };
 
     // Program context: dropdown visible by default (choose), hidden + pre-filled on program pages.
-    var progSelect = document.getElementById("am-program");
-    var progField = document.getElementById("am-program-field");
-    var progTypeHidden = document.getElementById("am-program-type");
+    var progSelect = byId("program");
+    var progField = byId("program-field");
+    var progTypeHidden = byId("program-type");
+    var titleEl = cfg.titleId ? document.getElementById(cfg.titleId) : null;
     var progMeta = document.getElementById("feiProgramMeta");
     if (progMeta && progField && progSelect) {
       var pName = progMeta.getAttribute("data-program") || "";
@@ -113,12 +116,12 @@
 
     // Hidden UTM fields <- persisted first-touch values.
     UTM_KEYS.forEach(function (k) {
-      var input = document.getElementById("am-" + k.replace(/_/g, "-"));
+      var input = byId(k.replace(/_/g, "-"));
       if (input && feiUtms[k]) input.value = feiUtms[k];
     });
 
     // International phone: flags + per-country formatting, US default with mask.
-    var phoneInput = document.getElementById("am-phone");
+    var phoneInput = byId("phone");
     var iti = null;
     if (phoneInput && window.intlTelInput) {
       iti = window.intlTelInput(phoneInput, {
@@ -130,6 +133,66 @@
       });
     }
 
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var first = byId("first");
+      var last = byId("last");
+      var email = byId("email");
+      var zip = byId("zip");
+      var smsMarketing = byId("sms-marketing");
+      var smsTransactional = byId("sms-transactional");
+      var ok = true;
+      var bad = function (f, isBad) { if (f) f.classList.toggle("is-invalid", isBad); if (isBad) ok = false; };
+      bad(first, !first.value.trim());
+      bad(last, !last.value.trim());
+      bad(email, !EMAIL_RE.test(email.value.trim()));
+      bad(zip, !zip.value.trim());
+      var phoneOk = iti ? iti.isValidNumber() : !!phoneInput.value.trim();
+      bad(phoneInput, !phoneOk);
+      bad(progSelect, !progSelect.value);
+      // SMS consent is optional (not a condition of enrollment), so it does not gate submission.
+      if (!ok) return;
+
+      // Lead payload — ready to POST to the n8n endpoint when wiring is enabled.
+      var payload = {
+        firstName: first.value.trim(),
+        lastName: last.value.trim(),
+        email: email.value.trim(),
+        phone: iti ? iti.getNumber() : phoneInput.value.trim(),
+        zip: zip.value.trim(),
+        program: progSelect ? progSelect.value : "",
+        programType: progTypeHidden ? progTypeHidden.value : "",
+        smsMarketingConsent: smsMarketing ? smsMarketing.checked : false,
+        smsTransactionalConsent: smsTransactional ? smsTransactional.checked : false
+      };
+      UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
+      // NOTE: not wired yet — when ready, POST `payload` to
+      // https://flow.leadlinks.com.br/webhook/fei-lead (and enable the Power Automate node).
+
+      var nameEl = cfg.successNameId ? document.getElementById(cfg.successNameId) : null;
+      if (nameEl) nameEl.textContent = first.value.trim().split(" ")[0] || "there";
+      if (typeof cfg.onSuccess === "function") cfg.onSuccess();
+    });
+
+    return { focusFirst: function () { var f = byId("first"); if (f) f.focus(); } };
+  }
+
+  /* ---- Apply modal overlay ---- */
+  var overlay = document.getElementById("applyModal");
+  if (overlay) {
+    var formWrap = document.getElementById("modalFormWrap");
+    var successWrap = document.getElementById("modalSuccessWrap");
+    var modalForm = initApplyForm({
+      prefix: "am",
+      formId: "applyModalForm",
+      titleId: "applyModalTitle",
+      successNameId: "modalSuccessName",
+      onSuccess: function () {
+        if (formWrap) formWrap.hidden = true;
+        if (successWrap) successWrap.hidden = false;
+      }
+    });
+
     var openModal = function () {
       var mm = document.getElementById("mobileMenu");
       if (mm) mm.classList.remove("is-open");
@@ -138,8 +201,7 @@
       overlay.classList.add("is-open");
       overlay.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
-      var f = document.getElementById("am-first");
-      if (f) setTimeout(function () { f.focus(); }, 60);
+      if (modalForm) setTimeout(modalForm.focusFirst, 60);
     };
     var closeModal = function () {
       overlay.classList.remove("is-open");
@@ -162,49 +224,20 @@
         el.addEventListener("click", function (e) { e.preventDefault(); openModal(); });
       }
     });
+  }
 
-    var mForm = document.getElementById("applyModalForm");
-    if (mForm) {
-      mForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        var first = document.getElementById("am-first");
-        var last = document.getElementById("am-last");
-        var email = document.getElementById("am-email");
-        var zip = document.getElementById("am-zip");
-        var smsMarketing = document.getElementById("am-sms-marketing");
-        var smsTransactional = document.getElementById("am-sms-transactional");
-        var ok = true;
-        var bad = function (f, isBad) { if (f) f.classList.toggle("is-invalid", isBad); if (isBad) ok = false; };
-        bad(first, !first.value.trim());
-        bad(last, !last.value.trim());
-        bad(email, !EMAIL_RE.test(email.value.trim()));
-        bad(zip, !zip.value.trim());
-        var phoneOk = iti ? iti.isValidNumber() : !!phoneInput.value.trim();
-        bad(phoneInput, !phoneOk);
-        bad(progSelect, !progSelect.value);
-        // SMS consent is optional (not a condition of enrollment), so it does not gate submission.
-        if (!ok) return;
-
-        // Lead payload — ready to POST to the n8n endpoint when wiring is enabled.
-        var payload = {
-          firstName: first.value.trim(),
-          lastName: last.value.trim(),
-          email: email.value.trim(),
-          phone: iti ? iti.getNumber() : phoneInput.value.trim(),
-          zip: zip.value.trim(),
-          program: progSelect ? progSelect.value : "",
-          programType: progTypeHidden ? progTypeHidden.value : "",
-          smsMarketingConsent: smsMarketing ? smsMarketing.checked : false,
-          smsTransactionalConsent: smsTransactional ? smsTransactional.checked : false
-        };
-        UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
-        // NOTE: not wired yet — when ready, POST `payload` to
-        // https://flow.leadlinks.com.br/webhook/fei-lead (and enable the Power Automate node).
-
-        document.getElementById("modalSuccessName").textContent = first.value.trim().split(" ")[0] || "there";
-        if (formWrap) formWrap.hidden = true;
-        if (successWrap) successWrap.hidden = false;
-      });
-    }
+  /* ---- Apply page standalone form ---- */
+  var applyPageForm = document.getElementById("applyForm");
+  if (applyPageForm) {
+    var applySuccess = document.getElementById("applySuccess");
+    initApplyForm({
+      prefix: "af",
+      formId: "applyForm",
+      successNameId: "successName",
+      onSuccess: function () {
+        applyPageForm.hidden = true;
+        if (applySuccess) applySuccess.hidden = false;
+      }
+    });
   }
 })();

@@ -1,7 +1,39 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import content from '../data/pages/apply.html?raw';
+import ApplyForm from '../components/ApplyForm.astro';
 ---
 <BaseLayout title={"Apply Now | Florida Education Institute"} description={"Start your application to Florida Education Institute in Miami. No deadlines, no application fees. Tell us a little about you and an advisor will reach out."}>
-  <Fragment set:html={content} />
+  <section class="phero phero--page">
+    <div class="hero__bg" style="background-image:url('/img/students.jpg')" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="phero__inner">
+      <div class="phero__copy">
+        <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Apply to FEI</p>
+        <h1 class="phero__title reveal" data-delay="1">You are one step<br/>from starting.</h1>
+        <p class="phero__lede reveal" data-delay="2">No deadlines, no application fees. Tell us a little about you and an Admissions Advisor will reach out to walk you through the rest.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section apply-section" id="apply-form">
+    <div class="apply-grid">
+      <div class="apply-intro">
+        <p class="kicker">Application</p>
+        <h2 class="section__title section__title--sm">Start your<br/>application.</h2>
+        <p class="pblock__text" style="margin-top:1rem">This begins your enrollment process. Submitting it does not commit you to anything, and it does not by itself constitute acceptance to Florida Education Institute.</p>
+      </div>
+
+      <ApplyForm prefix="af" formId="applyForm" />
+
+      <div class="apply-success" id="applySuccess" hidden>
+        <div class="apply-success__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h2 class="section__title section__title--sm">Thank you, <span id="successName">there</span>.</h2>
+        <p class="pblock__text">Your application has been received. An FEI Admissions Advisor will reach out soon to walk you through the next steps.</p>
+        <p class="pblock__text" style="margin-top:.6rem">Want to talk sooner? Call <a href="tel:3054441515" style="color:var(--blue);font-weight:700">305-444-1515</a>.</p>
+        <a href="/" class="btn btn--outline btn--lg" style="margin-top:1.4rem">Back to home</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
