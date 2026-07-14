@@ -70,6 +70,7 @@ const { prefix: p, formId, submitLabel = 'Send' } = Astro.props;
   <button type="submit" class="btn btn--solid modal__submit">{submitLabel}
     <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
   </button>
+  <p class="form-error" id={`${p}-error`} role="alert" hidden>Sorry — we couldn't send your request. Please try again, or call <a href="tel:3054441515">305-444-1515</a>.</p>
   <h3 class="modal__divider">Prefer to talk?</h3>
   <a href="tel:3054441515" class="btn btn--outline modal__phone-btn">305-444-1515</a>
 </form>

@@ -89,6 +89,7 @@
 
   /* ---- Apply form (single source, shared by the modal overlay and the /apply page) ---- */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var LEAD_WEBHOOK_URL = "https://flow.leadlinks.app/webhook/fei-lead";
 
   // Wire up one apply form instance. Fields are found by an id prefix ("am" for the
   // modal, "af" for the /apply page) so both can coexist on the same page.
@@ -166,12 +167,27 @@
         smsTransactionalConsent: smsTransactional ? smsTransactional.checked : false
       };
       UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
-      // NOTE: not wired yet — when ready, POST `payload` to
-      // https://flow.leadlinks.com.br/webhook/fei-lead (and enable the Power Automate node).
 
-      var nameEl = cfg.successNameId ? document.getElementById(cfg.successNameId) : null;
-      if (nameEl) nameEl.textContent = first.value.trim().split(" ")[0] || "there";
-      if (typeof cfg.onSuccess === "function") cfg.onSuccess();
+      // POST the lead to the n8n webhook; show success only after it is accepted.
+      var submitBtn = form.querySelector('[type="submit"]');
+      var errEl = byId("error");
+      if (errEl) errEl.hidden = true;
+      var btnHTML = submitBtn ? submitBtn.innerHTML : "";
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending…"; }
+
+      fetch(LEAD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        var nameEl = cfg.successNameId ? document.getElementById(cfg.successNameId) : null;
+        if (nameEl) nameEl.textContent = first.value.trim().split(" ")[0] || "there";
+        if (typeof cfg.onSuccess === "function") cfg.onSuccess();
+      }).catch(function () {
+        if (errEl) errEl.hidden = false;
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = btnHTML; }
+      });
     });
 
     return { focusFirst: function () { var f = byId("first"); if (f) f.focus(); } };
