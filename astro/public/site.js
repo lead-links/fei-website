@@ -171,7 +171,8 @@
         var last = document.getElementById("am-last");
         var email = document.getElementById("am-email");
         var zip = document.getElementById("am-zip");
-        var consent = document.getElementById("am-consent");
+        var smsMarketing = document.getElementById("am-sms-marketing");
+        var smsTransactional = document.getElementById("am-sms-transactional");
         var ok = true;
         var bad = function (f, isBad) { if (f) f.classList.toggle("is-invalid", isBad); if (isBad) ok = false; };
         bad(first, !first.value.trim());
@@ -181,7 +182,7 @@
         var phoneOk = iti ? iti.isValidNumber() : !!phoneInput.value.trim();
         bad(phoneInput, !phoneOk);
         bad(progSelect, !progSelect.value);
-        if (!consent.checked) ok = false;
+        // SMS consent is optional (not a condition of enrollment), so it does not gate submission.
         if (!ok) return;
 
         // Lead payload — ready to POST to the n8n endpoint when wiring is enabled.
@@ -192,7 +193,9 @@
           phone: iti ? iti.getNumber() : phoneInput.value.trim(),
           zip: zip.value.trim(),
           program: progSelect ? progSelect.value : "",
-          programType: progTypeHidden ? progTypeHidden.value : ""
+          programType: progTypeHidden ? progTypeHidden.value : "",
+          smsMarketingConsent: smsMarketing ? smsMarketing.checked : false,
+          smsTransactionalConsent: smsTransactional ? smsTransactional.checked : false
         };
         UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
         // NOTE: not wired yet — when ready, POST `payload` to

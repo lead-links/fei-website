@@ -61,16 +61,19 @@ import { PROGRAMS } from '../data/programs';
         <input type="hidden" id="am-utm-id" name="utm_id" />
 
         <label class="consent">
-          <input type="checkbox" id="am-consent" required />
-          <span>I agree to be contacted by Florida Education Institute by phone, text, or email about its programs.</span>
+          <input type="checkbox" id="am-sms-marketing" name="smsMarketing" />
+          <span>By checking this box, I agree to receive marketing &amp; promotional SMS messages from Florida Education Institute at the phone number provided above, including program updates, offers, and service information.</span>
         </label>
-        <div class="modal__actions">
-          <button type="submit" class="btn btn--solid modal__submit">Send
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
-          </button>
-          <a href="tel:3054441515" class="btn btn--outline modal__phone-btn">305-444-1515</a>
-        </div>
-        <p class="modal__talk">Prefer to talk?</p>
+        <label class="consent">
+          <input type="checkbox" id="am-sms-transactional" name="smsTransactional" />
+          <span>I agree to receive transactional messages related to my application and enrollment from Florida Education Institute at the phone number provided above.</span>
+        </label>
+        <p class="consent-fine">Message frequency may vary. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. View our <a href="/legal/terms">Terms of Service</a> and <a href="/legal/privacy">Privacy Policy</a>.</p>
+        <button type="submit" class="btn btn--solid modal__submit">Send
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+        </button>
+        <h3 class="modal__divider">Prefer to talk?</h3>
+        <a href="tel:3054441515" class="btn btn--outline modal__phone-btn">305-444-1515</a>
       </form>
     </div>
 

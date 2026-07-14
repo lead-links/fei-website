@@ -57,9 +57,14 @@
             <textarea id="af-msg" name="message" rows="3"></textarea>
           </div>
           <label class="consent">
-            <input type="checkbox" id="af-consent" required />
-            <span>I agree to be contacted by Florida Education Institute by phone, text, or email about its programs.</span>
+            <input type="checkbox" id="af-sms-marketing" name="smsMarketing" />
+            <span>By checking this box, I agree to receive marketing &amp; promotional SMS messages from Florida Education Institute at the phone number provided above, including program updates, offers, and service information.</span>
           </label>
+          <label class="consent">
+            <input type="checkbox" id="af-sms-transactional" name="smsTransactional" />
+            <span>I agree to receive transactional messages related to my application and enrollment from Florida Education Institute at the phone number provided above.</span>
+          </label>
+          <p class="consent-fine">Message frequency may vary. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. View our <a href="/legal/terms">Terms of Service</a> and <a href="/legal/privacy">Privacy Policy</a>.</p>
           <button type="submit" class="btn btn--solid btn--lg apply-submit">Submit application
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
           </button>
