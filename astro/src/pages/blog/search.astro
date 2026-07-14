@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogBar from '../../components/BlogBar.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => +new Date(b.data.date) - +new Date(a.data.date)
+);
+
+// Plain-text haystack for client-side matching (title + categories + excerpt).
+const strip = (html: string) => html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+---
+<BaseLayout title="Search | Florida Education Institute Blog" description="Search articles on the Florida Education Institute blog.">
+  <header class="post-hero" style="--post-img:url('/img/students.jpg')">
+    <div class="post-hero__inner">
+      <p class="post-hero__meta"><a href="/blog">Blog</a> <span aria-hidden="true">·</span> <span>Search</span></p>
+      <h1 class="post-hero__title">Search the blog</h1>
+      <p class="post-hero__lede" id="searchSummary">Search articles on careers, training, and getting hired.</p>
+    </div>
+  </header>
+
+  <!-- Search + categories in the blue bar, right under the hero -->
+  <BlogBar activeCat={null} />
+
+  <section class="section">
+    <div class="prog-grid" id="blogGrid">
+      {posts.map((p) => (
+        <article
+          class="card"
+          data-search={`${p.data.title} ${p.data.categories.map((c) => c.name).join(' ')} ${strip(p.data.excerptHtml)}`.toLowerCase()}
+        >
+          <a href={`/blog/${p.data.slug}`} class="card__media" tabindex="-1" aria-hidden="true">
+            {p.data.featuredImage && <img src={p.data.featuredImage.url} alt={p.data.featuredImage.alt} loading="lazy" />}
+          </a>
+          <div class="card__body">
+            <span class="card__tag">{p.data.categories.map((c) => c.name).join(', ') || 'Blog'}</span>
+            <h3 class="card__title"><a href={`/blog/${p.data.slug}`}>{p.data.title}</a></h3>
+            <p class="card__desc" set:html={p.data.excerptHtml} />
+            <a href={`/blog/${p.data.slug}`} class="card__link">Read more</a>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p id="blogNoResults" class="section__intro" hidden>No articles match your search. Try a different term.</p>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    var input = document.getElementById('blogSearch');
+    var grid = document.getElementById('blogGrid');
+    var none = document.getElementById('blogNoResults');
+    var summary = document.getElementById('searchSummary');
+    if (!input || !grid) return;
+
+    var initial = (new URLSearchParams(location.search).get('q') || '').trim();
+    if (initial) input.value = initial;
+
+    var apply = function () {
+      var raw = input.value.trim();
+      var q = raw.toLowerCase();
+      var shown = 0;
+      grid.querySelectorAll('.card').forEach(function (c) {
+        var hit = !q || (c.dataset.search || '').indexOf(q) > -1;
+        c.classList.toggle('is-hidden', !hit);
+        if (hit) shown++;
+      });
+      if (none) none.hidden = shown !== 0;
+      if (summary) {
+        summary.textContent = raw
+          ? shown + ' result' + (shown === 1 ? '' : 's') + ' for “' + raw + '”'
+          : 'Search articles on careers, training, and getting hired.';
+      }
+    };
+
+    input.addEventListener('input', apply);
+    if (input.form) {
+      input.form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var raw = input.value.trim();
+        history.replaceState(null, '', raw ? '/blog/search?q=' + encodeURIComponent(raw) : '/blog/search');
+        apply();
+      });
+    }
+    apply();
+  })();
+</script>
