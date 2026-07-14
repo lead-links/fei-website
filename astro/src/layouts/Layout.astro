@@ -1,0 +1,25 @@
+---
+interface Props { title: string; description?: string | null; }
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 2.5rem 1.1rem; line-height: 1.62; color: #16202e; background: #fff; }
+      a { color: #0f62c4; }
+      h1 { line-height: 1.15; }
+      img { max-width: 100%; height: auto; border-radius: 8px; }
+      .meta { color: #6b7688; font-size: .9rem; }
+      ul.posts { list-style: none; padding: 0; display: grid; gap: 1.1rem; }
+      ul.posts li { border: 1px solid #e2e7ee; border-radius: 10px; padding: 1rem 1.1rem; }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

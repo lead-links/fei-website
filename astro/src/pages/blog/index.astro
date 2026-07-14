@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => +new Date(b.data.date) - +new Date(a.data.date)
+);
+const allCats = Array.from(
+  new Map(posts.flatMap((p) => p.data.categories).map((c) => [c.slug, c])).values()
+).sort((a, b) => a.name.localeCompare(b.name));
+---
+<BaseLayout title="Blog | Florida Education Institute" description="Career guides and news from Florida Education Institute in Miami.">
+  <!-- HERO — same model as the single post header -->
+  <header class="post-hero" style="--post-img:url('/img/students.jpg')">
+    <div class="post-hero__inner">
+      <p class="post-hero__meta"><span>The FEI Blog</span></p>
+      <h1 class="post-hero__title">Career guides &amp; news</h1>
+      <p class="post-hero__lede">Practical guides on careers, training, and getting hired, from the FEI team.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="blog-toolbar">
+      <div class="blog-cats">
+        <a href="/blog" class="side-tag is-active">All</a>
+        {allCats.map((c) => (<a href={`/blog/category/${c.slug}`} class="side-tag">{c.name}</a>))}
+      </div>
+      <form class="blog-search" role="search" onsubmit="return false">
+        <input type="search" id="blogSearch" placeholder="Search articles…" aria-label="Search articles" />
+      </form>
+    </div>
+
+    <div class="prog-grid" id="blogGrid">
+      {posts.map((p) => (
+        <article class="card" data-title={p.data.title.toLowerCase()} data-cat={p.data.categories.map((c) => c.name.toLowerCase()).join(' ')}>
+          <a href={`/blog/${p.data.slug}`} class="card__media" tabindex="-1" aria-hidden="true">
+            {p.data.featuredImage && <img src={p.data.featuredImage.url} alt={p.data.featuredImage.alt} loading="lazy" />}
+          </a>
+          <div class="card__body">
+            <span class="card__tag">{p.data.categories.map((c) => c.name).join(', ') || 'Blog'}</span>
+            <h3 class="card__title"><a href={`/blog/${p.data.slug}`}>{p.data.title}</a></h3>
+            <p class="card__desc" set:html={p.data.excerptHtml} />
+            <a href={`/blog/${p.data.slug}`} class="card__link">Read more</a>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p id="blogNoResults" class="section__intro" hidden>No articles match your search.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-toolbar { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
+  .blog-cats { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .side-tag { font-size: .85rem; font-weight: 600; color: var(--blue-600); background: #e9f1fc; border: 1px solid #dbe8f7; padding: .45em .9em; }
+  .side-tag:hover { background: #dbe8f7; }
+  .side-tag.is-active { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .blog-search input { border: 1px solid var(--line); padding: .7em 1em; font: inherit; font-size: .95rem; min-width: min(300px, 70vw); background: var(--white); color: var(--navy); }
+  .blog-search input:focus { outline: 2px solid var(--blue); outline-offset: -2px; }
+</style>
+
+<script is:inline>
+  (function () {
+    var input = document.getElementById('blogSearch');
+    var grid = document.getElementById('blogGrid');
+    var none = document.getElementById('blogNoResults');
+    if (!input || !grid) return;
+    var params = new URLSearchParams(location.search);
+    var initial = params.get('q') || '';
+    if (initial) input.value = initial;
+    var apply = function () {
+      var q = input.value.trim().toLowerCase();
+      var shown = 0;
+      grid.querySelectorAll('.card').forEach(function (c) {
+        var hit = !q || (c.dataset.title || '').indexOf(q) > -1 || (c.dataset.cat || '').indexOf(q) > -1;
+        c.classList.toggle('is-hidden', !hit);
+        if (hit) shown++;
+      });
+      if (none) none.hidden = shown !== 0;
+    };
+    input.addEventListener('input', apply);
+    if (initial) apply();
+  })();
+</script>

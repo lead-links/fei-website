@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const cats = new Map<string, { name: string; posts: typeof posts }>();
+  posts.forEach((p) =>
+    p.data.categories.forEach((c) => {
+      if (!cats.has(c.slug)) cats.set(c.slug, { name: c.name, posts: [] as typeof posts });
+      cats.get(c.slug)!.posts.push(p);
+    })
+  );
+  return Array.from(cats.entries()).map(([slug, v]) => ({
+    params: { category: slug },
+    props: { name: v.name, posts: v.posts.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date)) },
+  }));
+}
+
+const { name, posts } = Astro.props;
+---
+<BaseLayout title={`${name} | Florida Education Institute Blog`}>
+  <header class="post-hero" style="--post-img:url('/img/students.jpg')">
+    <div class="post-hero__inner">
+      <p class="post-hero__meta"><a href="/blog">Blog</a> <span aria-hidden="true">·</span> <span>Category</span></p>
+      <h1 class="post-hero__title">{name}</h1>
+      <p class="post-hero__lede">{posts.length} article{posts.length === 1 ? '' : 's'} in {name}.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="prog-grid">
+      {posts.map((p) => (
+        <article class="card">
+          <a href={`/blog/${p.data.slug}`} class="card__media" tabindex="-1" aria-hidden="true">
+            {p.data.featuredImage && <img src={p.data.featuredImage.url} alt={p.data.featuredImage.alt} loading="lazy" />}
+          </a>
+          <div class="card__body">
+            <span class="card__tag">{name}</span>
+            <h3 class="card__title"><a href={`/blog/${p.data.slug}`}>{p.data.title}</a></h3>
+            <p class="card__desc" set:html={p.data.excerptHtml} />
+            <a href={`/blog/${p.data.slug}`} class="card__link">Read more</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

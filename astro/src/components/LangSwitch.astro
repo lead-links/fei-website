@@ -1,0 +1,17 @@
+---
+// Real language switcher. English at the root, Spanish always under /es/.
+interface Props { extraClass?: string }
+const { extraClass = '' } = Astro.props;
+const path = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, '') || '/';
+const isEs = path === '/es' || path.startsWith('/es/');
+const enPath = isEs ? (path.replace(/^\/es/, '') || '/') : path;
+const esPath = isEs ? path : (path === '/' ? '/es' : '/es' + path);
+---
+<div class={`lang-switch ${extraClass}`} aria-label="Language selector">
+  <a href={enPath} class={`lang-switch__opt ${isEs ? '' : 'is-active'}`} title="English" aria-label="English" hreflang="en">
+    <svg viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#B22234"/><rect y="1.23" width="24" height="1.23" fill="#fff"/><rect y="3.69" width="24" height="1.23" fill="#fff"/><rect y="6.15" width="24" height="1.23" fill="#fff"/><rect y="8.62" width="24" height="1.23" fill="#fff"/><rect y="11.08" width="24" height="1.23" fill="#fff"/><rect y="13.54" width="24" height="1.23" fill="#fff"/><rect width="10.3" height="8.62" fill="#3C3B6E"/></svg>
+  </a>
+  <a href={esPath} class={`lang-switch__opt ${isEs ? 'is-active' : ''}`} title="Español" aria-label="Español" hreflang="es">
+    <svg viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#AA151B"/><rect y="4" width="24" height="8" fill="#F1BF00"/></svg>
+  </a>
+</div>

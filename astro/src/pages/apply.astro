@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../data/pages/apply.html?raw';
+---
+<BaseLayout title={"Apply Now | Florida Education Institute"} description={"Start your application to Florida Education Institute in Miami. No deadlines, no application fees. Tell us a little about you and an advisor will reach out."}>
+  <Fragment set:html={content} />
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+import LangSwitch from './LangSwitch.astro';
+
+// Root-relative links, i18n-aware (Spanish under /es/).
+const path = Astro.url.pathname;
+const isEs = path === '/es' || path.startsWith('/es/');
+const b = isEs ? '/es' : '';
+const links = [
+  { href: `${b}/#programs`, label: 'Programs' },
+  { href: `${b}/about`, label: 'About FEI' },
+  { href: `${b}/admissions`, label: 'Admissions' },
+  { href: `${b}/financial-aid`, label: 'Financial Aid' },
+  { href: `${b}/support`, label: 'Support' },
+  { href: `${b}/blog`, label: 'Blog' },
+];
+const applyHref = `${b}/apply`;
+---
+<div class="utility-bar">
+  <div class="utility-bar__inner">
+    <a href="tel:3054441515" class="utility-bar__phone">Call Today 305-444-1515</a>
+    <span class="utility-bar__sep" aria-hidden="true">|</span>
+    <a href="https://starnet.neolms.com/" target="_blank" rel="noopener" class="utility-bar__link">Student Portal</a>
+    <span class="utility-bar__sep" aria-hidden="true">|</span>
+    <LangSwitch />
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href={`${b}/`} class="brand" aria-label="Florida Education Institute home">
+      <span class="brand__mark" aria-hidden="true">
+        <img class="brand__logo" src="/fei-logo.png" alt="Florida Education Institute" width="54" height="50" />
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <div class="nav__actions">
+      <a href={applyHref} class="btn btn--solid">Apply Now</a>
+    </div>
+
+    <LangSwitch extraClass="nav__mobile-lang" />
+
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu__close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    <a href={applyHref} class="btn btn--solid">Apply Now</a>
+  </div>
+</header>

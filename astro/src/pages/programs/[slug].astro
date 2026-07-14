@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PROGRAM_META } from '../../data/program-meta';
+
+// Each program's <main> content, ported verbatim from the current site.
+const contents = import.meta.glob('../../data/programs/*.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+export function getStaticPaths() {
+  return Object.keys(PROGRAM_META).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const meta = PROGRAM_META[slug as string];
+const key = Object.keys(contents).find((k) => k.endsWith(`/${slug}.html`))!;
+const html = contents[key];
+---
+<BaseLayout title={meta.title} description={meta.description}>
+  <Fragment set:html={html} />
+</BaseLayout>

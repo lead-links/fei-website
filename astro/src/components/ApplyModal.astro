@@ -1,0 +1,61 @@
+---
+import { PROGRAMS } from '../data/programs';
+---
+<div class="modal-overlay" id="applyModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="applyModalTitle">
+    <button class="modal__close" id="applyModalClose" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+
+    <div id="modalFormWrap">
+      <p class="modal__eyebrow">Apply to FEI</p>
+      <h2 class="modal__title" id="applyModalTitle">Request program details</h2>
+      <p class="modal__sub">Tell us a little about you and an Admissions Advisor will reach out. No obligation.</p>
+
+      <form class="form" id="applyModalForm" novalidate>
+        <div class="field">
+          <label for="am-name">Full name</label>
+          <input type="text" id="am-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="am-email">Email</label>
+          <input type="email" id="am-email" name="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="am-phone">Phone <span class="field__opt">(optional)</span></label>
+          <input type="tel" id="am-phone" name="phone" autocomplete="tel" inputmode="tel" />
+        </div>
+        <div class="field" id="am-program-field">
+          <label for="am-program">Program of interest</label>
+          <select id="am-program" name="program" required>
+            <option value="" disabled selected>Select a program</option>
+            {PROGRAMS.map((p) => (
+              <option value={p.slug}>{p.title}{p.tag === 'A.A.S.' ? ' (A.A.S.)' : ''}</option>
+            ))}
+          </select>
+        </div>
+        <div class="field field--full">
+          <label for="am-msg">Anything you would like us to know? <span class="field__opt">(optional)</span></label>
+          <textarea id="am-msg" name="message" rows="3"></textarea>
+        </div>
+        <label class="consent">
+          <input type="checkbox" id="am-consent" required />
+          <span>I agree to be contacted by Florida Education Institute by phone, text, or email about its programs.</span>
+        </label>
+        <button type="submit" class="btn btn--solid btn--lg modal__submit">Request info
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+        </button>
+        <p class="modal__phone">Prefer to talk to a person?<br/><a href="tel:3054441515">305-444-1515</a></p>
+      </form>
+    </div>
+
+    <div id="modalSuccessWrap" hidden>
+      <div class="apply-success__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h2 class="modal__title">Thank you, <span id="modalSuccessName">there</span>.</h2>
+      <p class="modal__sub">Your request has been received. An FEI Admissions Advisor will reach out soon.</p>
+      <p class="modal__phone">Want to talk sooner? Call <a href="tel:3054441515">305-444-1515</a>.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../data/pages/employers.html?raw';
+---
+<BaseLayout title={"For Employers, Hire FEI Graduates | Florida Education Institute"} description={"Partner with FEI to hire trained, pre-screened graduates in Miami, at no cost. Candidate referrals, temp staffing without agency fees, and a direct line to Career Services."}>
+  <Fragment set:html={content} />
+</BaseLayout>

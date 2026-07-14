@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../data/pages/admissions.html?raw';
+---
+<BaseLayout title={"Admissions, How to Apply | Florida Education Institute"} description={"Applying to FEI in Miami is simple: no deadlines, no application fees, and new classes every 3-4 weeks. Meet with a Career Education Advisor to get started."}>
+  <Fragment set:html={content} />
+</BaseLayout>

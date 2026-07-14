@@ -1,0 +1,18 @@
+# build output
+dist/
+
+# generated types & content cache
+.astro/
+
+# dependencies
+node_modules/
+
+# environment (endpoint is set per environment; see .env.example)
+.env
+.env.production
+.env.local
+
+# logs / os
+npm-debug.log*
+yarn-error.log*
+.DS_Store
