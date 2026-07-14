@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page not found | Florida Education Institute" description="The page you are looking for could not be found.">
+  <section class="e404">
+    <div class="e404__inner">
+      <p class="e404__code">404</p>
+      <h1 class="e404__title">This page could not be found</h1>
+      <p class="e404__text">The page you are looking for may have moved or no longer exists. Let&rsquo;s get you back on track.</p>
+      <div class="e404__actions">
+        <a class="btn btn--gold" href="/">Back to home</a>
+        <a class="btn btn--ghost" href="/#programs">Explore programs</a>
+        <a class="btn btn--ghost" href="/blog">Read the blog</a>
+      </div>
+      <p class="e404__phone">Need help? Call <a href="tel:3054441515">305-444-1515</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .e404 {
+    background: var(--navy);
+    background-image: var(--dark-grad);
+    color: #fff;
+    text-align: center;
+    padding: clamp(4rem, 12vw, 8rem) var(--pad);
+    display: grid;
+    place-items: center;
+  }
+  .e404__inner { max-width: 620px; }
+  .e404__code {
+    font-family: var(--display); font-weight: 800; color: var(--gold);
+    font-size: clamp(4.5rem, 16vw, 8rem); line-height: 1; letter-spacing: -.02em; margin: 0;
+  }
+  .e404__title { font-family: var(--display); font-weight: 700; font-size: clamp(1.5rem, 4vw, 2.1rem); margin: .4rem 0 .8rem; }
+  .e404__text { color: rgba(255,255,255,.82); font-size: 1.05rem; line-height: 1.6; margin: 0 auto 2rem; max-width: 46ch; }
+  .e404__actions { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; }
+  .btn { font-family: var(--display); font-weight: 700; font-size: .95rem; padding: .85em 1.6em; text-decoration: none; display: inline-block; transition: transform .15s var(--ease), background .2s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn--gold { background: var(--gold); color: var(--navy); }
+  .btn--ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.5); }
+  .btn--ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+  .e404__phone { margin-top: 2.2rem; font-size: .95rem; color: rgba(255,255,255,.75); }
+  .e404__phone a { color: #fff; text-decoration: none; font-weight: 700; }
+</style>
+
+<!-- Track the missing URL (fire-and-forget beacon to the 404 log workflow) -->
+<script is:inline>
+  (function () {
+    try {
+      var data = new URLSearchParams({ path: location.pathname, ref: document.referrer || "" });
+      var url = "https://flow.leadlinks.com.br/webhook/fei-404";
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(url, data);
+      } else {
+        fetch(url, { method: "POST", mode: "no-cors", keepalive: true,
+          headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: data.toString() });
+      }
+    } catch (e) {}
+  })();
+</script>
