@@ -95,16 +95,20 @@
     var titleEl = document.getElementById("applyModalTitle");
     var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Program context (hidden) — filled only on program pages, from #feiProgramMeta.
-    var progHidden = document.getElementById("am-program");
+    // Program context: dropdown visible by default (choose), hidden + pre-filled on program pages.
+    var progSelect = document.getElementById("am-program");
+    var progField = document.getElementById("am-program-field");
     var progTypeHidden = document.getElementById("am-program-type");
     var progMeta = document.getElementById("feiProgramMeta");
-    if (progMeta) {
+    if (progMeta && progField && progSelect) {
       var pName = progMeta.getAttribute("data-program") || "";
       var pType = progMeta.getAttribute("data-program-type") || "";
-      if (progHidden) progHidden.value = pName;
-      if (progTypeHidden) progTypeHidden.value = pType;
-      if (pName && titleEl) titleEl.textContent = "Apply to " + pName;
+      if (pName) {
+        progSelect.value = pName;
+        progField.hidden = true;
+        if (titleEl) titleEl.textContent = "Apply to " + pName;
+      }
+      if (pType && progTypeHidden) progTypeHidden.value = pType;
     }
 
     // Hidden UTM fields <- persisted first-touch values.
@@ -176,6 +180,7 @@
         bad(zip, !zip.value.trim());
         var phoneOk = iti ? iti.isValidNumber() : !!phoneInput.value.trim();
         bad(phoneInput, !phoneOk);
+        bad(progSelect, !progSelect.value);
         if (!consent.checked) ok = false;
         if (!ok) return;
 
@@ -186,7 +191,7 @@
           email: email.value.trim(),
           phone: iti ? iti.getNumber() : phoneInput.value.trim(),
           zip: zip.value.trim(),
-          program: progHidden ? progHidden.value : "",
+          program: progSelect ? progSelect.value : "",
           programType: progTypeHidden ? progTypeHidden.value : ""
         };
         UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
