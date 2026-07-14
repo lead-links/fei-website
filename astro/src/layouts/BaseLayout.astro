@@ -9,8 +9,13 @@ interface Props {
   description?: string | null;
   lang?: string;
   canonical?: string | null;
+  image?: string | null;   // absolute URL used as the social share image (og:image)
+  ogType?: string;
 }
-const { title, description, lang = 'en', canonical } = Astro.props;
+const { title, description, lang = 'en', canonical, image, ogType = 'website' } = Astro.props;
+// Clean URL for og:url — strip the built .html/index.html so it matches the site's clean links.
+const cleanPath = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, '');
+const pageUrl = Astro.site ? new URL(cleanPath, Astro.site).href : (canonical ?? undefined);
 ---
 <!doctype html>
 <html lang={lang}>
@@ -28,6 +33,18 @@ const { title, description, lang = 'en', canonical } = Astro.props;
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {canonical && <link rel="canonical" href={canonical} />}
+    <!-- Open Graph / Twitter — social share preview -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Florida Education Institute" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    {pageUrl && <meta property="og:url" content={pageUrl} />}
+    {image && <meta property="og:image" content={image} />}
+    {image && <meta property="og:image:alt" content={title} />}
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    {image && <meta name="twitter:image" content={image} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -38,7 +38,7 @@ const recent = posts
   .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date))
   .slice(0, 3);
 ---
-<BaseLayout title={d.seo.title ?? d.title} description={d.seo.description} canonical={d.seo.canonicalUrl}>
+<BaseLayout title={d.seo.title ?? d.title} description={d.seo.description} canonical={d.seo.canonicalUrl} image={d.featuredImage?.url} ogType="article">
   {d.seo.jsonLd && <script type="application/ld+json" set:html={d.seo.jsonLd} is:inline />}
 
   <article class="post">
