@@ -16,6 +16,7 @@ export const PAGE_ES: Record<string, string> = {
   '/support': '/es/apoyo',
   '/legal/privacy': '/es/legal/privacidad',
   '/legal/terms': '/es/legal/terminos',
+  '/consumer-information': '/es/informacion-al-consumidor',
 };
 
 // Program slug: EN -> ES.  EN: /programs/<en>   ES: /es/programas/<es>

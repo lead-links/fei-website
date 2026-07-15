@@ -62,7 +62,7 @@ const progLabel = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_E
     <p class="footer__legal">
       <a href={href('/legal/privacy', lang)}>{f.privacy}</a> ·
       <a href={href('/legal/terms', lang)}>{f.terms}</a> ·
-      <a href="/consumer-information">{f.consumerInfo}</a>
+      <a href={href('/consumer-information', lang)}>{f.consumerInfo}</a>
     </p>
   </div>
 </footer>

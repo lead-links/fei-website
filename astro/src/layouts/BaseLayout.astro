@@ -21,7 +21,7 @@ const alt = locales(Astro.url.pathname);
 const lang: Lang = alt.isEs ? 'es' : 'en';
 const normPath = cleanPath.length > 1 ? cleanPath.replace(/\/$/, '') : cleanPath;
 // English-only pages (no ES counterpart) — skip hreflang alternates for these.
-const isEnglishOnly = normPath === '/blog' || normPath.startsWith('/blog/') || normPath === '/consumer-information';
+const isEnglishOnly = normPath === '/blog' || normPath.startsWith('/blog/');
 const enUrl = Astro.site ? new URL(alt.en, Astro.site).href : null;
 const esUrl = Astro.site ? new URL(alt.es, Astro.site).href : null;
 ---

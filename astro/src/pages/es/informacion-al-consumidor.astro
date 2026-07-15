@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import content from '../../data/pages/es/consumer-information.html?raw';
+---
+<BaseLayout
+  title={"Información al Consumidor | Florida Education Institute"}
+  description={"Divulgaciones, requisitos de informes e información al consumidor para estudiantes de Florida Education Institute, según lo exige la Ley de Educación Superior."}
+>
+  <Fragment set:html={content} />
+</BaseLayout>
