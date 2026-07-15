@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import content from '../../../data/pages/es/legal-terms.html?raw';
+---
+<BaseLayout
+  title={"Términos de Servicio | Florida Education Institute"}
+  description={"Los términos que rigen tu uso del sitio web y las comunicaciones de Florida Education Institute."}
+>
+  <Fragment set:html={content} />
+</BaseLayout>

@@ -1,5 +1,7 @@
 ---
 import { PROGRAMS } from '../data/programs';
+import { t } from '../i18n/ui';
+import { href, PROGRAM_TITLE_ES, type Lang } from '../i18n/routes';
 
 // Single source of truth for the lead-capture form, shared by the modal overlay
 // (prefix "am") and the /apply page (prefix "af"). All element ids are prefixed
@@ -10,38 +12,45 @@ interface Props {
   prefix: string;
   formId: string;
   submitLabel?: string;
+  lang?: Lang;
 }
-const { prefix: p, formId, submitLabel = 'Send' } = Astro.props;
+const { prefix: p, formId, submitLabel, lang = 'en' } = Astro.props;
+const s = t(lang).form;
+const legal = t(lang).footer;
+const send = submitLabel ?? s.send;
+const progTitle = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_ES[slug] : en);
 ---
 <form class="form" id={formId} novalidate>
   <div class="field">
-    <label for={`${p}-first`}>First name</label>
+    <label for={`${p}-first`}>{s.first}</label>
     <input type="text" id={`${p}-first`} name="firstName" autocomplete="given-name" required />
   </div>
   <div class="field">
-    <label for={`${p}-last`}>Last name</label>
+    <label for={`${p}-last`}>{s.last}</label>
     <input type="text" id={`${p}-last`} name="lastName" autocomplete="family-name" required />
   </div>
   <div class="field">
-    <label for={`${p}-email`}>Email</label>
+    <label for={`${p}-email`}>{s.email}</label>
     <input type="email" id={`${p}-email`} name="email" autocomplete="email" required />
   </div>
   <div class="field">
-    <label for={`${p}-phone`}>Phone</label>
+    <label for={`${p}-phone`}>{s.phone}</label>
     <input type="tel" id={`${p}-phone`} name="phone" autocomplete="tel" />
   </div>
   <div class="field field--full">
-    <label for={`${p}-zip`}>Zip code</label>
+    <label for={`${p}-zip`}>{s.zip}</label>
     <input type="text" id={`${p}-zip`} name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" required />
   </div>
 
-  <!-- Program dropdown: visible by default (choose), hidden on program pages (pre-filled) -->
+  <!-- Program dropdown: visible by default (choose), hidden on program pages (pre-filled).
+       Option value stays the English program title (stable lead identifier); the
+       label is localized. -->
   <div class="field field--full" id={`${p}-program-field`}>
-    <label for={`${p}-program`}>Program of interest</label>
+    <label for={`${p}-program`}>{s.program}</label>
     <select id={`${p}-program`} name="program" required>
-      <option value="" disabled selected>Select a program</option>
+      <option value="" disabled selected>{s.selectProgram}</option>
       {PROGRAMS.map((prog) => (
-        <option value={prog.title}>{prog.title}{prog.tag === 'A.A.S.' ? ' (A.A.S.)' : ''}</option>
+        <option value={prog.title}>{progTitle(prog.slug, prog.title)}{prog.tag === 'A.A.S.' ? ' (A.A.S.)' : ''}</option>
       ))}
     </select>
   </div>
@@ -59,18 +68,18 @@ const { prefix: p, formId, submitLabel = 'Send' } = Astro.props;
 
   <label class="consent">
     <input type="checkbox" id={`${p}-sms-marketing`} name="smsMarketing" />
-    <span>By checking this box, I agree to receive marketing &amp; promotional SMS messages from Florida Education Institute at the phone number provided above, including program updates, offers, and service information.</span>
+    <span>{s.smsMarketing}</span>
   </label>
   <label class="consent">
     <input type="checkbox" id={`${p}-sms-transactional`} name="smsTransactional" />
-    <span>I agree to receive transactional messages related to my application and enrollment from Florida Education Institute at the phone number provided above.</span>
+    <span>{s.smsTransactional}</span>
   </label>
-  <p class="consent-fine">Message frequency may vary. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. View our <a href="/legal/terms">Terms of Service</a> and <a href="/legal/privacy">Privacy Policy</a>.</p>
+  <p class="consent-fine">{s.fine} <a href={href('/legal/terms', lang)}>{legal.terms}</a> {s.and} <a href={href('/legal/privacy', lang)}>{legal.privacy}</a>.</p>
 
-  <button type="submit" class="btn btn--solid modal__submit">{submitLabel}
+  <button type="submit" class="btn btn--solid modal__submit">{send}
     <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
   </button>
-  <p class="form-error" id={`${p}-error`} role="alert" hidden>Sorry — we couldn't send your request. Please try again, or call <a href="tel:3054441515">305-444-1515</a>.</p>
-  <h3 class="modal__divider">Prefer to talk?</h3>
+  <p class="form-error" id={`${p}-error`} role="alert" hidden>{s.error} <a href="tel:3054441515">305-444-1515</a>.</p>
+  <h3 class="modal__divider">{s.preferToTalk}</h3>
   <a href="tel:3054441515" class="btn btn--outline modal__phone-btn">305-444-1515</a>
 </form>

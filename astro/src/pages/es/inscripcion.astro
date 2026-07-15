@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ApplyForm from '../../components/ApplyForm.astro';
+---
+<BaseLayout title={"Inscripción | Florida Education Institute"} description={"Comienza tu inscripción en Florida Education Institute, en Miami. Sin fechas límite ni cuotas de solicitud. Cuéntanos un poco sobre ti y un asesor se pondrá en contacto."}>
+  <section class="phero phero--page">
+    <div class="hero__bg" style="background-image:url('/img/students.jpg')" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="phero__inner">
+      <div class="phero__copy">
+        <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Inscríbete en FEI</p>
+        <h1 class="phero__title reveal" data-delay="1">Estás a un paso<br/>de empezar.</h1>
+        <p class="phero__lede reveal" data-delay="2">Sin fechas límite ni cuotas de solicitud. Cuéntanos un poco sobre ti y un Asesor de Admisiones se pondrá en contacto para guiarte en lo demás.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section apply-section" id="apply-form">
+    <div class="apply-grid">
+      <div class="apply-intro">
+        <p class="kicker">Inscripción</p>
+        <h2 class="section__title section__title--sm">Comienza tu<br/>inscripción.</h2>
+        <p class="pblock__text" style="margin-top:1rem">Este es el inicio de tu proceso de inscripción. Enviarlo no te compromete a nada y, por sí solo, no constituye una aceptación en Florida Education Institute.</p>
+      </div>
+
+      <ApplyForm prefix="af" formId="applyForm" lang="es" />
+
+      <div class="apply-success" id="applySuccess" hidden>
+        <div class="apply-success__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h2 class="section__title section__title--sm">Gracias, <span id="successName">there</span>.</h2>
+        <p class="pblock__text">Hemos recibido tu solicitud. Un Asesor de Admisiones de FEI se pondrá en contacto pronto para acompañarte en los siguientes pasos.</p>
+        <p class="pblock__text" style="margin-top:.6rem">¿Quieres hablar antes? Llama al <a href="tel:3054441515" style="color:var(--blue);font-weight:700">305-444-1515</a>.</p>
+        <a href="/es" class="btn btn--outline btn--lg" style="margin-top:1.4rem">Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { PROGRAMS } from '../../../data/programs';
+import { PROGRAM_ES, PROGRAM_EN, PROGRAM_TITLE_ES, PROGRAM_DESC_ES } from '../../../i18n/routes';
+
+// Spanish program pages. Route uses the localized ES slug; content is the
+// translated es/<en-slug>.html. The modal's program value stays the EN title
+// (data-program) so the dropdown matches; data-program-label is the ES display name.
+const contents = import.meta.glob('../../../data/programs/es/*.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+export function getStaticPaths() {
+  return Object.values(PROGRAM_ES).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const enSlug = PROGRAM_EN[slug as string];
+const key = Object.keys(contents).find((k) => k.endsWith(`/${enSlug}.html`))!;
+const html = contents[key];
+
+const program = PROGRAMS.find((p) => p.slug === enSlug);
+const esTitle = PROGRAM_TITLE_ES[enSlug];
+const programType = program?.tag === 'A.A.S.' ? 'Grado Asociado' : (program?.tag ?? '');
+---
+<BaseLayout
+  title={`${esTitle} en Miami | Florida Education Institute`}
+  description={PROGRAM_DESC_ES[enSlug]}
+>
+  {program && (
+    <div
+      id="feiProgramMeta"
+      data-program={program.title}
+      data-program-label={esTitle}
+      data-program-type={programType}
+      hidden
+    ></div>
+  )}
+  <Fragment set:html={html} />
+</BaseLayout>

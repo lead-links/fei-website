@@ -1,11 +1,12 @@
 ---
-// Real language switcher. English at the root, Spanish always under /es/.
+import { locales } from '../i18n/routes';
+
+// Language switcher. Maps the current page to its counterpart in the other
+// locale using the EN⇄ES route table (localized slugs). Blog has no ES page,
+// so its Spanish link points to the /es home.
 interface Props { extraClass?: string }
 const { extraClass = '' } = Astro.props;
-const path = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, '') || '/';
-const isEs = path === '/es' || path.startsWith('/es/');
-const enPath = isEs ? (path.replace(/^\/es/, '') || '/') : path;
-const esPath = isEs ? path : (path === '/' ? '/es' : '/es' + path);
+const { en: enPath, es: esPath, isEs } = locales(Astro.url.pathname);
 ---
 <div class={`lang-switch ${extraClass}`} aria-label="Language selector">
   <a href={enPath} class={`lang-switch__opt ${isEs ? '' : 'is-active'}`} title="English" aria-label="English" hreflang="en">

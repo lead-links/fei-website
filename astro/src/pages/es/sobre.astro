@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import content from '../../data/pages/es/about.html?raw';
+---
+<BaseLayout title={"Sobre FEI, Atención Personalizada y Educación Profesional | Florida Education Institute"} description={"En FEI, en Miami, te conocen por tu nombre. Conoce nuestra atención personalizada, nuestro enfoque Divertido-Activo-Motivador y nuestra misión y visión."}>
+  <Fragment set:html={content} />
+</BaseLayout>

@@ -110,7 +110,11 @@
       if (pName) {
         progSelect.value = pName;
         progField.hidden = true;
-        if (titleEl) titleEl.textContent = "Apply to " + pName;
+        if (titleEl) {
+          var applyTo = titleEl.getAttribute("data-apply-to") || "Apply to";
+          var label = progMeta.getAttribute("data-program-label") || pName;
+          titleEl.textContent = applyTo + " " + label;
+        }
       }
       if (pType && progTypeHidden) progTypeHidden.value = pType;
     }

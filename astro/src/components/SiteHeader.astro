@@ -1,25 +1,29 @@
 ---
 import LangSwitch from './LangSwitch.astro';
+import { href, locales, type Lang } from '../i18n/routes';
+import { t } from '../i18n/ui';
 
-// Root-relative links, i18n-aware (Spanish under /es/).
-const path = Astro.url.pathname;
-const isEs = path === '/es' || path.startsWith('/es/');
-const b = isEs ? '/es' : '';
+// i18n-aware chrome. English at the root, Spanish under /es/ with localized slugs.
+// Use locales() so the .html/trailing-slash forms (e.g. /es.html) are detected too.
+const isEs = locales(Astro.url.pathname).isEs;
+const lang: Lang = isEs ? 'es' : 'en';
+const s = t(lang).nav;
+const home = isEs ? '/es' : '/';
 const links = [
-  { href: `${b}/#programs`, label: 'Programs' },
-  { href: `${b}/about`, label: 'About FEI' },
-  { href: `${b}/admissions`, label: 'Admissions' },
-  { href: `${b}/financial-aid`, label: 'Financial Aid' },
-  { href: `${b}/support`, label: 'Support' },
-  { href: `${b}/blog`, label: 'Blog' },
+  { href: isEs ? '/es#programs' : '/#programs', label: s.programs },
+  { href: href('/about', lang), label: s.about },
+  { href: href('/admissions', lang), label: s.admissions },
+  { href: href('/financial-aid', lang), label: s.financialAid },
+  { href: href('/support', lang), label: s.support },
+  { href: href('/blog', lang), label: s.blog },
 ];
-const applyHref = `${b}/apply`;
+const applyHref = href('/apply', lang);
 ---
 <div class="utility-bar">
   <div class="utility-bar__inner">
-    <a href="tel:3054441515" class="utility-bar__phone">Call Today 305-444-1515</a>
+    <a href="tel:3054441515" class="utility-bar__phone">{s.callToday}</a>
     <span class="utility-bar__sep" aria-hidden="true">|</span>
-    <a href="https://starnet.neolms.com/" target="_blank" rel="noopener" class="utility-bar__link">Student Portal</a>
+    <a href="https://starnet.neolms.com/" target="_blank" rel="noopener" class="utility-bar__link">{s.studentPortal}</a>
     <span class="utility-bar__sep" aria-hidden="true">|</span>
     <LangSwitch />
   </div>
@@ -27,7 +31,7 @@ const applyHref = `${b}/apply`;
 
 <header class="nav" id="nav">
   <div class="nav__inner">
-    <a href={`${b}/`} class="brand" aria-label="Florida Education Institute home">
+    <a href={home} class="brand" aria-label={s.home}>
       <span class="brand__mark" aria-hidden="true">
         <img class="brand__logo" src="/fei-logo.png" alt="Florida Education Institute" width="54" height="50" />
       </span>
@@ -38,19 +42,19 @@ const applyHref = `${b}/apply`;
     </nav>
 
     <div class="nav__actions">
-      <a href={applyHref} class="btn btn--solid">Apply Now</a>
+      <a href={applyHref} class="btn btn--solid" data-apply>{s.apply}</a>
     </div>
 
     <LangSwitch extraClass="nav__mobile-lang" />
 
-    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <button class="nav__toggle" id="navToggle" aria-label={s.openMenu} aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <button class="mobile-menu__close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <button class="mobile-menu__close" type="button" aria-label={s.closeMenu}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     {links.map((l) => <a href={l.href}>{l.label}</a>)}
-    <a href={applyHref} class="btn btn--solid">Apply Now</a>
+    <a href={applyHref} class="btn btn--solid" data-apply>{s.apply}</a>
   </div>
 </header>

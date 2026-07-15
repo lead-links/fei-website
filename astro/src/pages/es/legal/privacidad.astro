@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import content from '../../../data/pages/es/legal-privacy.html?raw';
+---
+<BaseLayout
+  title={"Política de Privacidad | Florida Education Institute"}
+  description={"Cómo Florida Education Institute recopila, usa y protege tu información personal."}
+>
+  <Fragment set:html={content} />
+</BaseLayout>

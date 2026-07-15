@@ -3,19 +3,26 @@ import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ApplyModal from '../components/ApplyModal.astro';
+import { locales, type Lang } from '../i18n/routes';
 
 interface Props {
   title: string;
   description?: string | null;
-  lang?: string;
   canonical?: string | null;
   image?: string | null;   // absolute URL used as the social share image (og:image)
   ogType?: string;
 }
-const { title, description, lang = 'en', canonical, image, ogType = 'website' } = Astro.props;
+const { title, description, canonical, image, ogType = 'website' } = Astro.props;
 // Clean URL for og:url — strip the built .html/index.html so it matches the site's clean links.
 const cleanPath = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, '');
 const pageUrl = Astro.site ? new URL(cleanPath, Astro.site).href : (canonical ?? undefined);
+// i18n: derive language + the EN/ES counterparts for hreflang.
+const alt = locales(Astro.url.pathname);
+const lang: Lang = alt.isEs ? 'es' : 'en';
+const normPath = cleanPath.length > 1 ? cleanPath.replace(/\/$/, '') : cleanPath;
+const isBlog = normPath === '/blog' || normPath.startsWith('/blog/');
+const enUrl = Astro.site ? new URL(alt.en, Astro.site).href : null;
+const esUrl = Astro.site ? new URL(alt.es, Astro.site).href : null;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -33,6 +40,9 @@ const pageUrl = Astro.site ? new URL(cleanPath, Astro.site).href : (canonical ??
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {canonical && <link rel="canonical" href={canonical} />}
+    {!isBlog && enUrl && <link rel="alternate" hreflang="en" href={enUrl} />}
+    {!isBlog && esUrl && <link rel="alternate" hreflang="es" href={esUrl} />}
+    {!isBlog && enUrl && <link rel="alternate" hreflang="x-default" href={enUrl} />}
     <!-- Open Graph / Twitter — social share preview -->
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Florida Education Institute" />
@@ -61,7 +71,7 @@ const pageUrl = Astro.site ? new URL(cleanPath, Astro.site).href : (canonical ??
     <SiteHeader />
     <main id="top"><slot /></main>
     <SiteFooter />
-    <ApplyModal />
+    <ApplyModal lang={lang} />
     <script src="/vendor/intl-tel-input/js/intlTelInputWithUtils.min.js" defer is:inline></script>
     <script src="/site.js" defer is:inline></script>
   </body>

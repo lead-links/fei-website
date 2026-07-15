@@ -1,10 +1,15 @@
 ---
 import ApplyForm from './ApplyForm.astro';
+import { t } from '../i18n/ui';
+import type { Lang } from '../i18n/routes';
 
 // Lead-capture overlay. The form itself is the shared <ApplyForm> component
 // (same source as the /apply page). Program dropdown is visible by default and
 // hidden + pre-filled only on program pages; UTMs are restored from localStorage
-// (see site.js -> initApplyForm).
+// (see site.js -> initApplyForm). Strings follow the page language.
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const s = t(lang).form;
 ---
 <div class="modal-overlay" id="applyModal" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="applyModalTitle">
@@ -13,20 +18,20 @@ import ApplyForm from './ApplyForm.astro';
     </button>
 
     <div id="modalFormWrap">
-      <p class="modal__eyebrow">Apply to FEI</p>
-      <h2 class="modal__title" id="applyModalTitle">Request program details</h2>
-      <p class="modal__sub">Tell us a little about you and an Admissions Advisor will reach out. No obligation.</p>
+      <p class="modal__eyebrow">{s.eyebrow}</p>
+      <h2 class="modal__title" id="applyModalTitle" data-apply-to={s.applyTo}>{s.title}</h2>
+      <p class="modal__sub">{s.sub}</p>
 
-      <ApplyForm prefix="am" formId="applyModalForm" />
+      <ApplyForm prefix="am" formId="applyModalForm" lang={lang} />
     </div>
 
     <div id="modalSuccessWrap" hidden>
       <div class="apply-success__mark" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
       </div>
-      <h2 class="modal__title">Thank you, <span id="modalSuccessName">there</span>.</h2>
-      <p class="modal__sub">Your request has been received. An FEI Admissions Advisor will reach out soon.</p>
-      <p class="modal__phone">Want to talk sooner? Call <a href="tel:3054441515">305-444-1515</a>.</p>
+      <h2 class="modal__title">{s.thankYou} <span id="modalSuccessName">there</span>.</h2>
+      <p class="modal__sub">{s.received}</p>
+      <p class="modal__phone">{s.talkSooner} <a href="tel:3054441515">305-444-1515</a>.</p>
     </div>
   </div>
 </div>
