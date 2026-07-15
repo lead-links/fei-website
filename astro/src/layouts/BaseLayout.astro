@@ -20,7 +20,8 @@ const pageUrl = Astro.site ? new URL(cleanPath, Astro.site).href : (canonical ??
 const alt = locales(Astro.url.pathname);
 const lang: Lang = alt.isEs ? 'es' : 'en';
 const normPath = cleanPath.length > 1 ? cleanPath.replace(/\/$/, '') : cleanPath;
-const isBlog = normPath === '/blog' || normPath.startsWith('/blog/');
+// English-only pages (no ES counterpart) — skip hreflang alternates for these.
+const isEnglishOnly = normPath === '/blog' || normPath.startsWith('/blog/') || normPath === '/consumer-information';
 const enUrl = Astro.site ? new URL(alt.en, Astro.site).href : null;
 const esUrl = Astro.site ? new URL(alt.es, Astro.site).href : null;
 ---
@@ -46,9 +47,9 @@ const esUrl = Astro.site ? new URL(alt.es, Astro.site).href : null;
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {canonical && <link rel="canonical" href={canonical} />}
-    {!isBlog && enUrl && <link rel="alternate" hreflang="en" href={enUrl} />}
-    {!isBlog && esUrl && <link rel="alternate" hreflang="es" href={esUrl} />}
-    {!isBlog && enUrl && <link rel="alternate" hreflang="x-default" href={enUrl} />}
+    {!isEnglishOnly && enUrl && <link rel="alternate" hreflang="en" href={enUrl} />}
+    {!isEnglishOnly && esUrl && <link rel="alternate" hreflang="es" href={esUrl} />}
+    {!isEnglishOnly && enUrl && <link rel="alternate" hreflang="x-default" href={enUrl} />}
     <!-- Open Graph / Twitter — social share preview -->
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Florida Education Institute" />

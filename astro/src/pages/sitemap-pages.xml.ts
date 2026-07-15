@@ -14,6 +14,7 @@ const STATIC_PATHS = [
   'blog',
   'legal/privacy',
   'legal/terms',
+  'consumer-information',
 ];
 
 // Spanish pages (localized slugs). Blog is English-only, so it is not included.

@@ -35,6 +35,7 @@ export const ui = {
       rights: 'All rights reserved.',
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
+      consumerInfo: 'Consumer Information',
     },
     form: {
       eyebrow: 'Apply to FEI',
@@ -92,6 +93,7 @@ export const ui = {
       rights: 'Todos los derechos reservados.',
       privacy: 'Política de Privacidad',
       terms: 'Términos de Servicio',
+      consumerInfo: 'Información al Consumidor',
     },
     form: {
       eyebrow: 'Inscríbete en FEI',
