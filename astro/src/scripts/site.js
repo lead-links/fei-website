@@ -260,4 +260,39 @@
       }
     });
   }
+
+  /* ---- Net Price Calculator iframe: best-effort auto-resize ----
+     The calculator lives on a third-party (cross-origin) domain, so we can't
+     read its document height directly — the browser blocks that. This only
+     works if the vendor's page posts its height back via postMessage, which
+     is a common but optional convention (raw number, {height}, {type:"resize",
+     height}, or the popular iframe-resizer "[iFrameSizer]..." string). If the
+     vendor never sends one, the iframe just keeps its fixed fallback height —
+     nothing breaks, this is a progressive enhancement, not a requirement. */
+  var npcIframe = document.getElementById("npcIframe");
+  if (npcIframe) {
+    window.addEventListener("message", function (e) {
+      if (!e.source || e.source !== npcIframe.contentWindow) return;
+      var data = e.data;
+      var h = null;
+      if (typeof data === "number") {
+        h = data;
+      } else if (typeof data === "string") {
+        if (data.indexOf("[iFrameSizer]") === 0) {
+          var parts = data.split("|");
+          if (parts[1]) h = parseInt(parts[1], 10);
+        } else if (/^\d+(\.\d+)?$/.test(data.trim())) {
+          h = parseFloat(data);
+        } else {
+          try { data = JSON.parse(data); } catch (err) { data = null; }
+        }
+      }
+      if (h === null && data && typeof data === "object") {
+        h = data.height || (data.data && data.data.height) || null;
+      }
+      if (h && h > 0 && h < 20000) {
+        npcIframe.style.height = Math.ceil(h) + "px";
+      }
+    });
+  }
 })();
