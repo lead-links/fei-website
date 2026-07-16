@@ -2,9 +2,10 @@
 (function () {
   "use strict";
 
-  // Sticky nav
+  // Sticky nav (pages with data-force-stuck render the nav permanently solid,
+  // e.g. full-bleed pages with no dark hero for it to sit transparently over)
   var nav = document.getElementById("nav");
-  if (nav) {
+  if (nav && !nav.hasAttribute("data-force-stuck")) {
     var onScroll = function () { nav.classList.toggle("is-stuck", window.scrollY > 24); };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -261,38 +262,24 @@
     });
   }
 
-  /* ---- Net Price Calculator iframe: best-effort auto-resize ----
-     The calculator lives on a third-party (cross-origin) domain, so we can't
-     read its document height directly — the browser blocks that. This only
-     works if the vendor's page posts its height back via postMessage, which
-     is a common but optional convention (raw number, {height}, {type:"resize",
-     height}, or the popular iframe-resizer "[iFrameSizer]..." string). If the
-     vendor never sends one, the iframe just keeps its fixed fallback height —
-     nothing breaks, this is a progressive enhancement, not a requirement. */
-  var npcIframe = document.getElementById("npcIframe");
-  if (npcIframe) {
-    window.addEventListener("message", function (e) {
-      if (!e.source || e.source !== npcIframe.contentWindow) return;
-      var data = e.data;
-      var h = null;
-      if (typeof data === "number") {
-        h = data;
-      } else if (typeof data === "string") {
-        if (data.indexOf("[iFrameSizer]") === 0) {
-          var parts = data.split("|");
-          if (parts[1]) h = parseInt(parts[1], 10);
-        } else if (/^\d+(\.\d+)?$/.test(data.trim())) {
-          h = parseFloat(data);
-        } else {
-          try { data = JSON.parse(data); } catch (err) { data = null; }
-        }
-      }
-      if (h === null && data && typeof data === "object") {
-        h = data.height || (data.data && data.data.height) || null;
-      }
-      if (h && h > 0 && h < 20000) {
-        npcIframe.style.height = Math.ceil(h) + "px";
-      }
-    });
+  /* ---- Full-bleed iframe pages (Net Price Calculator): size the wrapper to
+     the exact viewport space left below the nav. The nav is fixed and its
+     rendered height differs with/without the utility bar (desktop vs mobile),
+     so this is measured live rather than hardcoded. The iframe itself scrolls
+     internally (scrolling="yes"); this only sizes its container. */
+  var npcFullbleed = document.querySelector(".npc-fullbleed");
+  if (npcFullbleed) {
+    var navEl = document.getElementById("nav");
+    var setHeaderHeightVar = function () {
+      var h = navEl ? navEl.getBoundingClientRect().bottom : 0;
+      document.documentElement.style.setProperty("--header-h", Math.max(h, 0) + "px");
+    };
+    setHeaderHeightVar();
+    // Re-measure once webfonts finish loading — Montserrat can arrive after
+    // the first paint and shift the nav's real pixel height by a couple px.
+    window.addEventListener("load", setHeaderHeightVar);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(setHeaderHeightVar);
+    window.addEventListener("resize", setHeaderHeightVar, { passive: true });
+    window.addEventListener("orientationchange", setHeaderHeightVar);
   }
 })();

@@ -765,8 +765,14 @@ a { color: inherit; text-decoration: none; }
 .icon-btn:hover { background: rgba(0,114,206,.06); border-color: var(--blue); color: var(--blue); }
 
 /* ─── Net Price Calculator (embedded third-party tool) ─── */
-.npc-section { padding-top: clamp(2.5rem, 6vw, 4rem); }
-.npc-frame iframe { display: block; width: 100%; border: 0; transition: height .25s var(--ease); }
+/* Full-bleed iframe page (Net Price Calculator): no hero, no footer, fills
+   the viewport below the nav. --header-h is measured/set by site.js from the
+   nav's actual rendered height (differs with/without the utility bar). */
+.npc-fullbleed {
+  margin-top: var(--header-h, 92px);
+  height: calc(100dvh - var(--header-h, 92px));
+}
+.npc-fullbleed iframe { display: block; width: 100%; height: 100%; border: 0; }
 
 /* .legal on narrow screens: match the shared <1000px breakpoint above, but placed
    after the base grid rule so it actually wins the cascade (equal specificity,

@@ -5,6 +5,8 @@ import { t } from '../i18n/ui';
 
 // i18n-aware chrome. English at the root, Spanish under /es/ with localized slugs.
 // Use locales() so the .html/trailing-slash forms (e.g. /es.html) are detected too.
+interface Props { forceStuck?: boolean }
+const { forceStuck = false } = Astro.props;
 const isEs = locales(Astro.url.pathname).isEs;
 const lang: Lang = isEs ? 'es' : 'en';
 const s = t(lang).nav;
@@ -29,7 +31,7 @@ const applyHref = href('/apply', lang);
   </div>
 </div>
 
-<header class="nav" id="nav">
+<header class={`nav ${forceStuck ? 'is-stuck' : ''}`} id="nav" data-force-stuck={forceStuck ? 'true' : undefined}>
   <div class="nav__inner">
     <a href={home} class="brand" aria-label={s.home}>
       <span class="brand__mark" aria-hidden="true">

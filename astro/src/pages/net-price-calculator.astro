@@ -4,27 +4,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout
   title={"Net Price Calculator | Florida Education Institute"}
   description={"Estimate your cost of attendance at Florida Education Institute before you apply for financial aid."}
+  hideFooter
+  forceStuckNav
 >
-  <section class="legal-hero">
-    <div class="legal-hero__inner">
-      <p class="eyebrow"><span class="eyebrow__dot"></span> Financial Aid</p>
-      <h1 class="legal-hero__title">Net Price Calculator</h1>
-      <p class="legal-hero__lede">Estimate your cost of attendance at Florida Education Institute before you apply for financial aid. This tool gives you a personalized, non-binding estimate — an Admissions Advisor can walk you through the details.</p>
-    </div>
-  </section>
-  <section class="section npc-section">
-    <div class="npc-frame">
-      <iframe
-        id="npcIframe"
-        src="https://prospect.studentaidprocess.com/saintprospect/(S(40kkiregszjxcq54z22ry0sy))/netpricecalculator?corpid=139"
-        width="100%"
-        height="700"
-        frameborder="0"
-        marginwidth="0px"
-        marginheight="0px"
-        scrolling="no"
-        title="Net Price Calculator"
-      ></iframe>
-    </div>
-  </section>
+  <div class="npc-fullbleed">
+    <iframe
+      id="npcIframe"
+      src="https://prospect.studentaidprocess.com/saintprospect/(S(40kkiregszjxcq54z22ry0sy))/netpricecalculator?corpid=139"
+      width="100%"
+      height="100%"
+      frameborder="0"
+      marginwidth="0px"
+      marginheight="0px"
+      scrolling="yes"
+      title="Net Price Calculator"
+    ></iframe>
+  </div>
 </BaseLayout>

@@ -11,8 +11,10 @@ interface Props {
   canonical?: string | null;
   image?: string | null;   // absolute URL used as the social share image (og:image)
   ogType?: string;
+  hideFooter?: boolean;    // full-bleed pages (e.g. embedded tools) that render no footer
+  forceStuckNav?: boolean; // render the nav permanently solid (no dark hero behind it)
 }
-const { title, description, canonical, image, ogType = 'website' } = Astro.props;
+const { title, description, canonical, image, ogType = 'website', hideFooter = false, forceStuckNav = false } = Astro.props;
 // Clean URL for og:url — strip the built .html/index.html so it matches the site's clean links.
 const cleanPath = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, '');
 const pageUrl = Astro.site ? new URL(cleanPath, Astro.site).href : (canonical ?? undefined);
@@ -75,9 +77,9 @@ const esUrl = Astro.site ? new URL(alt.es, Astro.site).href : null;
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7MCFQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div class="grain" aria-hidden="true"></div>
-    <SiteHeader />
+    <SiteHeader forceStuck={forceStuckNav} />
     <main id="top"><slot /></main>
-    <SiteFooter />
+    {!hideFooter && <SiteFooter />}
     <ApplyModal lang={lang} />
     <script src="/vendor/intl-tel-input/js/intlTelInputWithUtils.min.js" defer is:inline></script>
     <script src="/site.js" defer is:inline></script>
