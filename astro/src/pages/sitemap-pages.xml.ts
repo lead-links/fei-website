@@ -15,6 +15,7 @@ const STATIC_PATHS = [
   'legal/privacy',
   'legal/terms',
   'consumer-information',
+  'net-price-calculator',
 ];
 
 // Spanish pages (localized slugs). Blog is English-only, so it is not included.

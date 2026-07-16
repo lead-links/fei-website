@@ -748,10 +748,26 @@ a { color: inherit; text-decoration: none; }
 /* Flat action-row list (Consumer Information): title + a download/external-link
    button in place of an expand toggle — one click, no redundant reveal step. */
 .info-list { max-width: 820px; border-top: 1px solid var(--line); }
-.info-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
-.info-row__title { font-family: var(--display); font-weight: 700; font-size: 1.02rem; color: var(--navy); }
-.info-row .btn { flex-shrink: 0; padding: .55em 1.1em; font-size: .88rem; }
-.btn--download:hover svg { transform: translateY(2px); }
+/* flex-wrap stays "nowrap" (the default) on purpose: the title text wraps
+   internally within its own box, while the action icon stays pinned as a
+   sibling flex item on the right — it must never drop to its own line. */
+.info-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.info-row__title { font-family: var(--display); font-weight: 700; font-size: 1.02rem; color: var(--navy); flex: 1 1 auto; min-width: 0; }
+
+/* Icon-only action button — no motion/slide animation, just a hover state change. */
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 40px; height: 40px;
+  border: 1.5px solid rgba(0,114,206,.35); color: var(--blue-600); background: transparent;
+  transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+.icon-btn svg { width: 18px; height: 18px; display: block; }
+.icon-btn:hover { background: rgba(0,114,206,.06); border-color: var(--blue); color: var(--blue); }
+
+/* ─── Net Price Calculator (embedded third-party tool) ─── */
+.npc-section { padding-top: clamp(2.5rem, 6vw, 4rem); }
+.npc-frame { border: 1px solid var(--line); background: var(--white); overflow: hidden; }
+.npc-frame iframe { display: block; width: 100%; border: 0; }
 
 /* .legal on narrow screens: match the shared <1000px breakpoint above, but placed
    after the base grid rule so it actually wins the cascade (equal specificity,
