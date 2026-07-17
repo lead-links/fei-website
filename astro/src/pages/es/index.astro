@@ -70,12 +70,12 @@ const faqs = [
       <p class="section__intro">Once programas enfocados y orientados a la carrera en salud, artes culinarias, oficios especializados y negocios. Caminos cortos, habilidades reales e instructores que han hecho el trabajo.</p>
     </div>
 
-    <div class="filters" id="filters" role="tablist" aria-label="Filtrar programas">
-      <button class="chip is-active" data-filter="all">Todos</button>
-      <button class="chip" data-filter="health">Salud</button>
-      <button class="chip" data-filter="culinary">Culinaria</button>
-      <button class="chip" data-filter="trades">Oficios</button>
-      <button class="chip" data-filter="business">Negocios</button>
+    <div class="filters" id="filters" role="group" aria-label="Filtrar programas">
+      <button class="chip is-active" data-filter="all" aria-pressed="true">Todos</button>
+      <button class="chip" data-filter="health" aria-pressed="false">Salud</button>
+      <button class="chip" data-filter="culinary" aria-pressed="false">Culinaria</button>
+      <button class="chip" data-filter="trades" aria-pressed="false">Oficios</button>
+      <button class="chip" data-filter="business" aria-pressed="false">Negocios</button>
     </div>
 
     <div class="prog-grid" id="progGrid">

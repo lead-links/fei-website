@@ -18,6 +18,7 @@ export const ui = {
       home: 'Florida Education Institute home',
       openMenu: 'Open menu',
       closeMenu: 'Close menu',
+      skipToContent: 'Skip to main content',
     },
     footer: {
       tagline: 'Career education with a human touch, in the heart of Miami.',
@@ -59,6 +60,12 @@ export const ui = {
       received: 'Your request has been received. An FEI Admissions Advisor will reach out soon.',
       talkSooner: 'Want to talk sooner? Call',
       applyTo: 'Apply to',
+      required: 'This field is required.',
+      invalidEmail: 'Enter a valid email address.',
+      invalidPhone: 'Enter a valid phone number.',
+      invalidZip: 'Enter a valid zip code.',
+      selectProgramError: 'Select a program.',
+      errorSummary: 'Please fix the following before submitting:',
     },
   },
 
@@ -76,6 +83,7 @@ export const ui = {
       home: 'Inicio de Florida Education Institute',
       openMenu: 'Abrir menú',
       closeMenu: 'Cerrar menú',
+      skipToContent: 'Saltar al contenido principal',
     },
     footer: {
       tagline: 'Educación profesional con un trato humano, en el corazón de Miami.',
@@ -117,6 +125,12 @@ export const ui = {
       received: 'Hemos recibido tu solicitud. Un Asesor de Admisiones de FEI se pondrá en contacto pronto.',
       talkSooner: '¿Quieres hablar antes? Llama al',
       applyTo: 'Inscríbete en',
+      required: 'Este campo es obligatorio.',
+      invalidEmail: 'Ingresa un correo electrónico válido.',
+      invalidPhone: 'Ingresa un número de teléfono válido.',
+      invalidZip: 'Ingresa un código postal válido.',
+      selectProgramError: 'Selecciona un programa.',
+      errorSummary: 'Por favor corrige lo siguiente antes de enviar:',
     },
   },
 } as const;

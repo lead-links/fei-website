@@ -69,12 +69,12 @@ const faqs = [
       <p class="section__intro">Eleven focused, career-driven programs across healthcare, culinary arts, skilled trades and business. Short paths, real skills, and instructors who have done the work.</p>
     </div>
 
-    <div class="filters" id="filters" role="tablist" aria-label="Filter programs">
-      <button class="chip is-active" data-filter="all">All</button>
-      <button class="chip" data-filter="health">Healthcare</button>
-      <button class="chip" data-filter="culinary">Culinary</button>
-      <button class="chip" data-filter="trades">Skilled Trades</button>
-      <button class="chip" data-filter="business">Business</button>
+    <div class="filters" id="filters" role="group" aria-label="Filter programs">
+      <button class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+      <button class="chip" data-filter="health" aria-pressed="false">Healthcare</button>
+      <button class="chip" data-filter="culinary" aria-pressed="false">Culinary</button>
+      <button class="chip" data-filter="trades" aria-pressed="false">Skilled Trades</button>
+      <button class="chip" data-filter="business" aria-pressed="false">Business</button>
     </div>
 
     <div class="prog-grid" id="progGrid">

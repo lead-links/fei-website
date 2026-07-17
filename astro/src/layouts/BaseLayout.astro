@@ -4,6 +4,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ApplyModal from '../components/ApplyModal.astro';
 import { locales, type Lang } from '../i18n/routes';
+import { t } from '../i18n/ui';
 
 interface Props {
   title: string;
@@ -76,9 +77,10 @@ const esUrl = Astro.site ? new URL(alt.es, Astro.site).href : null;
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7MCFQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <a href="#top" class="sr-only sr-only-focusable">{t(lang).nav.skipToContent}</a>
     <div class="grain" aria-hidden="true"></div>
     <SiteHeader forceStuck={forceStuckNav} />
-    <main id="top"><slot /></main>
+    <main id="top" tabindex="-1"><slot /></main>
     {!hideFooter && <SiteFooter />}
     <ApplyModal lang={lang} />
     <script src="/vendor/intl-tel-input/js/intlTelInputWithUtils.min.js" defer is:inline></script>

@@ -2,6 +2,28 @@
 (function () {
   "use strict";
 
+  /* ---- Shared keyboard-focus helpers (mobile menu + apply modal) ---- */
+  var FOCUSABLE_SEL = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  var focusables = function (root) {
+    return Array.prototype.slice.call(root.querySelectorAll(FOCUSABLE_SEL)).filter(function (el) {
+      return el.offsetParent !== null || el === document.activeElement;
+    });
+  };
+  var trapTab = function (container, e) {
+    if (e.key !== "Tab" || !container) return;
+    var items = focusables(container);
+    if (!items.length) return;
+    var first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  };
+  var setBackgroundInert = function (on, exceptEl) {
+    Array.prototype.forEach.call(document.body.children, function (el) {
+      if (el === exceptEl) return;
+      if (on) el.setAttribute("inert", ""); else el.removeAttribute("inert");
+    });
+  };
+
   // Sticky nav (pages with data-force-stuck render the nav permanently solid,
   // e.g. full-bleed pages with no dark hero for it to sit transparently over)
   var nav = document.getElementById("nav");
@@ -15,18 +37,29 @@
   var toggle = document.getElementById("navToggle");
   var menu = document.getElementById("mobileMenu");
   if (toggle && menu) {
+    menu.setAttribute("inert", ""); // starts closed
     var setOpen = function (open) {
       toggle.classList.toggle("is-open", open);
       menu.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", String(open));
       menu.setAttribute("aria-hidden", String(!open));
+      menu.toggleAttribute("inert", !open);
       document.body.style.overflow = open ? "hidden" : "";
+      if (open) {
+        var closeBtn = menu.querySelector(".mobile-menu__close");
+        if (closeBtn) setTimeout(function () { closeBtn.focus(); }, 60);
+      } else {
+        toggle.focus();
+      }
     };
     toggle.addEventListener("click", function () { setOpen(!menu.classList.contains("is-open")); });
     menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setOpen(false); }); });
     var closeBtn = menu.querySelector(".mobile-menu__close");
     if (closeBtn) closeBtn.addEventListener("click", function () { setOpen(false); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menu.classList.contains("is-open")) { setOpen(false); return; }
+      if (menu.classList.contains("is-open")) trapTab(menu, e);
+    });
   }
 
   // Program filter chips (cards are server-rendered by Astro)
@@ -36,8 +69,9 @@
     filters.addEventListener("click", function (e) {
       var btn = e.target.closest(".chip");
       if (!btn) return;
-      filters.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("is-active"); });
+      filters.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("is-active"); c.setAttribute("aria-pressed", "false"); });
       btn.classList.add("is-active");
+      btn.setAttribute("aria-pressed", "true");
       var f = btn.dataset.filter;
       grid.querySelectorAll(".card").forEach(function (card) {
         card.classList.toggle("is-hidden", !(f === "all" || card.dataset.cat === f));
@@ -139,6 +173,9 @@
       });
     }
 
+    var summaryEl = byId("summary");
+    var msgFor = function (key) { return form.getAttribute("data-msg-" + key) || ""; };
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var first = byId("first");
@@ -147,17 +184,35 @@
       var zip = byId("zip");
       var smsMarketing = byId("sms-marketing");
       var smsTransactional = byId("sms-transactional");
-      var ok = true;
-      var bad = function (f, isBad) { if (f) f.classList.toggle("is-invalid", isBad); if (isBad) ok = false; };
-      bad(first, !first.value.trim());
-      bad(last, !last.value.trim());
-      bad(email, !EMAIL_RE.test(email.value.trim()));
-      bad(zip, !zip.value.trim());
+      var invalids = [];
+      var mark = function (field, isBad, msgKey) {
+        if (!field) return;
+        field.classList.toggle("is-invalid", isBad);
+        field.setAttribute("aria-invalid", String(isBad));
+        var errEl = document.getElementById(field.id + "-error");
+        if (errEl) { errEl.textContent = isBad ? msgFor(msgKey) : ""; errEl.hidden = !isBad; }
+        if (isBad) invalids.push(field);
+      };
+      mark(first, !first.value.trim(), "required");
+      mark(last, !last.value.trim(), "required");
+      mark(email, !EMAIL_RE.test(email.value.trim()), "invalid-email");
+      mark(zip, !zip.value.trim(), "invalid-zip");
       var phoneOk = iti ? iti.isValidNumber() : !!phoneInput.value.trim();
-      bad(phoneInput, !phoneOk);
-      bad(progSelect, !progSelect.value);
+      mark(phoneInput, !phoneOk, "invalid-phone");
+      mark(progSelect, !progSelect.value, "select-program");
       // SMS consent is optional (not a condition of enrollment), so it does not gate submission.
-      if (!ok) return;
+
+      if (invalids.length) {
+        if (summaryEl) {
+          summaryEl.textContent = msgFor("error-summary");
+          summaryEl.hidden = false;
+          summaryEl.focus();
+        } else {
+          invalids[0].focus();
+        }
+        return;
+      }
+      if (summaryEl) summaryEl.hidden = true;
 
       // Lead payload — ready to POST to the n8n endpoint when wiring is enabled.
       var payload = {
@@ -210,31 +265,37 @@
       successNameId: "modalSuccessName",
       onSuccess: function () {
         if (formWrap) formWrap.hidden = true;
-        if (successWrap) successWrap.hidden = false;
+        if (successWrap) { successWrap.hidden = false; successWrap.focus(); }
       }
     });
 
     var openModal = function () {
       var mm = document.getElementById("mobileMenu");
-      if (mm) mm.classList.remove("is-open");
+      if (mm) { mm.classList.remove("is-open"); mm.setAttribute("inert", ""); mm.setAttribute("aria-hidden", "true"); }
       var tg = document.getElementById("navToggle");
       if (tg) { tg.classList.remove("is-open"); tg.setAttribute("aria-expanded", "false"); }
+      overlay._lastFocused = document.activeElement;
       overlay.classList.add("is-open");
       overlay.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+      setBackgroundInert(true, overlay);
       if (modalForm) setTimeout(modalForm.focusFirst, 60);
     };
     var closeModal = function () {
       overlay.classList.remove("is-open");
       overlay.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      setBackgroundInert(false);
+      if (overlay._lastFocused && typeof overlay._lastFocused.focus === "function") overlay._lastFocused.focus();
     };
 
     overlay.addEventListener("click", function (e) { if (e.target === overlay) closeModal(); });
     var mClose = document.getElementById("applyModalClose");
     if (mClose) mClose.addEventListener("click", closeModal);
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && overlay.classList.contains("is-open")) closeModal();
+      if (!overlay.classList.contains("is-open")) return;
+      if (e.key === "Escape") { closeModal(); return; }
+      trapTab(overlay.querySelector(".modal"), e);
     });
 
     // Any "Apply Now" link/button (or [data-apply]) opens the modal.
@@ -257,7 +318,7 @@
       successNameId: "successName",
       onSuccess: function () {
         applyPageForm.hidden = true;
-        if (applySuccess) applySuccess.hidden = false;
+        if (applySuccess) { applySuccess.hidden = false; applySuccess.focus(); }
       }
     });
   }
