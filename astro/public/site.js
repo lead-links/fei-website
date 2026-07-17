@@ -122,6 +122,20 @@
     if (utmChanged) localStorage.setItem("fei_utms", JSON.stringify(feiUtms));
   } catch (e) {}
 
+  /* ---- Referrer capture: persist the FIRST-touch referrer across navigation.
+     Unlike UTMs (only present in the URL on a tracked inbound link), document.referrer
+     changes on every internal page-to-page navigation — so once a value is stored we
+     never overwrite it, or we'd lose the original external referrer (e.g. Google) the
+     moment the visitor clicks to a second page on the site. ---- */
+  var feiReferrer = "";
+  try { feiReferrer = localStorage.getItem("fei_referrer") || ""; } catch (e) { feiReferrer = ""; }
+  try {
+    if (!feiReferrer && document.referrer) {
+      feiReferrer = document.referrer;
+      localStorage.setItem("fei_referrer", feiReferrer);
+    }
+  } catch (e) {}
+
   /* ---- Apply form (single source, shared by the modal overlay and the /apply page) ---- */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var LEAD_WEBHOOK_URL = "https://flow.leadlinks.app/webhook/fei-lead";
@@ -224,7 +238,8 @@
         program: progSelect ? progSelect.value : "",
         programType: progTypeHidden ? progTypeHidden.value : "",
         smsMarketingConsent: smsMarketing ? smsMarketing.checked : false,
-        smsTransactionalConsent: smsTransactional ? smsTransactional.checked : false
+        smsTransactionalConsent: smsTransactional ? smsTransactional.checked : false,
+        referrer: feiReferrer
       };
       UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
 
