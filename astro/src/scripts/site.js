@@ -136,6 +136,17 @@
     }
   } catch (e) {}
 
+  /* ---- Client IP capture: the browser has no built-in way to know its own public
+     IP, so this asks a third-party lookup on page load (fire-and-forget, well before
+     the visitor finishes filling out the form) and uses whatever came back — or
+     nothing — at submit time. Never blocks or delays submission if it fails/is slow. ---- */
+  var feiClientIp = "";
+  try {
+    fetch("https://api.ipify.org?format=json").then(function (r) { return r.json(); }).then(function (d) {
+      feiClientIp = (d && d.ip) || "";
+    }).catch(function () {});
+  } catch (e) {}
+
   /* ---- Apply form (single source, shared by the modal overlay and the /apply page) ---- */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var LEAD_WEBHOOK_URL = "https://flow.leadlinks.app/webhook/fei-lead";
@@ -239,7 +250,8 @@
         programType: progTypeHidden ? progTypeHidden.value : "",
         smsMarketingConsent: smsMarketing ? smsMarketing.checked : false,
         smsTransactionalConsent: smsTransactional ? smsTransactional.checked : false,
-        referrer: feiReferrer
+        referrer: feiReferrer,
+        ip: feiClientIp
       };
       UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
 
