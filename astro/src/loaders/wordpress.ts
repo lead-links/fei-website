@@ -34,7 +34,37 @@ const QUERY = `query FeiPosts($after: String) {
   }
 }`;
 
+// Production origin the blog is actually served from. Rank Math returns SEO
+// URLs (canonical, JSON-LD @id/url, in-body links) pointing at the headless WP
+// origin — if we ship those verbatim they tell Google/AI crawlers the
+// authoritative copy lives on the staging domain, de-indexing fei.edu. Rewrite
+// the WP origin to this, and collapse WP's /blog/<category>/<slug>/ permalink
+// to our flat /blog/<slug>.
+const PROD_ORIGIN = 'https://fei.edu';
+
 export function wpBlogLoader(endpoint: string): Loader {
+  const wpOrigin = new URL(endpoint).origin;
+  const deWp = (s: string | null): string | null => {
+    if (!s) return s;
+    return s
+      .split(wpOrigin).join(PROD_ORIGIN)
+      .split('/blog/uncategorized/').join('/blog/');
+  };
+
+  // Rank Math's `jsonLd.raw` returns the FULL <script type="application/ld+json">
+  // wrapper, not bare JSON. The page wraps it again → nested, invalid schema.
+  // Unwrap to the inner JSON, host-rewrite it, and drop it entirely if it won't
+  // parse (never ship broken structured data).
+  const cleanJsonLd = (raw: string | null): string | null => {
+    if (!raw) return null;
+    let s = deWp(raw)!;
+    const m = s.match(/<script[^>]*>([\s\S]*?)<\/script>/i);
+    if (m) s = m[1];
+    s = s.trim();
+    try { JSON.parse(s); } catch { return null; }
+    return s;
+  };
+
   return {
     name: 'wp-blog',
     async load({ store, logger, parseData }) {
@@ -72,8 +102,8 @@ export function wpBlogLoader(endpoint: string): Loader {
           databaseId: p.databaseId,
           slug: p.slug,
           title: p.title,
-          excerptHtml: p.excerpt ?? '',
-          contentHtml: p.content ?? '',
+          excerptHtml: deWp(p.excerpt ?? '') ?? '',
+          contentHtml: deWp(p.content ?? '') ?? '',
           date: p.date,
           modified: p.modified,
           author: p.author?.node?.name ?? 'FEI',
@@ -86,8 +116,8 @@ export function wpBlogLoader(endpoint: string): Loader {
           seo: {
             title: p.seo?.title ?? null,
             description: p.seo?.description ?? null,
-            canonicalUrl: p.seo?.canonicalUrl ?? null,
-            jsonLd: p.seo?.jsonLd?.raw ?? null,
+            canonicalUrl: deWp(p.seo?.canonicalUrl ?? null),
+            jsonLd: cleanJsonLd(p.seo?.jsonLd?.raw ?? null),
           },
         };
         const data = await parseData({ id: p.slug, data: mapped });

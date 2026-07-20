@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { relatedPrograms, ICONS } from '../../data/programs';
+import { breadcrumbSchema, SITE } from '../../data/schema';
 import sanitizeHtml from 'sanitize-html';
 
 export async function getStaticPaths() {
@@ -26,6 +27,14 @@ const dateFmt = new Date(d.date).toLocaleDateString('en-US', { year: 'numeric', 
 const primaryCat = d.categories[0];
 const heroStyle = d.featuredImage ? `--post-img:url('${d.featuredImage.url}')` : undefined;
 
+const postUrl = new URL(`/blog/${d.slug}`, Astro.site).href;
+const crumbs = [
+  { name: 'Home', url: `${SITE}/` },
+  { name: 'Blog', url: `${SITE}/blog` },
+  ...(primaryCat ? [{ name: primaryCat.name, url: `${SITE}/blog/category/${primaryCat.slug}` }] : []),
+  { name: d.title, url: postUrl },
+];
+
 // All categories available across the site (deduped).
 const allCats = Array.from(
   new Map(posts.flatMap((p) => p.data.categories).map((c) => [c.slug, c])).values()
@@ -38,7 +47,7 @@ const recent = posts
   .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date))
   .slice(0, 3);
 ---
-<BaseLayout title={d.seo.title ?? d.title} description={d.seo.description} canonical={d.seo.canonicalUrl} image={d.featuredImage?.url} ogType="article">
+<BaseLayout title={d.seo.title ?? d.title} description={d.seo.description} canonical={postUrl} image={d.featuredImage?.url} ogType="article" publishedTime={d.date} modifiedTime={d.modified} author={d.author} jsonLd={breadcrumbSchema(crumbs)}>
   {d.seo.jsonLd && <script type="application/ld+json" set:html={d.seo.jsonLd} is:inline />}
 
   <article class="post">
