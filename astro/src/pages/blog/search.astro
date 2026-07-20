@@ -10,7 +10,7 @@ const posts = (await getCollection('blog')).sort(
 // Plain-text haystack for client-side matching (title + categories + excerpt).
 const strip = (html: string) => html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 ---
-<BaseLayout title="Search | Florida Education Institute Blog" description="Search articles on the Florida Education Institute blog.">
+<BaseLayout title="Search | Florida Education Institute Blog" description="Search articles on the Florida Education Institute blog." noindex>
   <header class="post-hero" style="--post-img:url('/img/students.jpg')">
     <div class="post-hero__inner">
       <p class="post-hero__meta"><a href="/blog">Blog</a> <span aria-hidden="true">·</span> <span>Search</span></p>

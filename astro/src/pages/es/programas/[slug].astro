@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { PROGRAMS } from '../../../data/programs';
 import { PROGRAM_ES, PROGRAM_EN, PROGRAM_TITLE_ES, PROGRAM_DESC_ES } from '../../../i18n/routes';
+import { courseSchema, breadcrumbSchema, SITE } from '../../../data/schema';
 
 // Spanish program pages. Route uses the localized ES slug; content is the
 // translated es/<en-slug>.html. The modal's program value stays the EN title
@@ -24,10 +25,21 @@ const html = contents[key];
 const program = PROGRAMS.find((p) => p.slug === enSlug);
 const esTitle = PROGRAM_TITLE_ES[enSlug];
 const programType = program?.tag === 'A.A.S.' ? 'Grado Asociado' : (program?.tag ?? '');
+
+const progUrl = `${SITE}/es/programas/${slug}`;
+const jsonLd = [
+  courseSchema({ name: esTitle, description: PROGRAM_DESC_ES[enSlug], url: progUrl, lang: 'es' }),
+  breadcrumbSchema([
+    { name: 'Inicio', url: `${SITE}/es` },
+    { name: 'Programas', url: `${SITE}/es#programs` },
+    { name: esTitle, url: progUrl },
+  ]),
+];
 ---
 <BaseLayout
   title={`${esTitle} en Miami | Florida Education Institute`}
   description={PROGRAM_DESC_ES[enSlug]}
+  jsonLd={jsonLd}
 >
   {program && (
     <div

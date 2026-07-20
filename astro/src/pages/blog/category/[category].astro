@@ -19,7 +19,10 @@ export async function getStaticPaths() {
 
 const { name, posts } = Astro.props;
 ---
-<BaseLayout title={`${name} | Florida Education Institute Blog`}>
+<BaseLayout
+  title={`${name} | Florida Education Institute Blog`}
+  description={`Read ${name} articles from Florida Education Institute — career training insights, student stories, and program guidance from our Miami campus.`}
+>
   <header class="post-hero" style="--post-img:url('/img/students.jpg')">
     <div class="post-hero__inner">
       <p class="post-hero__meta"><a href="/blog">Blog</a> <span aria-hidden="true">·</span> <span>Category</span></p>
