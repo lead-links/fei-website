@@ -927,3 +927,39 @@ a { color: inherit; text-decoration: none; }
   .lp__bg { background-image: var(--lp-bg-m, var(--lp-bg-d)); }
   .lp-card .form { grid-template-columns: 1fr; }
 }
+
+/* ─── Program hero variant B (A/B test): copy+facts left, inline form right ─── */
+.phero.phero--b { padding-top: clamp(8rem, 14vh, 11rem); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
+.phero--b .phero__inner { grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.phero--b .phero__copy { max-width: none; }
+
+/* course facts moved into the hero, where the CTA buttons were */
+.phero-facts { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.6rem; margin-top: 1.9rem; padding-top: 1.6rem; border-top: 1px solid rgba(255,255,255,.18); }
+.phero-facts li { display: flex; align-items: center; gap: .7rem; }
+.phero-facts__ico { flex-shrink: 0; display: grid; place-items: center; color: var(--gold); }
+.phero-facts__ico svg { width: 26px; height: 26px; }
+.phero-facts__txt { display: flex; flex-direction: column; line-height: 1.2; }
+.phero-facts__txt strong { font-family: var(--display); font-weight: 800; font-size: .98rem; color: #fff; }
+.phero-facts__txt span { font-size: .78rem; color: rgba(255,255,255,.82); }
+
+/* the inline pre-registration form card on the right */
+.phero-form { background: var(--white); padding: clamp(1.5rem, 3vw, 2.1rem); box-shadow: 0 40px 90px -30px rgba(0,0,0,.55); }
+.phero-form__eyebrow { font-size: .74rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: .4rem; }
+.phero-form__title { font-family: var(--display); font-weight: 800; font-size: 1.4rem; line-height: 1.15; color: var(--navy); margin-bottom: .35rem; }
+.phero-form__sub { font-size: .9rem; color: var(--gray); margin-bottom: 1.2rem; }
+.phero-form .form { grid-template-columns: 1fr 1fr; gap: .85rem .9rem; }
+.phero-form__submit { grid-column: 1 / -1; width: 100%; justify-content: center; padding: .9em 1.2em; }
+
+@media (max-width: 900px) {
+  .phero--b .phero__inner { grid-template-columns: 1fr; align-items: start; }
+  .phero-form { margin-top: .5rem; }
+}
+@media (max-width: 760px) {
+  /* variant B keeps a calm landscape bg + full overlay so the form stays readable,
+     instead of the tall portrait-photo treatment the standard program hero uses */
+  .phero.phero--b { padding-top: clamp(6.5rem, 11vh, 8rem); padding-bottom: 2rem; }
+  .phero--b:not(.phero--page) .hero__bg { background-image: var(--hero-d); background-size: cover; background-position: center; transform: none; }
+  .phero--b .hero__overlay { background: linear-gradient(180deg, rgba(13,26,66,.82) 0%, rgba(13,26,66,.9) 100%); }
+  .phero-facts { grid-template-columns: 1fr 1fr; }
+  .phero-form .form { grid-template-columns: 1fr; }
+}
