@@ -969,7 +969,8 @@ a { color: inherit; text-decoration: none; }
      desktop padding above would otherwise leak in and shrink the top gap, so
      re-assert the original mobile padding. The variant only stacks its own new
      pieces (facts + form) below. */
-  .phero.phero--b { padding-top: 360px; padding-bottom: .8rem; }
+  /* bottom gap below the form matches the side padding (var(--pad)) */
+  .phero.phero--b { padding-top: 360px; padding-bottom: var(--pad); }
   .phero-form .form { grid-template-columns: 1fr; }
   /* On mobile the content stacks vertically, so the desktop's horizontal overlay
      doesn't apply — restore the vertical program-hero overlay (same intensity as
