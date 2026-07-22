@@ -6,6 +6,7 @@ import { PAGE_ES, PROGRAM_ES } from '../i18n/routes';
 // is intentionally excluded — it's noindex (third-party iframe wrapper).
 const STATIC_PATHS = [
   '', // home
+  'programs',
   'about',
   'admissions',
   'apply',

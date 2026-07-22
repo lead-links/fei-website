@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PROGRAMS, ICONS, CAT_LABELS } from '../data/programs';
+import { breadcrumbSchema, SITE } from '../data/schema';
+
+// Programs index (/programs): the same catalog shown in the home "Programs"
+// section, promoted to a standalone, indexable landing page. Cards + filter
+// markup mirror the home so site.js's filter (keyed on #filters / #progGrid)
+// works here unchanged.
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Home', url: `${SITE}/` },
+    { name: 'Programs', url: `${SITE}/programs` },
+  ]),
+];
+---
+<BaseLayout
+  title="Career Programs in Miami | Florida Education Institute"
+  description="Explore 11 career-focused diploma and associate degree programs at Florida Education Institute in Miami — healthcare, culinary arts, skilled trades, and business."
+  jsonLd={jsonLd}
+>
+  <!-- HERO -->
+  <section class="phero phero--page">
+    <div class="hero__bg" style="background-image:url('/img/students.jpg')" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="phero__inner">
+      <div class="phero__copy">
+        <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Miami, Florida · Career Education</p>
+        <h1 class="phero__title reveal" data-delay="1">Pick the career.<br/>We will teach the craft.</h1>
+        <p class="phero__lede reveal" data-delay="2">Eleven focused, career-driven programs across healthcare, culinary arts, skilled trades and business. Short paths, real skills, and instructors who have done the work.</p>
+        <div class="hero__cta reveal" data-delay="3">
+          <a href="#programs" class="btn btn--solid btn--lg">Explore programs
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+          </a>
+          <a href="/apply" class="btn btn--outline btn--lg btn--outline-light">Apply now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS GRID -->
+  <section class="section programs" id="programs">
+    <div class="filters" id="filters" role="group" aria-label="Filter programs">
+      <button class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+      <button class="chip" data-filter="health" aria-pressed="false">Healthcare</button>
+      <button class="chip" data-filter="culinary" aria-pressed="false">Culinary</button>
+      <button class="chip" data-filter="trades" aria-pressed="false">Skilled Trades</button>
+      <button class="chip" data-filter="business" aria-pressed="false">Business</button>
+    </div>
+
+    <div class="prog-grid" id="progGrid">
+      {PROGRAMS.map((p) => (
+        <article class="card reveal" data-cat={p.cat}>
+          <a href={`/programs/${p.slug}`} class="card__media" tabindex="-1" aria-hidden="true">
+            <span class="card__badge">{p.tag}</span>
+            <img src={`/img/programs/${p.slug}.webp`} alt="" loading="lazy" />
+            <span class="card__icon" set:html={ICONS[p.icon]} />
+          </a>
+          <div class="card__body">
+            <span class="card__tag">{CAT_LABELS[p.cat]}</span>
+            <h3 class="card__title">{p.title}</h3>
+            <p class="card__desc">{p.desc}</p>
+            <a href={`/programs/${p.slug}`} class="card__link">Program details<Fragment set:html={arrow} /></a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="apply">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="cta__inner">
+      <p class="kicker kicker--light">Ready when you are</p>
+      <h2 class="cta__title">Your career starts<br/>with one call.</h2>
+      <p class="cta__lede">Talk to a real person about programs, start dates, and financial aid. No pressure, just answers.</p>
+      <div class="cta__actions">
+        <a href="tel:3054441515" class="btn btn--coral btn--lg">Call 305-444-1515</a>
+        <a href="/apply" class="btn btn--outline btn--lg btn--outline-light">Apply online</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
