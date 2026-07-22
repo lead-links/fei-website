@@ -929,7 +929,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ─── Program hero variant B (A/B test): copy+facts left, inline form right ─── */
-.phero.phero--b { padding-top: clamp(8rem, 14vh, 11rem); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
+.phero.phero--b { padding-top: clamp(10.5rem, 16vh, 13rem); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
 .phero--b .phero__inner { grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 .phero--b .phero__copy { max-width: none; }
 /* Stronger, wider-reaching overlay than the standard program hero: the form now
