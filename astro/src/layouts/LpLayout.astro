@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { join } from 'node:path';
+
+// Minimal landing-page layout for the 2-step application flow (A/B variant).
+// No standard nav/footer — just a logo header, a full-bleed course background,
+// a centered content slot, and a slim legal footer. Always noindex: this is a
+// campaign variant of a real program page and must not compete with it in search.
+interface Props {
+  title: string;
+  description?: string | null;
+  bgDesktop: string; // /img/programs/<slug>.webp
+  bgMobile?: string;  // /img/programs/mobile/<slug>.webp
+}
+const { title, description, bgDesktop, bgMobile } = Astro.props;
+const bgStyle = `--lp-bg-d:url('${bgDesktop}');${bgMobile ? `--lp-bg-m:url('${bgMobile}');` : ''}`;
+const siteJsHash = createHash('md5').update(readFileSync(join(process.cwd(), 'public', 'site.js'))).digest('hex').slice(0, 8);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Tag Manager -->
+    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TR7MCFQ');</script>
+    <!-- End Google Tag Manager -->
+    <meta name="theme-color" content="#1A202C" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="robots" content="noindex,follow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/vendor/intl-tel-input/css/intlTelInput.min.css" />
+  </head>
+  <body class="lp" style={bgStyle}>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7MCFQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="lp__bg" aria-hidden="true"></div>
+    <div class="lp__overlay" aria-hidden="true"></div>
+
+    <header class="lp__header">
+      <a href="/" class="lp__logo" aria-label="Florida Education Institute home">
+        <img src="/fei-logo.png" alt="Florida Education Institute" width="56" height="53" />
+      </a>
+    </header>
+
+    <main class="lp__main" id="top">
+      <slot />
+    </main>
+
+    <footer class="lp__footer">
+      <p>© <span>{new Date().getFullYear()}</span> Florida Education Institute. All rights reserved.</p>
+      <p class="lp__legal">
+        <a href="/legal/privacy">Privacy Policy</a> ·
+        <a href="/legal/terms">Terms of Service</a> ·
+        <a href="/consumer-information">Consumer Information</a>
+      </p>
+    </footer>
+
+    <script src="/vendor/intl-tel-input/js/intlTelInputWithUtils.min.js" defer is:inline></script>
+    <script src={`/site.js?v=${siteJsHash}`} defer is:inline></script>
+  </body>
+</html>

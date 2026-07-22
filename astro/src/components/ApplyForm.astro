@@ -13,8 +13,9 @@ interface Props {
   formId: string;
   submitLabel?: string;
   lang?: Lang;
+  stage?: string; // '2-step complete' flow marks the form data-stage="full" (see site.js)
 }
-const { prefix: p, formId, submitLabel, lang = 'en' } = Astro.props;
+const { prefix: p, formId, submitLabel, lang = 'en', stage } = Astro.props;
 const s = t(lang).form;
 const legal = t(lang).footer;
 const send = submitLabel ?? s.send;
@@ -24,6 +25,7 @@ const progTitle = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_E
   class="form"
   id={formId}
   novalidate
+  data-stage={stage}
   data-msg-required={s.required}
   data-msg-invalid-email={s.invalidEmail}
   data-msg-invalid-phone={s.invalidPhone}

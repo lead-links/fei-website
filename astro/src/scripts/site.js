@@ -198,6 +198,21 @@
       });
     }
 
+    // 2-step "complete" flow (LP variant): prefill from the step-1 pre-registration
+    // and carry its id so n8n updates the same record instead of creating a new one.
+    var lpStage = form.getAttribute("data-stage");
+    var preReg = null;
+    if (lpStage) {
+      try { preReg = JSON.parse(sessionStorage.getItem("fei_prereg") || "null"); } catch (e) { preReg = null; }
+      if (preReg) {
+        if (byId("first")) byId("first").value = preReg.firstName || "";
+        if (byId("last")) byId("last").value = preReg.lastName || "";
+        if (byId("email")) byId("email").value = preReg.email || "";
+        if (preReg.phone && iti) { try { iti.setNumber(preReg.phone); } catch (e) {} }
+        else if (preReg.phone && phoneInput) { phoneInput.value = preReg.phone; }
+      }
+    }
+
     var summaryEl = byId("summary");
     var msgFor = function (key) { return form.getAttribute("data-msg-" + key) || ""; };
 
@@ -254,6 +269,8 @@
         ip: feiClientIp
       };
       UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
+      // 2-step flow: tag the stage and the pre-registration id (see initPreRegForm).
+      if (lpStage) { payload.stage = lpStage; if (preReg && preReg.id) payload.preRegId = preReg.id; }
 
       // POST the lead to the n8n webhook; show success only after it is accepted.
       var submitBtn = form.querySelector('[type="submit"]');
@@ -347,6 +364,100 @@
         applyPageForm.hidden = true;
         if (applySuccess) { applySuccess.hidden = false; applySuccess.focus(); }
       }
+    });
+  }
+
+  /* ---- LP 2-step: step-2 "complete" form (full ApplyForm, prefix "lp") ---- */
+  var lpForm = document.getElementById("lpApplyForm");
+  if (lpForm) {
+    var lpFormWrap = document.getElementById("lpFormWrap");
+    var lpSuccess = document.getElementById("lpSuccess");
+    initApplyForm({
+      prefix: "lp",
+      formId: "lpApplyForm",
+      successNameId: "lpSuccessName",
+      onSuccess: function () {
+        if (lpFormWrap) lpFormWrap.hidden = true;
+        if (lpSuccess) { lpSuccess.hidden = false; lpSuccess.focus(); }
+      }
+    });
+  }
+
+  /* ---- LP 2-step: step-1 pre-registration (minimal hero form) ----
+     Captures name/email/phone, generates a pre-registration id, fires a partial
+     "pre" lead to the webhook, stashes {id, fields} in sessionStorage, then hands
+     off to step 2 (data-next). Advances even if the POST fails — step 2 re-sends
+     the same id, so the record still lands. */
+  var preRegForm = document.getElementById("preRegForm");
+  if (preRegForm) {
+    var prBy = function (s) { return document.getElementById("pr-" + s); };
+    var prFirst = prBy("first"), prLast = prBy("last"), prEmail = prBy("email"), prPhoneInput = prBy("phone");
+    var prIti = null;
+    if (prPhoneInput && window.intlTelInput) {
+      prIti = window.intlTelInput(prPhoneInput, {
+        initialCountry: "us", separateDialCode: true, strictMode: true,
+        formatAsYouType: true, countryOrder: ["us", "ca", "mx"],
+      });
+    }
+    var prSummary = prBy("summary");
+    var prMsg = function (k) { return preRegForm.getAttribute("data-msg-" + k) || ""; };
+
+    preRegForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var invalids = [];
+      var mark = function (fld, bad, key) {
+        if (!fld) return;
+        fld.classList.toggle("is-invalid", bad);
+        fld.setAttribute("aria-invalid", String(bad));
+        var er = document.getElementById(fld.id + "-error");
+        if (er) { er.textContent = bad ? prMsg(key) : ""; er.hidden = !bad; }
+        if (bad) invalids.push(fld);
+      };
+      mark(prFirst, !prFirst.value.trim(), "required");
+      mark(prLast, !prLast.value.trim(), "required");
+      mark(prEmail, !EMAIL_RE.test(prEmail.value.trim()), "invalid-email");
+      var prPhoneOk = prIti ? prIti.isValidNumber() : !!prPhoneInput.value.trim();
+      mark(prPhoneInput, !prPhoneOk, "invalid-phone");
+      if (invalids.length) {
+        if (prSummary) { prSummary.textContent = prMsg("error-summary"); prSummary.hidden = false; prSummary.focus(); }
+        else invalids[0].focus();
+        return;
+      }
+      if (prSummary) prSummary.hidden = true;
+
+      var id = (window.crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : ("pre-" + Date.now() + "-" + Math.round(Math.random() * 1e9));
+      var firstV = prFirst.value.trim(), lastV = prLast.value.trim(), emailV = prEmail.value.trim();
+      var phoneV = prIti ? prIti.getNumber() : prPhoneInput.value.trim();
+
+      try {
+        sessionStorage.setItem("fei_prereg", JSON.stringify({ id: id, firstName: firstV, lastName: lastV, email: emailV, phone: phoneV }));
+      } catch (e2) {}
+
+      var payload = {
+        stage: "pre",
+        preRegId: id,
+        firstName: firstV, lastName: lastV, email: emailV, phone: phoneV,
+        program: preRegForm.getAttribute("data-program") || "",
+        programType: preRegForm.getAttribute("data-program-type") || "",
+        referrer: feiReferrer,
+        ip: feiClientIp
+      };
+      UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
+
+      var next = preRegForm.getAttribute("data-next") || "/apply";
+      var submitBtn = preRegForm.querySelector('[type="submit"]');
+      var prErr = prBy("error");
+      if (prErr) prErr.hidden = true;
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending…"; }
+
+      var go = function () { window.location.href = next; };
+      fetch(LEAD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(go).catch(go);
     });
   }
 

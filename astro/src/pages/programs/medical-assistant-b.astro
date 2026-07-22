@@ -1,0 +1,70 @@
+---
+import LpLayout from '../../layouts/LpLayout.astro';
+
+// A/B variant B of /programs/medical-assistant: hero with an inline pre-registration
+// form (step 1 of 2). Captures name/email/phone, saves a partial "pre" lead + a
+// pre-registration id, then hands off to the full form at step 2 (see data-next).
+const program = 'Medical Assistant';
+const programType = 'Diploma';
+const nextStep = '/programs/medical-assistant-b/apply';
+---
+<LpLayout
+  title="Apply — Medical Assistant | Florida Education Institute"
+  description="Start your Medical Assistant application at Florida Education Institute in Miami. Tell us a little about you and an Admissions Advisor will reach out."
+  bgDesktop="/img/programs/medical-assistant.webp"
+  bgMobile="/img/programs/mobile/medical-assistant.webp"
+>
+  <div class="lp-hero">
+    <p class="eyebrow"><span class="eyebrow__dot"></span> Apply to FEI</p>
+    <h1 class="lp-hero__title">Medical Assistant</h1>
+    <p class="lp-hero__lede">Clinical and administrative skills for physician offices, clinics, and urgent care. Trained hands-on, hybrid, and close to home.</p>
+  </div>
+
+  <div class="lp-card">
+    <p class="lp-card__sub">Tell us a little about you and an Admissions Advisor will reach out. No obligation.</p>
+
+    <form
+      class="form"
+      id="preRegForm"
+      novalidate
+      data-program={program}
+      data-program-type={programType}
+      data-next={nextStep}
+      data-msg-required="This field is required."
+      data-msg-invalid-email="Enter a valid email address."
+      data-msg-invalid-phone="Enter a valid phone number."
+      data-msg-error-summary="Please fix the following before submitting:"
+    >
+      <div class="form-summary" id="pr-summary" role="alert" tabindex="-1" hidden></div>
+
+      <div class="field">
+        <label for="pr-first">First name</label>
+        <input type="text" id="pr-first" name="firstName" autocomplete="given-name" required aria-describedby="pr-first-error" />
+        <p class="field-error" id="pr-first-error" hidden></p>
+      </div>
+      <div class="field">
+        <label for="pr-last">Last name</label>
+        <input type="text" id="pr-last" name="lastName" autocomplete="family-name" required aria-describedby="pr-last-error" />
+        <p class="field-error" id="pr-last-error" hidden></p>
+      </div>
+      <div class="field">
+        <label for="pr-email">Email</label>
+        <input type="email" id="pr-email" name="email" autocomplete="email" required aria-describedby="pr-email-error" />
+        <p class="field-error" id="pr-email-error" hidden></p>
+      </div>
+      <div class="field">
+        <label for="pr-phone">Phone</label>
+        <input type="tel" id="pr-phone" name="phone" autocomplete="tel" aria-describedby="pr-phone-error" />
+        <p class="field-error" id="pr-phone-error" hidden></p>
+      </div>
+
+      <button type="submit" class="btn btn--solid lp-card__submit">Apply
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+      </button>
+      <p class="form-error" id="pr-error" role="alert" hidden>Sorry — we couldn't submit. Please try again, or call <a href="tel:3054441515">305-444-1515</a>.</p>
+
+      <h3 class="lp-card__divider">Prefer to talk?</h3>
+      <a href="tel:3054441515" class="btn btn--outline lp-card__phone">305-444-1515</a>
+    </form>
+  </div>
+</LpLayout>

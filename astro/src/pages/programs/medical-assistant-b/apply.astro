@@ -1,0 +1,40 @@
+---
+import LpLayout from '../../../layouts/LpLayout.astro';
+import ApplyForm from '../../../components/ApplyForm.astro';
+
+// Step 2 of the A/B apply flow: the full application form, pre-filled from the
+// step-1 pre-registration (site.js reads sessionStorage 'fei_prereg') and carrying
+// the same pre-registration id + stage="full" so n8n updates the same record.
+const program = 'Medical Assistant';
+const programType = 'Diploma';
+---
+<LpLayout
+  title="Complete your application — Medical Assistant | Florida Education Institute"
+  description="Finish your Medical Assistant application at Florida Education Institute in Miami."
+  bgDesktop="/img/programs/medical-assistant.webp"
+  bgMobile="/img/programs/mobile/medical-assistant.webp"
+>
+  <div class="lp-hero">
+    <p class="eyebrow"><span class="eyebrow__dot"></span> Almost done</p>
+    <h1 class="lp-hero__title">Complete your application</h1>
+    <p class="lp-hero__lede">A few more details and an Admissions Advisor will reach out to walk you through the next steps.</p>
+  </div>
+
+  <div class="lp-card">
+    <!-- Program context: pre-set to Medical Assistant, dropdown hidden (came from the MA landing) -->
+    <div id="feiProgramMeta" data-program={program} data-program-type={programType} hidden></div>
+
+    <div id="lpFormWrap">
+      <ApplyForm prefix="lp" formId="lpApplyForm" stage="full" submitLabel="Submit application" />
+    </div>
+
+    <div id="lpSuccess" class="lp-success" role="status" tabindex="-1" hidden>
+      <div class="lp-success__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h2 class="section__title section__title--sm">Thank you, <span id="lpSuccessName">there</span>.</h2>
+      <p class="lp-card__sub">Your application has been received. An FEI Admissions Advisor will reach out soon.</p>
+      <p class="lp-card__sub">Want to talk sooner? Call <a href="tel:3054441515" style="color:var(--blue);font-weight:700">305-444-1515</a>.</p>
+    </div>
+  </div>
+</LpLayout>
