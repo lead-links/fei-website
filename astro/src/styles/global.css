@@ -932,6 +932,15 @@ a { color: inherit; text-decoration: none; }
 .phero.phero--b { padding-top: clamp(8rem, 14vh, 11rem); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
 .phero--b .phero__inner { grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 .phero--b .phero__copy { max-width: none; }
+/* Stronger, wider-reaching overlay than the standard program hero: the form now
+   sits on the right, so the image can't fade to transparent there — keep the whole
+   width dark (heaviest on the left for the white copy) so both the text and the
+   white form card have solid contrast. */
+.phero--b .hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(13,26,66,.94) 0%, rgba(13,26,66,.9) 45%, rgba(13,26,66,.74) 100%),
+    linear-gradient(0deg, rgba(11,24,62,.22), rgba(11,24,62,.22));
+}
 
 /* course facts moved into the hero, where the CTA buttons were */
 .phero-facts { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.6rem; margin-top: 1.9rem; padding-top: 1.6rem; border-top: 1px solid rgba(255,255,255,.18); }
