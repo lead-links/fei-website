@@ -12,7 +12,7 @@ const lang: Lang = isEs ? 'es' : 'en';
 const s = t(lang).nav;
 const home = isEs ? '/es' : '/';
 const links = [
-  { href: isEs ? '/es#programs' : '/#programs', label: s.programs },
+  { href: href('/programs', lang), label: s.programs },
   { href: href('/about', lang), label: s.about },
   { href: href('/admissions', lang), label: s.admissions },
   { href: href('/financial-aid', lang), label: s.financialAid },

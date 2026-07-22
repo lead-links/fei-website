@@ -8,6 +8,7 @@ export type Lang = 'en' | 'es';
 // Static pages: EN path -> ES path
 export const PAGE_ES: Record<string, string> = {
   '/': '/es',
+  '/programs': '/es/programas',
   '/about': '/es/sobre',
   '/admissions': '/es/admisiones',
   '/apply': '/es/inscripcion',

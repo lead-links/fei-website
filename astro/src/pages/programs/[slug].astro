@@ -29,7 +29,7 @@ const jsonLd = [
   courseSchema({ name: program?.title ?? meta.title, description: program?.desc ?? meta.description, url: progUrl, lang: 'en' }),
   breadcrumbSchema([
     { name: 'Home', url: `${SITE}/` },
-    { name: 'Programs', url: `${SITE}/#programs` },
+    { name: 'Programs', url: `${SITE}/programs` },
     { name: program?.title ?? meta.title, url: progUrl },
   ]),
 ];
