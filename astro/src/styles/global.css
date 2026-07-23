@@ -320,6 +320,10 @@ a { color: inherit; text-decoration: none; }
 .prog-tile:hover .prog-tile__arrow { opacity: 1; transform: translateX(3px); }
 .prog-tile.is-hidden { display: none; }
 
+/* Catalog page (/programs, /es/programas): filters sit tight under the hero */
+.phero--flush { padding-bottom: clamp(1.5rem, 3vw, 2.4rem); }
+.programs--catalog { padding-top: clamp(1.3rem, 2.6vw, 2rem); }
+
 .card {
   position: relative; background: var(--white); border: 1px solid var(--line);
   border-radius: 0; overflow: hidden;
