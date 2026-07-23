@@ -63,40 +63,31 @@ const faqs = [
   </div>
 
   <!-- PROGRAMS -->
+  <!-- PROGRAMAS — listado compacto y clicable (catálogo completo en /es/programas) -->
   <section class="section programs" id="programs">
     <div class="section__head">
       <div>
-        <p class="kicker">01, Programas</p>
+        <p class="kicker">Programas</p>
         <h2 class="section__title">Elige la carrera.<br/>Nosotros enseñamos el oficio.</h2>
       </div>
-      <p class="section__intro">Once programas enfocados y orientados a la carrera en salud, artes culinarias, oficios especializados y negocios. Caminos cortos, habilidades reales e instructores que han hecho el trabajo.</p>
+      <a href="/es/programas" class="link-arrow">Ver todos los programas
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+      </a>
     </div>
-
-    <div class="filters" id="filters" role="group" aria-label="Filtrar programas">
-      <button class="chip is-active" data-filter="all" aria-pressed="true">Todos</button>
-      <button class="chip" data-filter="health" aria-pressed="false">Salud</button>
-      <button class="chip" data-filter="culinary" aria-pressed="false">Culinaria</button>
-      <button class="chip" data-filter="trades" aria-pressed="false">Oficios</button>
-      <button class="chip" data-filter="business" aria-pressed="false">Negocios</button>
-    </div>
-
-    <div class="prog-grid" id="progGrid">
+    <ul class="prog-list">
       {PROGRAMS.map((p) => (
-        <article class="card reveal" data-cat={p.cat}>
-          <a href={`/es/programas/${PROGRAM_ES[p.slug]}`} class="card__media" tabindex="-1" aria-hidden="true">
-            <span class="card__badge">{p.tag}</span>
-            <img src={`/img/programs/${p.slug}.webp`} alt="" loading="lazy" />
-            <span class="card__icon" set:html={ICONS[p.icon]} />
+        <li>
+          <a href={`/es/programas/${PROGRAM_ES[p.slug]}`} class="prog-tile reveal" data-cat={p.cat}>
+            <span class="prog-tile__icon" aria-hidden="true" set:html={ICONS[p.icon]} />
+            <span class="prog-tile__body">
+              <span class="prog-tile__name">{PROGRAM_TITLE_ES[p.slug]}</span>
+              <span class="prog-tile__tag">{p.tag}</span>
+            </span>
+            <svg class="prog-tile__arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <div class="card__body">
-            <span class="card__tag">{CAT_LABELS_ES[p.cat]}</span>
-            <h3 class="card__title">{PROGRAM_TITLE_ES[p.slug]}</h3>
-            <p class="card__desc">{PROGRAM_DESC_ES[p.slug]}</p>
-            <a href={`/es/programas/${PROGRAM_ES[p.slug]}`} class="card__link">Detalles del programa<Fragment set:html={arrow} /></a>
-          </div>
-        </article>
+        </li>
       ))}
-    </div>
+    </ul>
   </section>
 
   <!-- ADVANTAGE -->

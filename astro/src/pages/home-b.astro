@@ -1,25 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { PROGRAMS, ICONS, CAT_LABELS } from '../data/programs';
+import { PROGRAMS, ICONS } from '../data/programs';
 import { ORG, websiteSchema, faqSchema } from '../data/schema';
 
-// A/B variant B of the home page ("/"). Same layout and design system as the
-// original; only the COPY is revised per the client's revision doc
-// (Google Doc 1qAQqQCfFkJyv-U5-9huOesn9_WlYwa-8r_qxjpJo7pM). Kept as a separate
-// noindex route so the original "/" stays live for side-by-side analysis.
-const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+// Archived previous home (former "version A"), kept noindex at /home-b for
+// reference/rollback after variant B was promoted to the official "/". Shares
+// the same compact programs listing as the live home.
 const chev = (dir: 'd' | 'u') =>
   `<svg class="acc-ico__${dir}" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="${dir === 'd' ? 'M6 9l6 6 6-6' : 'M6 15l6-6 6 6'}"/></svg>`;
 
-const marquee = ['Medical Assistant', 'Pharmacy Technician', 'Culinary Arts', 'HVAC / R', 'Medical Billing & Coding', 'Pastry & Baking Arts', 'Business Management', 'Medical Office Administrator'];
+const marquee = ['Medical Assistant', 'Pharmacy Technician', 'Culinary Arts', 'HVAC / R', 'Medical Billing & Coding', 'Pastry & Baking', 'Business Management', 'Medical Office Administrator'];
 
 const faqs = [
   { q: 'Is FEI accredited?', a: 'Yes. FEI is accredited by the Council on Occupational Education (COE). Some programs, like Pharmacy Technician and HVAC/R, also prepare you for industry-specific certifications or registrations.', open: true },
-  { q: 'Is it easy to apply for financial aid?', a: 'Yes it is easy to apply for Financial aid! We have a team dedicated to guiding you step by step through the process. Financial aid is available to those who qualify, including scholarships and payment plans. Our Financial Aid department can walk you through a personalized plan before you commit to anything.' },
-  { q: 'How long does it take to complete a program?', a: 'Between 10 to 18 months depending on the program you choose.' },
-  { q: 'Do you help with job placement after graduation?', a: 'Yes, of course! Our Career Services team supports graduates with resume help, interview preparation, and connections to employers hiring in Miami.' },
-  { q: 'Can I complete my program online?', a: 'Depending on the program selected online may be an option. We recommend meeting with an admissions advisor so they can assist you in picking a program that you enjoy and has a learning format that works for you.' },
-  { q: 'What is it like to be a student at FEI?', a: "Amazing! Your professors and FEI's student service department will be there along the way to help get you to graduation and into your new career. You will build camaraderie with fellow classmates as you all strive to achieve your personal goals in the same career field." },
+  { q: 'How much does a program cost, and is financial aid available?', a: 'Cost varies by program. Financial aid is available to those who qualify, including scholarships and payment plans. An advisor can walk you through a personalized breakdown before you commit to anything.' },
+  { q: 'How long does it take to complete a program?', a: 'It depends on the path you choose, many of our diploma programs are designed to be completed in under a year, while our A.A.S. degrees run longer. Each program page lists its expected length.' },
+  { q: 'Do you help with job placement after graduation?', a: 'Yes. Our Career Services team supports graduates with resume help, interview preparation, and connections to employers hiring in Miami.' },
+  { q: 'Can I complete my program online?', a: 'Some programs, like Medical Billing & Coding and Business Management, are offered 100% online. Others, especially culinary and hands-on healthcare programs, are hybrid or in-person to build real skills. Each program page lists its format.' },
+  { q: 'What is it like to be a student at FEI?', a: 'Small classes, instructors who know your name, and a team that checks in on how you are actually doing, not just your attendance. That personal attention is the whole reason FEI exists.' },
 ];
 ---
 <BaseLayout
@@ -28,7 +26,7 @@ const faqs = [
   jsonLd={[ORG, websiteSchema(), faqSchema(faqs)]}
   noindex
 >
-  <!-- HERO (Block 1 — unchanged copy) -->
+  <!-- HERO -->
   <section class="hero">
     <div class="hero__bg" style="background-image:url('/img/hero-campus.jpg')" aria-hidden="true"></div>
     <div class="hero__overlay" aria-hidden="true"></div>
@@ -59,99 +57,98 @@ const faqs = [
     </div>
   </section>
 
-  <!-- marquee (Block 2) -->
+  <!-- marquee -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
       {[...marquee, ...marquee].map((m) => (<><span>{m}</span><span class="sep">✦</span></>))}
     </div>
   </div>
 
-  <!-- PROGRAMS (Block 3) -->
+  <!-- PROGRAMS — compact clickable listing (full catalog at /programs) -->
   <section class="section programs" id="programs">
     <div class="section__head">
       <div>
-        <p class="kicker">Programs</p>
-        <h2 class="section__title">Pick the career.<br/>We will teach you the skills.</h2>
+        <p class="kicker">01, Programs</p>
+        <h2 class="section__title">Pick the career.<br/>We will teach the craft.</h2>
       </div>
-      <p class="section__intro">Eleven focused, career-driven programs across healthcare, culinary arts, skilled trades and business. Short paths, real skills, and instructors who have done the work.</p>
+      <a href="/programs" class="link-arrow">View all programs
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+      </a>
     </div>
-
-    <div class="filters" id="filters" role="group" aria-label="Filter programs">
-      <button class="chip is-active" data-filter="all" aria-pressed="true">All</button>
-      <button class="chip" data-filter="health" aria-pressed="false">Healthcare</button>
-      <button class="chip" data-filter="culinary" aria-pressed="false">Culinary</button>
-      <button class="chip" data-filter="trades" aria-pressed="false">Skilled Trades</button>
-      <button class="chip" data-filter="business" aria-pressed="false">Business</button>
-    </div>
-
-    <div class="prog-grid" id="progGrid">
+    <ul class="prog-list">
       {PROGRAMS.map((p) => (
-        <article class="card reveal" data-cat={p.cat}>
-          <a href={`/programs/${p.slug}`} class="card__media" tabindex="-1" aria-hidden="true">
-            <span class="card__badge">{p.tag}</span>
-            <img src={`/img/programs/${p.slug}.webp`} alt="" loading="lazy" />
-            <span class="card__icon" set:html={ICONS[p.icon]} />
+        <li>
+          <a href={`/programs/${p.slug}`} class="prog-tile reveal" data-cat={p.cat}>
+            <span class="prog-tile__icon" aria-hidden="true" set:html={ICONS[p.icon]} />
+            <span class="prog-tile__body">
+              <span class="prog-tile__name">{p.title}</span>
+              <span class="prog-tile__tag">{p.tag}</span>
+            </span>
+            <svg class="prog-tile__arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <div class="card__body">
-            <span class="card__tag">{CAT_LABELS[p.cat]}</span>
-            <h3 class="card__title">{p.title}</h3>
-            <p class="card__desc">{p.desc}</p>
-            <a href={`/programs/${p.slug}`} class="card__link">Program details<Fragment set:html={arrow} /></a>
-          </div>
-        </article>
+        </li>
       ))}
-    </div>
+    </ul>
   </section>
 
-  <!-- ADVANTAGE (Block 4) -->
+  <!-- ADVANTAGE -->
   <section class="section advantage" id="advantage">
     <div class="advantage__grid">
       <div class="advantage__intro">
-        <p class="kicker kicker--light">The FEI Advantage</p>
+        <p class="kicker kicker--light">02, The FEI Advantage</p>
         <h2 class="section__title section__title--light">More attention.<br/>Better outcomes.</h2>
-        <p class="advantage__lede">The FEI difference is not a slogan, it is a class size. Our instructors and staff know your name, your goals, and are ready to help you along the way.</p>
+        <p class="advantage__lede">The FEI difference is not a slogan, it is a class size. Our instructors and staff know your name, your goals, and what it takes to get you there.</p>
         <a href="/apply" class="btn btn--coral btn--lg">Meet with an advisor</a>
       </div>
       <div class="advantage__cards">
-        <article class="feature"><h3>Personal attention</h3><p>Small classes and real relationships. You will never get lost in a lecture hall.</p></article>
-        <article class="feature"><h3>Career education</h3><p>Every program is built around the skills employers in South Florida favor.</p></article>
-        <article class="feature"><h3>10 Success Habits</h3><p>Technical training paired with the professional habits.</p></article>
-        <article class="feature"><h3>Employer connections</h3><p>Career services, an employer job board, and connections that open doors.</p></article>
+        <article class="feature"><span class="feature__num">01</span><h3>Personal attention</h3><p>Small classes and real relationships. You will never get lost in a lecture hall.</p></article>
+        <article class="feature"><span class="feature__num">02</span><h3>Career education</h3><p>Every program is built around the skills employers in South Florida are hiring for.</p></article>
+        <article class="feature"><span class="feature__num">03</span><h3>10 Success Habits</h3><p>Technical training paired with the professional habits that keep you employed.</p></article>
+        <article class="feature"><span class="feature__num">04</span><h3>Employer connections</h3><p>Career services, an employer job board, and connections that open doors.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- ADMISSIONS (Block 5) -->
+  <!-- ADMISSIONS -->
   <section class="section admissions" id="admissions">
     <div class="section__head">
       <div>
-        <p class="kicker">Admissions</p>
+        <p class="kicker">03, Admissions</p>
         <h2 class="section__title">Getting started is simple.</h2>
       </div>
+      <p class="section__intro">No mystery, no runaround. Four steps and a real person to walk you through each one.</p>
     </div>
     <ol class="steps">
-      <li class="step"><span class="step__no">1</span><h3>Reach out</h3><p>Call, apply online, or visit the campus. We will answer your questions.</p></li>
-      <li class="step"><span class="step__no">2</span><h3>Meet &amp; tour</h3><p>Sit down with an advisor, see the classrooms and labs, and pick your program.</p></li>
+      <li class="step"><span class="step__no">1</span><h3>Reach out</h3><p>Call, apply online, or visit the campus. We will answer your questions honestly.</p></li>
+      <li class="step"><span class="step__no">2</span><h3>Meet &amp; tour</h3><p>Sit down with an advisor, see the classrooms and labs, and find your fit.</p></li>
       <li class="step"><span class="step__no">3</span><h3>Plan your aid</h3><p>We will help you understand financial aid, scholarships, and what you qualify for.</p></li>
-      <li class="step"><span class="step__no">4</span><h3>Enroll</h3><p>Make the choice to change your life with education. Enroll that same day!</p></li>
+      <li class="step"><span class="step__no">4</span><h3>Enroll</h3><p>Lock in your start date and step into your program. That is it, you are in.</p></li>
     </ol>
   </section>
 
-  <!-- FINANCIAL AID (Block 6) -->
-  <section class="section aid aid--b" id="aid">
+  <!-- FINANCIAL AID -->
+  <section class="section aid" id="aid">
     <div class="aid__inner">
       <div class="aid__copy">
-        <p class="kicker">Financial Aid</p>
-        <h2 class="section__title">A new career<br/>is possible!</h2>
-        <p class="aid__lede">Financial aid is available to those who qualify. From federal aid to scholarships, our team helps you build a plan that makes attending school a reality.</p>
+        <p class="kicker">04, Financial Aid</p>
+        <h2 class="section__title">Do not let cost<br/>decide for you.</h2>
+        <p class="aid__lede">Financial aid is available to those who qualify. From federal aid to scholarships, our team helps you build a plan that makes your program possible.</p>
         <div class="aid__actions">
-          <a href="/financial-aid" class="btn btn--solid btn--lg">Find out how</a>
+          <a href="/apply" class="btn btn--solid btn--lg">Start your application</a>
+          <a href="/net-price-calculator" class="link-arrow">Net price calculator
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+          </a>
         </div>
+      </div>
+      <div class="aid__stats">
+        <div class="stat"><strong>Federal</strong><span>aid for those who qualify</span></div>
+        <div class="stat"><strong>Scholarships</strong><span>merit &amp; need-based options</span></div>
+        <div class="stat"><strong>1-on-1</strong><span>guidance through every form</span></div>
       </div>
     </div>
   </section>
 
-  <!-- SUPPORT / TESTIMONIAL (Block 7) -->
+  <!-- SUPPORT / TESTIMONIAL -->
   <section class="section support" id="support">
     <figure class="quote">
       <blockquote>“At FEI, I was not a seat in a room. My instructors knew my name, pushed me when I needed it, and helped me land the job I have today.”</blockquote>
@@ -161,21 +158,21 @@ const faqs = [
       </figcaption>
     </figure>
     <div class="support__services">
-      <h3>Perpetual Support</h3>
+      <h3>Support that follows you through, and after.</h3>
       <ul>
-        <li>Student Service department &amp; Student Portal</li>
         <li>Career services &amp; job placement support</li>
         <li>Employer connections &amp; job board</li>
-        <li>Expansive Alumni network</li>
+        <li>Student portal &amp; online learning (FEI LMS)</li>
+        <li>Transcript requests &amp; consumer information</li>
       </ul>
     </div>
   </section>
 
-  <!-- FAQ (Block 8) -->
+  <!-- FAQ -->
   <section class="section faq" id="faq">
     <div class="section__head">
       <div>
-        <p class="kicker">FAQ</p>
+        <p class="kicker">05, FAQ</p>
         <h2 class="section__title">Questions before<br/>you call?</h2>
       </div>
       <p class="section__intro">Here are the answers we get asked most. Anything else, just call us.</p>
@@ -193,16 +190,16 @@ const faqs = [
     </div>
   </section>
 
-  <!-- CTA (Block 9) -->
+  <!-- CTA -->
   <section class="cta" id="apply">
     <div class="cta__glow" aria-hidden="true"></div>
     <div class="cta__inner">
-      <p class="kicker kicker--light">Chase your dreams!</p>
-      <h2 class="cta__title">Your new<br/>career awaits!</h2>
-      <p class="cta__lede">Contact us today to discuss programs, start dates, and financial aid.</p>
+      <p class="kicker kicker--light">Ready when you are</p>
+      <h2 class="cta__title">Your career starts<br/>with one call.</h2>
+      <p class="cta__lede">Talk to a real person about programs, start dates, and financial aid. No pressure, just answers.</p>
       <div class="cta__actions">
         <a href="tel:3054441515" class="btn btn--coral btn--lg">Call 305-444-1515</a>
-        <a href="/apply" class="btn btn--outline btn--lg btn--outline-light">Schedule a call</a>
+        <a href="/apply" class="btn btn--outline btn--lg btn--outline-light">Apply online</a>
       </div>
     </div>
   </section>

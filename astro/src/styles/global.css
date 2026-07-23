@@ -302,6 +302,23 @@ a { color: inherit; text-decoration: none; }
 
 .prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
 
+/* Home: compact clickable program listing (the full filterable catalog lives on /programs) */
+.prog-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+.prog-tile {
+  display: flex; align-items: center; gap: 1rem; height: 100%;
+  background: var(--white); border: 1px solid var(--line); padding: 1.05rem 1.2rem;
+  transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.prog-tile:hover { transform: translateY(-4px); border-color: rgba(0,114,206,.3); box-shadow: 0 22px 45px -30px rgba(26,32,44,.35); }
+.prog-tile__icon { flex: none; width: 46px; height: 46px; display: grid; place-items: center; background: var(--tint); color: var(--blue-600); transition: background .3s var(--ease), color .3s var(--ease); }
+.prog-tile__icon svg { width: 24px; height: 24px; }
+.prog-tile:hover .prog-tile__icon { background: var(--gold); color: var(--navy); }
+.prog-tile__body { display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
+.prog-tile__name { font-family: var(--display); font-weight: 700; font-size: 1rem; line-height: 1.2; color: var(--navy); }
+.prog-tile__tag { font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-600); }
+.prog-tile__arrow { flex: none; margin-left: auto; color: var(--blue-600); opacity: .45; transition: opacity .3s var(--ease), transform .3s var(--ease); }
+.prog-tile:hover .prog-tile__arrow { opacity: 1; transform: translateX(3px); }
+
 .card {
   position: relative; background: var(--white); border: 1px solid var(--line);
   border-radius: 0; overflow: hidden;
