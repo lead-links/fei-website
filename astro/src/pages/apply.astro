@@ -2,25 +2,27 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ApplyForm from '../components/ApplyForm.astro';
 ---
-<BaseLayout title={"Apply Now | Florida Education Institute"} description={"Start your application to Florida Education Institute in Miami. No deadlines, no application fees. Tell us a little about you and an advisor will reach out."}>
-  <section class="phero phero--page">
-    <div class="hero__bg" style="background-image:url('/img/students.jpg')" aria-hidden="true"></div>
-    <div class="hero__overlay" aria-hidden="true"></div>
-    <div class="phero__inner">
-      <div class="phero__copy">
-        <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Apply to FEI</p>
-        <h1 class="phero__title reveal" data-delay="1">You are one step<br/>from starting.</h1>
-        <p class="phero__lede reveal" data-delay="2">No deadlines, no application fees. Tell us a little about you and an Admissions Advisor will reach out to walk you through the rest.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section apply-section" id="apply-form">
+<BaseLayout
+  title={"Apply Now | Florida Education Institute"}
+  description={"Start your application to Florida Education Institute in Miami. No deadlines, no application fees. Tell us a little about you and an advisor will reach out."}
+  forceStuckNav
+>
+  <section class="section apply-section apply-section--nohero" id="apply-form">
     <div class="apply-grid">
       <div class="apply-intro">
         <p class="kicker">Application</p>
-        <h2 class="section__title section__title--sm">Start your<br/>application.</h2>
-        <p class="pblock__text" style="margin-top:1rem">This begins your enrollment process. Submitting it does not commit you to anything, and it does not by itself constitute acceptance to Florida Education Institute.</p>
+        <h2 class="section__title section__title--sm">Applying is simple.</h2>
+        <p class="pblock__text" style="margin-top:1rem">Applying for enrollment at Florida Education Institute was designed to be simple. Completing the application form here begins the enrollment process.</p>
+        <p class="pblock__text" style="margin-top:1rem">After applying, we will contact you to set your admissions appointment with one of our Career Education Advisors. We want your education to be life-changing and meaningful to your future, so selecting a career that is right for you will be our first priority.</p>
+        <p class="pblock__text" style="margin-top:1rem">We will discuss your goals and find out if Florida Education Institute is right for you. We will give you a tour of our facilities and have you speak with our staff and instructors, who are committed to personal attention and student success. We also encourage you to ask questions, so we can provide you with an education and career plan that you believe in.</p>
+        <address class="apply-contact">
+          <strong>Florida Education Institute</strong>
+          5818 SW 8th Street<br/>
+          Miami, FL 33144<br/>
+          <a href="tel:3054441515">(305) 444-1515</a><br/>
+          <a href="mailto:admissions@fei.edu">admissions@fei.edu</a>
+        </address>
+        <p class="apply-note">Please note that applying herein does not in any way constitute acceptance to Florida Education Institute.</p>
       </div>
 
       <ApplyForm prefix="af" formId="applyForm" />
