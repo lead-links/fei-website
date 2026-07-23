@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBlock from '../components/CtaBlock.astro';
 import content from '../data/pages/financial-aid.html?raw';
 ---
 <BaseLayout title={"Financial Aid & Scholarships | Florida Education Institute"} description={"FEI believes education should be affordable. Explore federal aid, the Pell Grant, scholarships, and one-on-one guidance from our Financial Aid Office in Miami."}>
   <Fragment set:html={content} />
+  <CtaBlock />
 </BaseLayout>

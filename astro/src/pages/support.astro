@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBlock from '../components/CtaBlock.astro';
 import content from '../data/pages/support.html?raw';
 ---
 <BaseLayout title={"Support Services & Career Services | Florida Education Institute"} description={"FEI supports students from enrollment to graduation to your first job, career services, employer connections, job placement help, and the FEI student portal."}>
   <Fragment set:html={content} />
+  <CtaBlock />
 </BaseLayout>

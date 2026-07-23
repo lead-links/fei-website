@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PROGRAMS, ICONS, CAT_LABELS } from '../data/programs';
 import { breadcrumbSchema, SITE } from '../data/schema';
+import CtaBlock from '../components/CtaBlock.astro';
 
 // Programs index (/programs): the full catalog with the rich program cards
 // (image + category + description), like the home used to have. The category
@@ -63,17 +64,6 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta" id="apply">
-    <div class="cta__glow" aria-hidden="true"></div>
-    <div class="cta__inner">
-      <p class="kicker kicker--light">Ready when you are</p>
-      <h2 class="cta__title">Your career starts<br/>with one call.</h2>
-      <p class="cta__lede">Talk to a real person about programs, start dates, and financial aid. No pressure, just answers.</p>
-      <div class="cta__actions">
-        <a href="tel:3054441515" class="btn btn--coral btn--lg">Call 305-444-1515</a>
-        <a href="/apply" class="btn btn--outline btn--lg btn--outline-light">Apply online</a>
-      </div>
-    </div>
-  </section>
+  <!-- CTA (shared) -->
+  <CtaBlock />
 </BaseLayout>

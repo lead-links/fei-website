@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { PROGRAM_META } from '../../data/program-meta';
 import { PROGRAMS } from '../../data/programs';
 import { courseSchema, breadcrumbSchema, SITE } from '../../data/schema';
+import CtaBlock from '../../components/CtaBlock.astro';
 
 // Each program's <main> content, ported verbatim from the current site.
 const contents = import.meta.glob('../../data/programs/*.html', {
@@ -39,4 +40,5 @@ const jsonLd = [
     <div id="feiProgramMeta" data-program={program.title} data-program-type={programType} hidden></div>
   )}
   <Fragment set:html={html} />
+  <CtaBlock />
 </BaseLayout>
