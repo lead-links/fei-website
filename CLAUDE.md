@@ -32,18 +32,15 @@ Materiais de apoio (imagens, PDFs, docs) que precisam ficar **acessíveis public
 
 ## Quando eu pedir para atualizar/revisar o conteúdo de uma página
 
-Fluxo página-a-página para revisar conteúdo sem derrubar a página oficial. **Inglês primeiro, sempre via uma "página B"; o espanhol só entra no fim, depois de aprovado.**
+Fluxo página-a-página. **Editar direto na página oficial (sem página "B")**; o commit por página é o ponto de restauração caso algo precise voltar. **Inglês primeiro; o espanhol só depois de aprovado.**
 
-1. **Criar a variante B (inglês).** Para a página `/<slug>`, criar `/<slug>-b` (arquivo `<slug>-b.astro` na mesma pasta) com o conteúdo novo. Mesmo layout/header/footer da original — só muda o conteúdo. A página B é **sempre `noindex`** (prop `noindex` no `BaseLayout`) e **não entra no sitemap**; também não é linkada em nav/rodapé (acesso direto pela URL, só para revisão). A original `/<slug>` continua no ar, intacta, servindo o público.
-2. **Não mexer no espanhol nesta fase.** O gêmeo `/es/...` fica exatamente como está até a aprovação.
-3. **Revisar/iterar** na `/<slug>-b` até o usuário **aprovar explicitamente**. Sempre verificar com build (`npm run build`) + preview antes de dizer que está pronto.
-4. **Só após a aprovação:**
-   1. **Promover B → oficial:** mover o conteúdo aprovado para `/<slug>` (a página oficial). Garantir o que é de página oficial: **sem `noindex`**, canonical/JSON-LD/sitemap corretos.
-   2. **Remover a página B do diretório** (deletar `<slug>-b.astro`). Não arquivar — o histórico do git é o rollback.
-   3. **Traduzir para o espanhol:** atualizar o gêmeo `/es/...` com o conteúdo aprovado. Usar `astro/src/i18n/routes.ts` (`PAGE_ES`, `PROGRAM_ES`, labels ES) como fonte de verdade dos slugs/rótulos.
-   4. **Commitar essa página e sugerir o push.** **Um commit por página** — a promoção da oficial + remoção da B + tradução ES *da mesma página* vão juntas nesse commit; páginas diferentes nunca no mesmo commit (a criação da página B também é seu próprio commit, num momento anterior).
+1. **Editar direto a página oficial (inglês)** `/<slug>` com o conteúdo novo — sem criar página `-b`. Verificar com build (`npm run build`) + preview antes de dizer que está pronto.
+2. **Commitar a alteração (inglês) em seguida** — é o checkpoint de restauração (nada vai pro ar até o `git push`, que é manual). Se o usuário não aprovar, o git restaura o estado anterior.
+3. **Não mexer no espanhol ainda.** Revisar/iterar na própria página até o usuário **aprovar explicitamente**.
+4. **Só após a aprovação:** traduzir o conteúdo para o espanhol no gêmeo `/es/...` (usar `astro/src/i18n/routes.ts` — `PAGE_ES`, `PROGRAM_ES`, labels ES — como fonte dos slugs/rótulos) e commitar.
+5. **Um commit por página** — nunca juntar páginas diferentes no mesmo commit; a alteração em inglês e a tradução ES *da mesma página* são commits separados (a ES vem depois da aprovação).
 
-Regras que continuam valendo em todo o fluxo: repo na raiz, `site.js` espelhado em `public/` + `src/scripts/`, `git push` sempre manual pelo usuário.
+Regras que continuam valendo: repo na raiz, `site.js` espelhado em `public/` + `src/scripts/`, `git push` sempre manual pelo usuário.
 
 ## Quando eu pedir para "atualizar os redirecionamentos"
 
