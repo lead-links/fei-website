@@ -5,7 +5,7 @@ Site institucional da Florida Education Institute. Stack real: Astro em `astro/`
 ## Deploy
 
 - Docker multi-stage (Node build → nginx serve), auto-deploy no `git push origin main` via EasyPanel. Domínio: `https://fei.edu` (atrás de Cloudflare).
-- `git push` é sempre manual pelo usuário — eu só commito e sugiro o comando (padrão do projeto: commitar ao fechar cada etapa de ajuste).
+- `git push` é sempre manual pelo usuário — eu só commito e sugiro o comando (padrão do projeto: commitar ao fechar cada etapa de ajuste). **Um commit por página alterada** — nunca agrupar mudanças de páginas diferentes no mesmo commit.
 - **Gotcha de cache:** `astro/public/site.js` é copiado como arquivo estático puro (sem hash), então o Cloudflare pode servir uma versão em cache por até 4h mesmo depois de um deploy novo. Isso já foi corrigido: `BaseLayout.astro` calcula um hash MD5 do conteúdo em build-time e injeta como query string (`/site.js?v=<hash>`), forçando cache-miss sempre que o conteúdo muda. Se algum dia "o código está certo mas o usuário não vê a mudança", suspeitar de cache antes de re-investigar o código (`curl https://fei.edu/<arquivo> | grep <trecho novo>` vs. o arquivo local).
 - Antes de qualquer edição em `nginx.conf`: **sempre validar com `nginx -t`** antes de considerar a mudança pronta (rodar em um container/binário local; já houve um incidente de site inteiro fora do ar por um bucket hash pequeno demais). Rotina usada nesta sessão:
   ```bash
@@ -41,7 +41,7 @@ Fluxo página-a-página para revisar conteúdo sem derrubar a página oficial. *
    1. **Promover B → oficial:** mover o conteúdo aprovado para `/<slug>` (a página oficial). Garantir o que é de página oficial: **sem `noindex`**, canonical/JSON-LD/sitemap corretos.
    2. **Remover a página B do diretório** (deletar `<slug>-b.astro`). Não arquivar — o histórico do git é o rollback.
    3. **Traduzir para o espanhol:** atualizar o gêmeo `/es/...` com o conteúdo aprovado. Usar `astro/src/i18n/routes.ts` (`PAGE_ES`, `PROGRAM_ES`, labels ES) como fonte de verdade dos slugs/rótulos.
-   4. Commitar (padrão: commit ao fechar cada etapa) e sugerir o push.
+   4. **Commitar essa página e sugerir o push.** **Um commit por página** — a promoção da oficial + remoção da B + tradução ES *da mesma página* vão juntas nesse commit; páginas diferentes nunca no mesmo commit (a criação da página B também é seu próprio commit, num momento anterior).
 
 Regras que continuam valendo em todo o fluxo: repo na raiz, `site.js` espelhado em `public/` + `src/scripts/`, `git push` sempre manual pelo usuário.
 
