@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
 import content from '../../data/pages/es/employers.html?raw';
 ---
 <BaseLayout title={"Para Empleadores | Florida Education Institute"} description={"Contrata graduados de FEI con formación profesional en salud, artes culinarias, oficios especializados y negocios. Publica una vacante y conéctate con nuestro talento en Miami."}>
   <Fragment set:html={content} />
+  <CtaBlock />
 </BaseLayout>

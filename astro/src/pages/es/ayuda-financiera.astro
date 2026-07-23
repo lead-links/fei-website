@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
 import content from '../../data/pages/es/financial-aid.html?raw';
 ---
 <BaseLayout title={"Ayuda Financiera | Florida Education Institute"} description={"La ayuda financiera está disponible para quienes califiquen. De la ayuda federal a las becas, nuestro equipo te ayuda a crear un plan que haga posible tu programa en FEI."}>
   <Fragment set:html={content} />
+  <CtaBlock />
 </BaseLayout>

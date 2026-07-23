@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CtaBlock from '../../../components/CtaBlock.astro';
 import { PROGRAMS } from '../../../data/programs';
 import { PROGRAM_ES, PROGRAM_EN, PROGRAM_TITLE_ES, PROGRAM_DESC_ES } from '../../../i18n/routes';
 import { courseSchema, breadcrumbSchema, SITE } from '../../../data/schema';
@@ -51,4 +52,5 @@ const jsonLd = [
     ></div>
   )}
   <Fragment set:html={html} />
+  <CtaBlock />
 </BaseLayout>

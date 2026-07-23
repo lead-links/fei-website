@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
 import content from '../../data/pages/es/admissions.html?raw';
 ---
 <BaseLayout title={"Admisiones | Florida Education Institute"} description={"Comenzar en FEI es sencillo: cuatro pasos y una persona real que te acompaña en cada uno. Comunícate, reúnete con un asesor, planifica tu ayuda financiera e inscríbete."}>
   <Fragment set:html={content} />
+  <CtaBlock />
 </BaseLayout>
