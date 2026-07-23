@@ -27,7 +27,7 @@ export interface Program {
 }
 
 export const PROGRAMS: Program[] = [
-  { slug: 'medical-assistant', cat: 'health', tag: 'Diploma', icon: 'stethoscope', title: 'Medical Assistant', desc: 'Clinical and administrative skills for physician offices, clinics, and urgent care.' },
+  { slug: 'medical-assistant', cat: 'health', tag: 'Diploma', icon: 'stethoscope', title: 'Medical Assistant', desc: 'Clinical and administrative skills for physician offices, clinics, and urgent cares.' },
   { slug: 'medical-billing-coding', cat: 'health', tag: 'Diploma', icon: 'file', title: 'Medical Billing & Coding', desc: 'Manage claims, medical coding, and records that keep healthcare running.' },
   { slug: 'pharmacy-technician', cat: 'health', tag: 'Diploma', icon: 'pill', title: 'Pharmacy Technician', desc: 'Support pharmacists in dispensing medication and caring for patients.' },
   { slug: 'medical-office-administrator', cat: 'health', tag: 'A.A.S.', icon: 'building', title: 'Medical Office Administrator', desc: 'An associate degree in the business and operations of modern healthcare.' },
