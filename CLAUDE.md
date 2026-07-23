@@ -30,6 +30,21 @@ Materiais de apoio (imagens, PDFs, docs) que precisam ficar **acessíveis public
 
 ---
 
+## Quando eu pedir para atualizar/revisar o conteúdo de uma página
+
+Fluxo página-a-página para revisar conteúdo sem derrubar a página oficial. **Inglês primeiro, sempre via uma "página B"; o espanhol só entra no fim, depois de aprovado.**
+
+1. **Criar a variante B (inglês).** Para a página `/<slug>`, criar `/<slug>-b` (arquivo `<slug>-b.astro` na mesma pasta) com o conteúdo novo. Mesmo layout/header/footer da original — só muda o conteúdo. A página B é **sempre `noindex`** (prop `noindex` no `BaseLayout`) e **não entra no sitemap**; também não é linkada em nav/rodapé (acesso direto pela URL, só para revisão). A original `/<slug>` continua no ar, intacta, servindo o público.
+2. **Não mexer no espanhol nesta fase.** O gêmeo `/es/...` fica exatamente como está até a aprovação.
+3. **Revisar/iterar** na `/<slug>-b` até o usuário **aprovar explicitamente**. Sempre verificar com build (`npm run build`) + preview antes de dizer que está pronto.
+4. **Só após a aprovação:**
+   1. **Promover B → oficial:** mover o conteúdo aprovado para `/<slug>` (a página oficial). Garantir o que é de página oficial: **sem `noindex`**, canonical/JSON-LD/sitemap corretos.
+   2. **Remover a página B do diretório** (deletar `<slug>-b.astro`). Não arquivar — o histórico do git é o rollback.
+   3. **Traduzir para o espanhol:** atualizar o gêmeo `/es/...` com o conteúdo aprovado. Usar `astro/src/i18n/routes.ts` (`PAGE_ES`, `PROGRAM_ES`, labels ES) como fonte de verdade dos slugs/rótulos.
+   4. Commitar (padrão: commit ao fechar cada etapa) e sugerir o push.
+
+Regras que continuam valendo em todo o fluxo: repo na raiz, `site.js` espelhado em `public/` + `src/scripts/`, `git push` sempre manual pelo usuário.
+
 ## Quando eu pedir para "atualizar os redirecionamentos"
 
 1. **Ler a planilha de redirects** (Google Sheets, fileId `1hfXLFtT2olqb2mUUEa79347oBPuq0fUDLGzsJe1q-To`, via `read_file_content`). Colunas: `URL | Requests | Last request | Referral | Redirect to | Status | Language`.
