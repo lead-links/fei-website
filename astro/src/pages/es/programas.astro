@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { PROGRAMS, ICONS } from '../../data/programs';
 import { PROGRAM_ES, PROGRAM_TITLE_ES, PROGRAM_DESC_ES, CAT_LABELS_ES } from '../../i18n/routes';
 import { breadcrumbSchema, SITE } from '../../data/schema';
+import CtaBlock from '../../components/CtaBlock.astro';
 
 // Índice de programas en español (/es/programas): el catálogo completo con las
 // tarjetas ricas (imagen + categoría + descripción). Los filtros por categoría
@@ -29,7 +30,7 @@ const jsonLd = [
     <div class="phero__inner">
       <div class="phero__copy">
         <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Miami, Florida · Educación Profesional</p>
-        <h1 class="phero__title reveal" data-delay="1">Elige la carrera.<br/>Nosotros enseñamos el oficio.</h1>
+        <h1 class="phero__title reveal" data-delay="1">Elige la carrera.<br/>Te enseñamos las habilidades.</h1>
         <p class="phero__lede reveal" data-delay="2">Once programas enfocados y orientados a la carrera en salud, artes culinarias, oficios especializados y negocios. Caminos cortos, habilidades reales e instructores que han hecho el trabajo.</p>
       </div>
     </div>
@@ -64,17 +65,6 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta" id="apply">
-    <div class="cta__glow" aria-hidden="true"></div>
-    <div class="cta__inner">
-      <p class="kicker kicker--light">Listos cuando tú lo estés</p>
-      <h2 class="cta__title">Tu carrera empieza<br/>con una llamada.</h2>
-      <p class="cta__lede">Habla con una persona real sobre programas, fechas de inicio y ayuda financiera. Sin presión, solo respuestas.</p>
-      <div class="cta__actions">
-        <a href="tel:3054441515" class="btn btn--coral btn--lg">Llama al 305-444-1515</a>
-        <a href="/es/inscripcion" class="btn btn--outline btn--lg btn--outline-light">Solicita en línea</a>
-      </div>
-    </div>
-  </section>
+  <!-- CTA (compartido) -->
+  <CtaBlock />
 </BaseLayout>
