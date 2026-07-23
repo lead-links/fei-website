@@ -1,12 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { PROGRAMS, ICONS } from '../../data/programs';
-import { PROGRAM_ES, PROGRAM_TITLE_ES } from '../../i18n/routes';
+import { PROGRAM_ES, PROGRAM_TITLE_ES, PROGRAM_DESC_ES, CAT_LABELS_ES } from '../../i18n/routes';
 import { breadcrumbSchema, SITE } from '../../data/schema';
 
-// Índice de programas en español (/es/programas): el catálogo completo, con
-// tiles compactos y clicables (mismo diseño que la home) y filtros por categoría.
-// Espejo de /programs; BaseLayout detecta el idioma por la URL (/es/...).
+// Índice de programas en español (/es/programas): el catálogo completo con las
+// tarjetas ricas (imagen + categoría + descripción). Los filtros por categoría
+// van justo debajo del hero. Espejo de /programs; BaseLayout detecta el idioma
+// por la URL (/es/...).
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
 const jsonLd = [
   breadcrumbSchema([
     { name: 'Inicio', url: `${SITE}/es` },
@@ -19,8 +22,8 @@ const jsonLd = [
   description="Explora 11 programas profesionales de diploma y grado asociado en Florida Education Institute en Miami: salud, artes culinarias, oficios especializados y negocios."
   jsonLd={jsonLd}
 >
-  <!-- HERO -->
-  <section class="phero phero--page">
+  <!-- HERO (sin botones — los filtros van justo debajo) -->
+  <section class="phero phero--page phero--flush">
     <div class="hero__bg" style="background-image:url('/img/students.jpg')" aria-hidden="true"></div>
     <div class="hero__overlay" aria-hidden="true"></div>
     <div class="phero__inner">
@@ -28,18 +31,12 @@ const jsonLd = [
         <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Miami, Florida · Educación Profesional</p>
         <h1 class="phero__title reveal" data-delay="1">Elige la carrera.<br/>Nosotros enseñamos el oficio.</h1>
         <p class="phero__lede reveal" data-delay="2">Once programas enfocados y orientados a la carrera en salud, artes culinarias, oficios especializados y negocios. Caminos cortos, habilidades reales e instructores que han hecho el trabajo.</p>
-        <div class="hero__cta reveal" data-delay="3">
-          <a href="#programs" class="btn btn--solid btn--lg">Explora los programas
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
-          </a>
-          <a href="/es/inscripcion" class="btn btn--outline btn--lg btn--outline-light">Solicita ahora</a>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- GRID DE PROGRAMAS -->
-  <section class="section programs" id="programs">
+  <!-- FILTROS (pegados al hero) + TARJETAS DE PROGRAMAS -->
+  <section class="section programs programs--catalog" id="programs">
     <div class="filters" id="filters" role="group" aria-label="Filtrar programas">
       <button class="chip is-active" data-filter="all" aria-pressed="true">Todos</button>
       <button class="chip" data-filter="health" aria-pressed="false">Salud</button>
@@ -48,16 +45,21 @@ const jsonLd = [
       <button class="chip" data-filter="business" aria-pressed="false">Negocios</button>
     </div>
 
-    <div class="prog-list" id="progGrid">
+    <div class="prog-grid" id="progGrid">
       {PROGRAMS.map((p) => (
-        <a href={`/es/programas/${PROGRAM_ES[p.slug]}`} class="prog-tile reveal" data-cat={p.cat}>
-          <span class="prog-tile__icon" aria-hidden="true" set:html={ICONS[p.icon]} />
-          <span class="prog-tile__body">
-            <span class="prog-tile__name">{PROGRAM_TITLE_ES[p.slug]}</span>
-            <span class="prog-tile__tag">{p.tag}</span>
-          </span>
-          <svg class="prog-tile__arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        <article class="card reveal" data-cat={p.cat}>
+          <a href={`/es/programas/${PROGRAM_ES[p.slug]}`} class="card__media" tabindex="-1" aria-hidden="true">
+            <span class="card__badge">{p.tag}</span>
+            <img src={`/img/programs/${p.slug}.webp`} alt="" loading="lazy" />
+            <span class="card__icon" set:html={ICONS[p.icon]} />
+          </a>
+          <div class="card__body">
+            <span class="card__tag">{CAT_LABELS_ES[p.cat]}</span>
+            <h3 class="card__title">{PROGRAM_TITLE_ES[p.slug]}</h3>
+            <p class="card__desc">{PROGRAM_DESC_ES[p.slug]}</p>
+            <a href={`/es/programas/${PROGRAM_ES[p.slug]}`} class="card__link">Detalles del programa<Fragment set:html={arrow} /></a>
+          </div>
+        </article>
       ))}
     </div>
   </section>
