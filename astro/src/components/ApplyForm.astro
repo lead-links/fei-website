@@ -14,8 +14,9 @@ interface Props {
   submitLabel?: string;
   lang?: Lang;
   stage?: string; // '2-step complete' flow marks the form data-stage="full" (see site.js)
+  phoneCta?: boolean; // show the "prefer to talk?" divider + phone button (default true; off on /apply)
 }
-const { prefix: p, formId, submitLabel, lang = 'en', stage } = Astro.props;
+const { prefix: p, formId, submitLabel, lang = 'en', stage, phoneCta = true } = Astro.props;
 const s = t(lang).form;
 const legal = t(lang).footer;
 const send = submitLabel ?? s.send;
@@ -100,6 +101,10 @@ const progTitle = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_E
     <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
   </button>
   <p class="form-error" id={`${p}-error`} role="alert" hidden>{s.error} <a href="tel:3054441515">305-444-1515</a>.</p>
-  <h3 class="modal__divider">{s.preferToTalk}</h3>
-  <a href="tel:3054441515" class="btn btn--outline modal__phone-btn">305-444-1515</a>
+  {phoneCta && (
+    <>
+      <h3 class="modal__divider">{s.preferToTalk}</h3>
+      <a href="tel:3054441515" class="btn btn--outline modal__phone-btn">305-444-1515</a>
+    </>
+  )}
 </form>
