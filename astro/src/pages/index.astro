@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PROGRAMS, ICONS } from '../data/programs';
 import { ORG, websiteSchema, faqSchema } from '../data/schema';
+import CtaBlock from '../components/CtaBlock.astro';
 
 // Official home page ("/"). Content promoted from the former A/B variant B.
 // The previous version is archived (noindex) at /home-b for reference/rollback.
@@ -181,17 +182,6 @@ const faqs = [
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta" id="apply">
-    <div class="cta__glow" aria-hidden="true"></div>
-    <div class="cta__inner">
-      <p class="kicker kicker--light">Chase your dreams!</p>
-      <h2 class="cta__title">Your new<br/>career awaits!</h2>
-      <p class="cta__lede">Contact us today to discuss programs, start dates, and financial aid.</p>
-      <div class="cta__actions">
-        <a href="tel:3054441515" class="btn btn--coral btn--lg">Call 305-444-1515</a>
-        <a href="/apply" class="btn btn--outline btn--lg btn--outline-light">Schedule a call</a>
-      </div>
-    </div>
-  </section>
+  <!-- CTA (shared component) -->
+  <CtaBlock />
 </BaseLayout>
