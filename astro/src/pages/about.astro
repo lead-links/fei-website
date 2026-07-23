@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBlock from '../components/CtaBlock.astro';
 import content from '../data/pages/about.html?raw';
 ---
 <BaseLayout title={"About FEI, Personal Attention & Career Education | Florida Education Institute"} description={"At FEI in Miami you are known by name. Learn about our personal attention, our Fun-Active-Motivating approach to career education, and our mission and vision."}>
   <Fragment set:html={content} />
+  <CtaBlock />
 </BaseLayout>
