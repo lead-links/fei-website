@@ -1,17 +1,36 @@
 ---
-// Shared site-wide call-to-action block (English). Same content on every page
-// that needs a closing CTA — import and drop in <CtaBlock /> (no props).
-// The Spanish pages use their own localized CTA.
+import { locales } from '../i18n/routes';
+
+// Shared site-wide closing CTA. Language auto-detected from the URL (/es/ → ES),
+// so pages just drop in <CtaBlock/> with no props. Same block on every page.
+const isEs = locales(Astro.url.pathname).isEs;
+const c = isEs
+  ? {
+      kicker: '¡Persigue tus sueños!',
+      title: '¡Tu nueva<br/>carrera te espera!',
+      lede: 'Contáctanos hoy para hablar de programas, fechas de inicio y ayuda financiera.',
+      call: 'Llama al 305-444-1515',
+      schedule: 'Agenda una llamada',
+      applyHref: '/es/inscripcion',
+    }
+  : {
+      kicker: 'Chase your dreams!',
+      title: 'Your new<br/>career awaits!',
+      lede: 'Contact us today to discuss programs, start dates, and financial aid.',
+      call: 'Call 305-444-1515',
+      schedule: 'Schedule a call',
+      applyHref: '/apply',
+    };
 ---
 <section class="cta" id="apply">
   <div class="cta__glow" aria-hidden="true"></div>
   <div class="cta__inner">
-    <p class="kicker kicker--light">Chase your dreams!</p>
-    <h2 class="cta__title">Your new<br/>career awaits!</h2>
-    <p class="cta__lede">Contact us today to discuss programs, start dates, and financial aid.</p>
+    <p class="kicker kicker--light">{c.kicker}</p>
+    <h2 class="cta__title" set:html={c.title}></h2>
+    <p class="cta__lede">{c.lede}</p>
     <div class="cta__actions">
-      <a href="tel:3054441515" class="btn btn--coral btn--lg">Call 305-444-1515</a>
-      <a href="/apply" class="btn btn--outline btn--lg btn--outline-light">Schedule a call</a>
+      <a href="tel:3054441515" class="btn btn--coral btn--lg">{c.call}</a>
+      <a href={c.applyHref} class="btn btn--outline btn--lg btn--outline-light">{c.schedule}</a>
     </div>
   </div>
 </section>
