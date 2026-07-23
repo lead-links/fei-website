@@ -4,8 +4,8 @@ import { PROGRAMS, ICONS } from '../data/programs';
 import { ORG, websiteSchema, faqSchema } from '../data/schema';
 import CtaBlock from '../components/CtaBlock.astro';
 
-// Official home page ("/"). Content promoted from the former A/B variant B.
-// The previous version is archived (noindex) at /home-b for reference/rollback.
+// Official home page ("/"). Content promoted from the former A/B variant B
+// (git history holds the previous version).
 const chev = (dir: 'd' | 'u') =>
   `<svg class="acc-ico__${dir}" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="${dir === 'd' ? 'M6 9l6 6 6-6' : 'M6 15l6-6 6 6'}"/></svg>`;
 
