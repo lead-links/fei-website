@@ -2,28 +2,30 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ApplyForm from '../../components/ApplyForm.astro';
 ---
-<BaseLayout title={"Inscripción | Florida Education Institute"} description={"Comienza tu inscripción en Florida Education Institute, en Miami. Sin fechas límite ni cuotas de solicitud. Cuéntanos un poco sobre ti y un asesor se pondrá en contacto."}>
-  <section class="phero phero--page">
-    <div class="hero__bg" style="background-image:url('/img/students.jpg')" aria-hidden="true"></div>
-    <div class="hero__overlay" aria-hidden="true"></div>
-    <div class="phero__inner">
-      <div class="phero__copy">
-        <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Inscríbete en FEI</p>
-        <h1 class="phero__title reveal" data-delay="1">Estás a un paso<br/>de empezar.</h1>
-        <p class="phero__lede reveal" data-delay="2">Sin fechas límite ni cuotas de solicitud. Cuéntanos un poco sobre ti y un Asesor de Admisiones se pondrá en contacto para guiarte en lo demás.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section apply-section" id="apply-form">
+<BaseLayout
+  title={"Inscripción | Florida Education Institute"}
+  description={"Comienza tu inscripción en Florida Education Institute, en Miami. Sin fechas límite ni cuotas de solicitud. Cuéntanos un poco sobre ti y un asesor se pondrá en contacto."}
+  forceStuckNav
+>
+  <section class="section apply-section apply-section--nohero" id="apply-form">
     <div class="apply-grid">
       <div class="apply-intro">
         <p class="kicker">Inscripción</p>
-        <h2 class="section__title section__title--sm">Comienza tu<br/>inscripción.</h2>
-        <p class="pblock__text" style="margin-top:1rem">Este es el inicio de tu proceso de inscripción. Enviarlo no te compromete a nada y, por sí solo, no constituye una aceptación en Florida Education Institute.</p>
+        <h2 class="section__title section__title--sm">La inscripción es simple.</h2>
+        <p class="pblock__text" style="margin-top:1rem">Solicitar la inscripción en Florida Education Institute fue diseñado para ser simple. Completar el formulario de solicitud aquí da inicio al proceso de inscripción.</p>
+        <p class="pblock__text" style="margin-top:1rem">Después de solicitar, nos pondremos en contacto contigo para agendar tu cita de admisiones con uno de nuestros Asesores de Educación Profesional. Queremos que tu educación transforme tu vida y sea significativa para tu futuro, así que elegir la carrera adecuada para ti será nuestra primera prioridad.</p>
+        <p class="pblock__text" style="margin-top:1rem">Conversaremos sobre tus metas y descubriremos si Florida Education Institute es adecuado para ti. Te daremos un recorrido por nuestras instalaciones y podrás hablar con nuestro personal e instructores, comprometidos con la atención personalizada y el éxito de cada estudiante. También te animamos a hacer preguntas, para poder ofrecerte un plan educativo y profesional en el que creas.</p>
+        <address class="apply-contact">
+          <strong>Florida Education Institute</strong>
+          5818 SW 8th Street<br/>
+          Miami, FL 33144<br/>
+          <a href="tel:3054441515">(305) 444-1515</a><br/>
+          <a href="mailto:admissions@fei.edu">admissions@fei.edu</a>
+        </address>
+        <p class="apply-note">Ten en cuenta que solicitar aquí no constituye de ninguna manera una aceptación en Florida Education Institute.</p>
       </div>
 
-      <ApplyForm prefix="af" formId="applyForm" lang="es" />
+      <ApplyForm prefix="af" formId="applyForm" lang="es" phoneCta={false} />
 
       <div class="apply-success" id="applySuccess" role="status" tabindex="-1" hidden>
         <div class="apply-success__mark" aria-hidden="true">
