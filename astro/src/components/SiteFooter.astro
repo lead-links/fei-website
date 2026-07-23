@@ -1,21 +1,11 @@
 ---
-import { href, programHref, locales, PROGRAM_TITLE_ES, type Lang } from '../i18n/routes';
+import { href, locales, type Lang } from '../i18n/routes';
 import { t } from '../i18n/ui';
 
 const isEs = locales(Astro.url.pathname).isEs;
 const lang: Lang = isEs ? 'es' : 'en';
 const f = t(lang).footer;
 const year = new Date().getFullYear();
-
-const footerPrograms = [
-  { slug: 'medical-assistant', en: 'Medical Assistant' },
-  { slug: 'medical-billing-coding', en: 'Medical Billing & Coding' },
-  { slug: 'pharmacy-technician', en: 'Pharmacy Technician' },
-  { slug: 'culinary-arts', en: 'Culinary Arts' },
-  { slug: 'hvac', en: 'HVAC / R' },
-  { slug: 'business-management', en: 'Business Management' },
-];
-const progLabel = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_ES[slug] : en);
 ---
 <footer class="footer">
   <div class="footer__inner">
@@ -32,11 +22,6 @@ const progLabel = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_E
         <a href="mailto:admissions@fei.edu" aria-label="Email FEI admissions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
       </div>
     </div>
-
-    <nav class="footer__col" aria-label={f.programs}>
-      <h4>{f.programs}</h4>
-      {footerPrograms.map((p) => <a href={programHref(p.slug, lang)}>{progLabel(p.slug, p.en)}</a>)}
-    </nav>
 
     <nav class="footer__col" aria-label={f.institute}>
       <h4>{f.institute}</h4>
