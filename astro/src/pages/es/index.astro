@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { PROGRAMS, ICONS } from '../../data/programs';
-import { PROGRAM_ES, PROGRAM_TITLE_ES, PROGRAM_DESC_ES, CAT_LABELS_ES } from '../../i18n/routes';
+import { PROGRAM_ES, PROGRAM_TITLE_ES } from '../../i18n/routes';
 import { ORG, websiteSchema, faqSchema } from '../../data/schema';
+import CtaBlock from '../../components/CtaBlock.astro';
 
-const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const chev = (dir: 'd' | 'u') =>
   `<svg class="acc-ico__${dir}" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="${dir === 'd' ? 'M6 9l6 6 6-6' : 'M6 15l6-6 6 6'}"/></svg>`;
 
@@ -12,11 +12,11 @@ const marquee = ['Asistente Médico', 'Técnico de Farmacia', 'Artes Culinarias'
 
 const faqs = [
   { q: '¿FEI está acreditado?', a: 'Sí. FEI está acreditado por el Council on Occupational Education (COE). Algunos programas, como Técnico de Farmacia y Climatización y Refrigeración (HVAC/R), también te preparan para certificaciones o registros específicos de la industria.', open: true },
-  { q: '¿Cuánto cuesta un programa y hay ayuda financiera disponible?', a: 'El costo varía según el programa. Hay ayuda financiera disponible para quienes califiquen, incluyendo becas y planes de pago. Un asesor puede explicarte un desglose personalizado antes de que te comprometas a nada.' },
-  { q: '¿Cuánto tiempo toma completar un programa?', a: 'Depende del camino que elijas. Muchos de nuestros programas de diploma están diseñados para completarse en menos de un año, mientras que nuestros grados A.A.S. duran más. Cada página de programa indica su duración prevista.' },
-  { q: '¿Ayudan con la colocación laboral después de graduarse?', a: 'Sí. Nuestro equipo de Servicios de Carrera apoya a los graduados con ayuda para el currículum, preparación para entrevistas y conexiones con empleadores que contratan en Miami.' },
-  { q: '¿Puedo completar mi programa en línea?', a: 'Algunos programas, como Facturación y Codificación Médica y Gestión Empresarial, se ofrecen 100% en línea. Otros, especialmente los culinarios y los de salud prácticos, son híbridos o presenciales para desarrollar habilidades reales. Cada página de programa indica su formato.' },
-  { q: '¿Cómo es ser estudiante en FEI?', a: 'Clases pequeñas, instructores que saben tu nombre y un equipo que se preocupa por cómo te va de verdad, no solo por tu asistencia. Esa atención personalizada es la razón de ser de FEI.' },
+  { q: '¿Es fácil solicitar ayuda financiera?', a: '¡Sí, es fácil solicitar ayuda financiera! Tenemos un equipo dedicado a guiarte paso a paso en el proceso. La ayuda financiera está disponible para quienes califiquen, incluyendo becas y planes de pago. Nuestro Departamento de Ayuda Financiera puede explicarte un plan personalizado antes de que te comprometas a nada.' },
+  { q: '¿Cuánto tiempo toma completar un programa?', a: 'Entre 10 y 18 meses según el programa que elijas.' },
+  { q: '¿Ayudan con la colocación laboral después de graduarse?', a: '¡Sí, claro! Nuestro equipo de Servicios de Carrera apoya a los graduados con ayuda para el currículum, preparación para entrevistas y conexiones con empleadores que contratan en Miami.' },
+  { q: '¿Puedo completar mi programa en línea?', a: 'Según el programa seleccionado, en línea puede ser una opción. Te recomendamos reunirte con un asesor de admisiones para que te ayude a elegir un programa que disfrutes y con un formato de aprendizaje que funcione para ti.' },
+  { q: '¿Cómo es ser estudiante en FEI?', a: '¡Increíble! Tus profesores y el departamento de servicios al estudiante de FEI estarán ahí en el camino para ayudarte a graduarte y a comenzar tu nueva carrera. Construirás camaradería con tus compañeros mientras todos se esfuerzan por alcanzar sus metas personales en el mismo campo profesional.' },
 ];
 ---
 <BaseLayout
@@ -37,10 +37,10 @@ const faqs = [
         </h1>
         <p class="hero__lede reveal" data-delay="3"> En Florida Education Institute conocemos a nuestros estudiantes por su nombre. Instructores de verdad, formación práctica y la atención personalizada que te lleva hasta la meta, y hasta una carrera. </p>
         <div class="hero__cta reveal" data-delay="4">
-          <a href="/es/inscripcion" class="btn btn--solid btn--lg">Empieza hoy
+          <a href="/es/inscripcion" class="btn btn--solid btn--lg" data-apply>Empieza hoy
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
           </a>
-          <a href="#programs" class="btn btn--outline btn--lg btn--outline-light">Explora los programas</a>
+          <a href="/es/programas" class="btn btn--outline btn--lg btn--outline-light">Explora los programas</a>
         </div>
         <ul class="hero__proof reveal" data-delay="5">
           <li><strong>11</strong> programas de carrera</li>
@@ -62,13 +62,12 @@ const faqs = [
     </div>
   </div>
 
-  <!-- PROGRAMS -->
   <!-- PROGRAMAS — listado compacto y clicable (catálogo completo en /es/programas) -->
   <section class="section programs" id="programs">
     <div class="section__head">
       <div>
         <p class="kicker">Programas</p>
-        <h2 class="section__title">Elige la carrera.<br/>Nosotros enseñamos el oficio.</h2>
+        <h2 class="section__title">Elige la carrera.<br/>Te enseñamos las habilidades.</h2>
       </div>
       <a href="/es/programas" class="link-arrow">Ver todos los programas
         <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
@@ -94,84 +93,77 @@ const faqs = [
   <section class="section advantage" id="advantage">
     <div class="advantage__grid">
       <div class="advantage__intro">
-        <p class="kicker kicker--light">02, La Ventaja FEI</p>
+        <p class="kicker kicker--light">La Ventaja FEI</p>
         <h2 class="section__title section__title--light">Más atención.<br/>Mejores resultados.</h2>
-        <p class="advantage__lede">La diferencia FEI no es un eslogan, es el tamaño de la clase. Nuestros instructores y personal conocen tu nombre, tus metas y lo que hace falta para llevarte hasta allí.</p>
+        <p class="advantage__lede">La diferencia FEI no es un eslogan, es el tamaño de la clase. Nuestros instructores y personal conocen tu nombre, tus metas y están listos para ayudarte en el camino.</p>
         <a href="/es/inscripcion" class="btn btn--coral btn--lg">Reúnete con un asesor</a>
       </div>
       <div class="advantage__cards">
-        <article class="feature"><span class="feature__num">01</span><h3>Atención personalizada</h3><p>Clases pequeñas y relaciones reales. Nunca te perderás en un salón lleno.</p></article>
-        <article class="feature"><span class="feature__num">02</span><h3>Educación profesional</h3><p>Cada programa se construye en torno a las habilidades que los empleadores del sur de la Florida están contratando.</p></article>
-        <article class="feature"><span class="feature__num">03</span><h3>10 Hábitos de Éxito</h3><p>Formación técnica combinada con los hábitos profesionales que te mantienen empleado.</p></article>
-        <article class="feature"><span class="feature__num">04</span><h3>Conexiones con empleadores</h3><p>Servicios de carrera, una bolsa de empleo de empleadores y conexiones que abren puertas.</p></article>
+        <article class="feature"><h3>Atención personalizada</h3><p>Clases pequeñas y relaciones reales. Nunca te perderás en un salón lleno.</p></article>
+        <article class="feature"><h3>Educación profesional</h3><p>Cada programa se construye en torno a las habilidades que prefieren los empleadores del sur de la Florida.</p></article>
+        <article class="feature"><h3>10 Hábitos de Éxito</h3><p>Formación técnica combinada con los hábitos profesionales.</p></article>
+        <article class="feature"><h3>Conexiones con empleadores</h3><p>Servicios de carrera, una bolsa de empleo de empleadores y conexiones que abren puertas.</p></article>
       </div>
     </div>
   </section>
 
   <!-- ADMISSIONS -->
   <section class="section admissions" id="admissions">
-    <div class="section__head">
+    <div class="section__head section__head--center">
       <div>
-        <p class="kicker">03, Admisiones</p>
+        <p class="kicker">Admisiones</p>
         <h2 class="section__title">Comenzar es sencillo.</h2>
       </div>
-      <p class="section__intro">Sin misterios ni vueltas. Cuatro pasos y una persona real que te acompaña en cada uno.</p>
     </div>
     <ol class="steps">
-      <li class="step"><span class="step__no">1</span><h3>Comunícate</h3><p>Llama, solicita en línea o visita el campus. Responderemos tus preguntas con honestidad.</p></li>
-      <li class="step"><span class="step__no">2</span><h3>Reúnete y recorre</h3><p>Siéntate con un asesor, conoce las aulas y los laboratorios, y encuentra tu lugar.</p></li>
+      <li class="step"><span class="step__no">1</span><h3>Comunícate</h3><p>Llama, solicita en línea o visita el campus. Responderemos tus preguntas.</p></li>
+      <li class="step"><span class="step__no">2</span><h3>Reúnete y recorre</h3><p>Siéntate con un asesor, conoce las aulas y los laboratorios, y elige tu programa.</p></li>
       <li class="step"><span class="step__no">3</span><h3>Planifica tu ayuda</h3><p>Te ayudaremos a entender la ayuda financiera, las becas y para qué calificas.</p></li>
-      <li class="step"><span class="step__no">4</span><h3>Inscríbete</h3><p>Fija tu fecha de inicio y comienza tu programa. Eso es todo, ya estás dentro.</p></li>
+      <li class="step"><span class="step__no">4</span><h3>Inscríbete</h3><p>Toma la decisión de cambiar tu vida con la educación. ¡Inscríbete ese mismo día!</p></li>
     </ol>
   </section>
 
   <!-- FINANCIAL AID -->
-  <section class="section aid" id="aid">
+  <section class="section aid aid--blue" id="aid">
     <div class="aid__inner">
       <div class="aid__copy">
-        <p class="kicker">04, Ayuda Financiera</p>
-        <h2 class="section__title">No dejes que el costo<br/>decida por ti.</h2>
-        <p class="aid__lede">La ayuda financiera está disponible para quienes califiquen. De la ayuda federal a las becas, nuestro equipo te ayuda a crear un plan que haga posible tu programa.</p>
+        <p class="kicker">Ayuda Financiera</p>
+        <h2 class="section__title">¡Una nueva carrera<br/>es posible!</h2>
+        <p class="aid__lede">La ayuda financiera está disponible para quienes califiquen. De la ayuda federal a las becas, nuestro equipo te ayuda a crear un plan que haga realidad estudiar.</p>
         <div class="aid__actions">
-          <a href="/es/inscripcion" class="btn btn--solid btn--lg">Comienza tu inscripción</a>
-          <a href="/net-price-calculator" class="link-arrow">Calculadora de precio neto
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
-          </a>
+          <a href="/es/ayuda-financiera" class="btn btn--solid btn--lg">Descubre cómo</a>
         </div>
-      </div>
-      <div class="aid__stats">
-        <div class="stat"><strong>Federal</strong><span>ayuda para quienes califiquen</span></div>
-        <div class="stat"><strong>Becas</strong><span>opciones por mérito y necesidad</span></div>
-        <div class="stat"><strong>1 a 1</strong><span>orientación en cada formulario</span></div>
       </div>
     </div>
   </section>
 
-  <!-- SUPPORT / TESTIMONIAL -->
-  <section class="section support" id="support">
-    <figure class="quote">
-      <blockquote>“En FEI no era un asiento en un salón. Mis instructores sabían mi nombre, me exigían cuando lo necesitaba y me ayudaron a conseguir el empleo que tengo hoy.”</blockquote>
-      <figcaption>
-        <span class="quote__avatar" aria-hidden="true">M</span>
-        <span><strong>Una graduada reciente de FEI</strong><em>Programa de salud</em></span>
-      </figcaption>
-    </figure>
-    <div class="support__services">
-      <h3>Apoyo que te acompaña durante el camino, y después.</h3>
-      <ul>
-        <li>Servicios de carrera y apoyo para colocación laboral</li>
-        <li>Conexiones con empleadores y bolsa de empleo</li>
-        <li>Portal del estudiante y aprendizaje en línea (FEI LMS)</li>
-        <li>Solicitudes de transcripciones e información al consumidor</li>
-      </ul>
-    </div>
-  </section>
+  <!-- SUPPORT / TESTIMONIAL (faixa clara para separar del FAQ) -->
+  <div class="band band--tint" id="support">
+    <section class="section support">
+      <figure class="quote">
+        <blockquote>“En FEI no era un asiento en un salón. Mis instructores sabían mi nombre, me exigían cuando lo necesitaba y me ayudaron a conseguir el empleo que tengo hoy.”</blockquote>
+        <figcaption>
+          <span class="quote__avatar" aria-hidden="true">M</span>
+          <span><strong>Una graduada reciente de FEI</strong><em>Programa de salud</em></span>
+        </figcaption>
+      </figure>
+      <div class="support__services">
+        <h3>Apoyo Perpetuo</h3>
+        <ul>
+          <li>Departamento de Servicios al Estudiante y Portal del Estudiante</li>
+          <li>Servicios de carrera y apoyo para colocación laboral</li>
+          <li>Conexiones con empleadores y bolsa de empleo</li>
+          <li>Amplia red de exalumnos</li>
+        </ul>
+      </div>
+    </section>
+  </div>
 
   <!-- FAQ -->
   <section class="section faq" id="faq">
     <div class="section__head">
       <div>
-        <p class="kicker">05, Preguntas frecuentes</p>
+        <p class="kicker">Preguntas frecuentes</p>
         <h2 class="section__title">¿Preguntas antes<br/>de llamar?</h2>
       </div>
       <p class="section__intro">Estas son las respuestas que más nos piden. Para cualquier otra cosa, solo llámanos.</p>
@@ -189,17 +181,6 @@ const faqs = [
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta" id="apply">
-    <div class="cta__glow" aria-hidden="true"></div>
-    <div class="cta__inner">
-      <p class="kicker kicker--light">Listos cuando tú lo estés</p>
-      <h2 class="cta__title">Tu carrera empieza<br/>con una llamada.</h2>
-      <p class="cta__lede">Habla con una persona real sobre programas, fechas de inicio y ayuda financiera. Sin presión, solo respuestas.</p>
-      <div class="cta__actions">
-        <a href="tel:3054441515" class="btn btn--coral btn--lg">Llama al 305-444-1515</a>
-        <a href="/es/inscripcion" class="btn btn--outline btn--lg btn--outline-light">Solicita en línea</a>
-      </div>
-    </div>
-  </section>
+  <!-- CTA (compartido) -->
+  <CtaBlock />
 </BaseLayout>
