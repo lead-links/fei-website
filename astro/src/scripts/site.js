@@ -73,8 +73,8 @@
       btn.classList.add("is-active");
       btn.setAttribute("aria-pressed", "true");
       var f = btn.dataset.filter;
-      grid.querySelectorAll(".card").forEach(function (card) {
-        card.classList.toggle("is-hidden", !(f === "all" || card.dataset.cat === f));
+      grid.querySelectorAll("[data-cat]").forEach(function (item) {
+        item.classList.toggle("is-hidden", !(f === "all" || item.dataset.cat === f));
       });
     });
   }

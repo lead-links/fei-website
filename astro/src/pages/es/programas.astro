@@ -1,14 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { PROGRAMS, ICONS } from '../../data/programs';
-import { PROGRAM_ES, PROGRAM_TITLE_ES, PROGRAM_DESC_ES, CAT_LABELS_ES } from '../../i18n/routes';
+import { PROGRAM_ES, PROGRAM_TITLE_ES } from '../../i18n/routes';
 import { breadcrumbSchema, SITE } from '../../data/schema';
 
-// Índice de programas en español (/es/programas): el mismo catálogo de la
-// sección "Programas" de la home, como página independiente e indexable.
+// Índice de programas en español (/es/programas): el catálogo completo, con
+// tiles compactos y clicables (mismo diseño que la home) y filtros por categoría.
 // Espejo de /programs; BaseLayout detecta el idioma por la URL (/es/...).
-const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-
 const jsonLd = [
   breadcrumbSchema([
     { name: 'Inicio', url: `${SITE}/es` },
@@ -50,21 +48,16 @@ const jsonLd = [
       <button class="chip" data-filter="business" aria-pressed="false">Negocios</button>
     </div>
 
-    <div class="prog-grid" id="progGrid">
+    <div class="prog-list" id="progGrid">
       {PROGRAMS.map((p) => (
-        <article class="card reveal" data-cat={p.cat}>
-          <a href={`/es/programas/${PROGRAM_ES[p.slug]}`} class="card__media" tabindex="-1" aria-hidden="true">
-            <span class="card__badge">{p.tag}</span>
-            <img src={`/img/programs/${p.slug}.webp`} alt="" loading="lazy" />
-            <span class="card__icon" set:html={ICONS[p.icon]} />
-          </a>
-          <div class="card__body">
-            <span class="card__tag">{CAT_LABELS_ES[p.cat]}</span>
-            <h3 class="card__title">{PROGRAM_TITLE_ES[p.slug]}</h3>
-            <p class="card__desc">{PROGRAM_DESC_ES[p.slug]}</p>
-            <a href={`/es/programas/${PROGRAM_ES[p.slug]}`} class="card__link">Detalles del programa<Fragment set:html={arrow} /></a>
-          </div>
-        </article>
+        <a href={`/es/programas/${PROGRAM_ES[p.slug]}`} class="prog-tile reveal" data-cat={p.cat}>
+          <span class="prog-tile__icon" aria-hidden="true" set:html={ICONS[p.icon]} />
+          <span class="prog-tile__body">
+            <span class="prog-tile__name">{PROGRAM_TITLE_ES[p.slug]}</span>
+            <span class="prog-tile__tag">{p.tag}</span>
+          </span>
+          <svg class="prog-tile__arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       ))}
     </div>
   </section>
