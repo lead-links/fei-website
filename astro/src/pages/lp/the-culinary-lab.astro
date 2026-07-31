@@ -2,8 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 // Landing page: The Culinary Laboratory (FEI Culinary Community Hub), rebuilt on
-// the site's design system. Content ported from the existing FEI culinary hub;
-// the interactive month calendar block was intentionally removed.
+// the site's design system. Content + block images ported from the existing FEI
+// culinary hub; the interactive month calendar block was intentionally removed.
 const arrow = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 const programs = [
@@ -21,9 +21,9 @@ const seasons = [
 ];
 
 const workshops = [
-  { code: 'WS.01', date: 'Thu · 03 Dec 2026', name: 'The Living Ferment', desc: 'Cultivate wild brines and living pickles. Learn to read pH, salinity and time.', price: '$120 / seat' },
-  { code: 'WS.02', date: 'Thu · 08 Apr 2027', name: 'Fire & Precision Plating', desc: 'Compose a tasting plate with foraged herbs, tweezers and controlled heat.', price: '$145 / seat' },
-  { code: 'WS.03', date: 'Thu · 08 Jul 2027', name: 'Sourdough Chemistry', desc: 'Build and bake a naturally leavened loaf from stone-milled heritage flour.', price: '$110 / seat' },
+  { code: 'WS.01', date: 'Thu · 03 Dec 2026', name: 'The Living Ferment', desc: 'Cultivate wild brines and living pickles. Learn to read pH, salinity and time.', price: '$120 / seat', img: 'living-ferment' },
+  { code: 'WS.02', date: 'Thu · 08 Apr 2027', name: 'Fire & Precision Plating', desc: 'Compose a tasting plate with foraged herbs, tweezers and controlled heat.', price: '$145 / seat', img: 'fire-plating' },
+  { code: 'WS.03', date: 'Thu · 08 Jul 2027', name: 'Sourdough Chemistry', desc: 'Build and bake a naturally leavened loaf from stone-milled heritage flour.', price: '$110 / seat', img: 'sourdough' },
 ];
 
 const residencies = [
@@ -75,12 +75,13 @@ const proFacts = [
 
   <!-- MANIFESTO -->
   <section class="section pblock">
-    <div class="pblock__grid">
+    <div class="lab-split">
+      <div class="lab-split__media">
+        <img src="/img/culinary-lab/community.jpg" alt="Community members cooking together in the culinary laboratory" loading="lazy" />
+      </div>
       <div>
         <p class="kicker">The Hypothesis</p>
         <h2 class="section__title section__title--sm">More than a kitchen,<br/>a community you sit with.</h2>
-      </div>
-      <div>
         <p class="pblock__text">Every plate is an invitation. We are not a school you sit behind — we are a community you sit with, building a culinary home for Miami, one meal at a time.</p>
         <p class="pblock__text" style="margin-top:1rem">Every ingredient is traced from the hands that grew it to the neighbors you share it with. We cook, ferment and gather with the curiosity of a laboratory and the warmth of a community kitchen.</p>
         <div class="lab-facts" style="margin-top:1.8rem">
@@ -133,14 +134,19 @@ const proFacts = [
     </div>
     <div class="lab-grid" style="margin-top:2rem">
       {workshops.map((w) => (
-        <article class="lab-card">
-          <span class="lab-card__code">{w.code} · {w.date}</span>
-          <span class="lab-card__name">{w.name}</span>
-          <span class="lab-card__desc">{w.desc}</span>
-          <span class="lab-card__meta">
-            <span class="lab-card__price">{w.price}</span>
-            <a href="#ledger" class="lab-card__link">Reserve<Fragment set:html={arrow} /></a>
-          </span>
+        <article class="lab-card lab-card--media">
+          <div class="lab-card__media">
+            <img src={`/img/culinary-lab/${w.img}.jpg`} alt={w.name} loading="lazy" />
+          </div>
+          <div class="lab-card__inner">
+            <span class="lab-card__code">{w.code} · {w.date}</span>
+            <span class="lab-card__name">{w.name}</span>
+            <span class="lab-card__desc">{w.desc}</span>
+            <span class="lab-card__meta">
+              <span class="lab-card__price">{w.price}</span>
+              <a href="#ledger" class="lab-card__link">Reserve<Fragment set:html={arrow} /></a>
+            </span>
+          </div>
         </article>
       ))}
     </div>
@@ -148,20 +154,23 @@ const proFacts = [
 
   <!-- INTERNATIONAL WORKSHOPS -->
   <section class="section pblock--tint">
-    <div class="section__head">
+    <div class="lab-split">
       <div>
         <p class="kicker">International Workshops</p>
-        <h2 class="section__title">Practitioners<br/>from everywhere.</h2>
+        <h2 class="section__title section__title--sm">Practitioners<br/>from everywhere.</h2>
+        <p class="pblock__text">The laboratory hosts practitioners from across the globe — exchanging technique, terroir and tradition at the community table. Two upcoming residencies are open for reservation.</p>
       </div>
-      <p class="section__intro">The laboratory hosts practitioners from across the globe — exchanging technique, terroir and tradition at the community table. Two upcoming residencies are open for reservation.</p>
+      <div class="lab-split__media">
+        <img src="/img/culinary-lab/international.jpg" alt="Chef plating microgreens with tweezers" loading="lazy" />
+      </div>
     </div>
-    <div class="lab-grid">
+    <div class="lab-grid" style="margin-top:2.2rem">
       {residencies.map((r) => (
         <article class="lab-card">
           <span class="lab-card__code">{r.code} · {r.date}</span>
           <span class="lab-card__name">{r.name}</span>
           <span class="lab-card__desc">{r.kind}</span>
-          <span class="lab-card__link" style="margin-top:auto;padding-top:.8rem"><a href="#ledger" class="lab-card__link">Reserve a seat<Fragment set:html={arrow} /></a></span>
+          <a href="#ledger" class="lab-card__link" style="margin-top:auto;padding-top:.8rem">Reserve a seat<Fragment set:html={arrow} /></a>
         </article>
       ))}
     </div>
@@ -169,29 +178,31 @@ const proFacts = [
 
   <!-- SUMMER CAMP -->
   <section class="section pblock">
-    <div class="pblock__grid">
+    <div class="lab-split">
       <div>
         <p class="kicker">Next Generation</p>
         <h2 class="section__title section__title--sm">Summer Camp.</h2>
-      </div>
-      <div>
         <p class="pblock__text">A five-day intensive that opens the laboratory to the next generation of culinary minds — fermenting, foraging and plating alongside our resident practitioners, closing with a community dinner they design and serve.</p>
         <div class="lab-facts">
           {campFacts.map((f) => (<div class="stat"><strong>{f.v}</strong><span>{f.k}</span></div>))}
         </div>
         <a href="#ledger" class="btn btn--solid btn--lg">Reserve a spot</a>
       </div>
+      <div class="lab-split__media">
+        <img src="/img/culinary-lab/summer-camp.jpg" alt="Young cooks learning in a teaching kitchen" loading="lazy" />
+      </div>
     </div>
   </section>
 
   <!-- PROFESSIONAL SERIES -->
   <section class="section pblock--tint">
-    <div class="pblock__grid">
+    <div class="lab-split">
+      <div class="lab-split__media">
+        <img src="/img/culinary-lab/professional.jpg" alt="Adult professionals practicing advanced culinary technique" loading="lazy" />
+      </div>
       <div>
         <p class="kicker">Professional Series</p>
         <h2 class="section__title section__title--sm">For working<br/>professionals.</h2>
-      </div>
-      <div>
         <p class="pblock__text">A weekly evening program for working professionals and serious home cooks looking to hone their craft. One session each week, deep-diving a single advanced technique — from wild fermentation to precision plating — under the guidance of our resident practitioners.</p>
         <div class="lab-facts">
           {proFacts.map((f) => (<div class="stat"><strong>{f.v}</strong><span>{f.k}</span></div>))}
@@ -222,12 +233,18 @@ const proFacts = [
           <label for="lg-workshop">Workshop</label>
           <select id="lg-workshop" name="workshop" required>
             <option value="" disabled selected>Choose a session</option>
-            <option>The Living Ferment</option>
-            <option>Fire &amp; Precision Plating</option>
-            <option>Sourdough Chemistry</option>
-            <option>Luigi Di Domenico — Sep 19–21</option>
-            <option>Fred Csibi-Levin — Oct 23–25</option>
-            <option>Summer Camp — 5-day intensive</option>
+            <optgroup label="Farm to Lab">
+              <option>The Living Ferment</option>
+              <option>Fire &amp; Precision Plating</option>
+              <option>Sourdough Chemistry</option>
+            </optgroup>
+            <optgroup label="International Workshops">
+              <option>Luigi Di Domenico — Sep 19–21</option>
+              <option>Fred Csibi-Levin — Oct 23–25</option>
+            </optgroup>
+            <optgroup label="Summer Camp">
+              <option>Summer Camp — 5-day intensive</option>
+            </optgroup>
           </select>
         </div>
         <div class="field">
@@ -252,8 +269,13 @@ const proFacts = [
   .lab-hero-stats strong { display: block; font-family: var(--display); font-size: 1.9rem; font-weight: 800; color: var(--gold); line-height: 1.15; }
   .lab-hero-stats li { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); }
 
+  /* Split blocks: block image beside the copy (alternated by markup order) */
+  .lab-split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .lab-split__media { aspect-ratio: 4 / 3; overflow: hidden; background: var(--tint); border: 1px solid var(--line); }
+  .lab-split__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
   .lab-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
-  .pblock .lab-facts { margin: 1.6rem 0 2rem; }
+  .lab-split .lab-facts { margin: 1.6rem 0 2rem; }
 
   .lab-seasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.2rem 1.6rem; margin-top: 1rem; }
   .lab-season { display: flex; flex-direction: column; gap: .2rem; border-left: 3px solid var(--gold); padding: .15rem 0 .15rem 1.1rem; }
@@ -263,7 +285,12 @@ const proFacts = [
 
   .lab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
   .lab-card { display: flex; flex-direction: column; gap: .5rem; background: var(--white); border: 1px solid var(--line); padding: 1.6rem 1.5rem; height: 100%; color: inherit; transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease); }
-  a.lab-card:hover { transform: translateY(-4px); border-color: rgba(0, 114, 206, 0.3); box-shadow: 0 22px 45px -30px rgba(26, 32, 44, 0.35); }
+  a.lab-card:hover, .lab-card--media:hover { transform: translateY(-4px); border-color: rgba(0, 114, 206, 0.3); box-shadow: 0 22px 45px -30px rgba(26, 32, 44, 0.35); }
+  .lab-card--media { padding: 0; overflow: hidden; }
+  .lab-card__media { aspect-ratio: 16 / 10; overflow: hidden; background: var(--tint); }
+  .lab-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s var(--ease); }
+  .lab-card--media:hover .lab-card__media img { transform: scale(1.05); }
+  .lab-card__inner { display: flex; flex-direction: column; gap: .5rem; padding: 1.4rem 1.5rem; height: 100%; }
   .lab-card__code { font-family: var(--display); font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-600); }
   .lab-card__name { font-family: var(--display); font-weight: 700; font-size: 1.15rem; line-height: 1.25; color: var(--navy); }
   .lab-card__desc { font-size: .95rem; color: var(--gray); }
@@ -277,6 +304,10 @@ const proFacts = [
   .lab-form textarea { width: 100%; font: inherit; color: var(--navy); background: var(--white); border: 1.5px solid var(--line-strong); border-radius: 0; padding: .8rem .9rem; resize: vertical; transition: border-color .2s; }
   .lab-form textarea:focus { outline: none; border-color: var(--blue); }
 
+  @media (max-width: 820px) {
+    .lab-split { grid-template-columns: 1fr; }
+    .lab-split__media { order: -1; }
+  }
   @media (max-width: 900px) {
     .lab-ledger { grid-template-columns: 1fr; }
   }
