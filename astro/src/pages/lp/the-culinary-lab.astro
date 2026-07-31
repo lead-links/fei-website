@@ -1,0 +1,283 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Landing page: The Culinary Laboratory (FEI Culinary Community Hub), rebuilt on
+// the site's design system. Content ported from the existing FEI culinary hub;
+// the interactive month calendar block was intentionally removed.
+const arrow = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+const programs = [
+  { code: 'PR.01', name: 'Farm to Lab', desc: 'Seasonal workshops tracing each ingredient from the hands that grew it to the plate you build.' },
+  { code: 'PR.02', name: 'International Workshops', desc: 'Residencies with visiting practitioners from across the globe, exchanging technique and terroir.' },
+  { code: 'PR.03', name: 'Summer Camp', desc: 'A seasonal intensive cultivating the next generation of culinary minds at the community table.' },
+  { code: 'PR.04', name: 'Professional Series', desc: 'A weekly evening program for adults honing advanced professional culinary technique, one session at a time.' },
+];
+
+const seasons = [
+  { q: 'Q1 · Jan–Mar', name: 'Winter', note: 'Root cellar · preservation & brining' },
+  { q: 'Q2 · Apr–Jun', name: 'Spring', note: 'Early shoots · wild leaven' },
+  { q: 'Q3 · Jul–Sep', name: 'Summer', note: 'Peak harvest · lacto-fermentation' },
+  { q: 'Q4 · Oct–Dec', name: 'Autumn', note: 'Stone grains · curing & cold-chain' },
+];
+
+const workshops = [
+  { code: 'WS.01', date: 'Thu · 03 Dec 2026', name: 'The Living Ferment', desc: 'Cultivate wild brines and living pickles. Learn to read pH, salinity and time.', price: '$120 / seat' },
+  { code: 'WS.02', date: 'Thu · 08 Apr 2027', name: 'Fire & Precision Plating', desc: 'Compose a tasting plate with foraged herbs, tweezers and controlled heat.', price: '$145 / seat' },
+  { code: 'WS.03', date: 'Thu · 08 Jul 2027', name: 'Sourdough Chemistry', desc: 'Build and bake a naturally leavened loaf from stone-milled heritage flour.', price: '$110 / seat' },
+];
+
+const residencies = [
+  { code: 'WS.01', date: 'Sep 19–21', name: 'Luigi Di Domenico', kind: 'Single-practitioner intensive' },
+  { code: 'WS.02', date: 'Oct 23–25', name: 'Fred Csibi-Levin', kind: 'Collaborative residency' },
+];
+
+const campFacts = [
+  { v: '5-day immersive', k: 'Format' },
+  { v: 'Ages 14–18', k: 'Cohort' },
+  { v: '16 per session', k: 'Seats' },
+  { v: 'Capstone dinner', k: 'Outcome' },
+];
+
+const proFacts = [
+  { v: 'Weekly · once a week', k: 'Format' },
+  { v: 'Adults · 18+', k: 'Cohort' },
+  { v: 'Professional development', k: 'Focus' },
+  { v: 'Certified mastery', k: 'Outcome' },
+];
+---
+<BaseLayout
+  title="The Culinary Laboratory — FEI Culinary Community Hub | Florida Education Institute"
+  description="The Culinary Laboratory at FEI in Miami — a culinary community hub with Farm to Lab workshops, international residencies, a summer camp, and a professional series. Reserve your seat at the community table."
+>
+  <!-- HERO -->
+  <section class="phero phero--page">
+    <div class="hero__bg" style="background-image:url('/img/culinary.jpg')" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="phero__inner">
+      <div class="phero__copy">
+        <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Miami, Florida · A Culinary Community Hub</p>
+        <h1 class="phero__title reveal" data-delay="1">The Culinary<br/>Laboratory.</h1>
+        <p class="phero__lede reveal" data-delay="2">More than a kitchen — a gathering place for everyone who loves food. We bring together farmers, chefs, families and curious cooks to learn, share and eat at one long community table.</p>
+        <div class="hero__cta reveal" data-delay="3">
+          <a href="#ledger" class="btn btn--solid btn--lg">Secure a seat
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+          </a>
+          <a href="#curriculum" class="btn btn--outline btn--lg btn--outline-light">View the curriculum</a>
+        </div>
+        <ul class="lab-hero-stats reveal" data-delay="4">
+          <li><strong>4</strong> programs for every cook</li>
+          <li><strong>1</strong> shared community table</li>
+          <li><strong>All</strong> levels welcome</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="section pblock">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">The Hypothesis</p>
+        <h2 class="section__title section__title--sm">More than a kitchen,<br/>a community you sit with.</h2>
+      </div>
+      <div>
+        <p class="pblock__text">Every plate is an invitation. We are not a school you sit behind — we are a community you sit with, building a culinary home for Miami, one meal at a time.</p>
+        <p class="pblock__text" style="margin-top:1rem">Every ingredient is traced from the hands that grew it to the neighbors you share it with. We cook, ferment and gather with the curiosity of a laboratory and the warmth of a community kitchen.</p>
+        <div class="lab-facts" style="margin-top:1.8rem">
+          <div class="stat"><strong>12</strong><span>local farms sourced</span></div>
+          <div class="stat"><strong>6</strong><span>signature techniques</span></div>
+          <div class="stat"><strong>42.5°C</strong><span>fermentation baseline</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS / THE OFFERINGS -->
+  <section class="section pblock--tint">
+    <div class="section__head">
+      <div>
+        <p class="kicker">The Offerings</p>
+        <h2 class="section__title">A culinary hub<br/>in Miami.</h2>
+      </div>
+      <p class="section__intro">One table, many doorways — every program is a new way to cook, gather and connect with your culinary community.</p>
+    </div>
+    <div class="lab-grid">
+      {programs.map((p) => (
+        <a href="#ledger" class="lab-card">
+          <span class="lab-card__code">{p.code}</span>
+          <span class="lab-card__name">{p.name}</span>
+          <span class="lab-card__desc">{p.desc}</span>
+          <span class="lab-card__link" style="margin-top:auto;padding-top:.8rem">Explore<Fragment set:html={arrow} /></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section class="section" id="curriculum">
+    <div class="section__head">
+      <div>
+        <p class="kicker">The Curriculum</p>
+        <h2 class="section__title">The laboratory log.</h2>
+      </div>
+      <p class="section__intro">Seasonal experiments — each pairs the core method with produce harvested within days of the session.</p>
+    </div>
+    <div class="lab-seasons">
+      {seasons.map((s) => (
+        <div class="lab-season">
+          <span class="lab-season__q">{s.q}</span>
+          <span class="lab-season__name">{s.name}</span>
+          <span class="lab-season__note">{s.note}</span>
+        </div>
+      ))}
+    </div>
+    <div class="lab-grid" style="margin-top:2rem">
+      {workshops.map((w) => (
+        <article class="lab-card">
+          <span class="lab-card__code">{w.code} · {w.date}</span>
+          <span class="lab-card__name">{w.name}</span>
+          <span class="lab-card__desc">{w.desc}</span>
+          <span class="lab-card__meta">
+            <span class="lab-card__price">{w.price}</span>
+            <a href="#ledger" class="lab-card__link">Reserve<Fragment set:html={arrow} /></a>
+          </span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- INTERNATIONAL WORKSHOPS -->
+  <section class="section pblock--tint">
+    <div class="section__head">
+      <div>
+        <p class="kicker">International Workshops</p>
+        <h2 class="section__title">Practitioners<br/>from everywhere.</h2>
+      </div>
+      <p class="section__intro">The laboratory hosts practitioners from across the globe — exchanging technique, terroir and tradition at the community table. Two upcoming residencies are open for reservation.</p>
+    </div>
+    <div class="lab-grid">
+      {residencies.map((r) => (
+        <article class="lab-card">
+          <span class="lab-card__code">{r.code} · {r.date}</span>
+          <span class="lab-card__name">{r.name}</span>
+          <span class="lab-card__desc">{r.kind}</span>
+          <span class="lab-card__link" style="margin-top:auto;padding-top:.8rem"><a href="#ledger" class="lab-card__link">Reserve a seat<Fragment set:html={arrow} /></a></span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- SUMMER CAMP -->
+  <section class="section pblock">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">Next Generation</p>
+        <h2 class="section__title section__title--sm">Summer Camp.</h2>
+      </div>
+      <div>
+        <p class="pblock__text">A five-day intensive that opens the laboratory to the next generation of culinary minds — fermenting, foraging and plating alongside our resident practitioners, closing with a community dinner they design and serve.</p>
+        <div class="lab-facts">
+          {campFacts.map((f) => (<div class="stat"><strong>{f.v}</strong><span>{f.k}</span></div>))}
+        </div>
+        <a href="#ledger" class="btn btn--solid btn--lg">Reserve a spot</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFESSIONAL SERIES -->
+  <section class="section pblock--tint">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">Professional Series</p>
+        <h2 class="section__title section__title--sm">For working<br/>professionals.</h2>
+      </div>
+      <div>
+        <p class="pblock__text">A weekly evening program for working professionals and serious home cooks looking to hone their craft. One session each week, deep-diving a single advanced technique — from wild fermentation to precision plating — under the guidance of our resident practitioners.</p>
+        <div class="lab-facts">
+          {proFacts.map((f) => (<div class="stat"><strong>{f.v}</strong><span>{f.k}</span></div>))}
+        </div>
+        <a href="#ledger" class="btn btn--solid btn--lg">Reserve a spot</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEDGER — reservation form -->
+  <section class="section" id="ledger">
+    <div class="lab-ledger">
+      <div class="lab-ledger__intro">
+        <p class="kicker">The Laboratory Ledger</p>
+        <h2 class="section__title">Secure<br/>your seat.</h2>
+        <p class="pblock__text" style="margin-top:1rem">Seats are limited to a single community table per session. Complete the report below and we will confirm your placement by email.</p>
+      </div>
+      <form class="form lab-form" id="ledgerForm" novalidate>
+        <div class="field">
+          <label for="lg-name">Full name</label>
+          <input type="text" id="lg-name" name="fullName" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="lg-email">Email</label>
+          <input type="email" id="lg-email" name="email" autocomplete="email" required />
+        </div>
+        <div class="field field--full">
+          <label for="lg-workshop">Workshop</label>
+          <select id="lg-workshop" name="workshop" required>
+            <option value="" disabled selected>Choose a session</option>
+            <option>The Living Ferment</option>
+            <option>Fire &amp; Precision Plating</option>
+            <option>Sourdough Chemistry</option>
+            <option>Luigi Di Domenico — Sep 19–21</option>
+            <option>Fred Csibi-Levin — Oct 23–25</option>
+            <option>Summer Camp — 5-day intensive</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="lg-seats">Seats</label>
+          <input type="number" id="lg-seats" name="seats" min="1" max="8" value="1" inputmode="numeric" />
+        </div>
+        <div class="field field--full">
+          <label for="lg-note">Note (optional)</label>
+          <textarea id="lg-note" name="note" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn--solid modal__submit">Reserve seat
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+        </button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* The Culinary Laboratory landing — built on the shared design tokens */
+  .lab-hero-stats { display: flex; flex-wrap: wrap; gap: 1.4rem 2.4rem; margin-top: 2.2rem; list-style: none; }
+  .lab-hero-stats strong { display: block; font-family: var(--display); font-size: 1.9rem; font-weight: 800; color: var(--gold); line-height: 1.15; }
+  .lab-hero-stats li { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); }
+
+  .lab-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+  .pblock .lab-facts { margin: 1.6rem 0 2rem; }
+
+  .lab-seasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.2rem 1.6rem; margin-top: 1rem; }
+  .lab-season { display: flex; flex-direction: column; gap: .2rem; border-left: 3px solid var(--gold); padding: .15rem 0 .15rem 1.1rem; }
+  .lab-season__q { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 800; color: var(--blue-600); }
+  .lab-season__name { font-family: var(--display); font-weight: 700; font-size: 1.1rem; color: var(--navy); }
+  .lab-season__note { font-size: .88rem; color: var(--gray); }
+
+  .lab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+  .lab-card { display: flex; flex-direction: column; gap: .5rem; background: var(--white); border: 1px solid var(--line); padding: 1.6rem 1.5rem; height: 100%; color: inherit; transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease); }
+  a.lab-card:hover { transform: translateY(-4px); border-color: rgba(0, 114, 206, 0.3); box-shadow: 0 22px 45px -30px rgba(26, 32, 44, 0.35); }
+  .lab-card__code { font-family: var(--display); font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-600); }
+  .lab-card__name { font-family: var(--display); font-weight: 700; font-size: 1.15rem; line-height: 1.25; color: var(--navy); }
+  .lab-card__desc { font-size: .95rem; color: var(--gray); }
+  .lab-card__meta { margin-top: auto; padding-top: .9rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .lab-card__price { font-family: var(--display); font-weight: 800; color: var(--navy); }
+  .lab-card__link { display: inline-flex; align-items: center; gap: .4em; font-weight: 700; color: var(--blue-600); font-size: .9rem; }
+  .lab-card__link:hover { color: var(--blue-700); }
+
+  /* Ledger: intro + form side by side, matching the apply page rhythm */
+  .lab-ledger { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .lab-form textarea { width: 100%; font: inherit; color: var(--navy); background: var(--white); border: 1.5px solid var(--line-strong); border-radius: 0; padding: .8rem .9rem; resize: vertical; transition: border-color .2s; }
+  .lab-form textarea:focus { outline: none; border-color: var(--blue); }
+
+  @media (max-width: 900px) {
+    .lab-ledger { grid-template-columns: 1fr; }
+  }
+</style>
