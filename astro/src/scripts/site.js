@@ -108,29 +108,34 @@
     });
   });
 
-  /* ---- UTM capture: persist first-touch UTMs across navigation ---- */
+  /* ---- Tracking capture: UTMs + referrer, kept consistent per touch.
+     A UTM-tagged inbound link is a fresh acquisition touch. When one arrives we
+     REPLACE the whole UTM set at once (params absent from the URL become blank) so
+     values from two different campaigns never mix — e.g. a new Google touch must not
+     keep a stale utm_source from an earlier ChatGPT touch. The referrer is refreshed
+     alongside it so both describe the same touch. Between tracked touches (plain
+     internal navigation, where document.referrer becomes the site itself and no UTMs
+     are present) the stored values are left untouched. ---- */
   var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "utm_id"];
   var feiUtms = {};
   try { feiUtms = JSON.parse(localStorage.getItem("fei_utms") || "{}") || {}; } catch (e) { feiUtms = {}; }
-  try {
-    var qp = new URLSearchParams(window.location.search);
-    var utmChanged = false;
-    UTM_KEYS.forEach(function (k) {
-      var v = qp.get(k);
-      if (v) { feiUtms[k] = v; utmChanged = true; }
-    });
-    if (utmChanged) localStorage.setItem("fei_utms", JSON.stringify(feiUtms));
-  } catch (e) {}
-
-  /* ---- Referrer capture: persist the FIRST-touch referrer across navigation.
-     Unlike UTMs (only present in the URL on a tracked inbound link), document.referrer
-     changes on every internal page-to-page navigation — so once a value is stored we
-     never overwrite it, or we'd lose the original external referrer (e.g. Google) the
-     moment the visitor clicks to a second page on the site. ---- */
   var feiReferrer = "";
   try { feiReferrer = localStorage.getItem("fei_referrer") || ""; } catch (e) { feiReferrer = ""; }
   try {
-    if (!feiReferrer && document.referrer) {
+    var qp = new URLSearchParams(window.location.search);
+    var hasUtm = UTM_KEYS.some(function (k) { return qp.get(k); });
+    if (hasUtm) {
+      // New tracked touch: rebuild the ENTIRE UTM set so no stale field survives.
+      feiUtms = {};
+      UTM_KEYS.forEach(function (k) { feiUtms[k] = qp.get(k) || ""; });
+      localStorage.setItem("fei_utms", JSON.stringify(feiUtms));
+      // Refresh the referrer to match this touch (but never overwrite it with an empty one).
+      if (document.referrer) {
+        feiReferrer = document.referrer;
+        localStorage.setItem("fei_referrer", feiReferrer);
+      }
+    } else if (!feiReferrer && document.referrer) {
+      // First touch, no UTMs: capture the external referrer once.
       feiReferrer = document.referrer;
       localStorage.setItem("fei_referrer", feiReferrer);
     }
