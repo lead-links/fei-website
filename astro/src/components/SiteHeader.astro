@@ -50,10 +50,97 @@ const itGroup = (k: string) => IT_GROUPS.find((g) => g.key === k)!;
     <nav class="nav__links" aria-label="Primary">
       {mega ? (
         <Fragment>
+          {/* Two independent hover directories: career programs, and exam-prep
+              courses. Each panel is a full-bleed band under the header whose
+              content is centred on the site's standard wrap width. */}
           <div class="nav__mega">
-            <button class="nav__mega-trigger" id="megaTrigger" type="button" aria-expanded="false" aria-controls="megaPanel" aria-haspopup="dialog">Programs &amp; Courses
+            <button class="nav__mega-trigger" type="button" aria-expanded="false" aria-controls="megaPrograms">Programs
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
             </button>
+            <div class="mega-panel" id="megaPrograms">
+              <div class="mega-panel__wrap">
+                <div class="mega-cols">
+                  <div class="mega-col">
+                    <p class="mega-col__head">FEI Programs</p>
+                    <ul class="mega-lead">
+                      <li><a href="/programs">Explore All Programs</a></li>
+                    </ul>
+                    <p class="mega-col__lede">Our career-focused diploma and associate degree programs.</p>
+                  </div>
+                  <div class="mega-col">
+                    <p class="mega-col__head">{CAT_LABELS.health}</p>
+                    <ul class="mega-list">
+                      {byCat('health').map((p) => <li><a href={`/programs/${p.slug}`}>{p.title}</a></li>)}
+                    </ul>
+                  </div>
+                  <div class="mega-col">
+                    <p class="mega-col__head">{CAT_LABELS.culinary}</p>
+                    <ul class="mega-list">
+                      {byCat('culinary').map((p) => <li><a href={`/programs/${p.slug}`}>{p.title}</a></li>)}
+                    </ul>
+                  </div>
+                  <div class="mega-col">
+                    <p class="mega-col__head">{CAT_LABELS.business}</p>
+                    <ul class="mega-list">
+                      {byCat('business').map((p) => <li><a href={`/programs/${p.slug}`}>{p.title}</a></li>)}
+                    </ul>
+                    <p class="mega-col__head mega-col__head--stacked">{CAT_LABELS.trades}</p>
+                    <ul class="mega-list">
+                      {byCat('trades').map((p) => <li><a href={`/programs/${p.slug}`}>{p.title}</a></li>)}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav__mega">
+            <button class="nav__mega-trigger" type="button" aria-expanded="false" aria-controls="megaCourses">{COURSE_PREP_LABEL}
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="mega-panel" id="megaCourses">
+              <div class="mega-panel__wrap">
+                <div class="mega-cols">
+                  <div class="mega-col">
+                    <p class="mega-col__head">{COURSE_PREP_LABEL} · CompTIA</p>
+                    <ul class="mega-lead">
+                      <li><a href="/course-prep">Explore All Courses</a></li>
+                    </ul>
+                    <p class="mega-col__lede">Instructor-led courses that prepare you for the CompTIA certification exams.</p>
+                  </div>
+                  <div class="mega-col">
+                    <p class="mega-col__head">{itGroup('foundations').name}<span>{itGroup('foundations').exam}</span></p>
+                    <ul class="mega-list">
+                      {coursesByGroup('foundations').map((c) => (
+                        <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
+                      ))}
+                    </ul>
+                    <p class="mega-col__head mega-col__head--stacked">{itGroup('computer-technician').name}<span>{itGroup('computer-technician').exam}</span></p>
+                    <ul class="mega-list">
+                      {coursesByGroup('computer-technician').map((c) => (
+                        <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div class="mega-col">
+                    <p class="mega-col__head">{itGroup('networking-technician').name}<span>{itGroup('networking-technician').exam}</span></p>
+                    <ul class="mega-list">
+                      {coursesByGroup('networking-technician').map((c) => (
+                        <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div class="mega-col">
+                    <p class="mega-col__head">{itGroup('cybersecurity').name}<span>{itGroup('cybersecurity').exam}</span></p>
+                    <ul class="mega-list">
+                      {coursesByGroup('cybersecurity').map((c) => (
+                        <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           {links.slice(1).map((l) => <a href={l.href}>{l.label}</a>)}
         </Fragment>
@@ -80,93 +167,3 @@ const itGroup = (k: string) => IT_GROUPS.find((g) => g.key === k)!;
     <a href={applyHref} class="btn btn--solid" data-apply>{s.apply}</a>
   </div>
 </header>
-
-{mega && (
-  <Fragment>
-    {/* Centred popover, opened by #megaTrigger. Rendered OUTSIDE <header> so it is
-        not trapped in the nav's stacking context (the utility bar sits above it). */}
-    <div class="mega-scrim" id="megaScrim" hidden></div>
-    <div class="mega-panel" id="megaPanel" role="dialog" aria-modal="true" aria-label="Programs and courses" aria-hidden="true">
-      <button class="mega-panel__close" type="button" aria-label="Close menu">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-      {/* ── Section 1: the career programs ── */}
-      <section class="mega-sec">
-        <div class="mega-cols">
-          <div class="mega-col">
-            <p class="mega-col__head">FEI Programs</p>
-            <ul class="mega-lead">
-              <li><a href="/programs">Explore All Programs</a></li>
-            </ul>
-            <p class="mega-col__lede">Our career-focused diploma and associate degree programs.</p>
-          </div>
-          <div class="mega-col">
-            <p class="mega-col__head">{CAT_LABELS.health}</p>
-            <ul class="mega-list">
-              {byCat('health').map((p) => <li><a href={`/programs/${p.slug}`}>{p.title}</a></li>)}
-            </ul>
-          </div>
-          <div class="mega-col">
-            <p class="mega-col__head">{CAT_LABELS.culinary}</p>
-            <ul class="mega-list">
-              {byCat('culinary').map((p) => <li><a href={`/programs/${p.slug}`}>{p.title}</a></li>)}
-            </ul>
-          </div>
-          <div class="mega-col">
-            <p class="mega-col__head">{CAT_LABELS.business}</p>
-            <ul class="mega-list">
-              {byCat('business').map((p) => <li><a href={`/programs/${p.slug}`}>{p.title}</a></li>)}
-            </ul>
-            <p class="mega-col__head mega-col__head--stacked">{CAT_LABELS.trades}</p>
-            <ul class="mega-list">
-              {byCat('trades').map((p) => <li><a href={`/programs/${p.slug}`}>{p.title}</a></li>)}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 2: the CompTIA exam-prep courses ── */}
-      <section class="mega-sec">
-        <div class="mega-cols">
-          <div class="mega-col">
-            <p class="mega-col__head">{COURSE_PREP_LABEL} · CompTIA</p>
-            <ul class="mega-lead">
-              <li><a href="/course-prep">Explore All Courses</a></li>
-            </ul>
-            <p class="mega-col__lede">Instructor-led courses that prepare you for the CompTIA certification exams.</p>
-          </div>
-          <div class="mega-col">
-            <p class="mega-col__head">{itGroup('foundations').name}<span>{itGroup('foundations').exam}</span></p>
-            <ul class="mega-list">
-              {coursesByGroup('foundations').map((c) => (
-                <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
-              ))}
-            </ul>
-            <p class="mega-col__head mega-col__head--stacked">{itGroup('computer-technician').name}<span>{itGroup('computer-technician').exam}</span></p>
-            <ul class="mega-list">
-              {coursesByGroup('computer-technician').map((c) => (
-                <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
-              ))}
-            </ul>
-          </div>
-          <div class="mega-col">
-            <p class="mega-col__head">{itGroup('networking-technician').name}<span>{itGroup('networking-technician').exam}</span></p>
-            <ul class="mega-list">
-              {coursesByGroup('networking-technician').map((c) => (
-                <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
-              ))}
-            </ul>
-          </div>
-          <div class="mega-col">
-            <p class="mega-col__head">{itGroup('cybersecurity').name}<span>{itGroup('cybersecurity').exam}</span></p>
-            <ul class="mega-list">
-              {coursesByGroup('cybersecurity').map((c) => (
-                <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-    </div>
-  </Fragment>
-)}

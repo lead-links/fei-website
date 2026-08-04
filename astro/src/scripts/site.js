@@ -62,46 +62,6 @@
     });
   }
 
-  // CompTIA "Course Prep" mega menu — a click-opened centred popover. Hover-open
-  // was too easy to trigger by accident while moving the pointer across the nav.
-  var megaTrigger = document.getElementById("megaTrigger");
-  var megaPanel = document.getElementById("megaPanel");
-  var megaScrim = document.getElementById("megaScrim");
-  if (megaTrigger && megaPanel) {
-    megaPanel.setAttribute("inert", ""); // starts closed
-    var setMegaOpen = function (open) {
-      megaPanel.classList.toggle("is-open", open);
-      megaTrigger.setAttribute("aria-expanded", String(open));
-      megaPanel.setAttribute("aria-hidden", String(!open));
-      megaPanel.toggleAttribute("inert", !open);
-      document.body.style.overflow = open ? "hidden" : "";
-      if (megaScrim) {
-        if (open) { megaScrim.hidden = false; requestAnimationFrame(function () { megaScrim.classList.add("is-open"); }); }
-        else { megaScrim.classList.remove("is-open"); setTimeout(function () { megaScrim.hidden = true; }, 240); }
-      }
-      if (open) {
-        var c = megaPanel.querySelector(".mega-panel__close");
-        if (c) setTimeout(function () { c.focus(); }, 60);
-      } else {
-        megaTrigger.focus();
-      }
-    };
-    megaTrigger.addEventListener("click", function () {
-      setMegaOpen(!megaPanel.classList.contains("is-open"));
-    });
-    var megaClose = megaPanel.querySelector(".mega-panel__close");
-    if (megaClose) megaClose.addEventListener("click", function () { setMegaOpen(false); });
-    if (megaScrim) megaScrim.addEventListener("click", function () { setMegaOpen(false); });
-    megaPanel.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () { setMegaOpen(false); });
-    });
-    document.addEventListener("keydown", function (e) {
-      if (!megaPanel.classList.contains("is-open")) return;
-      if (e.key === "Escape") { setMegaOpen(false); return; }
-      trapTab(megaPanel, e);
-    });
-  }
-
   // Program filter chips (cards are server-rendered by Astro)
   var filters = document.getElementById("filters");
   var grid = document.getElementById("progGrid");
