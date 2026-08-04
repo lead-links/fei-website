@@ -194,7 +194,7 @@ a { color: inherit; text-decoration: none; }
 .nav__mega:hover .nav__mega-trigger svg,
 .nav__mega:focus-within .nav__mega-trigger svg { transform: rotate(180deg); }
 .mega-panel {
-  position: absolute; top: calc(100% + 20px); left: -1.5rem; width: min(900px, 92vw);
+  position: absolute; top: calc(100% + 20px); left: -1.5rem; width: min(1060px, 94vw);
   background: var(--white); border: 1px solid var(--line);
   box-shadow: 0 34px 80px -34px rgba(26, 32, 44, 0.5);
   opacity: 0; visibility: hidden; transform: translateY(-8px);
@@ -203,22 +203,29 @@ a { color: inherit; text-decoration: none; }
 }
 .nav__mega:hover .mega-panel,
 .nav__mega:focus-within .mega-panel { opacity: 1; visibility: visible; transform: translateY(0); }
-.mega-panel__inner { display: grid; grid-template-columns: .75fr 2fr; }
-.mega-panel__aside { background: var(--tint); padding: 1.7rem 1.6rem; display: flex; flex-direction: column; }
-.mega-panel__main { padding: 1.7rem 1.8rem; }
+.mega-panel__inner { display: grid; grid-template-columns: .72fr 2fr; align-items: stretch; }
+/* Left rail: solid brand-blue card introducing the main FEI programs */
+.mega-panel__aside { background: var(--blue-600); color: #fff; padding: 1.8rem 1.6rem; display: flex; flex-direction: column; }
+.mega-panel__aside .mega-eyebrow { color: var(--gold); }
+/* Right side: tinted tray so the group boxes read as white cards on it */
+.mega-panel__main { background: var(--tint); padding: 1.5rem 1.6rem; }
 .mega-eyebrow { font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--blue-600); margin-bottom: .9rem; }
-.mega-aside__lede { font-size: .9rem; color: var(--gray); margin-bottom: 1.2rem; max-width: 24ch; }
-.mega-aside__link, .mega-main__cta { display: inline-flex; align-items: center; gap: .4em; font-weight: 700; color: var(--blue-600); font-size: .9rem; }
-.mega-aside__link:hover, .mega-main__cta:hover { color: var(--blue-700); }
-.mega-aside__link { margin-top: auto; }
-.mega-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem 1.8rem; }
-.mega-group__name { font-family: var(--display); font-weight: 700; font-size: 1rem; color: var(--navy); }
-.mega-group__exam { font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-600); margin: .1rem 0 .55rem; }
-.mega-group__list { list-style: none; display: flex; flex-direction: column; gap: .32rem; }
-.mega-group__list a { font-size: .86rem; color: var(--gray); display: block; line-height: 1.3; transition: color .2s; }
+.mega-aside__lede { font-size: .9rem; color: rgba(255, 255, 255, .82); margin-bottom: 1.2rem; max-width: 26ch; }
+.mega-aside__link { display: inline-flex; align-items: center; gap: .4em; font-weight: 700; color: #fff; font-size: .9rem; margin-top: auto; }
+.mega-aside__link:hover { color: var(--gold); }
+.mega-main__cta { display: inline-flex; align-items: center; gap: .4em; font-weight: 700; color: var(--blue-600); font-size: .9rem; margin-top: 1.2rem; }
+.mega-main__cta:hover { color: var(--blue-700); }
+/* Each certificate track sits in its own white box */
+.mega-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.mega-group { background: var(--white); border: 1px solid var(--line); padding: 1.1rem 1.2rem; }
+.mega-group__name { font-family: var(--display); font-weight: 700; font-size: .98rem; color: var(--navy); }
+.mega-group__exam { font-size: .66rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-600); margin: .1rem 0 .5rem; }
+/* Light rule between courses keeps a long list legible without heavy borders */
+.mega-group__list { list-style: none; display: flex; flex-direction: column; }
+.mega-group__list li + li { border-top: 1px solid rgba(26, 32, 44, .08); }
+.mega-group__list a { font-size: .84rem; color: var(--gray); display: block; line-height: 1.32; padding: .42rem 0; transition: color .2s; }
 .mega-group__list a:hover { color: var(--blue-700); }
 .mega-group__list span { font-weight: 700; color: var(--navy); }
-.mega-main__cta { margin-top: 1.4rem; }
 
 /* ─── Course Prep (CompTIA IT) section — catalog + course pages ─── */
 .cp-snapshot { display: flex; flex-wrap: wrap; gap: 1.3rem 2.2rem; margin-top: 2rem; list-style: none; }
