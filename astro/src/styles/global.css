@@ -191,18 +191,31 @@ a { color: inherit; text-decoration: none; }
 }
 .nav__mega-trigger:hover { color: #fff; }
 .nav__mega-trigger svg { transition: transform .25s var(--ease); }
-.nav__mega:hover .nav__mega-trigger svg,
-.nav__mega:focus-within .nav__mega-trigger svg { transform: rotate(180deg); }
+.nav__mega-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+/* Opened by click (see site.js), not hover — an accidental pointer pass used to
+   drop the panel over the page and get in the way of normal navigation. */
+.mega-scrim {
+  position: fixed; inset: 0; z-index: 190;
+  background: rgba(11, 20, 40, .55);
+  opacity: 0; transition: opacity .22s var(--ease);
+}
+.mega-scrim.is-open { opacity: 1; }
 .mega-panel {
-  position: absolute; top: calc(100% + 20px); left: -1.5rem; width: min(1060px, 94vw);
+  position: fixed; top: 50%; left: 50%; z-index: 200;
+  width: min(1060px, 94vw); max-height: min(86vh, 780px); overflow-y: auto;
   background: var(--white); border: 1px solid var(--line);
   box-shadow: 0 34px 80px -34px rgba(26, 32, 44, 0.5);
-  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  opacity: 0; visibility: hidden; transform: translate(-50%, -48%);
   transition: opacity .22s var(--ease), transform .22s var(--ease), visibility .22s;
-  z-index: 130;
 }
-.nav__mega:hover .mega-panel,
-.nav__mega:focus-within .mega-panel { opacity: 1; visibility: visible; transform: translateY(0); }
+.mega-panel.is-open { opacity: 1; visibility: visible; transform: translate(-50%, -50%); }
+.mega-panel__close {
+  position: absolute; top: .7rem; right: .7rem; z-index: 2;
+  width: 38px; height: 38px; display: grid; place-items: center;
+  background: var(--white); border: 1px solid var(--line); color: var(--navy);
+  cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+}
+.mega-panel__close:hover { background: var(--navy); border-color: var(--navy); color: #fff; }
 .mega-panel__inner { display: grid; grid-template-columns: .72fr 2fr; align-items: stretch; }
 /* Left rail: solid brand-blue card introducing the main FEI programs */
 .mega-panel__aside { background: var(--blue-600); color: #fff; padding: 1.8rem 1.6rem; display: flex; flex-direction: column; }
