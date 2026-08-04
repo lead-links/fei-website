@@ -123,26 +123,26 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
 
   <!-- 1 · OVERVIEW -->
   <section class="section pblock">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">The course</p>
-        <h2 class="section__title section__title--sm">Your foundation<br/>in IT.</h2>
+        <h2 class="section__title">Your foundation<br/>in IT.</h2>
       </div>
-      <div>
+      <div class="pstack--narrow">
         <p class="pblock__text">Tech+ Fundamentals introduces the core ideas you need to understand modern technology and start an IT education pathway. You'll explore computing terminology, devices and infrastructure, operating systems and applications, basic networking, cloud and virtualization, software-development concepts, data and databases, troubleshooting, and everyday security.</p>
-        <p class="pblock__text" style="margin-top:1rem">It's designed for beginners who want a practical foundation before moving into hardware, operating systems, networking, cybersecurity, or cloud-support coursework. No background is assumed — you learn through instructor-led online sessions and guided practice, then continue to the certificate tracks when you're ready.</p>
+        <p class="pblock__text">It's designed for beginners who want a practical foundation before moving into hardware, operating systems, networking, cybersecurity, or cloud-support coursework. No background is assumed — you learn through instructor-led online sessions and guided practice, then continue to the certificate tracks when you're ready.</p>
       </div>
     </div>
   </section>
 
   <!-- 2 · WHAT YOU'LL LEARN -->
   <section class="section pblock pblock--tint">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">What you'll learn</p>
-        <h2 class="section__title section__title--sm">Skills you'll<br/>build.</h2>
+        <h2 class="section__title">Skills you'll<br/>build.</h2>
       </div>
-      <ul class="curriculum-list">
+      <ul class="curriculum-list curriculum-list--3col">
         {outcomes.map((o) => <li>{o}</li>)}
       </ul>
     </div>
@@ -150,155 +150,147 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
 
   <!-- 3 · EXAM ALIGNMENT -->
   <section class="section pblock">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">Exam alignment</p>
-        <h2 class="section__title section__title--sm">Mapped to<br/>the Tech+ exam.</h2>
+        <h2 class="section__title">Mapped to<br/>the Tech+ exam.</h2>
+        <p class="section__intro section__intro--wide">The course is organized around the six domains of the CompTIA Tech+ (FC0-U71 V6) exam, so your coursework and your exam preparation move together. Each week connects back to these domains, and your knowledge checks are written to the same objectives you'll see on the exam.</p>
       </div>
-      <div>
-        <p class="pblock__text">The course is organized around the six domains of the CompTIA Tech+ (FC0-U71 V6) exam, so your coursework and your exam preparation move together. Each week connects back to these domains, and your knowledge checks are written to the same objectives you'll see on the exam.</p>
-        <div class="cp-domains">
-          {domains.map((d) => (
-            <div class="cp-domain"><strong>{d.n}</strong><span>{d.d}</span></div>
-          ))}
-        </div>
+      <div class="cp-domains">
+        {domains.map((d) => (
+          <div class="cp-domain"><strong>{d.n}</strong><span>{d.d}</span></div>
+        ))}
       </div>
     </div>
   </section>
 
   <!-- 4 · FOUR-WEEK SEQUENCE -->
   <section class="section pblock pblock--tint">
-    <div class="section__head section__head--center">
-      <p class="kicker">Weekly sequence</p>
-      <h2 class="section__title">Four weeks, step by step.</h2>
-      <p class="section__intro">Each of the four academic weeks builds on the last — vocabulary and troubleshooting first, then infrastructure and networking, then applications and software concepts, and finally data, databases, and security with an integrated review. Knowledge checks and support run throughout, so nothing sneaks up on you.</p>
-    </div>
-    <ol class="cp-journey">
-      {weeks.map((w, i) => (
-        <li class="cp-leg">
-          <span class="cp-leg__no">{i + 1}</span>
+    <div class="pstack">
+      <div class="section__head section__head--center">
+        <p class="kicker">Weekly sequence</p>
+        <h2 class="section__title">Four weeks, step by step.</h2>
+        <p class="section__intro">Each of the four academic weeks builds on the last — vocabulary and troubleshooting first, then infrastructure and networking, then applications and software concepts, and finally data, databases, and security with an integrated review. Knowledge checks and support run throughout, so nothing sneaks up on you.</p>
+      </div>
+      <ol class="cp-journey">
+        {weeks.map((w, i) => (
+          <li class="cp-leg">
+            <span class="cp-leg__no">{i + 1}</span>
+            <div class="cp-leg__body">
+              <p class="cp-leg__wk">{w.wk}</p>
+              <h3>{w.t}</h3>
+              <p>{w.d}</p>
+            </div>
+          </li>
+        ))}
+        <li class="cp-leg cp-leg--goal">
+          <span class="cp-leg__no" aria-hidden="true">★</span>
           <div class="cp-leg__body">
-            <p class="cp-leg__wk">{w.wk}</p>
-            <h3>{w.t}</h3>
-            <p>{w.d}</p>
+            <p class="cp-leg__wk">Ongoing</p>
+            <h3>Objective-aligned knowledge checks and student support</h3>
+            <p>Throughout the course: Canvas quizzes, guided practice, live Q&amp;A, and early outreach so any weak areas are spotted well before your next pathway course.</p>
           </div>
         </li>
-      ))}
-      <li class="cp-leg cp-leg--goal">
-        <span class="cp-leg__no" aria-hidden="true">★</span>
-        <div class="cp-leg__body">
-          <p class="cp-leg__wk">Ongoing</p>
-          <h3>Objective-aligned knowledge checks and student support</h3>
-          <p>Throughout the course: Canvas quizzes, guided practice, live Q&amp;A, and early outreach so any weak areas are spotted well before your next pathway course.</p>
-        </div>
-      </li>
-    </ol>
+      </ol>
+    </div>
   </section>
 
   <!-- 5 · DELIVERY -->
   <section class="section pblock">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">How you'll learn</p>
-        <h2 class="section__title section__title--sm">Online, live,<br/>and guided.</h2>
+        <h2 class="section__title">Online, live,<br/>and guided.</h2>
+        <p class="section__intro section__intro--wide">Coursework is delivered online through Canvas. Each week includes two instructor-led live sessions of about 60 minutes over Microsoft Teams, plus Canvas modules, the approved study guide, guided examples, and ongoing knowledge checks so you always know where you stand. When recordings or equivalent materials are available, you'll have access to them. Classes are kept small — 15 to 20 students, and no more than 25 per instructor — so you get real attention, a clear weekly roadmap, due dates, and an easy way to ask for help.</p>
       </div>
-      <div>
-        <p class="pblock__text">Coursework is delivered online through Canvas. Each week includes two instructor-led live sessions of about 60 minutes over Microsoft Teams, plus Canvas modules, the approved study guide, guided examples, and ongoing knowledge checks so you always know where you stand. When recordings or equivalent materials are available, you'll have access to them. Classes are kept small — 15 to 20 students, and no more than 25 per instructor — so you get real attention, a clear weekly roadmap, due dates, and an easy way to ask for help.</p>
-        <ul class="chips-list" style="margin-top:1rem">
-          <li>Online</li>
-          <li>Canvas LMS</li>
-          <li>Live on Microsoft Teams</li>
-          <li>2 live sessions / week · ~60 min</li>
-          <li>Recordings when available</li>
-          <li>15–20 students · max 25 per instructor</li>
-        </ul>
-      </div>
+      <ul class="chips-list chips-list--center">
+        <li>Online</li>
+        <li>Canvas LMS</li>
+        <li>Live on Microsoft Teams</li>
+        <li>2 live sessions / week · ~60 min</li>
+        <li>Recordings when available</li>
+        <li>15–20 students · max 25 per instructor</li>
+      </ul>
     </div>
   </section>
 
   <!-- 6 · WHAT TO EXPECT FROM YOUR INSTRUCTOR -->
   <section class="section pblock pblock--tint">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">Your instructor</p>
-        <h2 class="section__title section__title--sm">What to expect<br/>from your instructor.</h2>
+        <h2 class="section__title">What to expect<br/>from your instructor.</h2>
+        <p class="section__intro section__intro--wide">Your instructor delivers the live sessions, explains concepts, demonstrates practical examples, and guides your practice — but the support goes further than class time. Here's the standard the course is built around.</p>
       </div>
-      <div>
-        <p class="pblock__text">Your instructor delivers the live sessions, explains concepts, demonstrates practical examples, and guides your practice — but the support goes further than class time. Here's the standard the course is built around.</p>
+      <div class="cp-pledge">
+        {pledge.map((p) => (
+          <div class="cp-pledge__item"><strong>{p.t}</strong><span>{p.d}</span></div>
+        ))}
       </div>
-    </div>
-    <div class="cp-pledge">
-      {pledge.map((p) => (
-        <div class="cp-pledge__item"><strong>{p.t}</strong><span>{p.d}</span></div>
-      ))}
     </div>
   </section>
 
   <!-- 7 · WHO SHOULD ENROLL -->
   <section class="section pblock">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">Who should enroll</p>
-        <h2 class="section__title section__title--sm">Built for<br/>beginners.</h2>
+        <h2 class="section__title">Built for<br/>beginners.</h2>
+        <p class="section__intro section__intro--wide">This is a beginner-level course, and the prerequisite is none. You should have basic digital literacy, regular access to a reliable computer and internet, and time to join the live sessions and complete coursework.</p>
       </div>
-      <div>
-        <p class="pblock__text">This is a beginner-level course, and the prerequisite is none. You should have basic digital literacy, regular access to a reliable computer and internet, and time to join the live sessions and complete coursework.</p>
-        <ul class="chips-list" style="margin-top:1rem">
-          <li>New to IT and exploring the field</li>
-          <li>Planning to pursue CompTIA certifications</li>
-          <li>Building a base before the certificate tracks</li>
-        </ul>
-        <p class="pblock__text pblock__text--note">A grade of C or higher lets you progress to ITP 1200 — Computer Hardware and Support. Already experienced? You can submit documented equivalent college coursework, relevant experience, or an active related credential for review for advanced entry into later courses.</p>
-      </div>
+      <ul class="chips-list chips-list--center">
+        <li>New to IT and exploring the field</li>
+        <li>Planning to pursue CompTIA certifications</li>
+        <li>Building a base before the certificate tracks</li>
+      </ul>
+      <p class="pblock__text pblock__text--note pstack--narrow" style="text-align:center; margin-top:1.2rem">A grade of C or higher lets you progress to ITP 1200 — Computer Hardware and Support. Already experienced? You can submit documented equivalent college coursework, relevant experience, or an active related credential for review for advanced entry into later courses.</p>
     </div>
   </section>
 
   <!-- 8 · COURSEWORK VS CERTIFICATION -->
   <section class="section pblock pblock--tint">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">Coursework vs. certification</p>
-        <h2 class="section__title section__title--sm">Two milestones,<br/>kept separate.</h2>
+        <h2 class="section__title">Two milestones,<br/>kept separate.</h2>
+        <p class="section__intro">There are two separate finish lines here, and it helps to know the difference.</p>
       </div>
-      <div>
-        <p class="pblock__text">There are two separate finish lines here, and it helps to know the difference.</p>
+      <div class="cp-split">
+        <div class="cp-split__panel cp-split__panel--fei">
+          <span class="cp-split__pill">FEI · academic</span>
+          <h3>Completing ITP 1100</h3>
+          <ul class="cp-split__list">
+            <li>Finish your required coursework and knowledge checks</li>
+            <li>Keep at least 80% cumulative attendance</li>
+            <li>Maintain a 2.0 program GPA</li>
+          </ul>
+          <p class="cp-split__foot">Earned at FEI, by completing the course.</p>
+        </div>
+        <div class="cp-split__divider" aria-hidden="true"><span>Separate &amp; complementary</span></div>
+        <div class="cp-split__panel cp-split__panel--comptia">
+          <span class="cp-split__pill">CompTIA · certification</span>
+          <h3>Earning CompTIA Tech+</h3>
+          <ul class="cp-split__list">
+            <li>A credential issued by CompTIA</li>
+            <li>Earned only by passing the external FC0-U71 exam</li>
+            <li>Scheduled and taken separately through Pearson VUE</li>
+          </ul>
+          <p class="cp-split__foot">Earned from CompTIA, by passing the exam.</p>
+        </div>
       </div>
+      <p class="pblock__text pblock__text--note pstack--narrow" style="text-align:center; margin-top:1.2rem">This course is built to prepare you thoroughly for that exam, but completing the course and passing the exam are two different milestones, and the course can't guarantee the exam result.</p>
     </div>
-    <div class="cp-split">
-      <div class="cp-split__panel cp-split__panel--fei">
-        <span class="cp-split__pill">FEI · academic</span>
-        <h3>Completing ITP 1100</h3>
-        <ul class="cp-split__list">
-          <li>Finish your required coursework and knowledge checks</li>
-          <li>Keep at least 80% cumulative attendance</li>
-          <li>Maintain a 2.0 program GPA</li>
-        </ul>
-        <p class="cp-split__foot">Earned at FEI, by completing the course.</p>
-      </div>
-      <div class="cp-split__divider" aria-hidden="true"><span>Separate &amp; complementary</span></div>
-      <div class="cp-split__panel cp-split__panel--comptia">
-        <span class="cp-split__pill">CompTIA · certification</span>
-        <h3>Earning CompTIA Tech+</h3>
-        <ul class="cp-split__list">
-          <li>A credential issued by CompTIA</li>
-          <li>Earned only by passing the external FC0-U71 exam</li>
-          <li>Scheduled and taken separately through Pearson VUE</li>
-        </ul>
-        <p class="cp-split__foot">Earned from CompTIA, by passing the exam.</p>
-      </div>
-    </div>
-    <p class="pblock__text pblock__text--note" style="max-width:none">This course is built to prepare you thoroughly for that exam, but completing the course and passing the exam are two different milestones, and the course can't guarantee the exam result.</p>
   </section>
 
   <!-- 9 · EXAM READINESS -->
   <section class="section pblock">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">Exam readiness</p>
-        <h2 class="section__title section__title--sm">Getting<br/>exam-ready.</h2>
+        <h2 class="section__title">Getting<br/>exam-ready.</h2>
+        <p class="section__intro section__intro--wide">Readiness is something you can actually see. Along the way you complete objective-aligned practice, and a common readiness marker is scoring at least 85% on two separate practice assessments, plus a review with your instructor of any domains that still feel shaky. When you and your instructor agree you're ready, you plan your exam — the testing timeline sits outside the four academic weeks and depends on your readiness, voucher policy, and Pearson VUE scheduling.</p>
       </div>
-      <div>
-        <p class="pblock__text">Readiness is something you can actually see. Along the way you complete objective-aligned practice, and a common readiness marker is scoring at least 85% on two separate practice assessments, plus a review with your instructor of any domains that still feel shaky. When you and your instructor agree you're ready, you plan your exam — the testing timeline sits outside the four academic weeks and depends on your readiness, voucher policy, and Pearson VUE scheduling.</p>
+      <div class="pstack--narrow">
         <div class="cp-examfacts">
           <div class="stat"><strong>Up to 70</strong><span>multiple-choice questions</span></div>
           <div class="stat"><strong>60 min</strong><span>testing time</span></div>
@@ -311,51 +303,47 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
 
   <!-- 10 · HOW YOU'RE ASSESSED -->
   <section class="section pblock pblock--tint">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">How you're assessed</p>
-        <h2 class="section__title section__title--sm">How your progress<br/>is measured.</h2>
+        <h2 class="section__title">How your progress<br/>is measured.</h2>
+        <p class="section__intro">Your grade comes from a steady mix of checks, so you always have a clear picture of where you stand.</p>
       </div>
-      <div>
-        <p class="pblock__text">Your grade comes from a steady mix of checks, so you always have a clear picture of where you stand.</p>
-        <ul class="curriculum-list">
-          <li>Canvas quizzes</li>
-          <li>Objective-aligned knowledge checks</li>
-          <li>Guided activities and short demonstrations</li>
-          <li>Practical, real-world scenarios</li>
-          <li>An end-of-course review or assessment</li>
-        </ul>
-        <p class="pblock__text pblock__text--note">To complete the course you finish the required activities, keep at least 80% cumulative attendance, and maintain a 2.0 GPA.</p>
-      </div>
+      <ul class="curriculum-list curriculum-list--3col">
+        <li>Canvas quizzes</li>
+        <li>Objective-aligned knowledge checks</li>
+        <li>Guided activities and short demonstrations</li>
+        <li>Practical, real-world scenarios</li>
+        <li>An end-of-course review or assessment</li>
+      </ul>
+      <p class="pblock__text pblock__text--note pstack--narrow" style="text-align:center; margin-top:1.2rem">To complete the course you finish the required activities, keep at least 80% cumulative attendance, and maintain a 2.0 GPA.</p>
     </div>
   </section>
 
   <!-- 11 · MATERIALS & TECHNOLOGY -->
   <section class="section pblock">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">Materials and technology</p>
-        <h2 class="section__title section__title--sm">What<br/>you'll need.</h2>
+        <h2 class="section__title">What<br/>you'll need.</h2>
       </div>
-      <div>
-        <ul class="curriculum-list">
-          {materials.map((m) => <li><strong>{m.t}.</strong> {m.d}</li>)}
-        </ul>
-        <div class="cp-note">There's no PC-build kit, paid lab package, or specialized hardware to buy — you learn through instructor demonstrations and guided activities on everyday devices.</div>
-      </div>
+      <ul class="curriculum-list curriculum-list--3col">
+        {materials.map((m) => <li><strong>{m.t}.</strong> {m.d}</li>)}
+      </ul>
+      <div class="cp-note pstack--narrow">There's no PC-build kit, paid lab package, or specialized hardware to buy — you learn through instructor demonstrations and guided activities on everyday devices.</div>
     </div>
   </section>
 
   <!-- 12 · THE SUPPORT YOU'LL GET -->
   <section class="section pblock pblock--tint">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">The support you'll get</p>
-        <h2 class="section__title section__title--sm">You won't<br/>do this alone.</h2>
+        <h2 class="section__title">You won't<br/>do this alone.</h2>
+        <p class="section__intro">The material is broad and some of the terms are new — so the course is built to carry you through.</p>
       </div>
-      <div>
-        <p class="pblock__text">The material is broad and some of the terms are new — so the course is built to carry you through.</p>
-        <div class="support__services" style="margin-top:1.2rem">
+      <div class="pstack--narrow">
+        <div class="support__services">
           <ul>
             {supports.map((s) => <li><strong>{s.t}.</strong> {s.d}</li>)}
           </ul>
@@ -366,15 +354,15 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
 
   <!-- 13 · PATHWAY -->
   <section class="section pblock">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">The pathway</p>
-        <h2 class="section__title section__title--sm">Where<br/>this leads.</h2>
+        <h2 class="section__title">Where<br/>this leads.</h2>
       </div>
-      <div>
+      <div class="pstack--narrow" style="text-align:center">
         <p class="pblock__text">Tech+ Fundamentals is the entry point for FEI's Computer Technician (ITC-1000) and Network Technician (ITC-2000) certificates. It builds the vocabulary, confidence, and technical foundation you'll rely on in later support courses. A grade of C or higher lets you continue to ITP 1200 — Computer Hardware and Support.</p>
-        <p class="pblock__text" style="margin-top:1rem">If you already have documented equivalent college coursework, relevant experience, or an active related credential, you can submit it for review for advanced entry into later courses. The knowledge here is relevant to entry-level technology-support, help desk, desktop-support, and computer-technician paths, though FEI does not promise employment or a certification result.</p>
-        <a class="link-arrow" href="/course-prep">See the full course catalog
+        <p class="pblock__text">If you already have documented equivalent college coursework, relevant experience, or an active related credential, you can submit it for review for advanced entry into later courses. The knowledge here is relevant to entry-level technology-support, help desk, desktop-support, and computer-technician paths, though FEI does not promise employment or a certification result.</p>
+        <a class="link-arrow" href="/course-prep" style="justify-content:center">See the full course catalog
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
         </a>
       </div>
@@ -383,12 +371,12 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
 
   <!-- 14 · FAQ -->
   <section class="section pblock pblock--tint">
-    <div class="pblock__grid">
-      <div>
+    <div class="pstack">
+      <div class="section__head section__head--center">
         <p class="kicker">FAQ</p>
-        <h2 class="section__title section__title--sm">Quick<br/>answers.</h2>
+        <h2 class="section__title">Quick<br/>answers.</h2>
       </div>
-      <div class="accordion" id="accordion">
+      <div class="accordion pstack--narrow" id="accordion" style="max-width:900px">
         {faqs.map((f, i) => (
           <div class={`acc-item ${i === 0 ? 'is-open' : ''}`}>
             <button class="acc-trigger" aria-expanded={i === 0 ? 'true' : 'false'}><span>{f.q}</span><Fragment set:html={accIco} /></button>
