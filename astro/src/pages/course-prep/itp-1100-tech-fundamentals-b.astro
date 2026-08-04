@@ -246,7 +246,7 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
             </ul>
             <div class="ib-notice" style="margin-top:26px">
               <span class="ib-notice__i"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6l6 3v4c0 3.2-2.6 5.3-6 5.8-3.4-.5-6-2.6-6-5.8v-4l6-3z" stroke="#8A6100" stroke-width="1.3" stroke-linejoin="round"/></svg></span>
-              <p>The instructor delivers the live sessions, guides learning, answers questions and escalates technical or academic barriers through the FEI process. <b>Engagement standards are a working standard pending FEI adoption.</b></p>
+              <p>The instructor delivers the live sessions, guides learning, answers questions, and helps you resolve any technical or academic barriers along the way.</p>
             </div>
           </div>
         </div>
@@ -271,7 +271,7 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
           <article class="ib-step ib-rv ib-d1">
             <span class="ib-step__k">Next course</span>
             <h3 class="ib-h3">ITP 1200 · Computer Hardware &amp; Support</h3>
-            <p>Deeper hardware and operating-system content. A grade of C or higher in ITP 1100 is the working standard to progress.</p>
+            <p>Deeper hardware and operating-system content. A grade of C or higher in ITP 1100 lets you progress.</p>
           </article>
           <article class="ib-step ib-rv ib-d2">
             <span class="ib-step__k">Then</span>
@@ -440,7 +440,7 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
 
           <details>
             <summary>What do I need to pass the course and move on?</summary>
-            <div class="ib-ans">The working program rule is: complete the required course activities, maintain at least <b>80% cumulative attendance</b>, and maintain a <b>cumulative GPA of 2.0 or higher</b>. A grade of <b>C or higher</b> is the working standard for progressing to ITP 1200 — Computer Hardware and Support.</div>
+            <div class="ib-ans">To pass, complete the required course activities, maintain at least <b>80% cumulative attendance</b>, and maintain a <b>cumulative GPA of 2.0 or higher</b>. A grade of <b>C or higher</b> lets you progress to ITP 1200 — Computer Hardware and Support.</div>
           </details>
 
           <details>
@@ -476,8 +476,8 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
             <a class="btn btn--outline btn--outline-light btn--lg" href="#plan">Review the 4-week plan</a>
           </div>
           <p class="ib-cta__note">
-            Cohort start date · live-session days and times · minimum enrollment<br/>
-            tuition, voucher and testing-fee policy — confirmed by FEI Program Operations
+            Your advisor will cover the cohort start date, live-session days and times,<br/>
+            and your tuition and testing-fee options.
           </p>
         </div>
       </div>
@@ -508,7 +508,7 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
     color: var(--ib-ink);
   }
   .ibx :where(h1, h2, h3, h4) { font-family: var(--display); font-weight: 800; letter-spacing: -.02em; line-height: 1.08; margin: 0; }
-  .ib-h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.04; letter-spacing: -.035em; color: #fff; }
+  .ib-h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -.03em; color: #fff; }
   .ib-h2 { font-size: clamp(1.9rem, 4.2vw, 3.1rem); letter-spacing: -.03em; color: var(--ib-ink); }
   .ib-h3 { font-size: clamp(1.1rem, 1.7vw, 1.35rem); line-height: 1.22; }
   .ibx p { margin: 0; }
@@ -547,9 +547,12 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
     padding: 8px 15px 8px 10px; color: #fff; margin-bottom: 26px;
   }
   .ib-hero__tag i { font-style: normal; background: var(--gold); color: var(--navy); padding: 3px 8px; font-size: .68rem; letter-spacing: .06em; font-weight: 800; }
-  .ib-mark { position: relative; display: inline-block; z-index: 1; white-space: nowrap; color: var(--navy); }
+  /* Gold underline sits mostly BELOW the letters (not a highlighter block behind
+     them), so "absolute zero" stays white — same color as the rest of the H1 — and
+     always reads clearly against the dark hero, with the gold as a decorative accent. */
+  .ib-mark { position: relative; display: inline-block; z-index: 1; white-space: nowrap; color: #fff; }
   .ib-mark::after {
-    content: ""; position: absolute; z-index: -1; left: -.06em; right: -.06em; bottom: .055em; height: .42em;
+    content: ""; position: absolute; z-index: -1; left: -.06em; right: -.06em; bottom: -.06em; height: .16em;
     background: var(--gold); transform: skewX(-11deg) scaleX(0); transform-origin: left center;
     animation: ib-swipe .78s var(--ease) .55s forwards;
   }
@@ -582,8 +585,6 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
   .ib-stat { padding: 38px clamp(18px, 2.6vw, 34px); border-right: 1px solid rgba(255, 255, 255, .11); position: relative; overflow: hidden; }
   .ib-stat:first-child { padding-left: 0; }
   .ib-stat:last-child { padding-right: 0; border-right: 0; }
-  .ib-stat::after { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--gold); transition: width .5s var(--ease); }
-  .ib-stat:hover::after { width: 100%; }
   .ib-stat b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 800; letter-spacing: -.045em; line-height: 1; }
   .ib-stat b em { font-style: normal; color: var(--gold); }
   .ib-stat span { display: block; margin-top: 10px; font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255, 255, 255, .6); line-height: 1.6; }
@@ -593,32 +594,25 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
   .ib-about__body strong { font-weight: 700; color: var(--ib-ink); }
   .ib-pull { border-left: 3px solid var(--gold); padding: 4px 0 4px 24px; font-style: italic; font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.34; letter-spacing: -.02em; color: var(--ib-ink); margin-top: 34px; }
   .ib-chiplist { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 30px; }
-  .ib-chip { font-size: .74rem; font-weight: 600; letter-spacing: .02em; background: #fff; border: 1px solid var(--ib-line); color: var(--ib-ink2); padding: 8px 13px; transition: transform .2s, border-color .2s, background .2s; }
-  .ib-chip:hover { transform: translateY(-2px); border-color: var(--blue); background: var(--tint); }
+  .ib-chip { font-size: .74rem; font-weight: 600; letter-spacing: .02em; background: #fff; border: 1px solid var(--ib-line); color: var(--ib-ink2); padding: 8px 13px; }
 
   /* ---------- OUTCOMES ---------- */
   .ib-out__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--ib-line); border: 1px solid var(--ib-line); overflow: hidden; }
-  .ib-out { background: #fff; padding: clamp(26px, 3vw, 36px); position: relative; transition: background .35s ease; }
-  .ib-out:hover { background: var(--ib-wash2); }
+  .ib-out { background: #fff; padding: clamp(26px, 3vw, 36px); position: relative; }
   .ib-out__n { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue-600); display: block; margin-bottom: 18px; }
   .ib-out h3 { margin-bottom: 11px; }
   .ib-out p { font-size: .94rem; color: var(--ib-slate); line-height: 1.62; }
-  .ib-out::after { content: ""; position: absolute; left: 0; top: 0; width: 3px; height: 0; background: var(--gold); transition: height .4s var(--ease); }
-  .ib-out:hover::after { height: 100%; }
 
   /* ---------- ROADMAP ---------- */
   .ib-road { position: relative; }
   .ib-road__track { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 1.6vw, 22px); position: relative; }
   .ib-road__line { position: absolute; left: 0; right: 0; top: 29px; height: 2px; background: repeating-linear-gradient(90deg, var(--ib-line) 0 7px, transparent 7px 14px); z-index: 0; -webkit-mask-image: linear-gradient(90deg, #000 0 86%, transparent 100%); mask-image: linear-gradient(90deg, #000 0 86%, transparent 100%); }
   .ib-wk { position: relative; z-index: 1; display: flex; flex-direction: column; }
-  .ib-wk__node { width: 58px; height: 58px; background: #fff; border: 2px solid var(--ib-line); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: .95rem; color: var(--ib-ink); margin-bottom: 24px; transition: all .35s var(--ease); }
-  .ib-wk:hover .ib-wk__node { background: var(--gold); border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 12px 26px -12px rgba(255, 184, 29, .9); }
+  .ib-wk__node { width: 58px; height: 58px; background: #fff; border: 2px solid var(--ib-line); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: .95rem; color: var(--ib-ink); margin-bottom: 24px; }
   .ib-wk__k { font-size: .66rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue-600); margin-bottom: 10px; display: block; }
   .ib-wk h3 { margin-bottom: 13px; font-size: clamp(1rem, 1.35vw, 1.16rem); }
   .ib-wk p { font-size: .9rem; color: var(--ib-slate); line-height: 1.6; padding-bottom: 24px; }
-  .ib-wk__bar { height: 2px; background: var(--ib-line); margin-top: auto; position: relative; overflow: hidden; }
-  .ib-wk__bar::after { content: ""; position: absolute; inset: 0; width: 0; background: var(--blue); transition: width .55s var(--ease); }
-  .ib-wk:hover .ib-wk__bar::after { width: 100%; }
+  .ib-wk__bar { height: 2px; background: var(--blue); margin-top: auto; }
 
   .ib-ongoing { margin-top: clamp(34px, 4vw, 52px); background: var(--navy); color: #fff; padding: clamp(26px, 3.4vw, 42px); display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 3vw, 42px); align-items: center; position: relative; overflow: hidden; }
   .ib-ongoing::after { content: ""; position: absolute; right: -70px; top: -70px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 184, 29, .20), transparent 68%); }
@@ -628,8 +622,7 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
 
   /* ---------- WEEK RHYTHM ---------- */
   .ib-rhythm__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(22px, 3vw, 34px); }
-  .ib-panel { background: #fff; border: 1px solid var(--ib-line); padding: clamp(26px, 3.2vw, 40px); box-shadow: var(--ib-shadow-sm); transition: transform .35s var(--ease), box-shadow .35s ease; }
-  .ib-panel:hover { transform: translateY(-4px); box-shadow: var(--ib-shadow); }
+  .ib-panel { background: #fff; border: 1px solid var(--ib-line); padding: clamp(26px, 3.2vw, 40px); box-shadow: var(--ib-shadow-sm); }
   .ib-panel h3 { margin-bottom: 8px; }
   .ib-panel > .ib-eyebrow { margin-bottom: 18px; }
   .ib-tick { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 14px; }
@@ -649,19 +642,17 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
 
   /* ---------- PATHWAY ---------- */
   .ib-path { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 2vw, 22px); align-items: stretch; }
-  .ib-step { background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .15); padding: clamp(22px, 2.6vw, 30px); position: relative; transition: background .3s, border-color .3s, transform .3s; }
-  .ib-step:hover { background: rgba(255, 255, 255, .09); border-color: rgba(255, 184, 29, .5); transform: translateY(-4px); }
+  .ib-step { background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .15); padding: clamp(22px, 2.6vw, 30px); position: relative; }
   .ib-step--now { background: var(--gold); border-color: var(--gold); color: var(--navy); }
-  .ib-step--now:hover { background: var(--gold-600); border-color: var(--gold-600); }
   .ib-step__k { font-size: .64rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; }
-  .ib-step--now .ib-step__k { color: var(--ib-ink2); }
+  .ib-step--now .ib-step__k { color: var(--navy); }
   .ib-step h3 { font-size: 1.06rem; margin-bottom: 9px; }
   .ib-step p { font-size: .88rem; color: rgba(255, 255, 255, .72); line-height: 1.55; }
   .ib-step--now p { color: rgba(26, 32, 44, .78); }
   .ib-certs { margin-top: 26px; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(14px, 2vw, 22px); }
   .ib-cert { border: 1px dashed rgba(255, 255, 255, .3); padding: 22px 26px; display: flex; gap: 16px; align-items: center; }
-  .ib-cert__code { font-family: var(--display); font-weight: 700; font-size: .8rem; letter-spacing: .04em; color: var(--navy); background: #fff; padding: 8px 12px; white-space: nowrap; }
-  .ib-cert span { font-size: .9rem; color: rgba(255, 255, 255, .8); }
+  .ib-cert .ib-cert__code { font-family: var(--display); font-weight: 700; font-size: .8rem; letter-spacing: .04em; color: var(--navy); background: #fff; padding: 8px 12px; white-space: nowrap; }
+  .ib-cert span:not(.ib-cert__code) { font-size: .9rem; color: rgba(255, 255, 255, .8); }
 
   /* ---------- EXAM ---------- */
   .ib-exam__grid { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: clamp(30px, 4.4vw, 68px); align-items: center; }
@@ -682,8 +673,7 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
 
   /* ---------- REQUIREMENTS ---------- */
   .ib-req__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: clamp(16px, 2vw, 24px); }
-  .ib-req { background: #fff; border: 1px solid var(--ib-line); padding: clamp(24px, 2.8vw, 32px); position: relative; overflow: hidden; display: flex; flex-direction: column; transition: transform .32s var(--ease), box-shadow .32s; }
-  .ib-req:hover { transform: translateY(-4px); box-shadow: var(--ib-shadow); }
+  .ib-req { background: #fff; border: 1px solid var(--ib-line); padding: clamp(24px, 2.8vw, 32px); position: relative; overflow: hidden; display: flex; flex-direction: column; }
   .ib-req__ico { width: 42px; height: 42px; background: var(--tint); display: grid; place-items: center; margin-bottom: 20px; }
   .ib-req h3 { font-size: 1.04rem; margin-bottom: 10px; }
   .ib-req p { font-size: .91rem; color: var(--ib-slate); line-height: 1.6; padding-bottom: 20px; }
@@ -691,8 +681,7 @@ const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
 
   /* ---------- SUPPORT ---------- */
   .ib-sup { display: grid; gap: 1px; background: var(--ib-line); border: 1px solid var(--ib-line); overflow: hidden; }
-  .ib-sup__row { background: #fff; display: grid; grid-template-columns: minmax(0, .36fr) minmax(0, .32fr) minmax(0, .42fr); gap: clamp(18px, 3vw, 42px); padding: clamp(26px, 3vw, 38px); transition: background .3s; }
-  .ib-sup__row:hover { background: var(--ib-wash2); }
+  .ib-sup__row { background: #fff; display: grid; grid-template-columns: minmax(0, .36fr) minmax(0, .32fr) minmax(0, .42fr); gap: clamp(18px, 3vw, 42px); padding: clamp(26px, 3vw, 38px); }
   .ib-sup__row h3 { font-size: 1.06rem; }
   .ib-why { font-size: .91rem; color: var(--ib-slate); line-height: 1.6; }
   .ib-fix { font-size: .91rem; color: var(--ib-ink2); line-height: 1.6; position: relative; padding-left: 20px; }
