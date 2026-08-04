@@ -15,54 +15,22 @@ const totalCourses = IT_GROUPS.reduce((n, g) => n + coursesByGroup(g.key).length
 >
   <div id="feiProgramMeta" data-program="IT Course Prep" data-program-type="CompTIA Course Prep" hidden></div>
 
-  <!-- HERO -->
-  <section class="phero phero--page">
-    <div class="hero__bg" style="background-image:url('/img/students.jpg')" aria-hidden="true"></div>
+  <!-- HERO — unified with what used to be a separate "catalog" head/intro section,
+       so the course list sits well above the fold. No action buttons/stats. -->
+  <section class="phero phero--page phero--flush">
+    <div class="hero__bg" style="background-image:url('/img/course-prep/catalog-hero.webp')" aria-hidden="true"></div>
     <div class="hero__overlay" aria-hidden="true"></div>
     <div class="phero__inner">
       <div class="phero__copy">
         <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Miami, Florida · CompTIA {COURSE_PREP_LABEL}</p>
         <h1 class="phero__title reveal" data-delay="1">Prepare for CompTIA<br/>certifications.</h1>
-        <p class="phero__lede reveal" data-delay="2">A guided pathway of instructor-led courses that prepare you for the industry-standard CompTIA certification exams — from digital-literacy foundations to networking and cybersecurity. You complete your coursework at FEI and sit for the certification exam externally.</p>
-        <div class="hero__cta reveal" data-delay="3">
-          <a href="/apply" class="btn btn--solid btn--lg" data-apply>Request info
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
-          </a>
-          <a href="/apply" class="btn btn--outline btn--lg btn--outline-light" data-apply>Apply now</a>
-        </div>
-        <ul class="cp-snapshot reveal" data-delay="4">
-          <li><span class="cp-snapshot__v">{totalCourses} courses</span><span class="cp-snapshot__k">Guided pathway</span></li>
-          <li><span class="cp-snapshot__v">3 certificate tracks</span><span class="cp-snapshot__k">+ foundations</span></li>
-          <li><span class="cp-snapshot__v">Online · live</span><span class="cp-snapshot__k">Instructor-led</span></li>
-        </ul>
+        <p class="phero__lede reveal" data-delay="2">A guided pathway of instructor-led courses — {totalCourses} in all, across the foundations track and three certificate tracks — each mapped to a specific CompTIA exam. You complete your coursework at FEI; the certification itself is earned by passing that exam separately.</p>
       </div>
     </div>
   </section>
 
-  <!-- INTRO -->
-  <section class="section pblock">
-    <div class="pblock__grid">
-      <div>
-        <p class="kicker">The Pathway</p>
-        <h2 class="section__title section__title--sm">Course prep for<br/>the CompTIA exams.</h2>
-      </div>
-      <div>
-        <p class="pblock__text">Each course maps to the objectives of a specific CompTIA certification exam and builds hands-on skill through instructor-led online sessions and guided practice. The pathway moves from foundations to specialized tracks so you can stack credentials at your own pace.</p>
-        <p class="pblock__text" style="margin-top:1rem"><strong>How certification works:</strong> your FEI course prepares you for the exam; the CompTIA certification itself is earned by passing the external exam, taken separately.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CATALOG -->
-  <section class="section" id="catalog" style="padding-top:0">
-    <div class="section__head">
-      <div>
-        <p class="kicker">The Catalog</p>
-        <h2 class="section__title">Every course.</h2>
-      </div>
-      <p class="section__intro">Browse the full pathway grouped by certificate. New courses are being finalized and added.</p>
-    </div>
-
+  <!-- CATALOG (right after the hero, no separate head — see it all below) -->
+  <section class="section programs--catalog" id="catalog">
     <div class="cp-groups">
       {IT_GROUPS.map((g) => (
         <div class="cp-group" id={g.key}>
