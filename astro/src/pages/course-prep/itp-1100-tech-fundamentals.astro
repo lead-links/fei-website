@@ -3,37 +3,78 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { COURSE_PREP_LABEL } from '../../data/course-prep';
 
 // Sample course page for the CompTIA "Course Prep" (IT) section — ITP 1100.
-// IN APPROVAL: noindex + mega menu. All copy is a working DRAFT, framed strictly
-// as course/exam preparation (NOT job or entry-level-employment claims). Nothing
-// final ships before Ramon signs off on the "course prep" language.
+// Content recreated faithfully from the FEI ITP 1100 Week-3 Course Teaching Plan
+// (Working Draft). IN APPROVAL: noindex + mega menu. All copy is a working DRAFT,
+// framed strictly as course/exam preparation — never a job or entry-level-employment
+// claim, never a guaranteed certification result. Nothing final ships before Ramon.
 const arrow = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>';
 
 const domains = [
-  { n: 'IT Concepts & Terminology', d: 'Notational systems, data types, and fundamental computing concepts.' },
-  { n: 'Infrastructure', d: 'Devices, internal components, networking, and connectivity basics.' },
-  { n: 'Applications & Software', d: 'Operating systems, applications, browsers, and configuration.' },
-  { n: 'Software Development Concepts', d: 'Programming logic, organizational structures, and language categories.' },
-  { n: 'Data & Database Fundamentals', d: 'Data value, databases, and structured vs. non-structured storage.' },
-  { n: 'Security', d: 'Confidentiality, integrity, availability, and everyday security practices.' },
+  { n: 'IT Concepts & Terminology', d: "The vocabulary and core ideas behind computing — how data moves through input, processing, output, and storage, plus notational systems, units, and everyday measurements." },
+  { n: 'Infrastructure', d: 'The physical and connective side of technology: devices and internal components, storage, peripherals and interfaces, and the basics of networking and wireless.' },
+  { n: 'Applications & Software', d: 'Operating systems and the software you use every day — how programs are installed and configured, plus web browsers and productivity and collaboration tools.' },
+  { n: 'Software Development Concepts', d: 'A friendly first look at how software is built: programming logic, common categories of languages, and how information is organized.' },
+  { n: 'Data & Database Fundamentals', d: "Why data matters and how it's kept: databases, structured versus non-structured storage, backups, and basic information management." },
+  { n: 'Security', d: 'Everyday protection — confidentiality, integrity, and availability, along with passwords, authentication, encryption, and securing a small wireless network.' },
+];
+
+const outcomes = [
+  'Explain foundational computing concepts, everyday technology terminology and measurements, and follow a standard, step-by-step troubleshooting method.',
+  'Identify common computing devices, internal components, storage options, peripheral devices, interfaces, and basic connectivity tools.',
+  "Describe basic networking, internet-service, wireless, virtualization, cloud, and operating-system concepts as they're used in personal and workplace technology.",
+  'Use and configure common software, web-browser features, collaboration tools, and basic operating-system features in real-world scenarios.',
+  'Explain introductory software-development, data, database, backup, and information-management concepts.',
+  'Apply fundamental security, privacy, authentication, password, device-protection, encryption, and small-wireless-network security practices.',
 ];
 
 const weeks = [
-  { t: 'IT concepts & terminology', d: 'Core computing concepts, notational systems, and a structured troubleshooting methodology.' },
-  { t: 'Infrastructure', d: 'Devices and internal components, connectivity, networking, and virtualization basics.' },
-  { t: 'Applications & operating systems', d: 'Operating systems, applications, web browsers, and an introduction to software development.' },
-  { t: 'Data & security', d: 'Data and database fundamentals, security principles, and full-course review.' },
+  { wk: 'Week 1', t: 'IT concepts, terminology, and practical troubleshooting', d: "Build the vocabulary and problem-solving method you'll use all course long — input, processing, output, storage, number systems, measurements, devices, and the steps for working through a problem." },
+  { wk: 'Week 2', t: 'Infrastructure, devices, connectivity, virtualization, and networking', d: 'Get comfortable with internal components, storage, peripherals, and device interfaces, plus internet service, basic networking and wireless, and an introduction to cloud and virtualization.' },
+  { wk: 'Week 3', t: 'Applications, operating systems, web tools, and software-development concepts', d: 'Understand operating systems and software types, configure a web browser, use productivity and collaboration tools, explore AI use cases, and meet introductory programming logic.' },
+  { wk: 'Week 4', t: 'Data, databases, security, review, and integrated practice', d: 'Cover data and backup concepts, databases, security and privacy, passwords, encryption, and wireless security, then bring it all together with troubleshooting and objective-aligned review.' },
+];
+
+// Instructor engagement standards — the PDF marks these "pending FEI adoption",
+// so they are framed as the standard the course aims for, not an unconditional promise.
+const pledge = [
+  { t: 'A welcome and access check', d: "Right at the very start of the course, so you're set up before week one." },
+  { t: 'A clear weekly update', d: 'Your roadmap and due dates, posted every week so you always know what comes next.' },
+  { t: 'Prompt answers — typically 1–2 business days', d: 'Ask a question and expect to hear back quickly.' },
+  { t: 'Feedback, usually within 3–5 business days', d: 'Useful grading and comments while they still matter.' },
+  { t: 'Active monitoring', d: 'Missing work and low quiz scores are watched for, not ignored.' },
+  { t: 'Personal outreach if you fall behind', d: 'A quick check-in or a short study plan so you can get back on track.' },
+  { t: 'A hand-off at the end', d: 'A planned transition to ITP 1200 or additional Tech+ study support.' },
+];
+
+const materials = [
+  { t: 'Study guide', d: 'The FEI-approved CompTIA Tech+ study guide/textbook, aligned to FC0-U71 V6. This is your primary required material.' },
+  { t: 'Practice and knowledge checks', d: 'Canvas quizzes and objective-aligned practice questions, with an approved practice resource (such as Crucial Exams) available where offered. No paid lab package is required.' },
+  { t: 'Learning platform and live classes', d: 'Canvas for content, announcements, assignments, quizzes, and grades, plus Microsoft Teams for your two live sessions each week.' },
+  { t: 'Your computer and internet', d: "A reliable laptop or desktop, stable internet, a modern web browser, and a microphone or headset. A mobile phone on its own isn't enough for this course." },
+];
+
+const supports = [
+  { t: 'A roadmap and a glossary', d: 'You start with a clear map of the six exam domains and a plain-language glossary, backed up by weekly objective maps, real-world examples, and a running list of key terms.' },
+  { t: 'Low-stakes practice from day one', d: 'Early, low-pressure quizzes and modeling of how to study certification objectives help you build confidence and steady study habits before anything high-stakes.' },
+  { t: 'An early tech check', d: "A start-of-course access and technology check makes sure Canvas and the live platform work for you, with clear reminders of the minimum device you'll need." },
+  { t: 'Someone who reaches out', d: "If you miss work or a few scores dip, your instructor follows up with a quick check-in or a short study plan — you're not left to sort it out alone." },
+  { t: 'Access options where approved', d: 'An FEI support route is available, along with documented accommodations or campus-equipment options where approved.' },
 ];
 
 const faqs = [
-  { q: `Is this a job-training program?`, a: `No. ITP 1100 is a course that prepares you for the CompTIA Tech+ certification exam. It builds foundational IT knowledge and readiness for the exam, which is taken separately through CompTIA.` },
-  { q: `Do I need any experience to start?`, a: `None. Tech+ Fundamentals is a beginner course. You should be comfortable using a computer and have reliable internet, but no prior IT coursework is required.` },
-  { q: `Is the CompTIA exam included?`, a: `Academic completion of ITP 1100 is separate from the external CompTIA Tech+ exam. The course prepares you for the exam; you register for and sit the exam through CompTIA. Ask an advisor about current voucher and scheduling options.` },
-  { q: `How is the course delivered?`, a: `Online through the Canvas learning platform, with two instructor-led live sessions each week (about 60 minutes) plus guided practice and knowledge checks.` },
+  { q: 'Do I need any experience to start?', a: 'None. Tech+ Fundamentals is a beginner-level course with no prerequisite. You need basic digital literacy, a reliable computer and internet, and time to join the live sessions and complete coursework.' },
+  { q: 'Is this a job-training program?', a: 'No. ITP 1100 is course and exam preparation, not a job-placement program. What you learn is relevant to entry-level technology-support, help desk, desktop-support, and computer-technician paths, but FEI does not promise employment.' },
+  { q: 'What exactly do I earn when I finish?', a: 'You complete ITP 1100 academically through your coursework, at least 80% cumulative attendance, and a 2.0 GPA. The CompTIA Tech+ credential is separate — it is earned only by passing CompTIA’s external exam.' },
+  { q: 'Is the CompTIA exam included in the course?', a: 'The course prepares you for it, but the CompTIA Tech+ (FC0-U71) exam is administered separately by CompTIA and scheduled through Pearson VUE. It has up to 70 multiple-choice questions, 60 minutes, and a passing score of 650. Ask an advisor about voucher options.' },
+  { q: 'How is the course delivered?', a: 'Fully online through Canvas, with two instructor-led live sessions of about 60 minutes each week over Microsoft Teams, plus modules, the approved study guide, guided examples, and ongoing knowledge checks. Classes stay small — 15 to 20 students, and no more than 25 per instructor.' },
+  { q: 'What computer do I need?', a: "A reliable laptop or desktop, stable internet, a modern web browser, and a microphone or headset for live sessions. A mobile phone on its own isn't enough. There's no lab kit or specialized hardware to buy." },
 ];
+
+const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg><svg class="acc-ico__u" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></span>';
 ---
 <BaseLayout
   title={`ITP 1100 — Tech+ Fundamentals (CompTIA ${COURSE_PREP_LABEL}) | Florida Education Institute`}
-  description="ITP 1100 Tech+ Fundamentals is a beginner online course at FEI that prepares you for the CompTIA Tech+ (FC0-U71) certification exam across its six domains."
+  description="ITP 1100 Tech+ Fundamentals is a beginner online course at FEI that prepares you for the CompTIA Tech+ (FC0-U71) certification exam across its six domains — four weeks, fully online, with live instructor-led sessions."
   megaMenu
   noindex
 >
@@ -47,7 +88,7 @@ const faqs = [
       <div class="phero__copy">
         <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> CompTIA {COURSE_PREP_LABEL} · Foundations</p>
         <h1 class="phero__title reveal" data-delay="1">Tech+ Fundamentals</h1>
-        <p class="phero__lede reveal" data-delay="2">A beginner-friendly course that builds your IT foundation and prepares you for the CompTIA Tech+ (FC0-U71) certification exam — computing concepts, infrastructure, applications, software development, data, and security.</p>
+        <p class="phero__lede reveal" data-delay="2">A beginner-friendly course that builds your IT foundation and prepares you for the CompTIA Tech+ (FC0-U71) certification exam — computing concepts, infrastructure, applications, software development, data, and security. Four weeks, fully online, with two live sessions a week and small classes of 15 to 20 students.</p>
         <div class="hero__cta reveal" data-delay="3">
           <a href="/apply" class="btn btn--solid btn--lg" data-apply>Request info
             <Fragment set:html={arrow} />
@@ -63,38 +104,38 @@ const faqs = [
     <div class="factbar__inner">
       <div class="factbar__item">
         <span class="factbar__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
-        <span class="factbar__txt"><strong>ITP 1100</strong><span>Course code</span></span>
+        <span class="factbar__txt"><strong>ITP 1100</strong><span>Course code · Tech+ Fundamentals</span></span>
       </div>
       <div class="factbar__item">
         <span class="factbar__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4-8 4-8-4 8-4z"/><path d="M4 11v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5"/></svg></span>
-        <span class="factbar__txt"><strong>CompTIA Tech+</strong><span>Prepares for FC0-U71</span></span>
+        <span class="factbar__txt"><strong>CompTIA Tech+ · FC0-U71</strong><span>Prepares for the certification exam</span></span>
       </div>
       <div class="factbar__item">
         <span class="factbar__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
-        <span class="factbar__txt"><strong>4 weeks · 4 credits</strong><span>Course length</span></span>
+        <span class="factbar__txt"><strong>4 weeks · 4 credits</strong><span>Fully online</span></span>
       </div>
       <div class="factbar__item">
         <span class="factbar__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 20h8M12 17v3"/></svg></span>
-        <span class="factbar__txt"><strong>Online · live</strong><span>Instructor-led</span></span>
+        <span class="factbar__txt"><strong>2 live sessions / week</strong><span>~60 min each · on Microsoft Teams</span></span>
       </div>
     </div>
   </aside>
 
-  <!-- OVERVIEW -->
+  <!-- 1 · OVERVIEW -->
   <section class="section pblock">
     <div class="pblock__grid">
       <div>
-        <p class="kicker">The Course</p>
+        <p class="kicker">The course</p>
         <h2 class="section__title section__title--sm">Your foundation<br/>in IT.</h2>
       </div>
       <div>
-        <p class="pblock__text">Tech+ Fundamentals is the entry point of FEI's IT pathway. It introduces the vocabulary and concepts that every IT role builds on — how computers and networks work, how software and operating systems are used, how data is stored, and how security protects it — and gets you ready to sit the CompTIA Tech+ certification exam.</p>
-        <p class="pblock__text" style="margin-top:1rem">No background is assumed. You learn through instructor-led online sessions and guided practice, then move on to certificate-track courses when you're ready.</p>
+        <p class="pblock__text">Tech+ Fundamentals introduces the core ideas you need to understand modern technology and start an IT education pathway. You'll explore computing terminology, devices and infrastructure, operating systems and applications, basic networking, cloud and virtualization, software-development concepts, data and databases, troubleshooting, and everyday security.</p>
+        <p class="pblock__text" style="margin-top:1rem">It's designed for beginners who want a practical foundation before moving into hardware, operating systems, networking, cybersecurity, or cloud-support coursework. No background is assumed — you learn through instructor-led online sessions and guided practice, then continue to the certificate tracks when you're ready.</p>
       </div>
     </div>
   </section>
 
-  <!-- WHAT YOU'LL LEARN -->
+  <!-- 2 · WHAT YOU'LL LEARN -->
   <section class="section pblock pblock--tint">
     <div class="pblock__grid">
       <div>
@@ -102,51 +143,59 @@ const faqs = [
         <h2 class="section__title section__title--sm">Skills you'll<br/>build.</h2>
       </div>
       <ul class="curriculum-list">
-        <li>Explain fundamental computing concepts and troubleshoot common issues methodically</li>
-        <li>Identify devices, internal components, and how they connect</li>
-        <li>Describe networking, cloud, and operating-system concepts</li>
-        <li>Use applications, web browsers, and collaboration and productivity tools</li>
-        <li>Understand software development, data, databases, and backups</li>
-        <li>Apply everyday security, privacy, authentication, and encryption practices</li>
+        {outcomes.map((o) => <li>{o}</li>)}
       </ul>
     </div>
   </section>
 
-  <!-- CERTIFICATION ALIGNMENT -->
+  <!-- 3 · EXAM ALIGNMENT -->
   <section class="section pblock">
     <div class="pblock__grid">
       <div>
         <p class="kicker">Exam alignment</p>
-        <h2 class="section__title section__title--sm">Mapped to the<br/>Tech+ exam.</h2>
+        <h2 class="section__title section__title--sm">Mapped to<br/>the Tech+ exam.</h2>
       </div>
       <div>
-        <p class="pblock__text">The course is organized around the six domains of the CompTIA Tech+ (FC0-U71) certification exam, so your coursework and your exam preparation move together.</p>
+        <p class="pblock__text">The course is organized around the six domains of the CompTIA Tech+ (FC0-U71 V6) exam, so your coursework and your exam preparation move together. Each week connects back to these domains, and your knowledge checks are written to the same objectives you'll see on the exam.</p>
         <div class="cp-domains">
           {domains.map((d) => (
             <div class="cp-domain"><strong>{d.n}</strong><span>{d.d}</span></div>
           ))}
         </div>
-        <p class="cp-note"><strong>About the exam:</strong> CompTIA Tech+ (FC0-U71) is a single exam of up to 70 questions in 60 minutes, with a passing score of 650 (on a 100–900 scale). It is administered by CompTIA and taken separately from this course.</p>
       </div>
     </div>
   </section>
 
-  <!-- WEEKLY SEQUENCE -->
+  <!-- 4 · FOUR-WEEK SEQUENCE -->
   <section class="section pblock pblock--tint">
-    <div class="pblock__grid">
-      <div>
-        <p class="kicker">Weekly sequence</p>
-        <h2 class="section__title section__title--sm">Four weeks,<br/>step by step.</h2>
-      </div>
-      <ol class="steps steps--compact">
-        {weeks.map((w, i) => (
-          <li class="step"><span class="step__no">{i + 1}</span><h3>Week {i + 1} — {w.t}</h3><p>{w.d}</p></li>
-        ))}
-      </ol>
+    <div class="section__head section__head--center">
+      <p class="kicker">Weekly sequence</p>
+      <h2 class="section__title">Four weeks, step by step.</h2>
+      <p class="section__intro">Each of the four academic weeks builds on the last — vocabulary and troubleshooting first, then infrastructure and networking, then applications and software concepts, and finally data, databases, and security with an integrated review. Knowledge checks and support run throughout, so nothing sneaks up on you.</p>
     </div>
+    <ol class="cp-journey">
+      {weeks.map((w, i) => (
+        <li class="cp-leg">
+          <span class="cp-leg__no">{i + 1}</span>
+          <div class="cp-leg__body">
+            <p class="cp-leg__wk">{w.wk}</p>
+            <h3>{w.t}</h3>
+            <p>{w.d}</p>
+          </div>
+        </li>
+      ))}
+      <li class="cp-leg cp-leg--goal">
+        <span class="cp-leg__no" aria-hidden="true">★</span>
+        <div class="cp-leg__body">
+          <p class="cp-leg__wk">Ongoing</p>
+          <h3>Objective-aligned knowledge checks and student support</h3>
+          <p>Throughout the course: Canvas quizzes, guided practice, live Q&amp;A, and early outreach so any weak areas are spotted well before your next pathway course.</p>
+        </div>
+      </li>
+    </ol>
   </section>
 
-  <!-- DELIVERY -->
+  <!-- 5 · DELIVERY -->
   <section class="section pblock">
     <div class="pblock__grid">
       <div>
@@ -154,89 +203,195 @@ const faqs = [
         <h2 class="section__title section__title--sm">Online, live,<br/>and guided.</h2>
       </div>
       <div>
-        <p class="pblock__text">Coursework is delivered online through the Canvas learning platform. Each week includes two instructor-led live sessions of about 60 minutes over Microsoft Teams, plus guided practice, readings, and ongoing knowledge checks so you always know where you stand.</p>
-        <p class="pblock__text" style="margin-top:1rem">You study around work and family, with an instructor who knows your name and can answer questions in real time.</p>
+        <p class="pblock__text">Coursework is delivered online through Canvas. Each week includes two instructor-led live sessions of about 60 minutes over Microsoft Teams, plus Canvas modules, the approved study guide, guided examples, and ongoing knowledge checks so you always know where you stand. When recordings or equivalent materials are available, you'll have access to them. Classes are kept small — 15 to 20 students, and no more than 25 per instructor — so you get real attention, a clear weekly roadmap, due dates, and an easy way to ask for help.</p>
+        <ul class="chips-list" style="margin-top:1rem">
+          <li>Online</li>
+          <li>Canvas LMS</li>
+          <li>Live on Microsoft Teams</li>
+          <li>2 live sessions / week · ~60 min</li>
+          <li>Recordings when available</li>
+          <li>15–20 students · max 25 per instructor</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- PREREQUISITES / WHO SHOULD ENROLL -->
+  <!-- 6 · WHAT TO EXPECT FROM YOUR INSTRUCTOR -->
   <section class="section pblock pblock--tint">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">Your instructor</p>
+        <h2 class="section__title section__title--sm">What to expect<br/>from your instructor.</h2>
+      </div>
+      <div>
+        <p class="pblock__text">Your instructor delivers the live sessions, explains concepts, demonstrates practical examples, and guides your practice — but the support goes further than class time. Here's the standard the course is built around.</p>
+      </div>
+    </div>
+    <div class="cp-pledge">
+      {pledge.map((p) => (
+        <div class="cp-pledge__item"><strong>{p.t}</strong><span>{p.d}</span></div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 7 · WHO SHOULD ENROLL -->
+  <section class="section pblock">
     <div class="pblock__grid">
       <div>
         <p class="kicker">Who should enroll</p>
         <h2 class="section__title section__title--sm">Built for<br/>beginners.</h2>
       </div>
       <div>
-        <p class="pblock__text"><strong>Prerequisites:</strong> none. This is a beginner course — you only need basic digital literacy and a reliable computer and internet connection.</p>
+        <p class="pblock__text">This is a beginner-level course, and the prerequisite is none. You should have basic digital literacy, regular access to a reliable computer and internet, and time to join the live sessions and complete coursework.</p>
         <ul class="chips-list" style="margin-top:1rem">
           <li>New to IT and exploring the field</li>
           <li>Planning to pursue CompTIA certifications</li>
           <li>Building a base before the certificate tracks</li>
         </ul>
-        <p class="pblock__text pblock__text--note">A grade of C or higher lets you continue to ITP 1200 and the Computer Technician track.</p>
+        <p class="pblock__text pblock__text--note">A grade of C or higher lets you progress to ITP 1200 — Computer Hardware and Support. Already experienced? You can submit documented equivalent college coursework, relevant experience, or an active related credential for review for advanced entry into later courses.</p>
       </div>
     </div>
   </section>
 
-  <!-- MATERIALS & TECHNOLOGY -->
-  <section class="section pblock">
-    <div class="pblock__grid">
-      <div>
-        <p class="kicker">Materials & technology</p>
-        <h2 class="section__title section__title--sm">What you'll<br/>need.</h2>
-      </div>
-      <ul class="curriculum-list">
-        <li>FEI-approved CompTIA Tech+ study guide (provided digitally)</li>
-        <li>Canvas quizzes, practice activities, and knowledge checks</li>
-        <li>A reliable laptop or desktop computer</li>
-        <li>A stable internet connection and a current web browser</li>
-        <li>A microphone/headset for live sessions</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- EXAM READINESS NOTE -->
+  <!-- 8 · COURSEWORK VS CERTIFICATION -->
   <section class="section pblock pblock--tint">
     <div class="pblock__grid">
       <div>
-        <p class="kicker">Exam readiness</p>
-        <h2 class="section__title section__title--sm">Coursework and<br/>certification.</h2>
+        <p class="kicker">Coursework vs. certification</p>
+        <h2 class="section__title section__title--sm">Two milestones,<br/>kept separate.</h2>
       </div>
       <div>
-        <p class="pblock__text">This course is designed to prepare you thoroughly for the CompTIA Tech+ exam. Completing the course academically is <strong>separate</strong> from earning the certification: the credential is issued by CompTIA once you pass their external exam.</p>
-        <p class="cp-note"><strong>Good to know:</strong> your instructor and advisor help you gauge exam readiness through practice checks along the way. When you're ready, ask your advisor about registering for the Tech+ exam and any available voucher options.</p>
+        <p class="pblock__text">There are two separate finish lines here, and it helps to know the difference.</p>
+      </div>
+    </div>
+    <div class="cp-split">
+      <div class="cp-split__panel cp-split__panel--fei">
+        <span class="cp-split__pill">FEI · academic</span>
+        <h3>Completing ITP 1100</h3>
+        <ul class="cp-split__list">
+          <li>Finish your required coursework and knowledge checks</li>
+          <li>Keep at least 80% cumulative attendance</li>
+          <li>Maintain a 2.0 program GPA</li>
+        </ul>
+        <p class="cp-split__foot">Earned at FEI, by completing the course.</p>
+      </div>
+      <div class="cp-split__divider" aria-hidden="true"><span>Separate &amp; complementary</span></div>
+      <div class="cp-split__panel cp-split__panel--comptia">
+        <span class="cp-split__pill">CompTIA · certification</span>
+        <h3>Earning CompTIA Tech+</h3>
+        <ul class="cp-split__list">
+          <li>A credential issued by CompTIA</li>
+          <li>Earned only by passing the external FC0-U71 exam</li>
+          <li>Scheduled and taken separately through Pearson VUE</li>
+        </ul>
+        <p class="cp-split__foot">Earned from CompTIA, by passing the exam.</p>
+      </div>
+    </div>
+    <p class="pblock__text pblock__text--note" style="max-width:none">This course is built to prepare you thoroughly for that exam, but completing the course and passing the exam are two different milestones, and the course can't guarantee the exam result.</p>
+  </section>
+
+  <!-- 9 · EXAM READINESS -->
+  <section class="section pblock">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">Exam readiness</p>
+        <h2 class="section__title section__title--sm">Getting<br/>exam-ready.</h2>
+      </div>
+      <div>
+        <p class="pblock__text">Readiness is something you can actually see. Along the way you complete objective-aligned practice, and a common readiness marker is scoring at least 85% on two separate practice assessments, plus a review with your instructor of any domains that still feel shaky. When you and your instructor agree you're ready, you plan your exam — the testing timeline sits outside the four academic weeks and depends on your readiness, voucher policy, and Pearson VUE scheduling.</p>
+        <div class="cp-examfacts">
+          <div class="stat"><strong>Up to 70</strong><span>multiple-choice questions</span></div>
+          <div class="stat"><strong>60 min</strong><span>testing time</span></div>
+          <div class="stat"><strong>650</strong><span>passing score</span></div>
+        </div>
+        <div class="cp-note">As published in the CompTIA Tech+ FC0-U71 V6 exam objectives, the exam has up to 70 multiple-choice questions, a 60-minute testing time, and a passing score of 650. The exam is administered separately by CompTIA and scheduled through Pearson VUE; certification is earned only by passing that external exam.</div>
       </div>
     </div>
   </section>
 
-  <!-- CERTIFICATE PATHWAY -->
+  <!-- 10 · HOW YOU'RE ASSESSED -->
+  <section class="section pblock pblock--tint">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">How you're assessed</p>
+        <h2 class="section__title section__title--sm">How your progress<br/>is measured.</h2>
+      </div>
+      <div>
+        <p class="pblock__text">Your grade comes from a steady mix of checks, so you always have a clear picture of where you stand.</p>
+        <ul class="curriculum-list">
+          <li>Canvas quizzes</li>
+          <li>Objective-aligned knowledge checks</li>
+          <li>Guided activities and short demonstrations</li>
+          <li>Practical, real-world scenarios</li>
+          <li>An end-of-course review or assessment</li>
+        </ul>
+        <p class="pblock__text pblock__text--note">To complete the course you finish the required activities, keep at least 80% cumulative attendance, and maintain a 2.0 GPA.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · MATERIALS & TECHNOLOGY -->
+  <section class="section pblock">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">Materials and technology</p>
+        <h2 class="section__title section__title--sm">What<br/>you'll need.</h2>
+      </div>
+      <div>
+        <ul class="curriculum-list">
+          {materials.map((m) => <li><strong>{m.t}.</strong> {m.d}</li>)}
+        </ul>
+        <div class="cp-note">There's no PC-build kit, paid lab package, or specialized hardware to buy — you learn through instructor demonstrations and guided activities on everyday devices.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · THE SUPPORT YOU'LL GET -->
+  <section class="section pblock pblock--tint">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">The support you'll get</p>
+        <h2 class="section__title section__title--sm">You won't<br/>do this alone.</h2>
+      </div>
+      <div>
+        <p class="pblock__text">The material is broad and some of the terms are new — so the course is built to carry you through.</p>
+        <div class="support__services" style="margin-top:1.2rem">
+          <ul>
+            {supports.map((s) => <li><strong>{s.t}.</strong> {s.d}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · PATHWAY -->
   <section class="section pblock">
     <div class="pblock__grid">
       <div>
         <p class="kicker">The pathway</p>
-        <h2 class="section__title section__title--sm">Where this<br/>leads.</h2>
+        <h2 class="section__title section__title--sm">Where<br/>this leads.</h2>
       </div>
       <div>
-        <p class="pblock__text">Tech+ Fundamentals is the shared starting point for FEI's IT certificate tracks. From here you can continue into the Computer Technician and Networking Technician programs, stacking CompTIA certifications as you go.</p>
-        <a href="/course-prep" class="link-arrow">See the full course catalog
+        <p class="pblock__text">Tech+ Fundamentals is the entry point for FEI's Computer Technician (ITC-1000) and Network Technician (ITC-2000) certificates. It builds the vocabulary, confidence, and technical foundation you'll rely on in later support courses. A grade of C or higher lets you continue to ITP 1200 — Computer Hardware and Support.</p>
+        <p class="pblock__text" style="margin-top:1rem">If you already have documented equivalent college coursework, relevant experience, or an active related credential, you can submit it for review for advanced entry into later courses. The knowledge here is relevant to entry-level technology-support, help desk, desktop-support, and computer-technician paths, though FEI does not promise employment or a certification result.</p>
+        <a class="link-arrow" href="/course-prep">See the full course catalog
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- 14 · FAQ -->
   <section class="section pblock pblock--tint">
     <div class="pblock__grid">
       <div>
         <p class="kicker">FAQ</p>
-        <h2 class="section__title section__title--sm">Quick<br/>answers</h2>
+        <h2 class="section__title section__title--sm">Quick<br/>answers.</h2>
       </div>
       <div class="accordion" id="accordion">
         {faqs.map((f, i) => (
           <div class={`acc-item ${i === 0 ? 'is-open' : ''}`}>
-            <button class="acc-trigger" aria-expanded={i === 0 ? 'true' : 'false'}><span>{f.q}</span><span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg><svg class="acc-ico__u" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></span></button>
+            <button class="acc-trigger" aria-expanded={i === 0 ? 'true' : 'false'}><span>{f.q}</span><Fragment set:html={accIco} /></button>
             <div class="acc-panel"><p>{f.a}</p></div>
           </div>
         ))}
@@ -244,12 +399,12 @@ const faqs = [
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- 15 · CTA -->
   <section class="cp-cta">
     <div class="cp-cta__inner">
       <p class="kicker">Ready to start?</p>
       <h2 class="section__title">Begin with Tech+ Fundamentals.</h2>
-      <p class="pblock__text" style="margin:1rem auto 0;max-width:52ch">Request information or start your application, and an FEI advisor will help you plan your start date and next steps.</p>
+      <p class="cp-cta__sub">Request information or start your application, and an FEI advisor will help you plan your start date and next steps.</p>
       <div class="cp-cta__actions">
         <a href="/apply" class="btn btn--solid btn--lg" data-apply>Request info</a>
         <a href="/apply" class="btn btn--outline btn--lg" data-apply>Apply now</a>
