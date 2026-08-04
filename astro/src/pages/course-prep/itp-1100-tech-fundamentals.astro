@@ -19,12 +19,36 @@ const domains = [
 ];
 
 const outcomes = [
-  'Explain foundational computing concepts, everyday technology terminology and measurements, and follow a standard, step-by-step troubleshooting method.',
-  'Identify common computing devices, internal components, storage options, peripheral devices, interfaces, and basic connectivity tools.',
-  "Describe basic networking, internet-service, wireless, virtualization, cloud, and operating-system concepts as they're used in personal and workplace technology.",
-  'Use and configure common software, web-browser features, collaboration tools, and basic operating-system features in real-world scenarios.',
-  'Explain introductory software-development, data, database, backup, and information-management concepts.',
-  'Apply fundamental security, privacy, authentication, password, device-protection, encryption, and small-wireless-network security practices.',
+  { k: 'Concepts', d: 'Explain foundational computing concepts, everyday technology terminology and measurements, and follow a standard, step-by-step troubleshooting method.' },
+  { k: 'Hardware', d: 'Identify common computing devices, internal components, storage options, peripheral devices, interfaces, and basic connectivity tools.' },
+  { k: 'Networks', d: "Describe basic networking, internet-service, wireless, virtualization, cloud, and operating-system concepts as they're used in personal and workplace technology." },
+  { k: 'Software', d: 'Use and configure common software, web-browser features, collaboration tools, and basic operating-system features in real-world scenarios.' },
+  { k: 'Data', d: 'Explain introductory software-development, data, database, backup, and information-management concepts.' },
+  { k: 'Security', d: 'Apply fundamental security, privacy, authentication, password, device-protection, encryption, and small-wireless-network security practices.' },
+];
+
+// Assessment methods (§10) and enrolment profiles (§7) — short labels, laid out
+// as tiles/cards rather than another check-list so the page does not repeat the
+// same list treatment four times.
+const assessments = [
+  'Canvas quizzes',
+  'Objective-aligned knowledge checks',
+  'Guided activities and short demonstrations',
+  'Practical, real-world scenarios',
+  'An end-of-course review or assessment',
+];
+
+const profiles = [
+  { t: 'New to IT', d: 'Exploring the field and starting from the beginning.' },
+  { t: 'Certification-bound', d: 'Planning to pursue CompTIA certifications.' },
+  { t: 'Building a base', d: 'Getting ready for the certificate tracks.' },
+];
+
+const matIcons = [
+  '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h11l4 4v12H4z"/><path d="M8 11h7M8 15h5"/></svg>',
+  '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M9 11l2.5 2.5L16 9"/><circle cx="12" cy="12" r="9"/></svg>',
+  '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 20h8M12 17v3"/></svg>',
+  '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="5" width="19" height="12" rx="1.5"/><path d="M2 20h20"/></svg>',
 ];
 
 const weeks = [
@@ -142,9 +166,14 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
         <p class="kicker">What you'll learn</p>
         <h2 class="section__title">Skills you'll<br/>build.</h2>
       </div>
-      <ul class="curriculum-list curriculum-list--3col">
-        {outcomes.map((o) => <li>{o}</li>)}
-      </ul>
+      <div class="cp-outcomes">
+        {outcomes.map((o, i) => (
+          <article class="cp-outcome">
+            <span class="cp-outcome__no">{String(i + 1).padStart(2, '0')} / {o.k}</span>
+            <p>{o.d}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -223,8 +252,8 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
         <p class="section__intro section__intro--wide">Your instructor delivers the live sessions, explains concepts, demonstrates practical examples, and guides your practice — but the support goes further than class time. Here's the standard the course is built around.</p>
       </div>
       <div class="cp-pledge">
-        {pledge.map((p) => (
-          <div class="cp-pledge__item"><strong>{p.t}</strong><span>{p.d}</span></div>
+        {pledge.map((p, i) => (
+          <div class={`cp-pledge__item ${i === 0 ? 'cp-pledge__item--lead' : ''}`}><strong>{p.t}</strong><span>{p.d}</span></div>
         ))}
       </div>
     </div>
@@ -238,12 +267,12 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
         <h2 class="section__title">Built for<br/>beginners.</h2>
         <p class="section__intro section__intro--wide">This is a beginner-level course, and the prerequisite is none. You should have basic digital literacy, regular access to a reliable computer and internet, and time to join the live sessions and complete coursework.</p>
       </div>
-      <ul class="chips-list chips-list--center">
-        <li>New to IT and exploring the field</li>
-        <li>Planning to pursue CompTIA certifications</li>
-        <li>Building a base before the certificate tracks</li>
-      </ul>
-      <p class="pblock__text pblock__text--note pstack--narrow" style="text-align:center; margin-top:1.2rem">A grade of C or higher lets you progress to ITP 1200 — Computer Hardware and Support. Already experienced? You can submit documented equivalent college coursework, relevant experience, or an active related credential for review for advanced entry into later courses.</p>
+      <div class="cp-profiles">
+        {profiles.map((p) => (
+          <div class="cp-profile"><strong>{p.t}</strong><span class="pblock__text">{p.d}</span></div>
+        ))}
+      </div>
+      <p class="pblock__text pblock__text--note pstack--narrow" style="text-align:center; margin-top:1.4rem">A grade of C or higher lets you progress to ITP 1200 — Computer Hardware and Support. Already experienced? You can submit documented equivalent college coursework, relevant experience, or an active related credential for review for advanced entry into later courses.</p>
     </div>
   </section>
 
@@ -309,13 +338,9 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
         <h2 class="section__title">How your progress<br/>is measured.</h2>
         <p class="section__intro">Your grade comes from a steady mix of checks, so you always have a clear picture of where you stand.</p>
       </div>
-      <ul class="curriculum-list curriculum-list--3col">
-        <li>Canvas quizzes</li>
-        <li>Objective-aligned knowledge checks</li>
-        <li>Guided activities and short demonstrations</li>
-        <li>Practical, real-world scenarios</li>
-        <li>An end-of-course review or assessment</li>
-      </ul>
+      <div class="cp-tiles">
+        {assessments.map((a) => <span class="cp-tile">{a}</span>)}
+      </div>
       <p class="pblock__text pblock__text--note pstack--narrow" style="text-align:center; margin-top:1.2rem">To complete the course you finish the required activities, keep at least 80% cumulative attendance, and maintain a 2.0 GPA.</p>
     </div>
   </section>
@@ -327,9 +352,14 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
         <p class="kicker">Materials and technology</p>
         <h2 class="section__title">What<br/>you'll need.</h2>
       </div>
-      <ul class="curriculum-list curriculum-list--3col">
-        {materials.map((m) => <li><strong>{m.t}.</strong> {m.d}</li>)}
-      </ul>
+      <div class="cp-mats">
+        {materials.map((m, i) => (
+          <div class="cp-mat">
+            <span class="cp-mat__ico"><Fragment set:html={matIcons[i]} /></span>
+            <div><strong>{m.t}</strong><span>{m.d}</span></div>
+          </div>
+        ))}
+      </div>
       <div class="cp-note pstack--narrow">There's no PC-build kit, paid lab package, or specialized hardware to buy — you learn through instructor demonstrations and guided activities on everyday devices.</div>
     </div>
   </section>
@@ -359,10 +389,14 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
         <p class="kicker">The pathway</p>
         <h2 class="section__title">Where<br/>this leads.</h2>
       </div>
-      <div class="pstack--narrow" style="text-align:center">
+      <div class="cp-certs">
+        <div class="cp-certbadge"><b>ITC-1000</b><span>Computer Technician Certificate</span></div>
+        <div class="cp-certbadge"><b>ITC-2000</b><span>Network Technician Certificate</span></div>
+      </div>
+      <div class="pstack--narrow">
         <p class="pblock__text">Tech+ Fundamentals is the entry point for FEI's Computer Technician (ITC-1000) and Network Technician (ITC-2000) certificates. It builds the vocabulary, confidence, and technical foundation you'll rely on in later support courses. A grade of C or higher lets you continue to ITP 1200 — Computer Hardware and Support.</p>
         <p class="pblock__text">If you already have documented equivalent college coursework, relevant experience, or an active related credential, you can submit it for review for advanced entry into later courses. The knowledge here is relevant to entry-level technology-support, help desk, desktop-support, and computer-technician paths, though FEI does not promise employment or a certification result.</p>
-        <a class="link-arrow" href="/course-prep" style="justify-content:center">See the full course catalog
+        <a class="link-arrow" href="/course-prep">See the full course catalog
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
         </a>
       </div>
@@ -376,7 +410,7 @@ const accIco = '<span class="acc-ico" aria-hidden="true"><svg class="acc-ico__d"
         <p class="kicker">FAQ</p>
         <h2 class="section__title">Quick<br/>answers.</h2>
       </div>
-      <div class="accordion pstack--narrow" id="accordion" style="max-width:900px">
+      <div class="accordion pstack--narrow" id="accordion">
         {faqs.map((f, i) => (
           <div class={`acc-item ${i === 0 ? 'is-open' : ''}`}>
             <button class="acc-trigger" aria-expanded={i === 0 ? 'true' : 'false'}><span>{f.q}</span><Fragment set:html={accIco} /></button>
