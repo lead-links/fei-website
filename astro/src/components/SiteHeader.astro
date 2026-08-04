@@ -2,11 +2,14 @@
 import LangSwitch from './LangSwitch.astro';
 import { href, locales, type Lang } from '../i18n/routes';
 import { t } from '../i18n/ui';
+import { IT_GROUPS, coursesByGroup, COURSE_PREP_LABEL } from '../data/course-prep';
 
 // i18n-aware chrome. English at the root, Spanish under /es/ with localized slugs.
 // Use locales() so the .html/trailing-slash forms (e.g. /es.html) are detected too.
-interface Props { forceStuck?: boolean }
-const { forceStuck = false } = Astro.props;
+// `mega` swaps the Programs item for the CompTIA "Course Prep" mega menu — used only
+// on the (noindex, in-approval) /course-prep pages, so the live site nav is untouched.
+interface Props { forceStuck?: boolean; mega?: boolean }
+const { forceStuck = false, mega = false } = Astro.props;
 const isEs = locales(Astro.url.pathname).isEs;
 const lang: Lang = isEs ? 'es' : 'en';
 const s = t(lang).nav;
@@ -40,7 +43,48 @@ const applyHref = href('/apply', lang);
     </a>
 
     <nav class="nav__links" aria-label="Primary">
-      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      {mega ? (
+        <Fragment>
+          <div class="nav__mega">
+            <button class="nav__mega-trigger" type="button" aria-expanded="false">Programs &amp; Courses
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="mega-panel">
+              <div class="mega-panel__inner">
+                <div class="mega-panel__aside">
+                  <p class="mega-eyebrow">FEI Programs</p>
+                  <p class="mega-aside__lede">Our career-focused diploma and associate degree programs.</p>
+                  <a href="/programs" class="mega-aside__link">Explore all programs
+                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+                  </a>
+                </div>
+                <div class="mega-panel__main">
+                  <p class="mega-eyebrow">{COURSE_PREP_LABEL} · CompTIA</p>
+                  <div class="mega-grid">
+                    {IT_GROUPS.map((g) => (
+                      <div class="mega-group">
+                        <p class="mega-group__name">{g.name}</p>
+                        <p class="mega-group__exam">{g.exam}</p>
+                        <ul class="mega-group__list">
+                          {coursesByGroup(g.key).map((c) => (
+                            <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                  <a href="/course-prep" class="mega-main__cta">View the full course catalog
+                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {links.slice(1).map((l) => <a href={l.href}>{l.label}</a>)}
+        </Fragment>
+      ) : (
+        links.map((l) => <a href={l.href}>{l.label}</a>)
+      )}
     </nav>
 
     <div class="nav__actions">
@@ -57,6 +101,7 @@ const applyHref = href('/apply', lang);
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <button class="mobile-menu__close" type="button" aria-label={s.closeMenu}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    {mega && <a href="/course-prep">{COURSE_PREP_LABEL} · CompTIA</a>}
     <a href={applyHref} class="btn btn--solid" data-apply>{s.apply}</a>
   </div>
 </header>

@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { IT_GROUPS, coursesByGroup, COURSE_PREP_LABEL } from '../../data/course-prep';
+
+// Course catalog for FEI's CompTIA "Course Prep" (IT) section. IN APPROVAL:
+// noindex + mega menu; working-draft copy, course-prep framed (exam prep, not jobs).
+const arrow = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const totalCourses = IT_GROUPS.reduce((n, g) => n + coursesByGroup(g.key).length, 0);
+---
+<BaseLayout
+  title={`IT ${COURSE_PREP_LABEL} — CompTIA Certification Pathways | Florida Education Institute`}
+  description="Explore FEI's CompTIA course-prep pathways in Miami — foundations, computer technician, networking technician and cybersecurity. Courses that prepare you for the external CompTIA certification exams."
+  megaMenu
+  noindex
+>
+  <div id="feiProgramMeta" data-program="IT Course Prep" data-program-type="CompTIA Course Prep" hidden></div>
+
+  <!-- HERO -->
+  <section class="phero phero--page">
+    <div class="hero__bg" style="background-image:url('/img/students.jpg')" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="phero__inner">
+      <div class="phero__copy">
+        <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Miami, Florida · CompTIA {COURSE_PREP_LABEL}</p>
+        <h1 class="phero__title reveal" data-delay="1">Prepare for CompTIA<br/>certifications.</h1>
+        <p class="phero__lede reveal" data-delay="2">A guided pathway of instructor-led courses that prepare you for the industry-standard CompTIA certification exams — from digital-literacy foundations to networking and cybersecurity. You complete your coursework at FEI and sit for the certification exam externally.</p>
+        <div class="hero__cta reveal" data-delay="3">
+          <a href="/apply" class="btn btn--solid btn--lg" data-apply>Request info
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+          </a>
+          <a href="/apply" class="btn btn--outline btn--lg btn--outline-light" data-apply>Apply now</a>
+        </div>
+        <ul class="cp-snapshot reveal" data-delay="4">
+          <li><span class="cp-snapshot__v">{totalCourses} courses</span><span class="cp-snapshot__k">Guided pathway</span></li>
+          <li><span class="cp-snapshot__v">3 certificate tracks</span><span class="cp-snapshot__k">+ foundations</span></li>
+          <li><span class="cp-snapshot__v">Online · live</span><span class="cp-snapshot__k">Instructor-led</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section pblock">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">The Pathway</p>
+        <h2 class="section__title section__title--sm">Course prep for<br/>the CompTIA exams.</h2>
+      </div>
+      <div>
+        <p class="pblock__text">Each course maps to the objectives of a specific CompTIA certification exam and builds hands-on skill through instructor-led online sessions and guided practice. The pathway moves from foundations to specialized tracks so you can stack credentials at your own pace.</p>
+        <p class="pblock__text" style="margin-top:1rem"><strong>How certification works:</strong> your FEI course prepares you for the exam; the CompTIA certification itself is earned by passing the external exam, taken separately.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOG -->
+  <section class="section" id="catalog" style="padding-top:0">
+    <div class="section__head">
+      <div>
+        <p class="kicker">The Catalog</p>
+        <h2 class="section__title">Every course.</h2>
+      </div>
+      <p class="section__intro">Browse the full pathway grouped by certificate. New courses are being finalized and added.</p>
+    </div>
+
+    <div class="cp-groups">
+      {IT_GROUPS.map((g) => (
+        <div class="cp-group" id={g.key}>
+          <div class="cp-group__head">
+            <p class="cp-group__name">{g.name}</p>
+            <p class="cp-group__exam">Prepares for: {g.exam}</p>
+          </div>
+          <div class="cp-cards">
+            {coursesByGroup(g.key).map((c) => (
+              c.built ? (
+                <a href={`/course-prep/${c.slug}`} class="cp-card">
+                  <div class="cp-card__top"><span class="cp-card__code">{c.code}</span><span class="cp-card__meta">{c.weeks} wks · {c.credits} cr</span></div>
+                  <span class="cp-card__title">{c.title}</span>
+                  <span class="cp-card__exam">{c.exam}</span>
+                  <span class="cp-card__desc">{c.description}</span>
+                  <span class="cp-card__cta">View course<Fragment set:html={arrow} /></span>
+                </a>
+              ) : (
+                <div class="cp-card">
+                  <div class="cp-card__top"><span class="cp-card__code">{c.code}</span><span class="cp-card__meta">{c.weeks} wks · {c.credits} cr</span></div>
+                  <span class="cp-card__title">{c.title}</span>
+                  <span class="cp-card__exam">{c.exam}</span>
+                  <span class="cp-card__desc">{c.description}</span>
+                  <span class="cp-card__soon">Course page in progress</span>
+                </div>
+              )
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cp-cta">
+    <div class="cp-cta__inner">
+      <p class="kicker">Ready to start?</p>
+      <h2 class="section__title">Talk to an IT advisor.</h2>
+      <p class="pblock__text" style="margin:1rem auto 0;max-width:52ch">Request information or start your application, and a dedicated FEI advisor for the IT pathways will reach out to help you choose your starting point.</p>
+      <div class="cp-cta__actions">
+        <a href="/apply" class="btn btn--solid btn--lg" data-apply>Request info</a>
+        <a href="/apply" class="btn btn--outline btn--lg" data-apply>Apply now</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

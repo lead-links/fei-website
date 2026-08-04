@@ -25,6 +25,7 @@ interface Props {
   ogType?: string;
   hideFooter?: boolean;    // full-bleed pages (e.g. embedded tools) that render no footer
   forceStuckNav?: boolean; // render the nav permanently solid (no dark hero behind it)
+  megaMenu?: boolean;      // use the CompTIA "Course Prep" mega menu (in-approval /course-prep pages)
   noindex?: boolean;       // thin/utility pages (search, calculator, 404) — keep out of the index
   jsonLd?: object | object[]; // structured data (schema.org) objects to emit as ld+json
   publishedTime?: string | null; // article:published_time (blog posts)
@@ -33,7 +34,7 @@ interface Props {
 }
 const {
   title, description, canonical, image, ogType = 'website',
-  hideFooter = false, forceStuckNav = false, noindex = false,
+  hideFooter = false, forceStuckNav = false, megaMenu = false, noindex = false,
   jsonLd, publishedTime, modifiedTime, author,
 } = Astro.props;
 // Clean URL for og:url — strip the built .html/index.html so it matches the site's clean links.
@@ -118,7 +119,7 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <!-- End Google Tag Manager (noscript) -->
     <a href="#top" class="sr-only sr-only-focusable">{t(lang).nav.skipToContent}</a>
     <div class="grain" aria-hidden="true"></div>
-    <SiteHeader forceStuck={forceStuckNav} />
+    <SiteHeader forceStuck={forceStuckNav} mega={megaMenu} />
     <main id="top" tabindex="-1"><slot /></main>
     {!hideFooter && <SiteFooter />}
     <ApplyModal lang={lang} />

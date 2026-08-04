@@ -174,6 +174,16 @@
       var pType = progMeta.getAttribute("data-program-type") || "";
       if (pName) {
         progSelect.value = pName;
+        // If pName isn't one of the standard dropdown options (e.g. an in-approval
+        // IT "Course Prep" course), inject it so the value sticks and the lead still
+        // carries the program. The field is hidden here, so this never shows in the UI.
+        if (progSelect.value !== pName) {
+          var injOpt = document.createElement("option");
+          injOpt.value = pName;
+          injOpt.textContent = pName;
+          progSelect.appendChild(injOpt);
+          progSelect.value = pName;
+        }
         progField.hidden = true;
         if (titleEl) {
           var applyTo = titleEl.getAttribute("data-apply-to") || "Apply to";
