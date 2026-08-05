@@ -1,22 +1,13 @@
 ---
-// Shared body for the ITP 1100 course page: every section below the hero.
-// Version B is the approved format; the official page (A) and B render this same
-// component and differ only in their hero. Styles live in global.css under the
-// namespaced .ib-* block so both pages get them without duplicating ~270 lines.
+// Shared body for the ITP 1100 course page: every section from ABOUT onward.
+// Version B is the approved content format; the official page (A) and B render
+// this same component. The hero AND the stats bar right under it are each page's
+// own point of difference (A: photographic hero + its standard .factbar; B: blue
+// gradient hero + .ib-stats) — both render their bar BEFORE this component.
+// Everything else lives here so it stays in sync. Styles live in global.css
+// under the namespaced .ib-* block so both pages get them without duplication.
 const arrow = '<span class="ib-arw" aria-hidden="true">→</span>';
 ---
-    <!-- ==================== STATS ==================== -->
-    <section class="ib-stats" aria-label="Course at a glance">
-      <div class="ib-wrap">
-        <div class="ib-stats__grid">
-          <div class="ib-stat ib-rv"><b>4<em>×</em></b><span>Academic<br/>instructional weeks</span></div>
-          <div class="ib-stat ib-rv ib-d1"><b>4</b><span>College<br/>credits</span></div>
-          <div class="ib-stat ib-rv ib-d2"><b>6</b><span>CompTIA Tech+<br/>exam domains</span></div>
-          <div class="ib-stat ib-rv ib-d3"><b>2<em>/wk</em></b><span>Instructor-led<br/>live sessions</span></div>
-        </div>
-      </div>
-    </section>
-
     <!-- ==================== ABOUT ==================== -->
     <section class="ib-band">
       <div class="ib-wrap ib-about__grid">
