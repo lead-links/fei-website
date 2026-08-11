@@ -19,38 +19,43 @@ const isEs = lang === 'es';
 const STRINGS = isEs
   ? {
       kicker: 'Navegar', title: 'Mapa del sitio', lede: 'Todas las páginas de fei.edu, en un solo lugar.',
-      mainPages: 'Páginas principales', programs: 'Programas',
+      mainPages: 'Páginas principales', legal: 'Legal', programs: 'Programas',
       langSwitchLabel: 'Ver páginas en inglés', langSwitchHref: '/sitemap',
     }
   : {
       kicker: 'Navigate', title: 'Sitemap', lede: 'Every page on fei.edu, in one place.',
-      mainPages: 'Main pages', programs: 'Programs',
+      mainPages: 'Main pages', legal: 'Legal', programs: 'Programs',
       langSwitchLabel: 'Check pages in Spanish', langSwitchHref: PAGE_ES['/sitemap'],
     };
 
 // Main pages: one canonical EN-keyed list with both labels, so the two pages
 // can never drift out of sync with each other or with the real PAGE_ES map.
+// Blog and Programs aren't listed here — each gets its own full section further
+// down the page (Programs by category, Blog with its categories/posts), so a
+// plain link here would just be redundant.
 const MAIN_PAGES_SRC = [
   { en: '/', enLabel: 'Home', esLabel: 'Inicio' },
-  { en: '/programs', enLabel: 'Programs', esLabel: 'Programas' },
   { en: '/about', enLabel: 'About FEI', esLabel: 'Sobre FEI' },
   { en: '/admissions', enLabel: 'Admissions', esLabel: 'Admisiones' },
   { en: '/apply', enLabel: 'Apply Now', esLabel: 'Inscríbete' },
   { en: '/employers', enLabel: 'For Employers', esLabel: 'Para Empleadores' },
   { en: '/financial-aid', enLabel: 'Financial Aid', esLabel: 'Ayuda Financiera' },
   { en: '/support', enLabel: 'Support', esLabel: 'Apoyo' },
-  { en: '/blog', enLabel: 'Blog', esLabel: null }, // English-only, no ES page
+];
+const LEGAL_PAGES_SRC = [
   { en: '/legal/privacy', enLabel: 'Privacy Policy', esLabel: 'Política de Privacidad' },
   { en: '/legal/terms', enLabel: 'Terms of Service', esLabel: 'Términos de Servicio' },
   { en: '/consumer-information', enLabel: 'Consumer Information', esLabel: 'Información al Consumidor' },
 ];
-const MAIN_PAGES = MAIN_PAGES_SRC.map((p) => {
+const localize = (p: { en: string; enLabel: string; esLabel: string | null }) => {
   const es = p.esLabel ? (PAGE_ES[p.en] ?? null) : null;
   return {
     href: isEs && es ? es : p.en,
     label: isEs && p.esLabel ? p.esLabel : p.enLabel,
   };
-});
+};
+const MAIN_PAGES = MAIN_PAGES_SRC.map(localize);
+const LEGAL_PAGES = LEGAL_PAGES_SRC.map(localize);
 
 const CAT_ORDER = Object.keys(CAT_LABELS) as (keyof typeof CAT_LABELS)[];
 const programsByCat = CAT_ORDER.map((cat) => ({
@@ -156,12 +161,25 @@ const arrow = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true
       </div>
     </section>
   )}
+
+  <!-- LEGAL — last section on the page -->
+  <section class="sm-section">
+    <h2 class="sm-section__title">{STRINGS.legal}</h2>
+    <ul class="sm-list">
+      {LEGAL_PAGES.map((p) => (
+        <li class="sm-row">
+          <a href={p.href} class="sm-row__link">{p.label}<Fragment set:html={arrow} /></a>
+        </li>
+      ))}
+    </ul>
+  </section>
 </div>
 
 <style>
   .sm { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad) clamp(3rem, 6vw, 5rem); }
   .sm-head { padding-top: calc(var(--header-h, 92px) + clamp(2rem, 5vw, 3.5rem)); padding-bottom: clamp(2rem, 4vw, 3rem); }
   .sm-head__lede { margin-top: 1rem; font-size: 1.05rem; color: var(--gray); }
+  .sm-head__lede .link-arrow { font-weight: 500; }
 
   .sm-section { padding-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid var(--line); }
   .sm-section__title {
