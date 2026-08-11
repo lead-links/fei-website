@@ -14,6 +14,7 @@ const STATIC_PATHS = [
   'financial-aid',
   'support',
   'blog',
+  'sitemap', // human-readable site directory (EN-only, like the blog)
   'legal/privacy',
   'legal/terms',
   'consumer-information',

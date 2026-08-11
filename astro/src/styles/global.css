@@ -836,12 +836,15 @@ ul.curriculum-list.curriculum-list--3col { grid-template-columns: repeat(3, 1fr)
 .acc-panel {
   display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s var(--ease);
 }
-.acc-panel > p {
+.acc-panel > p, .acc-panel > .acc-panel__body {
   overflow: hidden; min-height: 0;
   font-size: .96rem; color: var(--gray); max-width: 62ch; padding-bottom: 0;
 }
+/* Non-FAQ accordion content (e.g. a list of links) needs the full row width,
+   not the 62ch prose measure. */
+.acc-panel__body { max-width: none; }
 .acc-item.is-open .acc-panel { grid-template-rows: 1fr; }
-.acc-item.is-open .acc-panel > p { padding-bottom: 1.4rem; }
+.acc-item.is-open .acc-panel > p, .acc-item.is-open .acc-panel > .acc-panel__body { padding-bottom: 1.4rem; }
 
 /* ─── CTA ─── */
 .cta { position: relative; overflow: hidden; background: var(--dark-grad); color: #fff; }
