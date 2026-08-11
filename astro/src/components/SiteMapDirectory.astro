@@ -7,8 +7,11 @@ import { PAGE_ES, PROGRAM_ES, PROGRAM_TITLE_ES, CAT_LABELS_ES, type Lang } from 
 // navigable site directory (distinct from the machine /sitemap.xml). Everything
 // is expanded except Blog, which lists categories with post counts that expand
 // to the posts (reuses the site's .accordion/.acc-item — same markup + JS as the
-// FAQ pattern, so no new script). The Blog itself has no Spanish content, so the
-// ES page links to the same English posts and says so.
+// FAQ pattern, so no new script). The Blog has no Spanish content at all, so the
+// ES page just omits that section rather than showing English posts there.
+// Each row links to ONE page in the current page's own language (no second
+// same-row link to the other language — the header's EN/ES switcher already
+// covers that); a small arrow after the text is just a "this is clickable" cue.
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const isEs = lang === 'es';
@@ -16,19 +19,11 @@ const isEs = lang === 'es';
 const STRINGS = isEs
   ? {
       kicker: 'Navegar', title: 'Mapa del sitio', lede: 'Todas las páginas de fei.edu, en un solo lugar.',
-      mainPages: 'Páginas principales', programs: 'Programas', blog: 'Blog',
-      blogNote: '(en inglés — este blog aún no tiene versión en español)',
-      viewAllPosts: 'Ver todas las publicaciones →',
-      seeAllIn: (n: number, cat: string) => `Ver las ${n} publicaciones de ${cat} →`,
-      otherLang: 'English',
+      mainPages: 'Páginas principales', programs: 'Programas',
     }
   : {
       kicker: 'Navigate', title: 'Sitemap', lede: 'Every page on fei.edu, in one place.',
-      mainPages: 'Main pages', programs: 'Programs', blog: 'Blog',
-      blogNote: null,
-      viewAllPosts: 'View all posts →',
-      seeAllIn: (n: number, cat: string) => `See all ${n} in ${cat} →`,
-      otherLang: 'Español',
+      mainPages: 'Main pages', programs: 'Programs',
     };
 
 // Main pages: one canonical EN-keyed list with both labels, so the two pages
@@ -42,17 +37,17 @@ const MAIN_PAGES_SRC = [
   { en: '/employers', enLabel: 'For Employers', esLabel: 'Para Empleadores' },
   { en: '/financial-aid', enLabel: 'Financial Aid', esLabel: 'Ayuda Financiera' },
   { en: '/support', enLabel: 'Support', esLabel: 'Apoyo' },
-  { en: '/blog', enLabel: 'Blog', esLabel: null }, // English-only, no ES page to switch to
+  { en: '/blog', enLabel: 'Blog', esLabel: null }, // English-only, no ES page
   { en: '/legal/privacy', enLabel: 'Privacy Policy', esLabel: 'Política de Privacidad' },
   { en: '/legal/terms', enLabel: 'Terms of Service', esLabel: 'Términos de Servicio' },
   { en: '/consumer-information', enLabel: 'Consumer Information', esLabel: 'Información al Consumidor' },
 ];
 const MAIN_PAGES = MAIN_PAGES_SRC.map((p) => {
   const es = p.esLabel ? (PAGE_ES[p.en] ?? null) : null;
-  const primaryHref = isEs && es ? es : p.en;
-  const primaryLabel = isEs && p.esLabel ? p.esLabel : p.enLabel;
-  const altHref = isEs ? (es ? p.en : null) : es; // the OTHER language's link, or none
-  return { primaryHref, primaryLabel, altHref };
+  return {
+    href: isEs && es ? es : p.en,
+    label: isEs && p.esLabel ? p.esLabel : p.enLabel,
+  };
 });
 
 const CAT_ORDER = Object.keys(CAT_LABELS) as (keyof typeof CAT_LABELS)[];
@@ -61,28 +56,30 @@ const programsByCat = CAT_ORDER.map((cat) => ({
   label: isEs ? CAT_LABELS_ES[cat] : CAT_LABELS[cat],
   items: PROGRAMS.map((p) => ({
     ...p,
-    primaryHref: isEs ? `/es/programas/${PROGRAM_ES[p.slug]}` : `/programs/${p.slug}`,
-    primaryLabel: isEs ? PROGRAM_TITLE_ES[p.slug] : p.title,
-    altHref: isEs ? `/programs/${p.slug}` : `/es/programas/${PROGRAM_ES[p.slug]}`,
+    href: isEs ? `/es/programas/${PROGRAM_ES[p.slug]}` : `/programs/${p.slug}`,
+    label: isEs ? PROGRAM_TITLE_ES[p.slug] : p.title,
   })).filter((p) => p.cat === cat),
 }));
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => +new Date(b.data.date) - +new Date(a.data.date)
-);
-const catMap = new Map<string, { name: string; posts: typeof posts }>();
-posts.forEach((p) =>
-  p.data.categories.forEach((c) => {
-    if (!catMap.has(c.slug)) catMap.set(c.slug, { name: c.name, posts: [] as typeof posts });
-    catMap.get(c.slug)!.posts.push(p);
-  })
-);
-const blogCategories = Array.from(catMap.entries())
-  .map(([slug, v]) => ({ slug, name: v.name, posts: v.posts }))
-  .sort((a, b) => b.posts.length - a.posts.length);
+// Blog has no Spanish content — only build/show this section on the EN page.
+const blogCategories = isEs ? [] : await (async () => {
+  const posts = (await getCollection('blog')).sort(
+    (a, b) => +new Date(b.data.date) - +new Date(a.data.date)
+  );
+  const catMap = new Map<string, { name: string; posts: typeof posts }>();
+  posts.forEach((p) =>
+    p.data.categories.forEach((c) => {
+      if (!catMap.has(c.slug)) catMap.set(c.slug, { name: c.name, posts: [] as typeof posts });
+      catMap.get(c.slug)!.posts.push(p);
+    })
+  );
+  return Array.from(catMap.entries())
+    .map(([slug, v]) => ({ slug, name: v.name, posts: v.posts }))
+    .sort((a, b) => b.posts.length - a.posts.length);
+})();
 
-const dateFmt = (d: string) =>
-  new Date(d).toLocaleDateString(isEs ? 'es-ES' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+const dateFmt = (d: string) => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+const arrow = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>';
 ---
 <div class="sm">
   <section class="sm-head">
@@ -97,8 +94,7 @@ const dateFmt = (d: string) =>
     <ul class="sm-list">
       {MAIN_PAGES.map((p) => (
         <li class="sm-row">
-          <a href={p.primaryHref} class="sm-row__en">{p.primaryLabel}</a>
-          {p.altHref && <a href={p.altHref} class="sm-row__es">{STRINGS.otherLang}</a>}
+          <a href={p.href} class="sm-row__link">{p.label}<Fragment set:html={arrow} /></a>
         </li>
       ))}
     </ul>
@@ -114,8 +110,7 @@ const dateFmt = (d: string) =>
           <ul class="sm-list">
             {group.items.map((p) => (
               <li class="sm-row">
-                <a href={p.primaryHref} class="sm-row__en">{p.primaryLabel}</a>
-                <a href={p.altHref} class="sm-row__es">{STRINGS.otherLang}</a>
+                <a href={p.href} class="sm-row__link">{p.label}<Fragment set:html={arrow} /></a>
               </li>
             ))}
           </ul>
@@ -124,39 +119,41 @@ const dateFmt = (d: string) =>
     </div>
   </section>
 
-  <!-- BLOG (collapsed by category; expand to see posts) -->
-  <section class="sm-section">
-    <h2 class="sm-section__title">
-      {STRINGS.blog}{STRINGS.blogNote && <span class="sm-blog-note">{STRINGS.blogNote}</span>}
-      <a href="/blog" class="sm-section__all">{STRINGS.viewAllPosts}</a>
-    </h2>
-    <div class="accordion sm-blog-accordion" id={`sitemapBlogAccordion-${lang}`}>
-      {blogCategories.map((cat, i) => (
-        <div class={`acc-item ${i === 0 ? 'is-open' : ''}`}>
-          <button class="acc-trigger" aria-expanded={i === 0 ? 'true' : 'false'}>
-            <span>{cat.name} <span class="sm-cat-count">({cat.posts.length})</span></span>
-            <span class="acc-ico" aria-hidden="true">
-              <svg class="acc-ico__d" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-              <svg class="acc-ico__u" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>
-            </span>
-          </button>
-          <div class="acc-panel">
-            <div class="acc-panel__body">
-              <a href={`/blog/category/${cat.slug}`} class="sm-cat-link">{STRINGS.seeAllIn(cat.posts.length, cat.name)}</a>
-              <ul class="sm-post-list">
-                {cat.posts.map((p) => (
-                  <li>
-                    <a href={`/blog/${p.data.slug}`}>{p.data.title}</a>
-                    <span class="sm-post-date">{dateFmt(p.data.date)}</span>
-                  </li>
-                ))}
-              </ul>
+  <!-- BLOG (EN only — no Spanish content, see note above) -->
+  {!isEs && blogCategories.length > 0 && (
+    <section class="sm-section">
+      <h2 class="sm-section__title">
+        Blog
+        <a href="/blog" class="sm-section__all">View all posts →</a>
+      </h2>
+      <div class="accordion sm-blog-accordion" id="sitemapBlogAccordion">
+        {blogCategories.map((cat, i) => (
+          <div class={`acc-item ${i === 0 ? 'is-open' : ''}`}>
+            <button class="acc-trigger" aria-expanded={i === 0 ? 'true' : 'false'}>
+              <span>{cat.name} <span class="sm-cat-count">({cat.posts.length})</span></span>
+              <span class="acc-ico" aria-hidden="true">
+                <svg class="acc-ico__d" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                <svg class="acc-ico__u" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>
+              </span>
+            </button>
+            <div class="acc-panel">
+              <div class="acc-panel__body">
+                <a href={`/blog/category/${cat.slug}`} class="sm-cat-link">See all {cat.posts.length} in {cat.name} →</a>
+                <ul class="sm-post-list">
+                  {cat.posts.map((p) => (
+                    <li>
+                      <a href={`/blog/${p.data.slug}`}>{p.data.title}</a>
+                      <span class="sm-post-date">{dateFmt(p.data.date)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-  </section>
+        ))}
+      </div>
+    </section>
+  )}
 </div>
 
 <style>
@@ -170,16 +167,19 @@ const dateFmt = (d: string) =>
     color: var(--navy); margin-bottom: 1.4rem;
     display: flex; align-items: baseline; justify-content: space-between; gap: .6rem 1rem; flex-wrap: wrap;
   }
-  .sm-blog-note { font-family: var(--body); font-weight: 500; font-size: .82rem; color: var(--gray-500); margin-right: auto; }
   .sm-section__all { font-family: var(--body); font-size: .88rem; font-weight: 700; color: var(--blue-600); }
   .sm-section__all:hover { color: var(--blue-700); }
 
   .sm-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .3rem 1.5rem; }
-  .sm-row { display: flex; align-items: baseline; gap: .6rem; padding: .55rem 0; border-bottom: 1px solid var(--line); }
-  .sm-row__en { font-weight: 700; color: var(--navy); font-size: .96rem; transition: color .2s; }
-  .sm-row__en:hover { color: var(--blue-600); }
-  .sm-row__es { margin-left: auto; font-size: .76rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: .04em; flex-shrink: 0; }
-  .sm-row__es:hover { color: var(--blue-600); }
+  .sm-row { border-bottom: 1px solid var(--line); }
+  .sm-row__link {
+    display: inline-flex; align-items: center; gap: .45em;
+    font-weight: 700; color: var(--navy); font-size: .96rem;
+    padding: .55rem 0; transition: color .2s;
+  }
+  .sm-row__link svg { flex-shrink: 0; transition: transform .25s var(--ease); color: var(--blue-600); }
+  .sm-row__link:hover { color: var(--blue-600); }
+  .sm-row__link:hover svg { transform: translateX(3px); }
 
   .sm-cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem clamp(1.5rem, 3vw, 3rem); }
   .sm-cat__name { font-family: var(--display); font-weight: 700; font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-600); margin-bottom: .8rem; }
@@ -193,8 +193,4 @@ const dateFmt = (d: string) =>
   .sm-post-list a { display: block; color: var(--navy); font-weight: 600; font-size: .92rem; line-height: 1.3; transition: color .2s; }
   .sm-post-list a:hover { color: var(--blue-600); }
   .sm-post-date { display: block; color: var(--gray-500); font-size: .76rem; margin-top: .1rem; }
-
-  @media (max-width: 640px) {
-    .sm-row__es { margin-left: 0; }
-  }
 </style>
