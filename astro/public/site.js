@@ -24,6 +24,17 @@
     });
   };
 
+  /* intl-tel-input (this vendored version) dropped the old `allowDropdown: false`
+     option, so onlyCountries:["us"] alone still renders a clickable flag button
+     that opens a (single-option) dialog. Disable that button directly so the
+     country indicator is a fixed, non-interactive "US" — nothing else can be
+     opened or selected, matching the other phone-locking option. */
+  var lockPhoneCountrySelector = function (phoneInput) {
+    var wrap = phoneInput && phoneInput.closest(".iti");
+    var btn = wrap && wrap.querySelector(".iti__selected-country");
+    if (btn) { btn.disabled = true; btn.tabIndex = -1; }
+  };
+
   // Sticky nav (pages with data-force-stuck render the nav permanently solid,
   // e.g. full-bleed pages with no dark hero for it to sit transparently over)
   var nav = document.getElementById("nav");
@@ -200,17 +211,19 @@
       if (input && feiUtms[k]) input.value = feiUtms[k];
     });
 
-    // International phone: flags + per-country formatting, US default with mask.
+    // Phone: US-only, fixed — no other country can be selected (no flag dropdown).
     var phoneInput = byId("phone");
     var iti = null;
     if (phoneInput && window.intlTelInput) {
       iti = window.intlTelInput(phoneInput, {
         initialCountry: "us",
+        onlyCountries: ["us"],
+        allowDropdown: false,
         separateDialCode: true,
         strictMode: true,
         formatAsYouType: true,
-        countryOrder: ["us", "ca", "mx"],
       });
+      lockPhoneCountrySelector(phoneInput);
     }
 
     // 2-step "complete" flow (LP variant): prefill from the step-1 pre-registration
@@ -409,10 +422,12 @@
     var prFirst = prBy("first"), prLast = prBy("last"), prEmail = prBy("email"), prPhoneInput = prBy("phone");
     var prIti = null;
     if (prPhoneInput && window.intlTelInput) {
+      // US-only, fixed — no other country can be selected (no flag dropdown).
       prIti = window.intlTelInput(prPhoneInput, {
-        initialCountry: "us", separateDialCode: true, strictMode: true,
-        formatAsYouType: true, countryOrder: ["us", "ca", "mx"],
+        initialCountry: "us", onlyCountries: ["us"], allowDropdown: false,
+        separateDialCode: true, strictMode: true, formatAsYouType: true,
       });
+      lockPhoneCountrySelector(prPhoneInput);
     }
     var prSummary = prBy("summary");
     var prMsg = function (k) { return preRegForm.getAttribute("data-msg-" + k) || ""; };

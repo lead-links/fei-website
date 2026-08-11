@@ -938,6 +938,10 @@ ul.curriculum-list.curriculum-list--3col { grid-template-columns: repeat(3, 1fr)
 /* intl-tel-input fills its grid cell and keeps the field's look */
 .iti { width: 100%; }
 .iti--container { z-index: 10000; }
+/* Phone is locked to the US (see site.js lockPhoneCountrySelector) — hide the
+   dropdown arrow so the fixed flag+dial-code doesn't look like a live control. */
+.iti__selected-country:disabled { cursor: default; opacity: 1; }
+.iti__selected-country:disabled .iti__arrow { display: none; }
 .modal__submit { grid-column: 1 / -1; width: 100%; justify-content: center; padding: .82em 1.2em; font-size: .95rem; }
 .modal__divider { grid-column: 1 / -1; display: flex; align-items: center; gap: .85rem; margin: .45rem 0; color: var(--gray); font-family: var(--display); font-size: 1.02rem; font-weight: 700; }
 .modal__divider::before, .modal__divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }

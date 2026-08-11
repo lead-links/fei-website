@@ -16,7 +16,7 @@ export const ORG = {
   url: `${SITE}/`,
   logo: `${SITE}/fei-logo.png`,
   image: `${SITE}/fei-logo.png`,
-  telephone: '+1-305-444-1515',
+  telephone: '+1-786-665-8310',
   email: 'admissions@fei.edu',
   address: {
     '@type': 'PostalAddress',
