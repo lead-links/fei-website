@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteMapDirectory from '../../components/SiteMapDirectory.astro';
+
+// Spanish twin of /sitemap — see that file for the shared design notes.
+// The blog itself has no Spanish content, so its section here still links to
+// the English posts and says so (see SiteMapDirectory's blogNote string).
+---
+<BaseLayout
+  title="Mapa del sitio | Florida Education Institute"
+  description="Un mapa completo y navegable de todas las páginas de fei.edu — programas, admisiones, recursos y el blog."
+  forceStuckNav
+>
+  <SiteMapDirectory lang="es" />
+</BaseLayout>

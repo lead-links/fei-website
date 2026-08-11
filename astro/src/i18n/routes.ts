@@ -15,6 +15,7 @@ export const PAGE_ES: Record<string, string> = {
   '/employers': '/es/empleadores',
   '/financial-aid': '/es/ayuda-financiera',
   '/support': '/es/apoyo',
+  '/sitemap': '/es/mapa-del-sitio',
   '/legal/privacy': '/es/legal/privacidad',
   '/legal/terms': '/es/legal/terminos',
   '/consumer-information': '/es/informacion-al-consumidor',
