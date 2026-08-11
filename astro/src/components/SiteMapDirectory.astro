@@ -20,10 +20,12 @@ const STRINGS = isEs
   ? {
       kicker: 'Navegar', title: 'Mapa del sitio', lede: 'Todas las páginas de fei.edu, en un solo lugar.',
       mainPages: 'Páginas principales', programs: 'Programas',
+      langSwitchLabel: 'Ver páginas en inglés', langSwitchHref: '/sitemap',
     }
   : {
       kicker: 'Navigate', title: 'Sitemap', lede: 'Every page on fei.edu, in one place.',
       mainPages: 'Main pages', programs: 'Programs',
+      langSwitchLabel: 'Check pages in Spanish', langSwitchHref: PAGE_ES['/sitemap'],
     };
 
 // Main pages: one canonical EN-keyed list with both labels, so the two pages
@@ -85,7 +87,7 @@ const arrow = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true
   <section class="sm-head">
     <p class="kicker">{STRINGS.kicker}</p>
     <h1 class="section__title">{STRINGS.title}</h1>
-    <p class="sm-head__lede">{STRINGS.lede}</p>
+    <p class="sm-head__lede">{STRINGS.lede} <a href={STRINGS.langSwitchHref} class="link-arrow">{STRINGS.langSwitchLabel}<Fragment set:html={arrow} /></a></p>
   </section>
 
   <!-- MAIN PAGES -->
@@ -174,7 +176,7 @@ const arrow = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true
   .sm-row { border-bottom: 1px solid var(--line); }
   .sm-row__link {
     display: inline-flex; align-items: center; gap: .45em;
-    font-weight: 700; color: var(--navy); font-size: .96rem;
+    font-weight: 600; color: var(--navy); font-size: .96rem;
     padding: .55rem 0; transition: color .2s;
   }
   .sm-row__link svg { flex-shrink: 0; transition: transform .25s var(--ease); color: var(--blue-600); }
