@@ -79,13 +79,17 @@ const progTitle = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_E
   <!-- Program type: always hidden, populated on program pages -->
   <input type="hidden" id={`${p}-program-type`} name="programType" />
 
-  <!-- Attribution: hidden, restored from first touch (localStorage) -->
+  <!-- Attribution: hidden, restored from the last tracked touch (localStorage).
+       Populated by site.js -> TOUCH_KEYS; gclid/fbclid ride along with the UTMs
+       so an offline conversion import can be tied back to the originating click. -->
   <input type="hidden" id={`${p}-utm-source`} name="utm_source" />
   <input type="hidden" id={`${p}-utm-medium`} name="utm_medium" />
   <input type="hidden" id={`${p}-utm-campaign`} name="utm_campaign" />
   <input type="hidden" id={`${p}-utm-content`} name="utm_content" />
   <input type="hidden" id={`${p}-utm-term`} name="utm_term" />
   <input type="hidden" id={`${p}-utm-id`} name="utm_id" />
+  <input type="hidden" id={`${p}-gclid`} name="gclid" />
+  <input type="hidden" id={`${p}-fbclid`} name="fbclid" />
 
   <label class="consent">
     <input type="checkbox" id={`${p}-sms-marketing`} name="smsMarketing" />

@@ -119,26 +119,39 @@
     });
   });
 
-  /* ---- Tracking capture: UTMs + referrer, kept consistent per touch.
-     A UTM-tagged inbound link is a fresh acquisition touch. When one arrives we
-     REPLACE the whole UTM set at once (params absent from the URL become blank) so
-     values from two different campaigns never mix — e.g. a new Google touch must not
-     keep a stale utm_source from an earlier ChatGPT touch. The referrer is refreshed
+  /* ---- Tracking capture: UTMs + ad click IDs + referrer, kept consistent per touch.
+     A tagged inbound link is a fresh acquisition touch. When one arrives we REPLACE
+     the whole set at once (params absent from the URL become blank) so values from
+     two different campaigns never mix — e.g. a new Google touch must not keep a
+     stale utm_source from an earlier ChatGPT touch. The referrer is refreshed
      alongside it so both describe the same touch. Between tracked touches (plain
-     internal navigation, where document.referrer becomes the site itself and no UTMs
-     are present) the stored values are left untouched. ---- */
+     internal navigation, where document.referrer becomes the site itself and no
+     tagged params are present) the stored values are left untouched.
+
+     Click IDs (gclid/fbclid) are part of that same atomic set, deliberately:
+       - They must TRIGGER a touch on their own. Google Ads auto-tagging appends
+         only `gclid` with no utm_* at all; treating UTMs as the sole trigger meant
+         those clicks were never captured.
+       - They must be REBUILT with the rest. Pairing a gclid from one click with
+         UTMs from a different campaign is the exact cross-contamination this block
+         exists to prevent, and it would misattribute offline conversion imports.
+     Note this means an fbclid-only visit (Facebook appends fbclid to organic shared
+     links too, not just ads) counts as a new touch and clears earlier UTMs — correct
+     under last-touch, but worth knowing when reading attribution. ---- */
   var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "utm_id"];
+  var CLICK_ID_KEYS = ["gclid", "fbclid"];
+  var TOUCH_KEYS = UTM_KEYS.concat(CLICK_ID_KEYS);
   var feiUtms = {};
   try { feiUtms = JSON.parse(localStorage.getItem("fei_utms") || "{}") || {}; } catch (e) { feiUtms = {}; }
   var feiReferrer = "";
   try { feiReferrer = localStorage.getItem("fei_referrer") || ""; } catch (e) { feiReferrer = ""; }
   try {
     var qp = new URLSearchParams(window.location.search);
-    var hasUtm = UTM_KEYS.some(function (k) { return qp.get(k); });
-    if (hasUtm) {
-      // New tracked touch: rebuild the ENTIRE UTM set so no stale field survives.
+    var hasTouch = TOUCH_KEYS.some(function (k) { return qp.get(k); });
+    if (hasTouch) {
+      // New tracked touch: rebuild the ENTIRE set so no stale field survives.
       feiUtms = {};
-      UTM_KEYS.forEach(function (k) { feiUtms[k] = qp.get(k) || ""; });
+      TOUCH_KEYS.forEach(function (k) { feiUtms[k] = qp.get(k) || ""; });
       localStorage.setItem("fei_utms", JSON.stringify(feiUtms));
       // Refresh the referrer to match this touch (but never overwrite it with an empty one).
       if (document.referrer) {
@@ -146,7 +159,7 @@
         localStorage.setItem("fei_referrer", feiReferrer);
       }
     } else if (!feiReferrer && document.referrer) {
-      // First touch, no UTMs: capture the external referrer once.
+      // First touch, nothing tagged: capture the external referrer once.
       feiReferrer = document.referrer;
       localStorage.setItem("fei_referrer", feiReferrer);
     }
@@ -165,7 +178,7 @@
 
   /* ---- Apply form (single source, shared by the modal overlay and the /apply page) ---- */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  var LEAD_WEBHOOK_URL = "https://flow.leadlinks.app/webhook/fei-lead";
+  var LEAD_WEBHOOK_URL = "https://flow.fei.edu/webhook/lead-intake";
 
   // Wire up one apply form instance. Fields are found by an id prefix ("am" for the
   // modal, "af" for the /apply page) so both can coexist on the same page.
@@ -205,8 +218,8 @@
       if (pType && progTypeHidden) progTypeHidden.value = pType;
     }
 
-    // Hidden UTM fields <- persisted first-touch values.
-    UTM_KEYS.forEach(function (k) {
+    // Hidden attribution fields (utm_* + gclid/fbclid) <- persisted touch values.
+    TOUCH_KEYS.forEach(function (k) {
       var input = byId(k.replace(/_/g, "-"));
       if (input && feiUtms[k]) input.value = feiUtms[k];
     });
@@ -296,7 +309,7 @@
         referrer: feiReferrer,
         ip: feiClientIp
       };
-      UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
+      TOUCH_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
       // 2-step flow: tag the stage and the pre-registration id (see initPreRegForm).
       if (lpStage) { payload.stage = lpStage; if (preReg && preReg.id) payload.preRegId = preReg.id; }
 
@@ -474,7 +487,7 @@
         referrer: feiReferrer,
         ip: feiClientIp
       };
-      UTM_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
+      TOUCH_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
 
       var next = preRegForm.getAttribute("data-next") || "/apply";
       var submitBtn = preRegForm.querySelector('[type="submit"]');
