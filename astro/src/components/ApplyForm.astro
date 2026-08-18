@@ -69,8 +69,12 @@ const progTitle = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_E
     <label for={`${p}-program`}>{s.program}</label>
     <select id={`${p}-program`} name="program" required aria-describedby={`${p}-program-error`}>
       <option value="" disabled selected>{s.selectProgram}</option>
+      {/* data-program-type lets site.js report the credential without a second
+          copy of the catalog; it matches what program pages put in #feiProgramMeta. */}
       {PROGRAMS.map((prog) => (
-        <option value={prog.title}>{progTitle(prog.slug, prog.title)}{prog.tag === 'A.A.S.' ? ' (A.A.S.)' : ''}</option>
+        <option value={prog.title} data-program-type={prog.tag === 'A.A.S.' ? 'Associate Degree' : prog.tag}>
+          {progTitle(prog.slug, prog.title)}{prog.tag === 'A.A.S.' ? ' (A.A.S.)' : ''}
+        </option>
       ))}
     </select>
     <p class="field-error" id={`${p}-program-error`} hidden></p>

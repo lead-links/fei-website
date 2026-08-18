@@ -141,37 +141,79 @@
   var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "utm_id", "utm_platform"];
   var CLICK_ID_KEYS = ["gclid", "fbclid"];
   var TOUCH_KEYS = UTM_KEYS.concat(CLICK_ID_KEYS);
+  // localStorage can throw outright (blocked site data, Safari strict mode, quota).
+  // Wrap every access so one failure can never abort the block half-written.
+  var lsGet = function (k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } };
+  var lsSet = function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} };
+
   var feiUtms = {};
-  try { feiUtms = JSON.parse(localStorage.getItem("fei_utms") || "{}") || {}; } catch (e) { feiUtms = {}; }
+  try { feiUtms = JSON.parse(lsGet("fei_utms") || "{}") || {}; } catch (e) { feiUtms = {}; }
 
   /* The `referrer` sent with a lead is the LANDING PAGE the visitor arrived on
-     (full fei.edu URL including its query string) — not document.referrer, which
-     is the external site that linked here. It is stored exactly like the UTMs:
-     captured with the touch, and NOT overwritten while the visitor browses the
-     site, so a lead submitted five pages deep still reports the page that
-     actually brought them in.
-     New storage key on purpose: `fei_referrer` holds the OLD semantics (external
-     referrer) for anyone who visited before this change, and reusing it would
-     silently report facebook.com as a landing page. */
-  var feiLanding = "";
-  try { feiLanding = localStorage.getItem("fei_landing") || ""; } catch (e) { feiLanding = ""; }
+     (fei.edu URL including its query string) — not document.referrer, which is the
+     external site that linked here. It is stored exactly like the UTMs: captured
+     with the touch, and NOT overwritten while the visitor browses the site, so a
+     lead submitted five pages deep still reports the page that brought them in.
+     `document.referrer` is kept too, as a separate field, because source
+     classification (organic search / social / AI referrers) can only be derived
+     from it — the landing URL is always fei.edu.
+     New storage keys on purpose: `fei_referrer` holds the OLD semantics for anyone
+     who visited before this change; reusing it would report facebook.com as a
+     landing page. */
+  // Only an EXTERNAL referrer is worth keeping: it is the one signal that can tell
+  // organic search / social / AI referrers apart (the landing URL is always fei.edu).
+  // An internal one is noise — and would smuggle our own query params, including the
+  // free text stripped from the landing URL below, straight back into the CRM.
+  var externalReferrer = function () {
+    try {
+      var r = document.referrer || "";
+      if (!r) return "";
+      return new URL(r).origin === window.location.origin ? "" : r;
+    } catch (e) { return ""; }
+  };
+
+  var landingUrl = function () {
+    try {
+      var u = new URL(window.location.href);
+      // Drop free-text params before this string is stored and shipped to the CRM:
+      // /blog/search?q=<whatever the visitor typed> would otherwise carry that text
+      // into the leads sheet. Campaign params are kept — n8n re-reads them from here.
+      ["q", "email", "phone", "name"].forEach(function (k) { u.searchParams.delete(k); });
+      var qs = u.searchParams.toString();
+      // Fragment dropped: it is navigation noise (#top, #apply) and makes two
+      // identical touches look like different landings.
+      return u.origin + u.pathname + (qs ? "?" + qs : "");
+    } catch (e) { return String(window.location.href).split("#")[0]; }
+  };
+
+  var feiLanding = lsGet("fei_landing");
+  var feiDocReferrer = lsGet("fei_doc_referrer");
   try {
     var qp = new URLSearchParams(window.location.search);
     var hasTouch = TOUCH_KEYS.some(function (k) { return qp.get(k); });
+    var hasStoredTouch = TOUCH_KEYS.some(function (k) { return feiUtms[k]; });
     if (hasTouch) {
       // New tracked touch: rebuild the ENTIRE set so no stale field survives.
       feiUtms = {};
       TOUCH_KEYS.forEach(function (k) { feiUtms[k] = qp.get(k) || ""; });
-      localStorage.setItem("fei_utms", JSON.stringify(feiUtms));
-      // The landing URL belongs to this touch — it carries this touch's own
-      // params — so it is replaced alongside them, never mixed across campaigns.
-      feiLanding = window.location.href;
-      localStorage.setItem("fei_landing", feiLanding);
-    } else if (!feiLanding) {
-      // First visit with nothing tagged (organic/direct): still record the entry
-      // page once. Later internal navigation must not overwrite it.
-      feiLanding = window.location.href;
-      localStorage.setItem("fei_landing", feiLanding);
+      // Assign in memory BEFORE any write. A failed setItem must not leave the
+      // landing blank while the UTMs still ship — they describe the same touch,
+      // so either both are captured for this page load or neither is.
+      feiLanding = landingUrl();
+      feiDocReferrer = externalReferrer();
+      lsSet("fei_utms", JSON.stringify(feiUtms));
+      lsSet("fei_landing", feiLanding);
+      lsSet("fei_doc_referrer", feiDocReferrer);
+    } else if (!feiLanding && !hasStoredTouch) {
+      // First untagged visit (organic/direct): record the entry page once; later
+      // internal navigation must not overwrite it.
+      // Guarded on !hasStoredTouch so a visitor who arrived BEFORE this change
+      // (has fei_utms, no fei_landing) does not get some unrelated internal page
+      // frozen as the landing page of an older campaign.
+      feiLanding = landingUrl();
+      feiDocReferrer = externalReferrer();
+      lsSet("fei_landing", feiLanding);
+      lsSet("fei_doc_referrer", feiDocReferrer);
     }
   } catch (e) {}
 
@@ -193,6 +235,15 @@
   // request — it 404s otherwise, which would drop leads silently in production.
   // Before going live, switch to the production path: /webhook/lead-conversion
   var LEAD_WEBHOOK_URL = "https://flow.fei.edu/webhook-test/lead-conversion";
+
+  // Program type of the option the visitor picked in the dropdown. Each <option>
+  // carries its own data-program-type (rendered by ApplyForm.astro from the
+  // program catalog), so this needs no copy of that catalog in here.
+  var selectedProgramType = function (sel) {
+    if (!sel || sel.selectedIndex < 0) return "";
+    var opt = sel.options[sel.selectedIndex];
+    return (opt && opt.getAttribute("data-program-type")) || "";
+  };
 
   // Wire up one apply form instance. Fields are found by an id prefix ("am" for the
   // modal, "af" for the /apply page) so both can coexist on the same page.
@@ -256,9 +307,13 @@
     // 2-step "complete" flow (LP variant): prefill from the step-1 pre-registration
     // and carry its id so n8n updates the same record instead of creating a new one.
     var lpStage = form.getAttribute("data-stage");
+    // Read the pre-registration UNCONDITIONALLY. It used to be gated on data-stage,
+    // but initPreRegForm's default next hop is /apply — a page that carries no
+    // data-stage — so the id was dropped on most 2-step completions and n8n minted
+    // a second one, creating a duplicate lead and orphaning the step-1 row.
     var preReg = null;
+    try { preReg = JSON.parse(sessionStorage.getItem("fei_prereg") || "null"); } catch (e) { preReg = null; }
     if (lpStage) {
-      try { preReg = JSON.parse(sessionStorage.getItem("fei_prereg") || "null"); } catch (e) { preReg = null; }
       if (preReg) {
         if (byId("first")) byId("first").value = preReg.firstName || "";
         if (byId("last")) byId("last").value = preReg.lastName || "";
@@ -317,15 +372,25 @@
         phone: iti ? iti.getNumber() : phoneInput.value.trim(),
         zip: zip.value.trim(),
         program: progSelect ? progSelect.value : "",
-        programType: progTypeHidden ? progTypeHidden.value : "",
+        // The hidden programType is only filled on program pages (#feiProgramMeta).
+        // On the modal, /apply and /es/inscripcion — where the dropdown is actually
+        // used — it was always empty, so fall back to the chosen option's own tag.
+        programType: (progTypeHidden && progTypeHidden.value) || selectedProgramType(progSelect),
         smsMarketingConsent: smsMarketing ? smsMarketing.checked : false,
         smsTransactionalConsent: smsTransactional ? smsTransactional.checked : false,
-        referrer: feiLanding,
+        // Fall back to the current page if storage was unavailable, so the lead
+        // still reports something rather than an empty attribution.
+        referrer: feiLanding || landingUrl(),
+        documentReferrer: feiDocReferrer,
         ip: feiClientIp
       };
       TOUCH_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
-      // 2-step flow: tag the stage and the pre-registration id (see initPreRegForm).
-      if (lpStage) { payload.stage = lpStage; if (preReg && preReg.id) payload.preRegId = preReg.id; }
+      // `stage` is part of the intake contract for every lead, not just the 2-step
+      // LP flow: anything that is not an explicit pre-registration is a full lead.
+      payload.stage = lpStage || "full";
+      // Carry the pre-registration id whenever one exists, so n8n upserts the same
+      // record instead of creating a second lead.
+      if (preReg && preReg.id) payload.preRegId = preReg.id;
 
       // POST the lead to the n8n webhook; show success only after it is accepted.
       var submitBtn = form.querySelector('[type="submit"]');
@@ -482,9 +547,14 @@
       }
       if (prSummary) prSummary.hidden = true;
 
+      // Always a v4-shaped uuid: the fallback used to emit "pre-<ts>-<rand>", so the
+      // same column held two different id formats depending on the browser.
       var id = (window.crypto && crypto.randomUUID)
         ? crypto.randomUUID()
-        : ("pre-" + Date.now() + "-" + Math.round(Math.random() * 1e9));
+        : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+            var r = (Math.random() * 16) | 0;
+            return (c === "x" ? r : ((r & 0x3) | 0x8)).toString(16);
+          });
       var firstV = prFirst.value.trim(), lastV = prLast.value.trim(), emailV = prEmail.value.trim();
       var phoneV = prIti ? prIti.getNumber() : prPhoneInput.value.trim();
 
@@ -498,7 +568,8 @@
         firstName: firstV, lastName: lastV, email: emailV, phone: phoneV,
         program: preRegForm.getAttribute("data-program") || "",
         programType: preRegForm.getAttribute("data-program-type") || "",
-        referrer: feiLanding,
+        referrer: feiLanding || landingUrl(),
+        documentReferrer: feiDocReferrer,
         ip: feiClientIp
       };
       TOUCH_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
