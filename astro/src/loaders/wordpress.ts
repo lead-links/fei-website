@@ -5,15 +5,24 @@ import type { Loader } from 'astro/loaders';
  * Fetches all published posts at BUILD time via WPGraphQL, including the
  * Rank Math `seo` field (wp-graphql-rank-math). Cursor-paginated.
  *
- * IMPORTANT: no `status` filter in the query — WPGraphQL treats a status
- * arg as a permission-gated field and returns EMPTY for unauthenticated
- * (build-time) requests. Without it, only published posts are returned.
+ * IMPORTANT: no `status` ARGUMENT in the query — WPGraphQL treats it as a
+ * permission-gated arg and returns EMPTY for unauthenticated (build-time)
+ * requests. Unauthenticated reads already return published posts only; we
+ * additionally SELECT `status` and filter on it below, so a WP-side auth or
+ * plugin change can never silently start publishing drafts to the live site.
+ *
+ * Posts deleted or unpublished in WP disappear from the site on the next
+ * deploy: `store.clear()` below drops the whole collection before repopulating,
+ * and the Docker build produces a fresh `dist` (Dockerfile copies only
+ * /app/dist), so their pages, sitemap entries and category counts all go with
+ * them. Their URLs then 404 — add nginx redirects for any that had traffic.
  */
 const QUERY = `query FeiPosts($after: String) {
   posts(first: 20, after: $after) {
     pageInfo { hasNextPage endCursor }
     nodes {
       databaseId
+      status
       slug
       title
       excerpt
@@ -90,14 +99,42 @@ export function wpBlogLoader(endpoint: string): Loader {
         after = conn.pageInfo.endCursor;
       }
 
+      // Belt-and-braces status filter. Unauthenticated WPGraphQL already returns
+      // published posts only, so this normally drops nothing — it exists so that
+      // if WP ever starts returning drafts/pending/private (auth change, plugin
+      // change, a future authenticated build), they still never reach the site.
+      const published = nodes.filter((p: any) => !p.status || p.status === 'publish');
+      const skipped = nodes.length - published.length;
+      if (skipped > 0) {
+        const bad = nodes.filter((p: any) => p.status && p.status !== 'publish');
+        logger.warn(
+          `WP blog: skipping ${skipped} non-published post(s): ` +
+          bad.map((p: any) => `${p.slug} (${p.status})`).join(', ')
+        );
+      }
+
       // Never publish an empty blog (a flaky WP response should fail loudly,
       // not silently wipe the collection).
-      if (nodes.length === 0) {
-        throw new Error('WP blog: 0 posts returned — refusing to build an empty blog.');
+      if (published.length === 0) {
+        throw new Error('WP blog: 0 published posts returned — refusing to build an empty blog.');
+      }
+
+      // Guard against a PARTIAL WP failure silently deleting live posts. The
+      // 0-post check above can't catch "returned 1 of 4 because a plugin broke",
+      // which is indistinguishable from a legitimate deletion. Set WP_MIN_POSTS
+      // in the deploy environment to the count you expect to never fall below;
+      // when posts are deliberately removed, lower it in the same commit.
+      const floor = Number(import.meta.env.WP_MIN_POSTS ?? process.env.WP_MIN_POSTS ?? 0);
+      if (floor > 0 && published.length < floor) {
+        throw new Error(
+          `WP blog: only ${published.length} published post(s), expected at least ${floor} ` +
+          `(WP_MIN_POSTS). Refusing to build — this would delete live posts. ` +
+          `If the removal is intentional, lower WP_MIN_POSTS.`
+        );
       }
 
       store.clear();
-      for (const p of nodes) {
+      for (const p of published) {
         const mapped = {
           databaseId: p.databaseId,
           slug: p.slug,
@@ -124,7 +161,13 @@ export function wpBlogLoader(endpoint: string): Loader {
         store.set({ id: p.slug, data });
       }
 
-      logger.info(`WP blog: loaded ${nodes.length} posts`);
+      // Log the slug list, not just a count: this is the only record in the
+      // deploy output of exactly which posts the site shipped with, so a
+      // disappearance is diagnosable after the fact.
+      logger.info(
+        `WP blog: loaded ${published.length} published post(s): ` +
+        published.map((p: any) => p.slug).join(', ')
+      );
     },
   };
 }
