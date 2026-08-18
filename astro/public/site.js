@@ -138,13 +138,23 @@
      Note this means an fbclid-only visit (Facebook appends fbclid to organic shared
      links too, not just ads) counts as a new touch and clears earlier UTMs — correct
      under last-touch, but worth knowing when reading attribution. ---- */
-  var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "utm_id"];
+  var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "utm_id", "utm_platform"];
   var CLICK_ID_KEYS = ["gclid", "fbclid"];
   var TOUCH_KEYS = UTM_KEYS.concat(CLICK_ID_KEYS);
   var feiUtms = {};
   try { feiUtms = JSON.parse(localStorage.getItem("fei_utms") || "{}") || {}; } catch (e) { feiUtms = {}; }
-  var feiReferrer = "";
-  try { feiReferrer = localStorage.getItem("fei_referrer") || ""; } catch (e) { feiReferrer = ""; }
+
+  /* The `referrer` sent with a lead is the LANDING PAGE the visitor arrived on
+     (full fei.edu URL including its query string) — not document.referrer, which
+     is the external site that linked here. It is stored exactly like the UTMs:
+     captured with the touch, and NOT overwritten while the visitor browses the
+     site, so a lead submitted five pages deep still reports the page that
+     actually brought them in.
+     New storage key on purpose: `fei_referrer` holds the OLD semantics (external
+     referrer) for anyone who visited before this change, and reusing it would
+     silently report facebook.com as a landing page. */
+  var feiLanding = "";
+  try { feiLanding = localStorage.getItem("fei_landing") || ""; } catch (e) { feiLanding = ""; }
   try {
     var qp = new URLSearchParams(window.location.search);
     var hasTouch = TOUCH_KEYS.some(function (k) { return qp.get(k); });
@@ -153,15 +163,15 @@
       feiUtms = {};
       TOUCH_KEYS.forEach(function (k) { feiUtms[k] = qp.get(k) || ""; });
       localStorage.setItem("fei_utms", JSON.stringify(feiUtms));
-      // Refresh the referrer to match this touch (but never overwrite it with an empty one).
-      if (document.referrer) {
-        feiReferrer = document.referrer;
-        localStorage.setItem("fei_referrer", feiReferrer);
-      }
-    } else if (!feiReferrer && document.referrer) {
-      // First touch, nothing tagged: capture the external referrer once.
-      feiReferrer = document.referrer;
-      localStorage.setItem("fei_referrer", feiReferrer);
+      // The landing URL belongs to this touch — it carries this touch's own
+      // params — so it is replaced alongside them, never mixed across campaigns.
+      feiLanding = window.location.href;
+      localStorage.setItem("fei_landing", feiLanding);
+    } else if (!feiLanding) {
+      // First visit with nothing tagged (organic/direct): still record the entry
+      // page once. Later internal navigation must not overwrite it.
+      feiLanding = window.location.href;
+      localStorage.setItem("fei_landing", feiLanding);
     }
   } catch (e) {}
 
@@ -178,7 +188,11 @@
 
   /* ---- Apply form (single source, shared by the modal overlay and the /apply page) ---- */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  var LEAD_WEBHOOK_URL = "https://flow.fei.edu/webhook/lead-intake";
+  // ⚠️ TEST endpoint. n8n's /webhook-test/ path only responds while the workflow
+  // editor is actively "listening for a test event", and only for a single
+  // request — it 404s otherwise, which would drop leads silently in production.
+  // Before going live, switch to the production path: /webhook/lead-conversion
+  var LEAD_WEBHOOK_URL = "https://flow.fei.edu/webhook-test/lead-conversion";
 
   // Wire up one apply form instance. Fields are found by an id prefix ("am" for the
   // modal, "af" for the /apply page) so both can coexist on the same page.
@@ -306,7 +320,7 @@
         programType: progTypeHidden ? progTypeHidden.value : "",
         smsMarketingConsent: smsMarketing ? smsMarketing.checked : false,
         smsTransactionalConsent: smsTransactional ? smsTransactional.checked : false,
-        referrer: feiReferrer,
+        referrer: feiLanding,
         ip: feiClientIp
       };
       TOUCH_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
@@ -484,7 +498,7 @@
         firstName: firstV, lastName: lastV, email: emailV, phone: phoneV,
         program: preRegForm.getAttribute("data-program") || "",
         programType: preRegForm.getAttribute("data-program-type") || "",
-        referrer: feiReferrer,
+        referrer: feiLanding,
         ip: feiClientIp
       };
       TOUCH_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
