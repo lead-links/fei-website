@@ -230,11 +230,9 @@
 
   /* ---- Apply form (single source, shared by the modal overlay and the /apply page) ---- */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  // ⚠️ TEST endpoint. n8n's /webhook-test/ path only responds while the workflow
-  // editor is actively "listening for a test event", and only for a single
-  // request — it 404s otherwise, which would drop leads silently in production.
-  // Before going live, switch to the production path: /webhook/lead-conversion
-  var LEAD_WEBHOOK_URL = "https://flow.fei.edu/webhook-test/lead-conversion";
+  // Production n8n endpoint (the /webhook/ path, always live — not /webhook-test/,
+  // which only answers while the editor is listening and only once).
+  var LEAD_WEBHOOK_URL = "https://flow.fei.edu/webhook/lead-conversion";
 
   // Program type of the option the visitor picked in the dropdown. Each <option>
   // carries its own data-program-type (rendered by ApplyForm.astro from the

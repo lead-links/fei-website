@@ -1,6 +1,6 @@
-# Contrato do webhook de leads — `lead-intake`
+# Contrato do webhook de leads — `lead-conversion`
 
-**Endpoint:** `POST https://flow.fei.edu/webhook/lead-intake`
+**Endpoint:** `POST https://flow.fei.edu/webhook/lead-conversion`
 **Content-Type:** `application/json`
 **Origem:** `astro/public/site.js` (espelhado em `astro/src/scripts/site.js`)
 
