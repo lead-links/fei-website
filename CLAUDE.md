@@ -2,11 +2,23 @@
 
 Site institucional da Florida Education Institute. Stack real: Astro em `astro/`, build estático servido por nginx via Docker/EasyPanel. **O repositório git fica na raiz do projeto (`/Volumes/Workspace/Projects/FEI/Website`), não em `astro/`** — sempre commitar/pushar a partir da raiz.
 
+## ⛔ Regra absoluta: o push é sempre do usuário
+
+**NUNCA executar `git push`.** Sem exceção, sem "só dessa vez", mesmo que o usuário peça algo que pareça implicar publicação ("deixa no ar", "publica isso", "faz o deploy") — nesses casos, commitar, explicar o que falta e **entregar o comando para ele rodar**.
+
+Motivo: `git push origin main` dispara o webhook do EasyPanel e **publica em produção na hora**. Quem decide o momento de ir ao ar é o usuário, sempre.
+
+O que eu faço: commitar ao fechar cada etapa verificada e sugerir o comando:
+
+```bash
+cd /Volumes/Workspace/Projects/FEI/Website && git push origin main
+```
+
 ## Deploy
 
 - Docker multi-stage (Node build → nginx serve), auto-deploy no `git push origin main` via EasyPanel. Domínio: `https://fei.edu` (atrás de Cloudflare).
 - **Webhook de auto-deploy do EasyPanel**: `http://91.108.126.13:3000/api/deploy/f383ef7bdcba4fdb55a3e438c6d40c8d4dc0acdb4ddcc558`, registrado como GitHub webhook do repo (evento `push`) — é isso que dispara o build/deploy no EasyPanel a cada `git push origin main`. Se o auto-deploy parar de funcionar, conferir primeiro em Settings → Webhooks do repo se ele continua lá e com "Recent Deliveries" sem erro.
-- `git push` é sempre manual pelo usuário — eu só commito e sugiro o comando (padrão do projeto: commitar ao fechar cada etapa de ajuste). **Um commit por página alterada** — nunca agrupar mudanças de páginas diferentes no mesmo commit.
+- `git push` é **sempre** do usuário (ver regra absoluta no topo) — eu só commito e sugiro o comando, ao fechar cada etapa de ajuste. **Um commit por página alterada** — nunca agrupar mudanças de páginas diferentes no mesmo commit.
 - **Gotcha de cache:** `astro/public/site.js` é copiado como arquivo estático puro (sem hash), então o Cloudflare pode servir uma versão em cache por até 4h mesmo depois de um deploy novo. Isso já foi corrigido: `BaseLayout.astro` calcula um hash MD5 do conteúdo em build-time e injeta como query string (`/site.js?v=<hash>`), forçando cache-miss sempre que o conteúdo muda. Se algum dia "o código está certo mas o usuário não vê a mudança", suspeitar de cache antes de re-investigar o código (`curl https://fei.edu/<arquivo> | grep <trecho novo>` vs. o arquivo local).
 - Antes de qualquer edição em `nginx.conf`: **sempre validar com `nginx -t`** antes de considerar a mudança pronta (rodar em um container/binário local; já houve um incidente de site inteiro fora do ar por um bucket hash pequeno demais). Rotina usada nesta sessão:
   ```bash
@@ -64,7 +76,7 @@ Dois workflows n8n (conectado via MCP, server id `c256d96b-...`), ambos com webh
 - Site dispara via beacon em `404.html` (raiz) + `astro/src/pages/404.astro`.
 
 ### 2. Endpoint do formulário / lead — workflow `rXdzybJQQ3rE6FY7` (`fei.edu - Form submit`)
-- Webhook: `https://flow.fei.edu/webhook/lead-intake` (POST JSON). Já ligado ao form real do site (`astro/public/site.js`, `LEAD_WEBHOOK_URL`) — modal Apply e página `/apply` fazem POST de verdade aqui. **Contrato do payload documentado em `docs/lead-intake-payload.md`** (campos, tipos, fluxo de 2 etapas, regras de atribuição). Endpoint anterior, caso precise rollback: `https://flow.leadlinks.app/webhook/fei-lead`.
+- Webhook: **hoje apontando para o endpoint de TESTE** `https://flow.fei.edu/webhook-test/lead-conversion` — o caminho `/webhook-test/` do n8n só responde com o editor "escutando" e aceita 1 request; **trocar para `https://flow.fei.edu/webhook/lead-conversion` antes do go-live** (POST JSON). Já ligado ao form real do site (`astro/public/site.js`, `LEAD_WEBHOOK_URL`) — modal Apply e página `/apply` fazem POST de verdade aqui. **Contrato do payload documentado em `docs/lead-webhook-payload.md`** (campos, tipos, fluxo de 2 etapas, regras de atribuição). Endpoint anterior, caso precise rollback: `https://flow.leadlinks.app/webhook/fei-lead`.
 - **Usa modelo de rascunho/publicação do n8n** — mudanças feitas via MCP ficam só no draft até eu chamar `publish_workflow`. **Sempre publicar depois de editar**, e sempre pedir confirmação ao usuário antes de publicar (webhook recebe leads reais em produção).
 - Fluxo: Webhook → **Normalizar** (node de código, única fonte de verdade — todo campo novo entra aqui primeiro, nunca direto num node de destino) → em paralelo: (a) Enviar ao Power Automate (CRM, **node DESATIVADO de propósito até o go-live** — nunca habilitar sem confirmação explícita do usuário) → Responder 200; (b) Salvar na Planilha (Google Sheets, append).
 - **Planilha de leads**: "[FEI] Website Leads" (fileId `1chX80_0E38-7HRl6iDaku85J3uU-ISs8Ku_AI5Gd4Js`), aba `Leads`. Colunas atuais (nomes exatos, case-sensitive): `Date, FirstName, LastName, Phone, mx_Zip, EmailAddress, mx_Program_of_Interest, mx_Program_type, mx_Program_Language, mx_Primary_Language, mx_Classroom_Preference, mx_Delivery_Method, mx_Virtual_Assistant_URL, Source, SourceReferrerURL, utm_source, utm_medium, utm_campaign, utm_content, utm_term, utm_id, ip, smsMarketing, smsTransactional`.
