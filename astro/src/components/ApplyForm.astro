@@ -84,8 +84,10 @@ const progTitle = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_E
   <input type="hidden" id={`${p}-program-type`} name="programType" />
 
   <!-- Attribution: hidden, restored from the last tracked touch (localStorage).
-       Populated by site.js -> TOUCH_KEYS; gclid/fbclid ride along with the UTMs
-       so an offline conversion import can be tied back to the originating click. -->
+       Populated by site.js -> TOUCH_KEYS; click ids ride along with the UTMs so an
+       offline conversion import can be tied back to the originating click. Only
+       gclid/gbraid/wbraid (Google Ads) and fbclid (Meta) are live channels today —
+       the rest are captured now so a future channel needs no re-wire. -->
   <input type="hidden" id={`${p}-utm-source`} name="utm_source" />
   <input type="hidden" id={`${p}-utm-medium`} name="utm_medium" />
   <input type="hidden" id={`${p}-utm-campaign`} name="utm_campaign" />
@@ -94,7 +96,16 @@ const progTitle = (slug: string, en: string) => (lang === 'es' ? PROGRAM_TITLE_E
   <input type="hidden" id={`${p}-utm-id`} name="utm_id" />
   <input type="hidden" id={`${p}-utm-platform`} name="utm_platform" />
   <input type="hidden" id={`${p}-gclid`} name="gclid" />
+  <input type="hidden" id={`${p}-gbraid`} name="gbraid" />
+  <input type="hidden" id={`${p}-wbraid`} name="wbraid" />
   <input type="hidden" id={`${p}-fbclid`} name="fbclid" />
+  <input type="hidden" id={`${p}-msclkid`} name="msclkid" />
+  <input type="hidden" id={`${p}-ttclid`} name="ttclid" />
+  <input type="hidden" id={`${p}-li-fat-id`} name="li_fat_id" />
+  <input type="hidden" id={`${p}-twclid`} name="twclid" />
+  <input type="hidden" id={`${p}-sccid`} name="sccid" />
+  <input type="hidden" id={`${p}-epik`} name="epik" />
+  <input type="hidden" id={`${p}-irclickid`} name="irclickid" />
 
   <label class="consent">
     <input type="checkbox" id={`${p}-sms-marketing`} name="smsMarketing" />

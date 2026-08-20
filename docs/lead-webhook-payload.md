@@ -23,20 +23,33 @@ O site sempre envia **todas as chaves**, usando `""` (string vazia) para o que n
   "programType": "",
   "smsMarketingConsent": true,
   "smsTransactionalConsent": true,
-  "referrer": "https://www.google.com/",
+  "referrer": "https://fei.edu/apply?utm_source=facebook&utm_medium=cpc",
+  "documentReferrer": "",
   "ip": "203.0.113.10",
+  "fbc": "fb.1.1755558467.IwAR3xY...",
+  "fbp": "fb.1.1755558467.1098765432",
   "utm_source": "facebook",
-  "utm_medium": "paid",
+  "utm_medium": "cpc",
   "utm_campaign": "",
   "utm_content": "",
   "utm_term": "",
   "utm_id": "",
+  "utm_platform": "instagram",
   "gclid": "",
-  "fbclid": "TEST_FBCLID_999"
+  "gbraid": "",
+  "wbraid": "",
+  "fbclid": "TEST_FBCLID_999",
+  "msclkid": "",
+  "ttclid": "",
+  "li_fat_id": "",
+  "twclid": "",
+  "sccid": "",
+  "epik": "",
+  "irclickid": ""
 }
 ```
 
-*(payload real capturado do formulário em execução; IP trocado por um de documentação)*
+*(payload real capturado do formulário em execução; IP e ids trocados por valores de documentação)*
 
 ## 2. Campos
 
@@ -50,11 +63,23 @@ O site sempre envia **todas as chaves**, usando `""` (string vazia) para o que n
 | `programType` | string | sim | `Diploma`, `Associate Degree` ou `CompTIA Course Prep`; `""` fora de páginas de programa |
 | `smsMarketingConsent` | boolean | sim | checkbox TCPA — **guardar como prova de consentimento** |
 | `smsTransactionalConsent` | boolean | sim | idem |
-| `referrer` | string | sim | referrer externo do último toque rastreado |
+| `referrer` | string | sim | página de destino (landing) do último toque rastreado — sempre um URL `fei.edu`, persiste durante a navegação interna |
+| `documentReferrer` | string | sim | `document.referrer` **externo** capturado junto com o toque (`""` se a origem for o próprio site); é o campo pra classificar orgânico/social/AI, já que `referrer` é sempre fei.edu |
 | `ip` | string | sim | IP do cliente via `api.ipify.org`; `""` se a chamada falhar |
-| `utm_source` … `utm_id` | string | sim | 6 UTMs |
+| `fbc` | string | sim | cookie `_fbc` do Pixel do Meta (click id + timestamp), lido no momento do submit — usado pelo n8n pra casar com a Conversions API |
+| `fbp` | string | sim | cookie `_fbp` do Pixel do Meta (id de navegador), mesmo uso que `fbc` |
+| `utm_source` … `utm_platform` | string | sim | 7 UTMs (inclui `utm_platform`) |
 | `gclid` | string | sim | click ID do Google Ads |
+| `gbraid` | string | sim | click ID do Google Ads emitido em vez do `gclid` no fluxo **app→web** (cookies de terceiro bloqueados) |
+| `wbraid` | string | sim | click ID do Google Ads emitido em vez do `gclid` no fluxo **web** com ITP/Safari |
 | `fbclid` | string | sim | click ID do Meta |
+| `msclkid` | string | sim | click ID do Microsoft/Bing Ads — canal ainda não ativo, capturado por padrão |
+| `ttclid` | string | sim | click ID do TikTok Ads — canal ainda não ativo |
+| `li_fat_id` | string | sim | click ID do LinkedIn Ads — canal ainda não ativo |
+| `twclid` | string | sim | click ID do X (Twitter) Ads — canal ainda não ativo |
+| `sccid` | string | sim | click ID do Snapchat Ads — canal ainda não ativo |
+| `epik` | string | sim | click ID do Pinterest Ads — canal ainda não ativo |
+| `irclickid` | string | sim | click ID da rede de afiliados Impact Radius — canal ainda não ativo |
 | `stage` | string | **não** | só no fluxo de 2 etapas — `"pre"` ou `"full"` |
 | `preRegId` | string | **não** | só no fluxo de 2 etapas |
 
@@ -74,11 +99,14 @@ A LP captura em duas fases. **As duas chamadas vão para o mesmo endpoint** e ca
   "phone": "+17866658310",
   "program": "Medical Assistant",
   "programType": "Diploma",
-  "referrer": "https://www.google.com/",
+  "referrer": "https://fei.edu/programs/medical-assistant-b",
+  "documentReferrer": "https://www.google.com/",
   "ip": "203.0.113.10",
+  "fbc": "", "fbp": "fb.1.1755558467.1098765432",
   "utm_source": "", "utm_medium": "", "utm_campaign": "",
-  "utm_content": "", "utm_term": "", "utm_id": "",
-  "gclid": "Cj0KCQ...", "fbclid": ""
+  "utm_content": "", "utm_term": "", "utm_id": "", "utm_platform": "",
+  "gclid": "Cj0KCQ...", "gbraid": "", "wbraid": "", "fbclid": "",
+  "msclkid": "", "ttclid": "", "li_fat_id": "", "twclid": "", "sccid": "", "epik": "", "irclickid": ""
 }
 ```
 
@@ -86,11 +114,14 @@ A LP captura em duas fases. **As duas chamadas vão para o mesmo endpoint** e ca
 
 ## 4. Regras de atribuição (importantes para ler os dados)
 
-- **Último toque, atômico.** Qualquer um dos 8 parâmetros (`utm_*`, `gclid`, `fbclid`) na URL conta como um novo toque de aquisição e **reconstrói o conjunto inteiro**; os ausentes viram `""`. Isso impede misturar `gclid` de um clique com UTMs de outra campanha.
-- **`gclid` sozinho é um toque válido.** O auto-tagging do Google Ads não põe UTM nenhuma. Antes desta mudança esses cliques eram descartados por completo.
+- **Último toque, atômico.** Qualquer um dos parâmetros de toque (`utm_*` + os 11 click ids) na URL conta como um novo toque de aquisição e **reconstrói o conjunto inteiro**; os ausentes viram `""`. Isso impede misturar `gclid` de um clique com UTMs de outra campanha.
+- **`gclid` sozinho é um toque válido.** O auto-tagging do Google Ads não põe UTM nenhuma. Antes desta mudança esses cliques eram descartados por completo. O mesmo vale pra `gbraid`/`wbraid`.
+- **`gbraid`/`wbraid` nunca aparecem junto com `gclid`** — são alternativas mutuamente exclusivas que o próprio Google escolhe emitir conforme o navegador bloqueia ou não cookies de terceiro no clique.
 - **`fbclid` também aparece em tráfego orgânico** — o Facebook anexa esse parâmetro a qualquer link compartilhado, não só a anúncios. Portanto `fbclid` preenchido **não** significa necessariamente clique pago; cruze com `utm_medium` antes de concluir.
-- O `referrer` é atualizado junto com o toque, mas nunca sobrescrito por vazio.
+- **`fbc`/`fbp` não seguem a lógica de toque** — são lidos direto dos cookies do Pixel a cada submit (não ficam em `fei_utms`), porque servem só para casar com a Conversions API, não para atribuição de campanha.
+- **`msclkid`, `ttclid`, `li_fat_id`, `twclid`, `sccid`, `epik`, `irclickid`** vêm sempre vazios hoje — nenhum desses canais está ativo. Ficam capturados por padrão pra quando (se) a FEI ligar anúncio numa dessas plataformas, sem precisar mexer no `site.js` de novo.
+- O `referrer` é atualizado junto com o toque, mas nunca sobrescrito por vazio; `documentReferrer` idem.
 
 ## 5. Atenção ao gravar na planilha
 
-O node do Google Sheets casa valores pelo **nome exato do cabeçalho** (case-sensitive). Cabeçalho ausente → valor descartado em silêncio; case diferente → erro *"Missing columns"* e a linha inteira falha. Antes de ativar, criar as colunas **`gclid`** e **`fbclid`** com esse exato nome minúsculo.
+O node do Google Sheets casa valores pelo **nome exato do cabeçalho** (case-sensitive). Cabeçalho ausente → valor descartado em silêncio; case diferente → erro *"Missing columns"* e a linha inteira falha. Antes de ativar campos novos, criar as colunas com esse exato nome minúsculo: `gclid`, `gbraid`, `wbraid`, `fbclid`, `fbc`, `fbp`, `msclkid`, `ttclid`, `li_fat_id`, `twclid`, `sccid`, `epik`, `irclickid`, `documentReferrer`, `utm_platform`.

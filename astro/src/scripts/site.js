@@ -139,7 +139,12 @@
      links too, not just ads) counts as a new touch and clears earlier UTMs — correct
      under last-touch, but worth knowing when reading attribution. ---- */
   var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "utm_id", "utm_platform"];
-  var CLICK_ID_KEYS = ["gclid", "fbclid"];
+  // gclid/gbraid/wbraid: Google Ads (wbraid/gbraid are the privacy-safe fallback
+  // Google issues instead of gclid when the browser blocks third-party cookies,
+  // e.g. Safari ITP or an in-app browser — both matter, only one is ever present
+  // on a given click). fbclid: Meta. The rest ride along empty until FEI actually
+  // runs on that platform; they cost nothing to capture and save a re-wire later.
+  var CLICK_ID_KEYS = ["gclid", "gbraid", "wbraid", "fbclid", "msclkid", "ttclid", "li_fat_id", "twclid", "sccid", "epik", "irclickid"];
   var TOUCH_KEYS = UTM_KEYS.concat(CLICK_ID_KEYS);
   // localStorage can throw outright (blocked site data, Safari strict mode, quota).
   // Wrap every access so one failure can never abort the block half-written.
@@ -227,6 +232,18 @@
       feiClientIp = (d && d.ip) || "";
     }).catch(function () {});
   } catch (e) {}
+
+  /* ---- Meta Conversions API matching: the Pixel writes `_fbc`/`_fbp` first-party
+     cookies itself (fbclid-derived click id, and a per-browser id respectively).
+     Read fresh at submit time rather than caching at load, since the Pixel can set
+     them after this script runs. n8n forwards these to CAPI so a server-side event
+     dedupes against the browser-side Pixel event for the same lead. ---- */
+  var readCookie = function (name) {
+    try {
+      var m = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+      return m ? decodeURIComponent(m[1]) : "";
+    } catch (e) { return ""; }
+  };
 
   /* ---- Apply form (single source, shared by the modal overlay and the /apply page) ---- */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -380,7 +397,9 @@
         // still reports something rather than an empty attribution.
         referrer: feiLanding || landingUrl(),
         documentReferrer: feiDocReferrer,
-        ip: feiClientIp
+        ip: feiClientIp,
+        fbc: readCookie("_fbc"),
+        fbp: readCookie("_fbp")
       };
       TOUCH_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
       // `stage` is part of the intake contract for every lead, not just the 2-step
@@ -568,7 +587,9 @@
         programType: preRegForm.getAttribute("data-program-type") || "",
         referrer: feiLanding || landingUrl(),
         documentReferrer: feiDocReferrer,
-        ip: feiClientIp
+        ip: feiClientIp,
+        fbc: readCookie("_fbc"),
+        fbp: readCookie("_fbp")
       };
       TOUCH_KEYS.forEach(function (k) { payload[k] = feiUtms[k] || ""; });
 
