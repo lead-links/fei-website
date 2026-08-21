@@ -250,6 +250,39 @@
   // Production n8n endpoint (the /webhook/ path, always live — not /webhook-test/,
   // which only answers while the editor is listening and only once).
   var LEAD_WEBHOOK_URL = "https://flow.fei.edu/webhook/lead-conversion";
+  // Every failed submission is reported here with enough context to diagnose it
+  // without asking the visitor to reproduce. A lead can be accepted and stored by
+  // n8n and STILL fail from the browser's point of view (the intake responds via a
+  // Respond node, so if any node upstream of it throws, the request 500s after the
+  // row was already written) — those are exactly the cases this catches.
+  var ERROR_WEBHOOK_URL = "https://flow.fei.edu/webhook/error";
+
+  // Fire-and-forget: reporting a failure must never itself surface an error, and
+  // never delay the UI. keepalive lets it survive the page navigating away (the
+  // pre-registration form redirects immediately after submitting).
+  var reportSubmitError = function (info) {
+    try {
+      fetch(ERROR_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        keepalive: true,
+        body: JSON.stringify({
+          kind: "lead_submit_error",
+          at: new Date().toISOString(),
+          reason: info.reason || "",
+          httpStatus: info.httpStatus || 0,
+          message: info.message || "",
+          // Truncated: an n8n stack trace or an HTML error page can be huge, and
+          // the first couple of KB always carry the actual cause.
+          responseBody: String(info.responseBody || "").slice(0, 2000),
+          formId: info.formId || "",
+          pageUrl: window.location.href,
+          userAgent: navigator.userAgent,
+          payload: info.payload || {}
+        })
+      }).catch(function () {});
+    } catch (e) {}
+  };
 
   // Program type of the option the visitor picked in the dropdown. Each <option>
   // carries its own data-program-type (rendered by ApplyForm.astro from the
@@ -421,13 +454,41 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       }).then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        var nameEl = cfg.successNameId ? document.getElementById(cfg.successNameId) : null;
-        if (nameEl) nameEl.textContent = first.value.trim().split(" ")[0] || "there";
-        if (typeof cfg.onSuccess === "function") cfg.onSuccess();
-      }).catch(function () {
+        if (res.ok) return;
+        // Read the body before failing: n8n puts the actual cause in there, and it
+        // is the one piece of context that cannot be recovered after the fact.
+        return res.text().catch(function () { return ""; }).then(function (text) {
+          var err = new Error("HTTP " + res.status);
+          err.httpStatus = res.status;
+          err.responseBody = text;
+          throw err;
+        });
+      }).then(function () {
+        // Success UI is isolated: a throw in here means the lead WAS delivered, so
+        // it must not reach the catch below and tell the visitor to send it again.
+        try {
+          var nameEl = cfg.successNameId ? document.getElementById(cfg.successNameId) : null;
+          if (nameEl) nameEl.textContent = first.value.trim().split(" ")[0] || "there";
+          if (typeof cfg.onSuccess === "function") cfg.onSuccess();
+        } catch (uiErr) {
+          // Button stays disabled on purpose — re-enabling would invite a duplicate
+          // lead for a submission the server already accepted.
+          reportSubmitError({
+            reason: "ui", message: (uiErr && uiErr.message) || String(uiErr),
+            formId: cfg.formId, payload: payload
+          });
+        }
+      }).catch(function (err) {
         if (errEl) errEl.hidden = false;
         if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = btnHTML; }
+        reportSubmitError({
+          reason: (err && err.httpStatus) ? "http" : "network",
+          httpStatus: (err && err.httpStatus) || 0,
+          responseBody: (err && err.responseBody) || "",
+          message: (err && err.message) || String(err),
+          formId: cfg.formId,
+          payload: payload
+        });
       });
     });
 
@@ -599,12 +660,30 @@
       if (prErr) prErr.hidden = true;
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending…"; }
 
+      // Step 1 always advances to step 2, success or not — step 2 re-sends the same
+      // preRegId, so the record still lands. The failure is reported rather than
+      // swallowed, since nothing else would ever surface it.
       var go = function () { window.location.href = next; };
       fetch(LEAD_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
-      }).then(go).catch(go);
+      }).then(function (res) {
+        if (res.ok) return go();
+        return res.text().catch(function () { return ""; }).then(function (text) {
+          reportSubmitError({
+            reason: "http", httpStatus: res.status, responseBody: text,
+            message: "HTTP " + res.status, formId: "preRegForm", payload: payload
+          });
+          go();
+        });
+      }).catch(function (err) {
+        reportSubmitError({
+          reason: "network", message: (err && err.message) || String(err),
+          formId: "preRegForm", payload: payload
+        });
+        go();
+      });
     });
   }
 
