@@ -464,6 +464,22 @@
           throw err;
         });
       }).then(function () {
+        // GA4 conversion (via GTM). Fires only after n8n accepted the lead, so the
+        // event count matches the rows that actually reached the CRM, not the number
+        // of submit clicks. Isolated in its own try/catch: a tracking failure must
+        // never reach the catch below and tell the visitor to resend a lead that was
+        // already delivered.
+        try {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: "form_conversion",
+            form_id: cfg.formId,
+            program: payload.program,
+            program_type: payload.programType,
+            lead_id: payload.preRegId || ""
+          });
+        } catch (gaErr) {}
+
         // Success UI is isolated: a throw in here means the lead WAS delivered, so
         // it must not reach the catch below and tell the visitor to send it again.
         try {
