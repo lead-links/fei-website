@@ -18,7 +18,13 @@ import CtaBlock from '../../components/CtaBlock.astro';
 //
 // Once a page is approved, its content moves into data/programs/<slug>.html and
 // the entry below is removed.
-const ADS_PAGES = ['pharmacy-technician'];
+const ADS_PAGES = [
+  'pharmacy-technician',
+  'medical-assistant',
+  'hvac',
+  'culinary-arts',
+  'medical-billing-coding',
+];
 
 const contents = import.meta.glob('../../data/programs/ads/*.html', {
   query: '?raw',
@@ -27,7 +33,8 @@ const contents = import.meta.glob('../../data/programs/ads/*.html', {
 }) as Record<string, string>;
 
 export function getStaticPaths() {
-  return ['pharmacy-technician'].map((slug) => ({ params: { slug } }));
+  return ['pharmacy-technician', 'medical-assistant', 'hvac', 'culinary-arts', 'medical-billing-coding']
+    .map((slug) => ({ params: { slug } }));
 }
 
 const { slug } = Astro.params;
