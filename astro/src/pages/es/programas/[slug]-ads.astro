@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CtaBlock from '../../../components/CtaBlock.astro';
+import { PROGRAMS } from '../../../data/programs';
+import { PROGRAM_EN, PROGRAM_TITLE_ES, PROGRAM_DESC_ES } from '../../../i18n/routes';
+
+// Spanish preview copies, for the client to approve the new wording before it
+// goes onto the official URL. Same rules as the English previews in
+// pages/programs/[slug]-ads.astro: noindex, and the ads keep pointing at the
+// official URL — traffic here would restart the Quality Score history.
+//
+// The route uses the localized ES slug (tecnico-de-farmacia-ads); the content
+// file is keyed by the EN slug, exactly as the real ES page does.
+const contents = import.meta.glob('../../../data/programs/es/ads/*.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+export function getStaticPaths() {
+  return ['tecnico-de-farmacia', 'facturacion-y-codificacion-medica']
+    .map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const enSlug = PROGRAM_EN[slug as string];
+const key = Object.keys(contents).find((k) => k.endsWith(`/${enSlug}.html`))!;
+const html = contents[key];
+
+// The modal keeps the EN title in data-program so the dropdown matches; the ES
+// name is only what the visitor reads.
+const program = PROGRAMS.find((p) => p.slug === enSlug);
+const programType = program?.tag === 'A.A.S.' ? 'Associate Degree' : (program?.tag ?? '');
+---
+<BaseLayout
+  title={`${PROGRAM_TITLE_ES[enSlug]} — vista previa`}
+  description={PROGRAM_DESC_ES[enSlug]}
+  lang="es"
+  noindex
+>
+  {program && (
+    <div
+      id="feiProgramMeta"
+      data-program={program.title}
+      data-program-label={PROGRAM_TITLE_ES[enSlug]}
+      data-program-type={programType}
+      hidden
+    ></div>
+  )}
+  <Fragment set:html={html} />
+  <CtaBlock />
+</BaseLayout>
