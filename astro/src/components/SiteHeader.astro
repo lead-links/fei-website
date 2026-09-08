@@ -7,7 +7,8 @@ import { PROGRAMS, CAT_LABELS } from '../data/programs';
 
 // i18n-aware chrome. English at the root, Spanish under /es/ with localized slugs.
 // Use locales() so the .html/trailing-slash forms (e.g. /es.html) are detected too.
-// `mega` swaps the Programs item for the CompTIA "Course Prep" mega menu — used only
+// `mega` swaps the Programs item for the CompTIA menu — three programme items, no
+// individual courses: the courses are reached from each programme page. Used only
 // on the (noindex, in-approval) /course-prep pages, so the live site nav is untouched.
 interface Props { forceStuck?: boolean; mega?: boolean }
 const { forceStuck = false, mega = false } = Astro.props;
@@ -27,7 +28,6 @@ const applyHref = href('/apply', lang);
 // Mega-menu columns. Programs are grouped by category; the two small categories
 // (Business, Skilled Trades) stack in one column, as do the two small IT tracks.
 const byCat = (c: string) => PROGRAMS.filter((p) => p.cat === c);
-const itGroup = (k: string) => IT_GROUPS.find((g) => g.key === k)!;
 ---
 <div class="utility-bar">
   <div class="utility-bar__inner">
@@ -95,49 +95,28 @@ const itGroup = (k: string) => IT_GROUPS.find((g) => g.key === k)!;
           </div>
 
           <div class="nav__mega">
-            <button class="nav__mega-trigger" type="button" aria-expanded="false" aria-controls="megaCourses">{COURSE_PREP_LABEL}
+            <button class="nav__mega-trigger" type="button" aria-expanded="false" aria-controls="megaCourses">CompTIA
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
             </button>
             <div class="mega-panel" id="megaCourses">
               <div class="mega-panel__wrap">
                 <div class="mega-cols">
                   <div class="mega-col">
-                    <p class="mega-col__head">{COURSE_PREP_LABEL} · CompTIA</p>
+                    <p class="mega-col__head">CompTIA</p>
                     <ul class="mega-lead">
-                      <li><a href="/course-prep">Explore All Courses</a></li>
+                      <li><a href="/course-prep">Explore All Programs</a></li>
                     </ul>
-                    <p class="mega-col__lede">Instructor-led courses that prepare you for the CompTIA certification exams.</p>
+                    <p class="mega-col__lede">Instructor-led programs that prepare you for the CompTIA certification exams.</p>
                   </div>
-                  <div class="mega-col">
-                    <p class="mega-col__head">{itGroup('foundations').name}<span>{itGroup('foundations').exam}</span></p>
-                    <ul class="mega-list">
-                      {coursesByGroup('foundations').map((c) => (
-                        <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
-                      ))}
-                    </ul>
-                    <p class="mega-col__head mega-col__head--stacked">{itGroup('computer-technician').name}<span>{itGroup('computer-technician').exam}</span></p>
-                    <ul class="mega-list">
-                      {coursesByGroup('computer-technician').map((c) => (
-                        <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div class="mega-col">
-                    <p class="mega-col__head">{itGroup('networking-technician').name}<span>{itGroup('networking-technician').exam}</span></p>
-                    <ul class="mega-list">
-                      {coursesByGroup('networking-technician').map((c) => (
-                        <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div class="mega-col">
-                    <p class="mega-col__head">{itGroup('cybersecurity').name}<span>{itGroup('cybersecurity').exam}</span></p>
-                    <ul class="mega-list">
-                      {coursesByGroup('cybersecurity').map((c) => (
-                        <li><a href={c.built ? `/course-prep/${c.slug}` : '/course-prep'}><span>{c.code}</span> {c.title}</a></li>
-                      ))}
-                    </ul>
-                  </div>
+                  {IT_GROUPS.map((g) => (
+                    <div class="mega-col">
+                      <p class="mega-col__head"><a href={`/course-prep/${g.key}`}>{g.name}</a><span>{g.exam}</span></p>
+                      <p class="mega-col__lede">{g.pathway}</p>
+                      <ul class="mega-lead">
+                        <li><a href={`/course-prep/${g.key}`}>{coursesByGroup(g.key).length} courses \u2192</a></li>
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -163,7 +142,10 @@ const itGroup = (k: string) => IT_GROUPS.find((g) => g.key === k)!;
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <button class="mobile-menu__close" type="button" aria-label={s.closeMenu}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     {links.map((l) => <a href={l.href}>{l.label}</a>)}
-    {mega && <a href="/course-prep">{COURSE_PREP_LABEL} · CompTIA</a>}
+    {/* Same three programme items as the desktop menu, so the phone gets the
+        real navigation and not just a link to the list. */}
+    {mega && <a href="/course-prep">CompTIA</a>}
+    {mega && IT_GROUPS.map((g) => <a href={`/course-prep/${g.key}`} class="mobile-menu__sub">{g.name}</a>)}
     <a href={applyHref} class="btn btn--solid" data-apply>{s.apply}</a>
   </div>
 </header>
