@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import { IT_GROUPS, IT_COURSES, coursesByGroup, type ItGroup, type ItCourse } from '../../data/course-prep';
+
+// Every /course-prep page that is generated from data: the three programs and the
+// courses that do not have a hand-built page of their own.
+//
+// ONE dynamic route, not two. Two files in this folder would both match
+// /course-prep/:something and Astro cannot tell them apart, so the program and the
+// course pages share a route and branch on what the slug resolved to.
+//
+// ITP 1100 is excluded here because it has its own file, which wins over this
+// route. Any course that gets a hand-built page later is excluded the same way:
+// mark it `built: true` in course-prep.ts.
+//
+// IN APPROVAL like the rest of the section: noindex, and the CompTIA menu stays
+// scoped to /course-prep so the live site nav never sees it.
+//
+// Copy is framed strictly as exam PREPARATION. FEI awards its own academic
+// credential; the CompTIA certification is earned only by passing the external
+// exam. Nothing on these pages may imply otherwise.
+export function getStaticPaths() {
+  const programas = IT_GROUPS.map((g) => ({
+    params: { slug: g.key },
+    props: { tipo: 'program' as const, group: g, course: null },
+  }));
+  const cursos = IT_COURSES.filter((c) => !c.built).map((c) => ({
+    params: { slug: c.slug },
+    props: { tipo: 'course' as const, group: IT_GROUPS.find((g) => g.key === c.group)!, course: c },
+  }));
+  return [...programas, ...cursos];
+}
+
+interface Props { tipo: 'program' | 'course'; group: ItGroup; course: ItCourse | null }
+const { tipo, group, course } = Astro.props;
+
+const courses = coursesByGroup(group.key);
+const weeks = courses.reduce((n, c) => n + c.weeks, 0);
+const credits = courses.reduce((n, c) => n + c.credits, 0);
+// The pathway is authored per group, not derived: the order the exams are taken is
+// a curriculum decision, not something to infer from a course list.
+const steps = group.pathway.split('→').map((s) => s.trim());
+
+const title = tipo === 'program'
+  ? `${group.name} — CompTIA Course Prep | Florida Education Institute`
+  : `${course!.code} — ${course!.title} (CompTIA Course Prep) | Florida Education Institute`;
+const description = tipo === 'program' ? group.blurb : course!.description;
+---
+<BaseLayout title={title} description={description} megaMenu noindex>
+
+  {tipo === 'program' ? (
+    <>
+      <section class="phero phero--slim">
+        <div class="phero__inner">
+          <div class="phero__copy">
+            <p class="eyebrow"><span class="eyebrow__dot"></span> CompTIA Course Prep · {group.exam}</p>
+            <h1 class="phero__title">{group.name}</h1>
+            <p class="phero__lede">{group.blurb}</p>
+            <div class="hero__cta">
+              <a href="#courses" class="btn btn--solid btn--lg">See the courses</a>
+              <a href={group.flyer} class="btn btn--outline btn--lg" download>Download Program Information</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="factbar" aria-label="Program at a glance">
+        <div class="factbar__inner">
+          <div class="factbar__item"><span class="factbar__txt"><strong>{courses.length} courses</strong><span>In this program</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>{weeks} weeks</strong><span>Instructional time</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>{credits} credits</strong><span>FEI academic credit</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>Miami</strong><span>Campus &amp; online</span></span></div>
+        </div>
+      </aside>
+
+      <section class="section pblock">
+        <div class="pblock__grid">
+          <div>
+            <p class="kicker">Certification pathway</p>
+            <h2 class="section__title section__title--sm">The order<br/>you take them.</h2>
+          </div>
+          <div>
+            <ol class="steps steps--compact">
+              {steps.map((s, i) => (
+                <li class="step"><span class="step__no">{i + 1}</span><h3>{s}</h3></li>
+              ))}
+            </ol>
+            <p class="pblock__text pblock__text--note">
+              Each course prepares you for its exam. The CompTIA certification itself is earned only by
+              passing the external exam at a testing center — completing the course does not award it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section pblock pblock--tint" id="courses">
+        <div class="pblock__grid">
+          <div>
+            <p class="kicker">Courses</p>
+            <h2 class="section__title section__title--sm">What you<br/>will study</h2>
+          </div>
+          <ul class="curriculum-list">
+            {courses.map((c) => (
+              <li><a href={`/course-prep/${c.slug}`}><span>{c.code}</span> {c.title}</a> — prepares for {c.exam}, {c.weeks} weeks</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section pblock">
+        <div class="pblock__grid">
+          <div>
+            <p class="kicker">Program information</p>
+            <h2 class="section__title section__title--sm">Take the details<br/>with you.</h2>
+          </div>
+          <div>
+            <p class="pblock__text">
+              The program sheet lists every course, the exam each one prepares for, the schedule and
+              what you need to get started.
+            </p>
+            <a href={group.flyer} class="link-arrow" download>Download Program Information (PDF)
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
+  ) : (
+    <>
+      <section class="phero phero--slim">
+        <div class="phero__inner">
+          <div class="phero__copy">
+            <p class="eyebrow"><span class="eyebrow__dot"></span> {course!.code} · {group.name}</p>
+            <h1 class="phero__title">{course!.title}</h1>
+            <p class="phero__lede">{course!.description}</p>
+            <div class="hero__cta">
+              <a href="/apply" class="btn btn--solid btn--lg" data-apply>Request Info</a>
+              <a href={`/course-prep/${group.key}`} class="btn btn--outline btn--lg">See the full program</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="factbar" aria-label="Course at a glance">
+        <div class="factbar__inner">
+          <div class="factbar__item"><span class="factbar__txt"><strong>{course!.weeks} weeks</strong><span>Course length</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>{course!.credits} credits</strong><span>FEI academic credit</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>{course!.exam}</strong><span>Prepares you for</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>{group.name}</strong><span>Program</span></span></div>
+        </div>
+      </aside>
+
+      <section class="section pblock">
+        <div class="pblock__grid">
+          <div>
+            <p class="kicker">Certification preparation</p>
+            <h2 class="section__title section__title--sm">Course completion and<br/>certification are<br/>two different things.</h2>
+          </div>
+          <p class="pblock__text">
+            Passing {course!.code} earns you FEI academic credit toward your FEI credential. The
+            {' '}{course!.exam} certification is earned only by passing the external exam at a testing
+            center. This course prepares you for it — it does not replace it, and finishing it does
+            not award it.
+          </p>
+        </div>
+      </section>
+
+      <section class="section pblock pblock--tint">
+        <div class="pblock__grid">
+          <div>
+            <p class="kicker">Where it fits</p>
+            <h2 class="section__title section__title--sm">Part of the<br/>{group.name} program.</h2>
+          </div>
+          <div>
+            <p class="pblock__text">{group.blurb}</p>
+            <ul class="curriculum-list">
+              {courses.map((c) => (
+                <li>
+                  {c.slug === course!.slug
+                    ? <span><span>{c.code}</span> {c.title} — you are here</span>
+                    : <a href={`/course-prep/${c.slug}`}><span>{c.code}</span> {c.title}</a>}
+                </li>
+              ))}
+            </ul>
+            <a href={`/course-prep/${group.key}`} class="link-arrow">See the {group.name} program
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
+  )}
+
+  <CtaBlock />
+</BaseLayout>
