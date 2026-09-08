@@ -18,6 +18,7 @@ export interface Program {
   exam: string;      // the certifications this programme prepares for
   pathway: string;   // the order the exams are taken, shown on the programme page
   blurb: string;
+  hero: string;      // hero image, one per programme, from public/img/comptia/
   flyer: string;     // programme information PDF, served from public/resources/
 }
 
@@ -35,6 +36,7 @@ export const COMPTIA_PROGRAMS: Program[] = [
     exam: 'CompTIA Tech+ · A+',
     pathway: 'Tech+ → A+ (Core 1) → A+ (Core 2)',
     blurb: 'Start here. Digital literacy and IT vocabulary first, then hardware, operating systems and support — preparation for the Tech+ and A+ exams.',
+    hero: '/img/comptia/computer-technician.webp',
     flyer: '/resources/comptia/fei-computer-technician.pdf',
   },
   {
@@ -43,6 +45,7 @@ export const COMPTIA_PROGRAMS: Program[] = [
     exam: 'Network+ · Server+ · Linux+ · Cloud+',
     pathway: 'Network+ → Server+ → Linux+ → Cloud+',
     blurb: 'Networking, servers, Linux and cloud administration — preparation across four CompTIA exams.',
+    hero: '/img/comptia/networking-technician.webp',
     flyer: '/resources/comptia/fei-networking-technician.pdf',
   },
   {
@@ -51,6 +54,7 @@ export const COMPTIA_PROGRAMS: Program[] = [
     exam: 'Security+ · PenTest+ · CySA+',
     pathway: 'Security+ → PenTest+ → CySA+',
     blurb: 'Security, penetration testing and security operations — preparation across three CompTIA exams.',
+    hero: '/img/comptia/cybersecurity.webp',
     flyer: '/resources/comptia/fei-cybersecurity.pdf',
   },
 ];
