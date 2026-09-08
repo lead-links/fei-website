@@ -770,6 +770,9 @@ a.cp-card:hover { transform: translateY(-4px); border-color: rgba(0, 114, 206, 0
 .pblock--tint { background: var(--tint); max-width: none; padding-left: var(--pad); padding-right: var(--pad); }
 .pblock--tint .pblock__grid { max-width: var(--wrap); margin: 0 auto; }
 .pblock__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+/* Single-column pblock: used when the heading is centered above the content
+   instead of sitting in a left-hand column. */
+.pblock__grid--full { grid-template-columns: 1fr; }
 .section__title--sm { font-size: clamp(1.5rem, 3vw, 2.1rem); }
 .pblock__text { font-size: 1.02rem; color: var(--gray); max-width: 60ch; }
 .pblock__text--note { font-size: .9rem; margin-top: .9rem; }
@@ -1306,6 +1309,12 @@ ul.curriculum-list.curriculum-list--3col { grid-template-columns: repeat(3, 1fr)
 .ib-sec-head { max-width: 760px; margin-bottom: clamp(38px, 5vw, 60px); }
 .ib-sec-head .ib-eyebrow { margin-bottom: 20px; }
 .ib-sec-head h2 { margin-bottom: 20px; }
+/* Centered section header: title and standfirst centered, content splits below.
+   Mobile keeps the left-aligned default, same rule as .section__head--center. */
+@media (min-width: 761px) {
+  .ib-sec-head--center { margin-inline: auto; text-align: center; }
+  .ib-sec-head--center .ib-lede { margin-inline: auto; }
+}
 
 /* ---------- HERO (blue, our standard) ---------- */
 /* Abstract technology texture behind the brand gradient. The gradient stays

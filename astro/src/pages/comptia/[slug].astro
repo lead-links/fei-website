@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
 import { COMPTIA_PROGRAMS, coursesOf, programOf, IT_COURSES, type Program, type ItCourse } from '../../data/comptia';
+import { planFor, type CoursePlan } from '../../data/comptia-courses';
 
 // Everything under /comptia that is generated from data: the three programmes and
 // the courses without a hand-built page of their own.
@@ -14,6 +15,14 @@ import { COMPTIA_PROGRAMS, coursesOf, programOf, IT_COURSES, type Program, type 
 // whose static file wins over this route; `built: true` keeps it out of the
 // generated set. Any other course that gets a real page later is excluded the same
 // way.
+//
+// The course pages run the same `ib-*` vocabulary as the ITP 1100 page, filled from
+// data/comptia-courses.ts — the sixteen teaching plans. That is the point: a
+// generated course page has to carry the same weight as the hand-built one, or the
+// programme pages are linking out to stubs.
+//
+// PROGRAMME PAGE ORDER is the one the change checklist specifies:
+// Overview → Courses → Certification Pathway → Download Flyer → Request Info.
 //
 // /course-prep is frozen and untouched — same URLs, same menu, same catalogue.
 //
@@ -40,10 +49,14 @@ const weeks = courses.reduce((n, c) => n + c.weeks, 0);
 const credits = courses.reduce((n, c) => n + c.credits, 0);
 const steps = program.pathway.split('→').map((s) => s.trim());
 
-// One hero image per programme; a course inherits its programme's. All three
-// exist, so this points straight at them — an earlier build-time existence check
-// with a fallback was silently cached by Vite and kept serving the stand-in.
+// One hero image per programme; a course inherits its programme's.
 const heroFile = program.hero;
+
+// The teaching plan behind this course. Every one of the sixteen has one, but the
+// page degrades to the catalogue copy rather than rendering an empty band.
+const plan: CoursePlan | undefined = course ? planFor(course.code) : undefined;
+
+const arrow = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 const title = tipo === 'program'
   ? `${program.name} — CompTIA Program in Miami | Florida Education Institute`
@@ -53,7 +66,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
 <BaseLayout title={title} description={description} comptiaMenu noindex>
 
   {tipo === 'program' ? (
-    <>
+    <div class="ibx">
       <section class="phero phero--page">
         <div class="hero__bg" style={`background-image:url('${heroFile}')`} aria-hidden="true"></div>
         <div class="hero__overlay" aria-hidden="true"></div>
@@ -75,65 +88,102 @@ const description = tipo === 'program' ? program.blurb : course!.description;
           <div class="factbar__item"><span class="factbar__txt"><strong>{courses.length} courses</strong><span>In this program</span></span></div>
           <div class="factbar__item"><span class="factbar__txt"><strong>{weeks} weeks</strong><span>Instructional time</span></span></div>
           <div class="factbar__item"><span class="factbar__txt"><strong>{credits} credits</strong><span>FEI academic credit</span></span></div>
-          <div class="factbar__item"><span class="factbar__txt"><strong>Miami</strong><span>Campus &amp; online</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>Online</strong><span>Canvas · live sessions</span></span></div>
         </div>
       </aside>
 
-      <section class="section pblock">
-        <div class="pblock__grid">
-          <div>
-            <p class="kicker">Certification pathway</p>
-            <h2 class="section__title section__title--sm">The order<br/>you take them.</h2>
+      <!-- 1 · OVERVIEW -->
+      <section class="ib-band">
+        <div class="ib-wrap">
+          <div class="ib-sec-head ib-sec-head--center">
+            <p class="ib-eyebrow"><span class="ib-dot"></span> Overview</p>
+            <h2 class="ib-h2">{program.name}</h2>
+            <p class="ib-lede">{program.blurb}</p>
           </div>
-          <div>
-            <ol class="steps steps--compact">
-              {steps.map((s, i) => (
-                <li class="step"><span class="step__no">{i + 1}</span><h3>{s}</h3></li>
-              ))}
-            </ol>
-            <p class="pblock__text pblock__text--note">
-              Each course prepares you for its exam. The CompTIA certification itself is earned only
-              by passing the external exam at a testing center — completing the course does not
-              award it.
-            </p>
+          <div class="ib-out__grid">
+            <div class="ib-out">
+              <span class="ib-out__n">How it is built</span>
+              <h3 class="ib-h3">{courses.length} instructor-led courses</h3>
+              <p>{weeks} weeks of instruction and {credits} credits of FEI academic credit, taken in sequence. Each course is mapped to one CompTIA exam.</p>
+            </div>
+            <div class="ib-out">
+              <span class="ib-out__n">How it is delivered</span>
+              <h3 class="ib-h3">Online, with live sessions</h3>
+              <p>Canvas is the course platform. Every course runs two instructor-led live online sessions a week, about 60 minutes each, on Microsoft Teams.</p>
+            </div>
+            <div class="ib-out">
+              <span class="ib-out__n">What you earn</span>
+              <h3 class="ib-h3">Two separate things</h3>
+              <p>Coursework and attendance earn your FEI academic credential. The CompTIA certification is earned only by passing the external exam at a testing center.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section pblock pblock--tint" id="courses">
-        <div class="pblock__grid">
-          <div>
-            <p class="kicker">Courses</p>
-            <h2 class="section__title section__title--sm">What you<br/>will study</h2>
+      <!-- 2 · COURSES -->
+      <section class="ib-band ib-band--wash" id="courses">
+        <div class="ib-wrap">
+          <div class="ib-sec-head ib-sec-head--center">
+            <p class="ib-eyebrow"><span class="ib-dot"></span> Courses</p>
+            <h2 class="ib-h2">What you will study</h2>
+            <p class="ib-lede">The {courses.length} courses in this program, in the order they are taken. Open any one for its outcomes, its week-by-week plan and the exam it prepares you for.</p>
           </div>
-          <ul class="curriculum-list">
+          <div class="cp-cards">
             {courses.map((c) => (
-              <li><a href={`/comptia/${c.slug}`}><span>{c.code}</span> {c.title}</a> — prepares for {c.exam}, {c.weeks} weeks</li>
+              <a href={`/comptia/${c.slug}`} class="cp-card">
+                <div class="cp-card__top">
+                  <span class="cp-card__code">{c.code}</span>
+                  <span class="cp-card__meta">{c.weeks} wks · {c.credits} cr</span>
+                </div>
+                <span class="cp-card__title">{c.title}</span>
+                <span class="cp-card__exam">{c.exam}</span>
+                <span class="cp-card__desc">{c.description}</span>
+                <span class="cp-card__cta">View course<Fragment set:html={arrow} /></span>
+              </a>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
-      <section class="section pblock">
-        <div class="pblock__grid">
-          <div>
-            <p class="kicker">Program information</p>
-            <h2 class="section__title section__title--sm">Take the details<br/>with you.</h2>
+      <!-- 3 · CERTIFICATION PATHWAY -->
+      <section class="ib-band">
+        <div class="ib-wrap">
+          <div class="ib-sec-head ib-sec-head--center">
+            <p class="ib-eyebrow"><span class="ib-dot"></span> Certification pathway</p>
+            <h2 class="ib-h2">The order you take the exams</h2>
+            <p class="ib-lede">Each course prepares you for its exam. The CompTIA certification itself is earned only by passing the external exam at a testing center — completing the course does not award it.</p>
           </div>
-          <div>
-            <p class="pblock__text">
-              The program sheet lists every course, the exam each one prepares for, the schedule and
-              what you need to get started.
-            </p>
-            <a href={program.flyer} class="link-arrow" download>Download Program Information (PDF)
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
-            </a>
-          </div>
+          <ol class="cp-journey">
+            {steps.map((s, i) => (
+              <li class="cp-leg">
+                <span class="cp-leg__no">{i + 1}</span>
+                <div class="cp-leg__body">
+                  <span class="cp-leg__wk">Step {i + 1}</span>
+                  <h3>{s}</h3>
+                  <p>{courses.filter((c) => c.exam.includes(s.split(' (')[0])).map((c) => `${c.code} ${c.title}`).join(' · ') || 'Prepared across the courses in this program.'}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
-    </>
+
+      <!-- 4 · DOWNLOAD FLYER -->
+      <section class="ib-band ib-band--wash">
+        <div class="ib-wrap">
+          <div class="ib-sec-head ib-sec-head--center">
+            <p class="ib-eyebrow"><span class="ib-dot"></span> Program information</p>
+            <h2 class="ib-h2">Take the details with you</h2>
+            <p class="ib-lede">The program sheet lists every course, the exam each one prepares for, the schedule and what you need to get started — one PDF, to keep or to share.</p>
+          </div>
+          <p style="text-align:center">
+            <a href={program.flyer} class="btn btn--solid btn--lg" download>Download Program Information (PDF)</a>
+          </p>
+        </div>
+      </section>
+    </div>
   ) : (
-    <>
+    <div class="ibx">
       <section class="phero phero--page">
         <div class="hero__bg" style={`background-image:url('${heroFile}')`} aria-hidden="true"></div>
         <div class="hero__overlay" aria-hidden="true"></div>
@@ -144,7 +194,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
             <p class="phero__lede">{course!.description}</p>
             <div class="hero__cta">
               <a href="/apply" class="btn btn--solid btn--lg" data-apply>Request Info</a>
-              <a href={`/comptia/${program.key}`} class="btn btn--outline btn--lg">See the full program</a>
+              <a href={`/comptia/${program.key}`} class="btn btn--outline btn--lg btn--outline-light">See the full program</a>
             </div>
           </div>
         </div>
@@ -152,52 +202,150 @@ const description = tipo === 'program' ? program.blurb : course!.description;
 
       <aside class="factbar" aria-label="Course at a glance">
         <div class="factbar__inner">
-          <div class="factbar__item"><span class="factbar__txt"><strong>{course!.weeks} weeks</strong><span>Course length</span></span></div>
-          <div class="factbar__item"><span class="factbar__txt"><strong>{course!.credits} credits</strong><span>FEI academic credit</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>{course!.code}</strong><span>Course code</span></span></div>
           <div class="factbar__item"><span class="factbar__txt"><strong>{course!.exam}</strong><span>Prepares you for</span></span></div>
-          <div class="factbar__item"><span class="factbar__txt"><strong>{program.name}</strong><span>Program</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>{course!.weeks} weeks · {course!.credits} credits</strong><span>Online · Canvas LMS</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>2 live sessions / week</strong><span>~60 min each · Microsoft Teams</span></span></div>
         </div>
       </aside>
 
-      <section class="section pblock">
-        <div class="pblock__grid">
-          <div>
-            <p class="kicker">Certification preparation</p>
-            <h2 class="section__title section__title--sm">Course completion and<br/>certification are<br/>two different things.</h2>
+      {plan && (
+        <section class="ib-band">
+          <div class="ib-wrap">
+            <div class="ib-sec-head ib-sec-head--center">
+              <p class="ib-eyebrow"><span class="ib-dot"></span> Overview</p>
+              <h2 class="ib-h2">About this course</h2>
+              <p class="ib-lede">{plan.overview}</p>
+            </div>
+            <div class="ib-rhythm__grid">
+              <div class="ib-panel">
+                <p class="ib-eyebrow">Before you start</p>
+                <h3 class="ib-h3">Who this course is for</h3>
+                <ul class="ib-tick">
+                  <li><span class="ib-dot"></span><span>{plan.entry || 'Open to students following the ' + program.name + ' sequence at FEI.'}</span></li>
+                  <li><span class="ib-dot"></span><span><b>Prerequisite:</b> {plan.prereq || 'None beyond FEI admission.'}</span></li>
+                </ul>
+              </div>
+              <div class="ib-panel">
+                <p class="ib-eyebrow">How it runs</p>
+                <h3 class="ib-h3">Format and schedule</h3>
+                <ul class="ib-slalist">
+                  <li>Course length<b>{course!.weeks} weeks</b></li>
+                  <li>FEI academic credit<b>{course!.credits} credits</b></li>
+                  <li>Platform<b>Canvas LMS</b></li>
+                  <li>Live sessions<b>2 / week · ~60 min</b></li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <p class="pblock__text">
-            Passing {course!.code} earns you FEI academic credit toward your FEI credential. The
-            {' '}{course!.exam} certification is earned only by passing the external exam at a
-            testing center. This course prepares you for it — it does not replace it, and finishing
-            it does not award it.
-          </p>
+        </section>
+      )}
+
+      {plan && plan.outcomes.length > 0 && (
+        <section class="ib-band ib-band--wash">
+          <div class="ib-wrap">
+            <div class="ib-sec-head ib-sec-head--center">
+              <p class="ib-eyebrow"><span class="ib-dot"></span> Learning outcomes</p>
+              <h2 class="ib-h2">What you will be able to do</h2>
+              <p class="ib-lede">By the end of {course!.code} you should be able to do each of the following. These are the outcomes the instructor teaches to and the assessments measure.</p>
+            </div>
+            <div class="ib-out__grid">
+              {plan.outcomes.map((o, i) => (
+                <div class="ib-out">
+                  <span class="ib-out__n">Outcome {i + 1}</span>
+                  <p>{o}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {plan && plan.modules.length > 0 && (
+        <section class="ib-band">
+          <div class="ib-wrap">
+            <div class="ib-sec-head ib-sec-head--center">
+              <p class="ib-eyebrow"><span class="ib-dot"></span> Course plan</p>
+              <h2 class="ib-h2">Week by week</h2>
+              <p class="ib-lede">The high-level sequence for the {course!.weeks} weeks — how the course moves from the first topic to exam readiness.</p>
+            </div>
+            <ol class="cp-journey">
+              {plan.modules.map((m, i) => (
+                <li class="cp-leg">
+                  <span class="cp-leg__no">{i + 1}</span>
+                  <div class="cp-leg__body">
+                    <span class="cp-leg__wk">{m.label}</span>
+                    <h3>{m.topic}</h3>
+                    <p>{m.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+
+      <section class="ib-band ib-band--wash">
+        <div class="ib-wrap">
+          <div class="ib-sec-head ib-sec-head--center">
+            <p class="ib-eyebrow"><span class="ib-dot"></span> Certification preparation</p>
+            <h2 class="ib-h2">Course completion and certification are two different things</h2>
+            <p class="ib-lede">
+              Passing {course!.code} earns you FEI academic credit toward your FEI credential. The
+              {' '}{course!.exam} certification is earned only by passing the external exam at a
+              testing center. This course prepares you for it — it does not replace it, and
+              finishing it does not award it.
+            </p>
+          </div>
+          {plan && plan.alignment && (
+            <div class="ib-notice">
+              <span class="ib-notice__i" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg></span>
+              <p><b>Certification alignment.</b> {plan.alignment}</p>
+            </div>
+          )}
         </div>
       </section>
 
-      <section class="section pblock pblock--tint">
-        <div class="pblock__grid">
-          <div>
-            <p class="kicker">Where it fits</p>
-            <h2 class="section__title section__title--sm">Part of the<br/>{program.name} program.</h2>
+      <section class="ib-band">
+        <div class="ib-wrap">
+          <div class="ib-sec-head ib-sec-head--center">
+            <p class="ib-eyebrow"><span class="ib-dot"></span> Where it fits</p>
+            <h2 class="ib-h2">Part of the {program.name} program</h2>
+            <p class="ib-lede">{program.blurb}</p>
           </div>
-          <div>
-            <p class="pblock__text">{program.blurb}</p>
-            <ul class="curriculum-list">
-              {courses.map((c) => (
-                <li>
-                  {c.slug === course!.slug
-                    ? <span><span>{c.code}</span> {c.title} — you are here</span>
-                    : <a href={`/comptia/${c.slug}`}><span>{c.code}</span> {c.title}</a>}
-                </li>
-              ))}
-            </ul>
-            <a href={`/comptia/${program.key}`} class="link-arrow">See the {program.name} program
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
-            </a>
+          <div class="cp-cards">
+            {courses.map((c) => (
+              c.slug === course!.slug ? (
+                <div class="cp-card">
+                  <div class="cp-card__top">
+                    <span class="cp-card__code">{c.code}</span>
+                    <span class="cp-card__meta">{c.weeks} wks · {c.credits} cr</span>
+                  </div>
+                  <span class="cp-card__title">{c.title}</span>
+                  <span class="cp-card__exam">{c.exam}</span>
+                  <span class="cp-card__desc">{c.description}</span>
+                  <span class="cp-card__soon">You are here</span>
+                </div>
+              ) : (
+                <a href={`/comptia/${c.slug}`} class="cp-card">
+                  <div class="cp-card__top">
+                    <span class="cp-card__code">{c.code}</span>
+                    <span class="cp-card__meta">{c.weeks} wks · {c.credits} cr</span>
+                  </div>
+                  <span class="cp-card__title">{c.title}</span>
+                  <span class="cp-card__exam">{c.exam}</span>
+                  <span class="cp-card__desc">{c.description}</span>
+                  <span class="cp-card__cta">View course<Fragment set:html={arrow} /></span>
+                </a>
+              )
+            ))}
           </div>
+          <p style="text-align:center;margin-top:2rem">
+            <a href={`/comptia/${program.key}`} class="btn btn--outline btn--lg">See the {program.name} program</a>
+          </p>
         </div>
       </section>
-    </>
+    </div>
   )}
 
   <CtaBlock />
