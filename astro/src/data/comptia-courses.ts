@@ -1,7 +1,7 @@
 // Course content for the /comptia section, lifted from the sixteen FEI Week 3
 // Course Teaching Plans (Eduardo, Working Draft v1) in material/.
 //
-// GENERATED, then committed — regenerate with the extractor rather than editing by
+// GENERATED, then committed. Regenerate with the extractor rather than editing by
 // hand, or the next pass will silently overwrite the edit. The wording is the
 // plans' own, so the site says exactly what the academic documents say.
 //
@@ -12,7 +12,7 @@
 // entry-level job training. Those paragraphs stay out of the rendered pages; the
 // field is kept below only as source reference.
 //
-// WORKING DRAFT — nothing here ships before Ramon validates the language.
+// WORKING DRAFT. Nothing here ships before Ramon validates the language.
 
 export interface CourseModule {
   label: string;   // 'Week 3', 'Weeks 1-2', 'Post-Course Transition'
@@ -23,17 +23,17 @@ export interface CourseModule {
 export interface CoursePlan {
   code: string;
   planTitle: string;    // the official title as written in the teaching plan
-  overview: string;     // section 2 — student-facing description
-  careerNote: string;   // section 2 — pathway/career panel. NOT rendered, see above.
-  entry: string;        // section 3 — entry baseline
-  prereq: string;       // section 3 — required prerequisite
-  alignment: string;    // section 1 — certification alignment
-  delivery: string;     // section 1 — delivery format
-  length: string;       // section 1 — course length
-  credits: string;      // section 1 — credit value
-  certPrograms: string; // section 1 — FEI certificate program(s) the course belongs to
-  outcomes: string[];   // section 4 — measurable learning outcomes
-  modules: CourseModule[]; // section 5 — module/topic sequence
+  overview: string;     // section 2, student-facing description
+  careerNote: string;   // section 2, pathway/career panel. NOT rendered, see above.
+  entry: string;        // section 3, entry baseline
+  prereq: string;       // section 3, required prerequisite
+  alignment: string;    // section 1, certification alignment
+  delivery: string;     // section 1, delivery format
+  length: string;       // section 1, course length
+  credits: string;      // section 1, credit value
+  certPrograms: string; // section 1, FEI certificate program(s) the course belongs to
+  outcomes: string[];   // section 4, measurable learning outcomes
+  modules: CourseModule[]; // section 5, module/topic sequence
 }
 
 export const COURSE_PLANS: Record<string, CoursePlan> = {

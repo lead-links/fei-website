@@ -1,10 +1,10 @@
-// The CompTIA section at /comptia — the revision the change checklist asks for.
+// The CompTIA section at /comptia, the revision the change checklist asks for.
 //
 // /course-prep is FROZEN as it is: same menu, same catalogue of sixteen course
 // cards, same URLs. Nothing here touches it. This file exists so the new section
 // can restructure freely without editing data the old pages still read.
 //
-// The COURSES are not duplicated — they are imported from course-prep.ts, which
+// The COURSES are not duplicated. They are imported from course-prep.ts, which
 // stays the single source of truth for code, exam, length, credits and copy. What
 // changes here is only how they are GROUPED.
 
@@ -35,7 +35,7 @@ export const COMPTIA_PROGRAMS: Program[] = [
     name: 'Computer Technician',
     exam: 'CompTIA Tech+ · A+',
     pathway: 'Tech+ → A+ (Core 1) → A+ (Core 2)',
-    blurb: 'Start here. Digital literacy and IT vocabulary first, then hardware, operating systems and support — preparation for the Tech+ and A+ exams.',
+    blurb: 'Start here. Digital literacy and IT vocabulary first, then hardware, operating systems and support, in preparation for the Tech+ and A+ exams.',
     hero: '/img/comptia/computer-technician.webp',
     flyer: '/resources/comptia/fei-computer-technician.pdf',
   },
@@ -44,7 +44,7 @@ export const COMPTIA_PROGRAMS: Program[] = [
     name: 'Networking Technician',
     exam: 'Network+ · Server+ · Linux+ · Cloud+',
     pathway: 'Network+ → Server+ → Linux+ → Cloud+',
-    blurb: 'Networking, servers, Linux and cloud administration — preparation across four CompTIA exams.',
+    blurb: 'Networking, servers, Linux and cloud administration, in preparation across four CompTIA exams.',
     hero: '/img/comptia/networking-technician.webp',
     flyer: '/resources/comptia/fei-networking-technician.pdf',
   },
@@ -53,7 +53,7 @@ export const COMPTIA_PROGRAMS: Program[] = [
     name: 'Cybersecurity',
     exam: 'Security+ · PenTest+ · CySA+',
     pathway: 'Security+ → PenTest+ → CySA+',
-    blurb: 'Security, penetration testing and security operations — preparation across three CompTIA exams.',
+    blurb: 'Security, penetration testing and security operations, in preparation across three CompTIA exams.',
     hero: '/img/comptia/cybersecurity.webp',
     flyer: '/resources/comptia/fei-cybersecurity.pdf',
   },

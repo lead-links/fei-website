@@ -87,3 +87,17 @@ Dois workflows n8n (conectado via MCP, server id `c256d96b-...`), ambos com webh
 - **Armadilha estrutural (já causou incidente):** o webhook usa `responseMode: responseNode`, então a resposta HTTP só existe se o node `Respond` for alcançado. O `Respond` fica **depois** da gravação. Se qualquer node entre a gravação e ele falhar (a maioria está com `onError` padrão = parar), o visitante vê *"we couldn't send your request"* **com o lead já salvo** — e reenvia, duplicando. Diagnóstico rápido: **corpo vazio no 200 = `Respond` não foi alcançado**; corpo com `{"success":true,...}` = cadeia inteira OK.
 - **Como testar:** `test@leadlinks.app` e `rafael@leadlinks.app` são **descartados** pelo `Is Real Lead?` — servem para checar que o endpoint responde, mas **não exercitam gravação nem CRM** (voltam 200 com corpo vazio). Para testar o fluxo completo até o Zoho, usar `testlead@test.com` (passa no filtro de propósito: é `testlead@`, não `test@`) — e lembrar de limpar o lead no Zoho depois.
 - **Limitação da instância `a6a66fd6`:** `search_executions` **não está exposto** nela, e não há ferramenta MCP para ler linhas de data table. Então não dá para auditar execução nem conferir a linha gravada pelo MCP — a verificação prática é o corpo da resposta do webhook (ver armadilha acima) e o webhook de erro.
+
+## ⛔ Regra de escrita: nada de travessão
+
+**Nunca usar travessão (— ou –) em texto nenhum**: copy do site, títulos, descrições,
+documentos em `docs/`, mensagens de commit e também as minhas respostas no chat.
+
+Substituir por pontuação normal conforme o caso:
+- aposto ou explicação → vírgula ou dois-pontos
+- frase secundária → ponto final, quebrando em duas frases
+- intervalo (ex.: `ITP 2100–2600`) → `a` ou `até` (`ITP 2100 a 2600`)
+- pausa forte → parênteses
+
+Vale inclusive para conteúdo extraído de PDFs/documentos de terceiros: ao trazer o
+texto para o site, trocar o travessão pela pontuação equivalente.

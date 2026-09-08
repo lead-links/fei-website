@@ -8,14 +8,14 @@ const arrow = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" strok
 const totalCourses = IT_GROUPS.reduce((n, g) => n + coursesByGroup(g.key).length, 0);
 ---
 <BaseLayout
-  title={`IT ${COURSE_PREP_LABEL} — CompTIA Certification Pathways | Florida Education Institute`}
-  description="Explore FEI's CompTIA course-prep pathways in Miami — foundations, computer technician, networking technician and cybersecurity. Courses that prepare you for the external CompTIA certification exams."
+  title={`IT ${COURSE_PREP_LABEL}: CompTIA Certification Pathways | Florida Education Institute`}
+  description="Explore FEI's CompTIA course-prep pathways in Miami: foundations, computer technician, networking technician and cybersecurity. Courses that prepare you for the external CompTIA certification exams."
   megaMenu
   noindex
 >
   <div id="feiProgramMeta" data-program="IT Course Prep" data-program-type="CompTIA Course Prep" hidden></div>
 
-  <!-- HERO — unified with what used to be a separate "catalog" head/intro section,
+  <!-- HERO. Unified with what used to be a separate "catalog" head/intro section,
        so the course list sits well above the fold. No action buttons/stats. -->
   <section class="phero phero--page phero--flush">
     <div class="hero__bg" style="background-image:url('/img/course-prep/catalog-hero.webp')" aria-hidden="true"></div>
@@ -24,12 +24,12 @@ const totalCourses = IT_GROUPS.reduce((n, g) => n + coursesByGroup(g.key).length
       <div class="phero__copy">
         <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Miami, Florida · CompTIA {COURSE_PREP_LABEL}</p>
         <h1 class="phero__title reveal" data-delay="1">Prepare for CompTIA<br/>certifications.</h1>
-        <p class="phero__lede reveal" data-delay="2">A guided pathway of instructor-led courses — {totalCourses} in all, across the foundations track and three certificate tracks — each mapped to a specific CompTIA exam. You complete your coursework at FEI; the certification itself is earned by passing that exam separately.</p>
+        <p class="phero__lede reveal" data-delay="2">A guided pathway of instructor-led courses, {totalCourses} in all, across the foundations track and three certificate tracks, each mapped to a specific CompTIA exam. You complete your coursework at FEI; the certification itself is earned by passing that exam separately.</p>
       </div>
     </div>
   </section>
 
-  <!-- CATALOG (right after the hero, no separate head — see it all below) -->
+  <!-- CATALOG (right after the hero, no separate head, see it all below) -->
   <section class="section programs--catalog" id="catalog">
     <div class="cp-groups">
       {IT_GROUPS.map((g) => (

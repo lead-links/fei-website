@@ -1,4 +1,4 @@
-# CompTIA Website Revision — Change Checklist
+# CompTIA Website Revision: Change Checklist
 
 **Consolidated punch list for fei.edu/course-prep · One-pager for the web/dev team**
 
@@ -9,8 +9,8 @@ Florida Education Institute · CompTIA Authorized Partner · fei.edu/course-prep
 > a `→` is our progress note.
 >
 > The revised section is being built at **fei.edu/comptia**. The existing
-> **fei.edu/course-prep** pages are frozen exactly as they are — nothing on this list
-> changes them — and the whole revised section is hidden from search engines and from
+> **fei.edu/course-prep** pages are frozen exactly as they are, nothing on this list
+> changes them, and the whole revised section is hidden from search engines and from
 > the live site menu until FEI approves it.
 >
 > Status: `[x]` complete · `[~]` partial · `[ ]` open
@@ -36,13 +36,13 @@ navigation is unchanged until launch.
 | Program | Courses | Certification Pathway |
 |---|---|---|
 | Computer Technician | ITP 1000, 1100, 1200, 1300 | Tech+ → A+ (Core 1) → A+ (Core 2) |
-| Networking Technician | ITP 2100–2600 (6 courses) | Network+ → Server+ → Linux+ → Cloud+ |
-| Cybersecurity | ITP 3100–3600 (6 courses) | Security+ → PenTest+ → CySA+ |
+| Networking Technician | ITP 2100 to 2600 (6 courses) | Network+ → Server+ → Linux+ → Cloud+ |
+| Cybersecurity | ITP 3100 to 3600 (6 courses) | Security+ → PenTest+ → CySA+ |
 
 → All three pages are built and the course groupings match the table above
 (4 + 6 + 6 = 16 courses). Each program page opens with an overview, then lists its
 courses as cards showing the course code, length, credits, the exam it prepares for
-and a short description — every card links to that course's own page. The
+and a short description. Every card links to that course's own page. The
 certification pathway is shown as a numbered sequence, and each step names the
 courses that prepare for that exam.
 
@@ -61,7 +61,7 @@ courses that prepare for that exam.
 ## 4 · DOWNLOADABLE FLYERS
 
 - [ ] One PDF per program + a "Download Program Information" section on each page.
-  - *3 flyers already drafted and delivered — swap placeholder logo/colors for FEI's real brand assets before publishing.*
+  - *3 flyers already drafted and delivered, swap placeholder logo/colors for FEI's real brand assets before publishing.*
 
 → The section and the download buttons are in place on all three program pages,
 already pointing at where each PDF will live. **The three files are still needed.**
@@ -73,7 +73,7 @@ This item closes once the flyers with FEI's real brand assets are supplied.
 
 - [x] ~~"...Computer Technician andNetwork Technician certificates."~~
 - [x] → **"...Computer Technician and Networking Technician pathways."**
-  - *Verify in-browser and on mobile — fetch didn't reproduce the missing space, may be a CSS/rendering bug, not just a text typo.*
+  - *Verify in-browser and on mobile. Fetch didn't reproduce the missing space, may be a CSS/rendering bug, not just a text typo.*
 
 → Confirmed and fixed. It was not a typo and not a styling problem: the missing space
 was introduced when the page was generated, because the word "and" and the bolded
@@ -88,7 +88,7 @@ affected.
 - [ ] Spelling, missing spaces, punctuation, capitalization.
 - [ ] Course titles, course codes, CompTIA certification names.
 - [ ] Button label consistency across pages.
-  - *Only ITP 1100 + the course list page were reviewable so far (see #9) — apply this same pass once remaining pages are built.*
+  - *Only ITP 1100 + the course list page were reviewable so far (see #9), apply this same pass once remaining pages are built.*
 
 → This depended on item 8. All twenty pages in the revised section now exist, so this
 review pass is the next step.
@@ -99,12 +99,12 @@ review pass is the next step.
 
 - [x] **Program / Pathway** = the overall track.
 - [x] **Course** = a single FEI course (e.g., "ITP 1100").
-- [x] **CompTIA Certification** = the exam credential — never implied as automatically awarded.
+- [x] **CompTIA Certification** = the exam credential, never implied as automatically awarded.
 - [x] Use "prepares students for the exam," never "students receive the certification."
 - [~] Replace "certificate(s)" site-wide where it implies FEI issues the credential.
 
 → The last item is marked partial on purpose. **FEI does award its own academic
-certificate** — the course plans name them ITC-1000 Computer Technician, ITC-2000
+certificate**. The course plans name them ITC-1000 Computer Technician, ITC-2000
 Network Technician, ITC-3000 Cybersecurity and ITC-4000 Cloud and Systems
 Administration. Where "certificate" refers to FEI's own credential the word is
 correct and should stay. What must never appear is "certificate" used as a synonym
@@ -113,7 +113,7 @@ for the CompTIA certification. The final sweep runs together with item 6.
 A related point worth stating plainly on the pages, and now stated on every one of
 them: completing a course earns FEI academic credit toward an FEI credential; the
 CompTIA certification is earned only by passing the external exam at a testing
-center. The course prepares the student for it — it does not replace it, and
+center. The course prepares the student for it. It does not replace it, and
 finishing it does not award it.
 
 ---
@@ -130,14 +130,14 @@ longer appears anywhere in the revised section.
 The content comes from the sixteen Course Teaching Plans supplied by Eduardo, so each
 page says what the academic documents say. Every course page carries:
 
-- **Overview** — the student-facing course description.
-- **Who this course is for** — the entry expectations and the prerequisite.
-- **Format and schedule** — length, credits, platform and live session pattern.
-- **What you will be able to do** — the course's learning outcomes.
-- **Week by week** — the topic sequence from the first week to exam readiness.
-- **Course completion vs. certification** — the distinction above, plus the exam and
+- **Overview**: the student-facing course description.
+- **Who this course is for**: the entry expectations and the prerequisite.
+- **Format and schedule**: length, credits, platform and live session pattern.
+- **What you will be able to do**: the course's learning outcomes.
+- **Week by week**: the topic sequence from the first week to exam readiness.
+- **Course completion vs. certification**: the distinction above, plus the exam and
   version the course is aligned to.
-- **Where it fits** — the rest of the program, with the current course marked.
+- **Where it fits**: the rest of the program, with the current course marked.
 
 Two things were deliberately left off these pages:
 
@@ -147,13 +147,13 @@ Two things were deliberately left off these pages:
    positions this section as exam preparation rather than job training. That material
    stays out.
 2. **Internal drafting language.** The plans are working documents and contain notes
-   addressed to FEI staff — "working prerequisite", conditions that depend on policies
+   addressed to FEI staff: "working prerequisite", conditions that depend on policies
    FEI has yet to adopt, and references to the plans' own numbered sections. None of
    that appears on the pages.
 
 ---
 
-## ⚠ DISCREPANCY FOUND — checklist vs. course plans
+## ⚠ DISCREPANCY FOUND: checklist vs. course plans
 
 This is not in the checklist. It surfaced while working through the sixteen course
 plans, and it needs an FEI decision.
@@ -164,14 +164,14 @@ The plans define **four** FEI academic certificates, not three:
 |---|---|
 | ITC-1000 Computer Technician | ITP 1000, 1100, 1200, 1300 |
 | ITC-2000 **Network** Technician | ITP 2100, 2200, 2300 |
-| ITC-3000 Cybersecurity | ITP 3100–3600 |
+| ITC-3000 Cybersecurity | ITP 3100 to 3600 |
 | ITC-4000 **Cloud and Systems Administration** | ITP 2400, 2500, 2600 |
 
-The checklist groups ITP 2100–2600 into a single "Networking Technician" program. The
-course plans separate ITP 2400–2600 into a certificate of their own.
+The checklist groups ITP 2100 to 2600 into a single "Networking Technician" program. The
+course plans separate ITP 2400 to 2600 into a certificate of their own.
 
 **The site follows the checklist**, as the more recent instruction. But this is not a
-navigation detail — it changes which credential a student is enrolled in and what
+navigation detail. It changes which credential a student is enrolled in and what
 their certificate says. FEI needs to confirm which structure is official. The naming
 question below ("Network" vs. "Networking") is part of the same decision.
 
@@ -179,14 +179,14 @@ question below ("Network" vs. "Networking") is part of the same decision.
 
 ## ⚠ DECISIONS NEEDED FROM FEI BEFORE FINAL BUILD
 
-- [~] **Naming:** "Networking Technician" (used 3×) vs. "Network Technician" (used in the grammar-fix example + live site) — pick one and apply everywhere.
+- [~] **Naming:** "Networking Technician" (used 3×) vs. "Network Technician" (used in the grammar-fix example + live site), pick one and apply everywhere.
   - → **"Networking Technician"** is used throughout the revised section. FEI still needs to confirm it. Note that the course plans use "Network Technician Certificate" for ITC-2000, so the inconsistency also exists in the source documents and should be settled there too.
-- [x] **ITP 1100 A vs. B:** two live versions exist with different copy — version B already has the required certification-disclaimer language, version A doesn't. Which is canonical?
+- [x] **ITP 1100 A vs. B:** two live versions exist with different copy. Version B already has the required certification-disclaimer language, version A doesn't. Which is canonical?
   - → Settled: **version B is canonical.** The official page uses B's content with A's photographic hero. Version A remains only inside the frozen course-prep pages.
 - [ ] **Prerequisites:** does Cybersecurity also require the Computer Technician foundations courses, or only Networking Technician?
   - → Open. Nothing is asserted on the pages until FEI answers. Each course page states its own prerequisite from the course plan; what is missing is the entry rule for the program as a whole.
 - [ ] **Redirect:** what happens to the old "Foundations (CompTIA Tech+)" nav label/URL?
-  - → Open. The existing course-prep pages are still live and unchanged, Foundations included. In the revised section Foundations is no longer a separate track — its two courses (ITP 1000 and ITP 1100) open the Computer Technician program, as the table in item 2 specifies. At launch this becomes a redirect from the old pages to the new ones.
+  - → Open. The existing course-prep pages are still live and unchanged, Foundations included. In the revised section Foundations is no longer a separate track. Its two courses (ITP 1000 and ITP 1100) open the Computer Technician program, as the table in item 2 specifies. At launch this becomes a redirect from the old pages to the new ones.
 - [~] **Exam codes:** add official CompTIA exam codes for A+, Network+, Server+, Linux+, Cloud+, Security+, PenTest+, CySA+? Only Tech+'s code (FC0-U71) was confirmed from the live site.
   - → The codes are already shown on every course card and course page: Tech+ FC0-U71 · A+ 220-1201 / 220-1202 · Network+ N10-009 · Server+ SK0-005 · Linux+ XK0-006 · Cloud+ CV0-004 · Security+ SY0-701 · PenTest+ PT0-003 · CySA+ CS0-004. FEI needs to confirm these are the current versions.
 
@@ -201,7 +201,7 @@ question below ("Network" vs. "Networking") is part of the same decision.
 | 3 · Main landing page | Complete |
 | 4 · Downloadable flyers | Waiting on the three PDFs |
 | 5 · Grammar fix | Complete |
-| 6 · Site-wide copy cleanup | Next — was waiting on item 8 |
+| 6 · Site-wide copy cleanup | Next, was waiting on item 8 |
 | 7 · Terminology | Complete, final sweep with item 6 |
 | 8 · Missing course pages | Complete |
 
@@ -211,4 +211,4 @@ Foundations pages, and confirmation of the exam code versions.
 
 ---
 
-*Prepared from a review of fei.edu/course-prep and the two live ITP 1100 pages. No live-site edits were made — this is a planning checklist for your team to action.*
+*Prepared from a review of fei.edu/course-prep and the two live ITP 1100 pages. No live-site edits were made. This is a planning checklist for your team to action.*

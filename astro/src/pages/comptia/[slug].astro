@@ -17,14 +17,14 @@ import { planFor, type CoursePlan } from '../../data/comptia-courses';
 // way.
 //
 // The course pages run the same `ib-*` vocabulary as the ITP 1100 page, filled from
-// data/comptia-courses.ts — the sixteen teaching plans. That is the point: a
+// data/comptia-courses.ts, the sixteen teaching plans. That is the point: a
 // generated course page has to carry the same weight as the hand-built one, or the
 // programme pages are linking out to stubs.
 //
 // PROGRAMME PAGE ORDER is the one the change checklist specifies:
 // Overview → Courses → Certification Pathway → Download Flyer → Request Info.
 //
-// /course-prep is frozen and untouched — same URLs, same menu, same catalogue.
+// /course-prep is frozen and untouched: same URLs, same menu, same catalogue.
 //
 // Copy is framed strictly as exam PREPARATION. FEI awards its own academic
 // credential; the CompTIA certification is earned only by passing the external
@@ -59,8 +59,8 @@ const plan: CoursePlan | undefined = course ? planFor(course.code) : undefined;
 const arrow = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 const title = tipo === 'program'
-  ? `${program.name} — CompTIA Program in Miami | Florida Education Institute`
-  : `${course!.code} — ${course!.title} (CompTIA) | Florida Education Institute`;
+  ? `${program.name}: CompTIA Program in Miami | Florida Education Institute`
+  : `${course!.code}: ${course!.title} (CompTIA) | Florida Education Institute`;
 const description = tipo === 'program' ? program.blurb : course!.description;
 ---
 <BaseLayout title={title} description={description} comptiaMenu noindex>
@@ -151,7 +151,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
           <div class="ib-sec-head ib-sec-head--center">
             <p class="ib-eyebrow">Certification pathway</p>
             <h2 class="ib-h2">The order you take the exams</h2>
-            <p class="ib-lede">Each course prepares you for its exam. The CompTIA certification itself is earned only by passing the external exam at a testing center — completing the course does not award it.</p>
+            <p class="ib-lede">Each course prepares you for its exam. The CompTIA certification itself is earned only by passing the external exam at a testing center. Completing the course does not award it.</p>
           </div>
           <ol class="cp-journey">
             {steps.map((s, i) => (
@@ -174,7 +174,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
           <div class="ib-sec-head ib-sec-head--center">
             <p class="ib-eyebrow">Program information</p>
             <h2 class="ib-h2">Take the details with you</h2>
-            <p class="ib-lede">The program sheet lists every course, the exam each one prepares for, the schedule and what you need to get started — one PDF, to keep or to share.</p>
+            <p class="ib-lede">The program sheet lists every course, the exam each one prepares for, the schedule and what you need to get started, in one PDF, to keep or to share.</p>
           </div>
           <p style="text-align:center">
             <a href={program.flyer} class="btn btn--solid btn--lg" download>Download Program Information (PDF)</a>
@@ -267,7 +267,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
             <div class="ib-sec-head ib-sec-head--center">
               <p class="ib-eyebrow">Course plan</p>
               <h2 class="ib-h2">Week by week</h2>
-              <p class="ib-lede">The high-level sequence for the {course!.weeks} weeks — how the course moves from the first topic to exam readiness.</p>
+              <p class="ib-lede">The high-level sequence for the {course!.weeks} weeks, showing how the course moves from the first topic to exam readiness.</p>
             </div>
             <ol class="cp-journey">
               {plan.modules.map((m, i) => (
@@ -293,7 +293,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
             <p class="ib-lede">
               Passing {course!.code} earns you FEI academic credit toward your FEI credential. The
               {' '}{course!.exam} certification is earned only by passing the external exam at a
-              testing center. This course prepares you for it — it does not replace it, and
+              testing center. This course prepares you for it. It does not replace it, and
               finishing it does not award it.
             </p>
           </div>
