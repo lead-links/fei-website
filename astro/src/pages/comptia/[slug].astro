@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
-import { existsSync } from 'node:fs';
 import { COMPTIA_PROGRAMS, coursesOf, programOf, IT_COURSES, type Program, type ItCourse } from '../../data/comptia';
 
 // Everything under /comptia that is generated from data: the three programmes and
@@ -41,14 +40,10 @@ const weeks = courses.reduce((n, c) => n + c.weeks, 0);
 const credits = courses.reduce((n, c) => n + c.credits, 0);
 const steps = program.pathway.split('→').map((s) => s.trim());
 
-// One hero image per programme; a course inherits its programme's. The files are
-// still being produced, so the shared catalogue image stands in until each one
-// lands — checked at build time, because a missing background does not fail
-// visibly, it just renders an empty coloured band, which is exactly what shipped.
-// Drop <key>.webp into public/img/comptia/ and that programme picks it up.
-const heroFile = existsSync(new URL(`../../../public${program.hero}`, import.meta.url))
-  ? program.hero
-  : '/img/course-prep/catalog-hero.webp';
+// One hero image per programme; a course inherits its programme's. All three
+// exist, so this points straight at them — an earlier build-time existence check
+// with a fallback was silently cached by Vite and kept serving the stand-in.
+const heroFile = program.hero;
 
 const title = tipo === 'program'
   ? `${program.name} — CompTIA Program in Miami | Florida Education Institute`
