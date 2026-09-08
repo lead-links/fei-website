@@ -1302,7 +1302,6 @@ ul.curriculum-list.curriculum-list--3col { grid-template-columns: repeat(3, 1fr)
   font-size: .72rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
   color: var(--blue-600); display: inline-flex; align-items: center; gap: .65em;
 }
-.ib-eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); flex: none; }
 .ib-eyebrow.ib-on-dark { color: var(--gold); }
 
 .ib-lede { font-size: clamp(1.02rem, 1.4vw, 1.18rem); color: var(--ib-slate); line-height: 1.62; max-width: 62ch; }

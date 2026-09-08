@@ -96,9 +96,9 @@ const description = tipo === 'program' ? program.blurb : course!.description;
       <section class="ib-band">
         <div class="ib-wrap">
           <div class="ib-sec-head ib-sec-head--center">
-            <p class="ib-eyebrow"><span class="ib-dot"></span> Overview</p>
-            <h2 class="ib-h2">{program.name}</h2>
-            <p class="ib-lede">{program.blurb}</p>
+            <p class="ib-eyebrow">Overview</p>
+            <h2 class="ib-h2">How the program works</h2>
+            <p class="ib-lede">Three things worth knowing before you look at the courses: how the program is put together, how it is taught, and what you actually come away with at the end.</p>
           </div>
           <div class="ib-out__grid">
             <div class="ib-out">
@@ -124,7 +124,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
       <section class="ib-band ib-band--wash" id="courses">
         <div class="ib-wrap">
           <div class="ib-sec-head ib-sec-head--center">
-            <p class="ib-eyebrow"><span class="ib-dot"></span> Courses</p>
+            <p class="ib-eyebrow">Courses</p>
             <h2 class="ib-h2">What you will study</h2>
             <p class="ib-lede">The {courses.length} courses in this program, in the order they are taken. Open any one for its outcomes, its week-by-week plan and the exam it prepares you for.</p>
           </div>
@@ -149,7 +149,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
       <section class="ib-band">
         <div class="ib-wrap">
           <div class="ib-sec-head ib-sec-head--center">
-            <p class="ib-eyebrow"><span class="ib-dot"></span> Certification pathway</p>
+            <p class="ib-eyebrow">Certification pathway</p>
             <h2 class="ib-h2">The order you take the exams</h2>
             <p class="ib-lede">Each course prepares you for its exam. The CompTIA certification itself is earned only by passing the external exam at a testing center — completing the course does not award it.</p>
           </div>
@@ -172,7 +172,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
       <section class="ib-band ib-band--wash">
         <div class="ib-wrap">
           <div class="ib-sec-head ib-sec-head--center">
-            <p class="ib-eyebrow"><span class="ib-dot"></span> Program information</p>
+            <p class="ib-eyebrow">Program information</p>
             <h2 class="ib-h2">Take the details with you</h2>
             <p class="ib-lede">The program sheet lists every course, the exam each one prepares for, the schedule and what you need to get started — one PDF, to keep or to share.</p>
           </div>
@@ -213,7 +213,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
         <section class="ib-band">
           <div class="ib-wrap">
             <div class="ib-sec-head ib-sec-head--center">
-              <p class="ib-eyebrow"><span class="ib-dot"></span> Overview</p>
+              <p class="ib-eyebrow">Overview</p>
               <h2 class="ib-h2">About this course</h2>
               <p class="ib-lede">{plan.overview}</p>
             </div>
@@ -222,8 +222,8 @@ const description = tipo === 'program' ? program.blurb : course!.description;
                 <p class="ib-eyebrow">Before you start</p>
                 <h3 class="ib-h3">Who this course is for</h3>
                 <ul class="ib-tick">
-                  <li><span class="ib-dot"></span><span>{plan.entry || 'Open to students following the ' + program.name + ' sequence at FEI.'}</span></li>
-                  <li><span class="ib-dot"></span><span><b>Prerequisite:</b> {plan.prereq || 'None beyond FEI admission.'}</span></li>
+                  <li><span class="ib-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--navy)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></span><span>{plan.entry || 'Open to students following the ' + program.name + ' sequence at FEI.'}</span></li>
+                  <li><span class="ib-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="var(--navy)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Prerequisite:</b> {plan.prereq || 'None beyond FEI admission.'}</span></li>
                 </ul>
               </div>
               <div class="ib-panel">
@@ -245,7 +245,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
         <section class="ib-band ib-band--wash">
           <div class="ib-wrap">
             <div class="ib-sec-head ib-sec-head--center">
-              <p class="ib-eyebrow"><span class="ib-dot"></span> Learning outcomes</p>
+              <p class="ib-eyebrow">Learning outcomes</p>
               <h2 class="ib-h2">What you will be able to do</h2>
               <p class="ib-lede">By the end of {course!.code} you should be able to do each of the following. These are the outcomes the instructor teaches to and the assessments measure.</p>
             </div>
@@ -265,7 +265,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
         <section class="ib-band">
           <div class="ib-wrap">
             <div class="ib-sec-head ib-sec-head--center">
-              <p class="ib-eyebrow"><span class="ib-dot"></span> Course plan</p>
+              <p class="ib-eyebrow">Course plan</p>
               <h2 class="ib-h2">Week by week</h2>
               <p class="ib-lede">The high-level sequence for the {course!.weeks} weeks — how the course moves from the first topic to exam readiness.</p>
             </div>
@@ -288,7 +288,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
       <section class="ib-band ib-band--wash">
         <div class="ib-wrap">
           <div class="ib-sec-head ib-sec-head--center">
-            <p class="ib-eyebrow"><span class="ib-dot"></span> Certification preparation</p>
+            <p class="ib-eyebrow">Certification preparation</p>
             <h2 class="ib-h2">Course completion and certification are two different things</h2>
             <p class="ib-lede">
               Passing {course!.code} earns you FEI academic credit toward your FEI credential. The
@@ -309,7 +309,7 @@ const description = tipo === 'program' ? program.blurb : course!.description;
       <section class="ib-band">
         <div class="ib-wrap">
           <div class="ib-sec-head ib-sec-head--center">
-            <p class="ib-eyebrow"><span class="ib-dot"></span> Where it fits</p>
+            <p class="ib-eyebrow">Where it fits</p>
             <h2 class="ib-h2">Part of the {program.name} program</h2>
             <p class="ib-lede">{program.blurb}</p>
           </div>
