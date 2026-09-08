@@ -2,8 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { IT_GROUPS, coursesByGroup, COURSE_PREP_LABEL } from '../../data/course-prep';
 
-// Course catalog for FEI's CompTIA "Course Prep" (IT) section. IN APPROVAL:
-// noindex + mega menu; working-draft copy, course-prep framed (exam prep, not jobs).
+// Entry point for FEI's CompTIA section. The visitor picks a PROGRAM here, not a
+// course: three cards, one per programme, each leading to its own page where the
+// certification pathway and the course list live.
+//
+// IN APPROVAL: noindex + CompTIA menu scoped to /course-prep, so the live site nav
+// never sees it. Copy is framed as exam PREPARATION — FEI awards its own academic
+// credential; the CompTIA certification is earned only by passing the external exam.
 const arrow = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const totalCourses = IT_GROUPS.reduce((n, g) => n + coursesByGroup(g.key).length, 0);
 ---
@@ -23,44 +28,48 @@ const totalCourses = IT_GROUPS.reduce((n, g) => n + coursesByGroup(g.key).length
     <div class="phero__inner">
       <div class="phero__copy">
         <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Miami, Florida · CompTIA {COURSE_PREP_LABEL}</p>
-        <h1 class="phero__title reveal" data-delay="1">Prepare for CompTIA<br/>certifications.</h1>
-        <p class="phero__lede reveal" data-delay="2">A guided pathway of instructor-led courses — {totalCourses} in all, across the foundations track and three certificate tracks — each mapped to a specific CompTIA exam. You complete your coursework at FEI; the certification itself is earned by passing that exam separately.</p>
+        <h1 class="phero__title reveal" data-delay="1">What do you<br/>want to study?</h1>
+        <p class="phero__lede reveal" data-delay="2">Three programs, {totalCourses} instructor-led courses, each mapped to a specific CompTIA exam. Pick the one that fits where you are heading — you complete the coursework at FEI, and earn the certification by passing the external exam separately.</p>
       </div>
     </div>
   </section>
 
-  <!-- CATALOG (right after the hero, no separate head — see it all below) -->
-  <section class="section programs--catalog" id="catalog">
+  <!-- THREE PROGRAMS — one card each. The courses live on the programme pages. -->
+  <section class="section programs--catalog" id="programs">
     <div class="cp-groups">
-      {IT_GROUPS.map((g) => (
-        <div class="cp-group" id={g.key}>
-          <div class="cp-group__head">
-            <p class="cp-group__name">{g.name}</p>
-            <p class="cp-group__exam">Prepares for: {g.exam}</p>
-          </div>
-          <div class="cp-cards">
-            {coursesByGroup(g.key).map((c) => (
-              c.built ? (
-                <a href={`/course-prep/${c.slug}`} class="cp-card">
-                  <div class="cp-card__top"><span class="cp-card__code">{c.code}</span><span class="cp-card__meta">{c.weeks} wks · {c.credits} cr</span></div>
-                  <span class="cp-card__title">{c.title}</span>
-                  <span class="cp-card__exam">{c.exam}</span>
-                  <span class="cp-card__desc">{c.description}</span>
-                  <span class="cp-card__cta">View course<Fragment set:html={arrow} /></span>
-                </a>
-              ) : (
-                <div class="cp-card">
-                  <div class="cp-card__top"><span class="cp-card__code">{c.code}</span><span class="cp-card__meta">{c.weeks} wks · {c.credits} cr</span></div>
-                  <span class="cp-card__title">{c.title}</span>
-                  <span class="cp-card__exam">{c.exam}</span>
-                  <span class="cp-card__desc">{c.description}</span>
-                  <span class="cp-card__soon">Course page in progress</span>
-                </div>
-              )
-            ))}
-          </div>
-        </div>
-      ))}
+      <div class="cp-cards">
+        {IT_GROUPS.map((g) => (
+          <a href={`/course-prep/${g.key}`} class="cp-card" id={g.key}>
+            <div class="cp-card__top">
+              <span class="cp-card__code">{coursesByGroup(g.key).length} courses</span>
+              <span class="cp-card__meta">{coursesByGroup(g.key).reduce((n, c) => n + c.weeks, 0)} wks</span>
+            </div>
+            <span class="cp-card__title">{g.name}</span>
+            <span class="cp-card__exam">{g.pathway}</span>
+            <span class="cp-card__desc">{g.blurb}</span>
+            <span class="cp-card__cta">Explore Program<Fragment set:html={arrow} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS — Overview, Courses, Pathway, Flyer, Request info -->
+  <section class="section pblock pblock--tint">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">How it works</p>
+        <h2 class="section__title section__title--sm">From here to<br/>the exam.</h2>
+      </div>
+      <div>
+        <ol class="steps steps--compact">
+          <li class="step"><span class="step__no">1</span><h3>Pick a program</h3><p>Computer Technician, Networking Technician or Cybersecurity.</p></li>
+          <li class="step"><span class="step__no">2</span><h3>See the courses</h3><p>Every course, the exam it prepares for, and how long it runs.</p></li>
+          <li class="step"><span class="step__no">3</span><h3>Follow the pathway</h3><p>The exams in the order the program takes them.</p></li>
+          <li class="step"><span class="step__no">4</span><h3>Download the program sheet</h3><p>The details in one PDF, to keep or to share.</p></li>
+          <li class="step"><span class="step__no">5</span><h3>Request info</h3><p>An advisor helps you choose a starting point.</p></li>
+        </ol>
+      </div>
     </div>
   </section>
 
