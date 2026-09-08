@@ -8,7 +8,7 @@ import { PROGRAMS, CAT_LABELS } from '../data/programs';
 
 // i18n-aware chrome. English at the root, Spanish under /es/ with localized slugs.
 // Use locales() so the .html/trailing-slash forms (e.g. /es.html) are detected too.
-// `mega` swaps the Programs item for the CompTIA "Course Prep" mega menu — used only
+// `mega` swaps the Programs item for the CompTIA "Course Prep" mega menu, used only
 // on the (noindex, in-approval) /course-prep pages, so the live site nav is untouched.
 // `comptia` is the revised menu for /comptia: three programme items, no individual
 // courses. A SECOND mode rather than a change to `mega`, because /course-prep is
@@ -61,20 +61,31 @@ const itGroup = (k: string) => IT_GROUPS.find((g) => g.key === k)!;
             </button>
             <div class="mega-panel" id="megaComptia">
               <div class="mega-panel__wrap">
-                <div class="mega-cols">
-                  <div class="mega-col">
-                    <p class="mega-col__head">CompTIA</p>
-                    <ul class="mega-lead"><li><a href="/comptia">Explore All Programs</a></li></ul>
-                    <p class="mega-col__lede">Instructor-led programs that prepare you for the CompTIA certification exams.</p>
-                  </div>
+                <!-- Three blocks, one per programme, each clickable as a whole. The
+                     older layout put an "Explore All Programs" column alongside them,
+                     which read as a fourth programme, and gave the course count the
+                     largest type on the panel, bigger than the programme names. The
+                     count is metadata now, and the catch-all link sits below. -->
+                <div class="mega-progs">
                   {COMPTIA_PROGRAMS.map((p) => (
-                    <div class="mega-col">
-                      <p class="mega-col__head"><a href={`/comptia/${p.key}`}>{p.name}</a><span>{p.exam}</span></p>
-                      <p class="mega-col__lede">{p.pathway}</p>
-                      <ul class="mega-lead"><li><a href={`/comptia/${p.key}`}>{coursesOf(p.key).length} courses</a></li></ul>
-                    </div>
+                    <a class="mega-prog" href={`/comptia/${p.key}`}>
+                      <span class="mega-prog__name">{p.name}</span>
+                      <span class="mega-prog__exam">{p.exam}</span>
+                      <span class="mega-prog__desc">{p.blurb}</span>
+                      <span class="mega-prog__foot">
+                        <span class="mega-prog__meta">{coursesOf(p.key).length} courses · {coursesOf(p.key).reduce((n, c) => n + c.weeks, 0)} weeks</span>
+                        <span class="mega-prog__cta">Explore program
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        </span>
+                      </span>
+                    </a>
                   ))}
                 </div>
+                <p class="mega-progs__all">
+                  <a href="/comptia">See all CompTIA programs
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </a>
+                </p>
               </div>
             </div>
           </div>

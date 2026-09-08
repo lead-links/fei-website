@@ -243,6 +243,34 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.28; display: block; transition: color .2s;
 }
 .mega-list a:hover { color: var(--blue-600); }
+
+/* CompTIA panel: three programme blocks, each one link. Equal columns and a
+   footer pushed to the bottom of every card, so the metadata and the call to
+   action line up across all three however long a description runs. */
+.mega-progs { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.6rem); align-items: stretch; }
+/* Scoped through .mega-progs on purpose: these blocks are anchors sitting inside
+   .nav__links, whose own `a` rule is more specific than a lone class and was
+   flattening the padding and forcing the nav's white link colour. */
+.mega-progs .mega-prog {
+  display: flex; flex-direction: column; gap: .45rem; height: 100%;
+  background: var(--white); border: 1px solid var(--line);
+  padding: clamp(1.1rem, 2vw, 1.5rem); color: var(--navy); font-size: 1rem; font-weight: 400;
+  transition: border-color .22s var(--ease), box-shadow .22s var(--ease), transform .22s var(--ease);
+}
+.mega-progs .mega-prog:hover { border-color: var(--blue); box-shadow: 0 4px 14px -6px rgba(17, 37, 80, .18); transform: translateY(-2px); }
+.mega-prog__name { font-family: var(--display); font-weight: 800; font-size: 1.12rem; line-height: 1.2; color: var(--navy); }
+.mega-prog__exam { font-size: .74rem; font-weight: 700; letter-spacing: .04em; color: var(--blue-600); }
+.mega-prog__desc { font-size: .86rem; color: var(--gray); line-height: 1.5; }
+.mega-prog__foot { margin-top: auto; padding-top: .9rem; display: flex; flex-direction: column; gap: .35rem; }
+.mega-prog__meta { font-size: .72rem; color: var(--gray-500); }
+.mega-prog__cta { display: inline-flex; align-items: center; gap: .4em; font-size: .84rem; font-weight: 700; color: var(--blue-600); }
+.mega-progs .mega-prog:hover .mega-prog__cta { color: var(--blue-700); }
+.mega-progs__all { margin-top: clamp(1rem, 2vw, 1.5rem); }
+.mega-progs__all > a { display: inline-flex; align-items: center; gap: .4em; font-size: .85rem; font-weight: 700; color: var(--navy); transition: color .2s; }
+.mega-progs__all > a:hover { color: var(--blue-600); }
+@media (max-width: 900px) {
+  .mega-progs { grid-template-columns: 1fr; }
+}
 .mega-list span { color: var(--gray-500); font-weight: 500; }
 @media (max-width: 900px) {
   .mega-cols { grid-template-columns: 1fr 1fr; }
