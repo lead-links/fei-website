@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
+import { existsSync } from 'node:fs';
 import { IT_GROUPS, IT_COURSES, coursesByGroup, type ItGroup, type ItCourse } from '../../data/course-prep';
 
 // Every /course-prep page that is generated from data: the three programs and the
@@ -42,6 +43,12 @@ const credits = courses.reduce((n, c) => n + c.credits, 0);
 // a curriculum decision, not something to infer from a course list.
 const steps = group.pathway.split('→').map((s) => s.trim());
 
+// The programme sheets are still being rebranded, so the file may not be there
+// yet. Checked at build time rather than assumed: a download button that 404s on
+// the page the client is reviewing reads as a broken site, not as pending work.
+// Drop the PDF into public/resources/comptia/ and the button appears on its own.
+const flyerPronto = existsSync(new URL(`../../../public${group.flyer}`, import.meta.url));
+
 const title = tipo === 'program'
   ? `${group.name} — CompTIA Course Prep | Florida Education Institute`
   : `${course!.code} — ${course!.title} (CompTIA Course Prep) | Florida Education Institute`;
@@ -59,7 +66,7 @@ const description = tipo === 'program' ? group.blurb : course!.description;
             <p class="phero__lede">{group.blurb}</p>
             <div class="hero__cta">
               <a href="#courses" class="btn btn--solid btn--lg">See the courses</a>
-              <a href={group.flyer} class="btn btn--outline btn--lg" download>Download Program Information</a>
+              {flyerPronto && <a href={group.flyer} class="btn btn--outline btn--lg" download>Download Program Information</a>}
             </div>
           </div>
         </div>
@@ -119,9 +126,13 @@ const description = tipo === 'program' ? group.blurb : course!.description;
               The program sheet lists every course, the exam each one prepares for, the schedule and
               what you need to get started.
             </p>
-            <a href={group.flyer} class="link-arrow" download>Download Program Information (PDF)
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
-            </a>
+            {flyerPronto ? (
+              <a href={group.flyer} class="link-arrow" download>Download Program Information (PDF)
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+              </a>
+            ) : (
+              <p class="pblock__text pblock__text--note">Ask your advisor for the program sheet — the PDF is being finalised.</p>
+            )}
           </div>
         </div>
       </section>
