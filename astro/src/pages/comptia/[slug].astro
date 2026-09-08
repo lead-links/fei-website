@@ -1,72 +1,63 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
-import { existsSync } from 'node:fs';
-import { IT_GROUPS, IT_COURSES, coursesByGroup, type ItGroup, type ItCourse } from '../../data/course-prep';
+import { COMPTIA_PROGRAMS, coursesOf, programOf, IT_COURSES, type Program, type ItCourse } from '../../data/comptia';
 
-// Every /course-prep page that is generated from data: the three programs and the
-// courses that do not have a hand-built page of their own.
+// Everything under /comptia that is generated from data: the three programmes and
+// the courses without a hand-built page of their own.
 //
-// ONE dynamic route, not two. Two files in this folder would both match
-// /course-prep/:something and Astro cannot tell them apart, so the program and the
-// course pages share a route and branch on what the slug resolved to.
+// ONE dynamic route, not two. Separate files for programmes and courses would both
+// match /comptia/:something and Astro cannot tell them apart, so they share a route
+// and branch on what the slug resolved to.
 //
-// ITP 1100 is excluded here because it has its own file, which wins over this
-// route. Any course that gets a hand-built page later is excluded the same way:
-// mark it `built: true` in course-prep.ts.
+// ITP 1100 keeps its hand-built page (comptia/itp-1100-tech-fundamentals.astro),
+// whose static file wins over this route; `built: true` keeps it out of the
+// generated set. Any other course that gets a real page later is excluded the same
+// way.
 //
-// IN APPROVAL like the rest of the section: noindex, and the CompTIA menu stays
-// scoped to /course-prep so the live site nav never sees it.
+// /course-prep is frozen and untouched — same URLs, same menu, same catalogue.
 //
 // Copy is framed strictly as exam PREPARATION. FEI awards its own academic
 // credential; the CompTIA certification is earned only by passing the external
-// exam. Nothing on these pages may imply otherwise.
+// exam. Nothing here may imply otherwise.
 export function getStaticPaths() {
-  const programas = IT_GROUPS.map((g) => ({
-    params: { slug: g.key },
-    props: { tipo: 'program' as const, group: g, course: null },
+  const programas = COMPTIA_PROGRAMS.map((p) => ({
+    params: { slug: p.key },
+    props: { tipo: 'program' as const, program: p, course: null },
   }));
   const cursos = IT_COURSES.filter((c) => !c.built).map((c) => ({
     params: { slug: c.slug },
-    props: { tipo: 'course' as const, group: IT_GROUPS.find((g) => g.key === c.group)!, course: c },
+    props: { tipo: 'course' as const, program: COMPTIA_PROGRAMS.find((p) => p.key === programOf(c))!, course: c },
   }));
   return [...programas, ...cursos];
 }
 
-interface Props { tipo: 'program' | 'course'; group: ItGroup; course: ItCourse | null }
-const { tipo, group, course } = Astro.props;
+interface Props { tipo: 'program' | 'course'; program: Program; course: ItCourse | null }
+const { tipo, program, course } = Astro.props;
 
-const courses = coursesByGroup(group.key);
+const courses = coursesOf(program.key);
 const weeks = courses.reduce((n, c) => n + c.weeks, 0);
 const credits = courses.reduce((n, c) => n + c.credits, 0);
-// The pathway is authored per group, not derived: the order the exams are taken is
-// a curriculum decision, not something to infer from a course list.
-const steps = group.pathway.split('→').map((s) => s.trim());
-
-// The programme sheets are still being rebranded, so the file may not be there
-// yet. Checked at build time rather than assumed: a download button that 404s on
-// the page the client is reviewing reads as a broken site, not as pending work.
-// Drop the PDF into public/resources/comptia/ and the button appears on its own.
-const flyerPronto = existsSync(new URL(`../../../public${group.flyer}`, import.meta.url));
+const steps = program.pathway.split('→').map((s) => s.trim());
 
 const title = tipo === 'program'
-  ? `${group.name} — CompTIA Course Prep | Florida Education Institute`
-  : `${course!.code} — ${course!.title} (CompTIA Course Prep) | Florida Education Institute`;
-const description = tipo === 'program' ? group.blurb : course!.description;
+  ? `${program.name} — CompTIA Program in Miami | Florida Education Institute`
+  : `${course!.code} — ${course!.title} (CompTIA) | Florida Education Institute`;
+const description = tipo === 'program' ? program.blurb : course!.description;
 ---
-<BaseLayout title={title} description={description} megaMenu noindex>
+<BaseLayout title={title} description={description} comptiaMenu noindex>
 
   {tipo === 'program' ? (
     <>
       <section class="phero phero--slim">
         <div class="phero__inner">
           <div class="phero__copy">
-            <p class="eyebrow"><span class="eyebrow__dot"></span> CompTIA Course Prep · {group.exam}</p>
-            <h1 class="phero__title">{group.name}</h1>
-            <p class="phero__lede">{group.blurb}</p>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> CompTIA · {program.exam}</p>
+            <h1 class="phero__title">{program.name}</h1>
+            <p class="phero__lede">{program.blurb}</p>
             <div class="hero__cta">
               <a href="#courses" class="btn btn--solid btn--lg">See the courses</a>
-              {flyerPronto && <a href={group.flyer} class="btn btn--outline btn--lg" download>Download Program Information</a>}
+              <a href={program.flyer} class="btn btn--outline btn--lg" download>Download Program Information</a>
             </div>
           </div>
         </div>
@@ -94,8 +85,9 @@ const description = tipo === 'program' ? group.blurb : course!.description;
               ))}
             </ol>
             <p class="pblock__text pblock__text--note">
-              Each course prepares you for its exam. The CompTIA certification itself is earned only by
-              passing the external exam at a testing center — completing the course does not award it.
+              Each course prepares you for its exam. The CompTIA certification itself is earned only
+              by passing the external exam at a testing center — completing the course does not
+              award it.
             </p>
           </div>
         </div>
@@ -109,7 +101,7 @@ const description = tipo === 'program' ? group.blurb : course!.description;
           </div>
           <ul class="curriculum-list">
             {courses.map((c) => (
-              <li><a href={`/course-prep/${c.slug}`}><span>{c.code}</span> {c.title}</a> — prepares for {c.exam}, {c.weeks} weeks</li>
+              <li><a href={`/comptia/${c.slug}`}><span>{c.code}</span> {c.title}</a> — prepares for {c.exam}, {c.weeks} weeks</li>
             ))}
           </ul>
         </div>
@@ -126,13 +118,9 @@ const description = tipo === 'program' ? group.blurb : course!.description;
               The program sheet lists every course, the exam each one prepares for, the schedule and
               what you need to get started.
             </p>
-            {flyerPronto ? (
-              <a href={group.flyer} class="link-arrow" download>Download Program Information (PDF)
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
-              </a>
-            ) : (
-              <p class="pblock__text pblock__text--note">Ask your advisor for the program sheet — the PDF is being finalised.</p>
-            )}
+            <a href={program.flyer} class="link-arrow" download>Download Program Information (PDF)
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
+            </a>
           </div>
         </div>
       </section>
@@ -142,12 +130,12 @@ const description = tipo === 'program' ? group.blurb : course!.description;
       <section class="phero phero--slim">
         <div class="phero__inner">
           <div class="phero__copy">
-            <p class="eyebrow"><span class="eyebrow__dot"></span> {course!.code} · {group.name}</p>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> {course!.code} · {program.name}</p>
             <h1 class="phero__title">{course!.title}</h1>
             <p class="phero__lede">{course!.description}</p>
             <div class="hero__cta">
               <a href="/apply" class="btn btn--solid btn--lg" data-apply>Request Info</a>
-              <a href={`/course-prep/${group.key}`} class="btn btn--outline btn--lg">See the full program</a>
+              <a href={`/comptia/${program.key}`} class="btn btn--outline btn--lg">See the full program</a>
             </div>
           </div>
         </div>
@@ -158,7 +146,7 @@ const description = tipo === 'program' ? group.blurb : course!.description;
           <div class="factbar__item"><span class="factbar__txt"><strong>{course!.weeks} weeks</strong><span>Course length</span></span></div>
           <div class="factbar__item"><span class="factbar__txt"><strong>{course!.credits} credits</strong><span>FEI academic credit</span></span></div>
           <div class="factbar__item"><span class="factbar__txt"><strong>{course!.exam}</strong><span>Prepares you for</span></span></div>
-          <div class="factbar__item"><span class="factbar__txt"><strong>{group.name}</strong><span>Program</span></span></div>
+          <div class="factbar__item"><span class="factbar__txt"><strong>{program.name}</strong><span>Program</span></span></div>
         </div>
       </aside>
 
@@ -170,9 +158,9 @@ const description = tipo === 'program' ? group.blurb : course!.description;
           </div>
           <p class="pblock__text">
             Passing {course!.code} earns you FEI academic credit toward your FEI credential. The
-            {' '}{course!.exam} certification is earned only by passing the external exam at a testing
-            center. This course prepares you for it — it does not replace it, and finishing it does
-            not award it.
+            {' '}{course!.exam} certification is earned only by passing the external exam at a
+            testing center. This course prepares you for it — it does not replace it, and finishing
+            it does not award it.
           </p>
         </div>
       </section>
@@ -181,20 +169,20 @@ const description = tipo === 'program' ? group.blurb : course!.description;
         <div class="pblock__grid">
           <div>
             <p class="kicker">Where it fits</p>
-            <h2 class="section__title section__title--sm">Part of the<br/>{group.name} program.</h2>
+            <h2 class="section__title section__title--sm">Part of the<br/>{program.name} program.</h2>
           </div>
           <div>
-            <p class="pblock__text">{group.blurb}</p>
+            <p class="pblock__text">{program.blurb}</p>
             <ul class="curriculum-list">
               {courses.map((c) => (
                 <li>
                   {c.slug === course!.slug
                     ? <span><span>{c.code}</span> {c.title} — you are here</span>
-                    : <a href={`/course-prep/${c.slug}`}><span>{c.code}</span> {c.title}</a>}
+                    : <a href={`/comptia/${c.slug}`}><span>{c.code}</span> {c.title}</a>}
                 </li>
               ))}
             </ul>
-            <a href={`/course-prep/${group.key}`} class="link-arrow">See the {group.name} program
+            <a href={`/comptia/${program.key}`} class="link-arrow">See the {program.name} program
               <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l7 7-7 7-1.4-1.4 4.6-4.6H5z"/></svg>
             </a>
           </div>

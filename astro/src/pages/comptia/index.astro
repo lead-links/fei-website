@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { COMPTIA_PROGRAMS, coursesOf, IT_COURSES } from '../../data/comptia';
+
+// Entry point for the revised CompTIA section. The visitor picks a PROGRAMME here,
+// not a course: three cards, each leading to a page where the certification pathway
+// and the course list live.
+//
+// /course-prep is untouched and still serves the old sixteen-course catalogue.
+//
+// IN APPROVAL: noindex, and the CompTIA menu is scoped to these pages so the live
+// site nav never sees it. Copy is framed as exam PREPARATION — FEI awards its own
+// academic credential; the CompTIA certification is earned only by passing the
+// external exam.
+const arrow = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+---
+<BaseLayout
+  title="CompTIA Certification Programs in Miami | Florida Education Institute"
+  description="Three CompTIA programs at FEI in Miami — Computer Technician, Networking Technician and Cybersecurity. Instructor-led courses that prepare you for the external CompTIA certification exams."
+  comptiaMenu
+  noindex
+>
+  <div id="feiProgramMeta" data-program="CompTIA" data-program-type="CompTIA Course Prep" hidden></div>
+
+  <section class="phero phero--page phero--flush">
+    <div class="hero__bg" style="background-image:url('/img/course-prep/catalog-hero.webp')" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="phero__inner">
+      <div class="phero__copy">
+        <p class="eyebrow reveal" data-delay="0"><span class="eyebrow__dot"></span> Miami, Florida · CompTIA</p>
+        <h1 class="phero__title reveal" data-delay="1">What do you<br/>want to study?</h1>
+        <p class="phero__lede reveal" data-delay="2">Three programs, {IT_COURSES.length} instructor-led courses, each mapped to a specific CompTIA exam. Pick the one that fits where you are heading — you complete the coursework at FEI, and earn the certification by passing the external exam separately.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section programs--catalog" id="programs">
+    <div class="cp-groups">
+      <div class="cp-cards">
+        {COMPTIA_PROGRAMS.map((p) => (
+          <a href={`/comptia/${p.key}`} class="cp-card" id={p.key}>
+            <div class="cp-card__top">
+              <span class="cp-card__code">{coursesOf(p.key).length} courses</span>
+              <span class="cp-card__meta">{coursesOf(p.key).reduce((n, c) => n + c.weeks, 0)} wks</span>
+            </div>
+            <span class="cp-card__title">{p.name}</span>
+            <span class="cp-card__exam">{p.pathway}</span>
+            <span class="cp-card__desc">{p.blurb}</span>
+            <span class="cp-card__cta">Explore Program<Fragment set:html={arrow} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section pblock pblock--tint">
+    <div class="pblock__grid">
+      <div>
+        <p class="kicker">How it works</p>
+        <h2 class="section__title section__title--sm">From here to<br/>the exam.</h2>
+      </div>
+      <div>
+        <ol class="steps steps--compact">
+          <li class="step"><span class="step__no">1</span><h3>Pick a program</h3><p>Computer Technician, Networking Technician or Cybersecurity.</p></li>
+          <li class="step"><span class="step__no">2</span><h3>See the courses</h3><p>Every course, the exam it prepares for, and how long it runs.</p></li>
+          <li class="step"><span class="step__no">3</span><h3>Follow the pathway</h3><p>The exams in the order the program takes them.</p></li>
+          <li class="step"><span class="step__no">4</span><h3>Download the program sheet</h3><p>The details in one PDF, to keep or to share.</p></li>
+          <li class="step"><span class="step__no">5</span><h3>Request info</h3><p>An advisor helps you choose a starting point.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-cta">
+    <div class="cp-cta__inner">
+      <p class="kicker">Ready to start?</p>
+      <h2 class="section__title">Talk to an IT advisor.</h2>
+      <p class="pblock__text" style="margin:1rem auto 0;max-width:52ch">Request information or start your application, and a dedicated FEI advisor will help you choose your starting point.</p>
+      <div class="cp-cta__actions">
+        <a href="/apply" class="btn btn--solid btn--lg" data-apply>Request info</a>
+        <a href="/apply" class="btn btn--outline btn--lg" data-apply>Apply now</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

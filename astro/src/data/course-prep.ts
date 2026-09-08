@@ -5,19 +5,16 @@
 // as job/entry-level training — nothing final ships before Ramon's validation.
 
 // Menu grouping label — pending Ramon ("Course Prep" vs "Continuing Education").
-// The three groups below ARE the menu: one dropdown item each, no individual courses.
 // Edit here only; it drives the mega menu and section headings.
 export const COURSE_PREP_LABEL = 'Course Prep';
 
-export type ItGroupKey = 'computer-technician' | 'networking-technician' | 'cybersecurity';
+export type ItGroupKey = 'foundations' | 'computer-technician' | 'networking-technician' | 'cybersecurity';
 
 export interface ItGroup {
-  key: ItGroupKey;   // doubles as the program page slug: /course-prep/<key>
+  key: ItGroupKey;
   name: string;
-  exam: string;      // certification(s) this track prepares for
-  pathway: string;   // the order the exams are taken, shown on the program page
+  exam: string;   // certification(s) this track prepares for
   blurb: string;
-  flyer: string;     // program information PDF, served from public/resources/
 }
 
 export interface ItCourse {
@@ -33,35 +30,15 @@ export interface ItCourse {
 }
 
 export const IT_GROUPS: ItGroup[] = [
-  {
-    key: 'computer-technician',
-    name: 'Computer Technician',
-    exam: 'CompTIA Tech+ · A+',
-    pathway: 'Tech+ → A+ (Core 1) → A+ (Core 2)',
-    blurb: 'Start here. Digital literacy and IT vocabulary first, then hardware, operating systems and support — preparation for the Tech+ and A+ exams.',
-    flyer: '/resources/comptia/fei-computer-technician.pdf',
-  },
-  {
-    key: 'networking-technician',
-    name: 'Networking Technician',
-    exam: 'Network+ · Server+ · Linux+ · Cloud+',
-    pathway: 'Network+ → Server+ → Linux+ → Cloud+',
-    blurb: 'Networking, servers, Linux and cloud administration — preparation across four CompTIA exams.',
-    flyer: '/resources/comptia/fei-networking-technician.pdf',
-  },
-  {
-    key: 'cybersecurity',
-    name: 'Cybersecurity',
-    exam: 'Security+ · PenTest+ · CySA+',
-    pathway: 'Security+ → PenTest+ → CySA+',
-    blurb: 'Security, penetration testing and security operations — preparation across three CompTIA exams.',
-    flyer: '/resources/comptia/fei-cybersecurity.pdf',
-  },
+  { key: 'foundations', name: 'Foundations', exam: 'CompTIA Tech+', blurb: 'Start here — the digital-literacy base and IT vocabulary before certificate prep.' },
+  { key: 'computer-technician', name: 'Computer Technician', exam: 'CompTIA A+', blurb: 'Hardware, operating systems and support — prep for CompTIA A+ (Core 1 & Core 2).' },
+  { key: 'networking-technician', name: 'Networking Technician', exam: 'Network+ · Server+ · Linux+ · Cloud+', blurb: 'Networking, servers, Linux and cloud administration — prep across four CompTIA exams.' },
+  { key: 'cybersecurity', name: 'Cybersecurity', exam: 'Security+ · PenTest+ · CySA+', blurb: 'Security, penetration testing and security operations — prep across three CompTIA exams.' },
 ];
 
 export const IT_COURSES: ItCourse[] = [
-  { code: 'ITP 1000', slug: 'itp-1000-computer-fundamentals', title: 'Computer Fundamentals & Digital Literacy', exam: 'Foundation for CompTIA Tech+', weeks: 4, credits: 4, group: 'computer-technician', description: 'Hands-on introduction to Windows 11, file management, Microsoft 365 and digital safety — the digital-literacy base before Tech+ prep.' },
-  { code: 'ITP 1100', slug: 'itp-1100-tech-fundamentals', title: 'Tech+ Fundamentals', exam: 'CompTIA Tech+ (FC0-U71)', weeks: 4, credits: 4, group: 'computer-technician', built: true, description: 'Beginner course preparing you for the CompTIA Tech+ exam across its six domains — IT concepts, infrastructure, applications, software development, data and security.' },
+  { code: 'ITP 1000', slug: 'itp-1000-computer-fundamentals', title: 'Computer Fundamentals & Digital Literacy', exam: 'Foundation for CompTIA Tech+', weeks: 4, credits: 4, group: 'foundations', description: 'Hands-on introduction to Windows 11, file management, Microsoft 365 and digital safety — the digital-literacy base before Tech+ prep.' },
+  { code: 'ITP 1100', slug: 'itp-1100-tech-fundamentals', title: 'Tech+ Fundamentals', exam: 'CompTIA Tech+ (FC0-U71)', weeks: 4, credits: 4, group: 'foundations', built: true, description: 'Beginner course preparing you for the CompTIA Tech+ exam across its six domains — IT concepts, infrastructure, applications, software development, data and security.' },
   { code: 'ITP 1200', slug: 'itp-1200-computer-hardware-support', title: 'Computer Hardware & Support', exam: 'CompTIA A+ Core 1 (220-1201)', weeks: 4, credits: 4, group: 'computer-technician', description: 'First A+ course — mobile devices, networking, hardware, printers and virtualization/cloud fundamentals, aligned to A+ Core 1.' },
   { code: 'ITP 1300', slug: 'itp-1300-operating-systems-support', title: 'Operating Systems & Software Support', exam: 'CompTIA A+ Core 2 (220-1202)', weeks: 4, credits: 4, group: 'computer-technician', description: 'Completes A+ prep — operating systems, security, software troubleshooting and operational procedures for A+ Core 2.' },
   { code: 'ITP 2100', slug: 'itp-2100-networking-fundamentals-i', title: 'Networking Fundamentals I', exam: 'CompTIA Network+ (N10-009)', weeks: 4, credits: 4, group: 'networking-technician', description: 'First half of Network+ prep — networking concepts and network implementation with guided virtual-network practice.' },
